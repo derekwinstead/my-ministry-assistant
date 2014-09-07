@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+
+    <string name="pref_update_title">Check for an Update</string>
+    <string name="pref_update_summary">Check the website to see if there is an update available. This is used for phones or tablets that do not have the market available.</string>
+    <string name="pref_backup_title">Backup database</string>
+    <string name="pref_backup_summary">Tap to create a backup of the database on external storage.</string>
+    <string name="pref_restore_title">Restore database</string>
+    <string name="pref_restore_dialog">Database restore</string>
+    <string name="pref_clear_title">Clear old backups</string>
+    <string name="pref_clear_summary">Remove all backup databases except the most recently created.</string>
+    <string name="pref_schedule_summary">Schedule daily or weekly automatic backups.</string>
+    <string name="pref_donate_title">Donate</string>
+    <string name="pref_feedback_cat">Contact the Developer</string>
+    <string name="pref_bugs_title">Bug Submission</string>
+    <string name="pref_features_title">Feature Request</string>
+    <string name="pref_translations_title">Translation Request</string>
+    <string name="pref_about_licenses">Open source licenses</string>
+    <string name="pref_version">Version</string>
+    <string name="pref_version_summary">Thank you for downloading. Enjoy!</string>
+    <string name="pref_rollover_summary">Calculate rollover time.</string>
+    <string name="pref_show_minutes_title">Minutes in Summary</string>
+    <string name="pref_show_minutes_summary">Show the minutes each month. Unchecked shows whole hours.</string>
+
+</resources>

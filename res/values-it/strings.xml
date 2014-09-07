@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="it">
+
+    <string name="app_name">My Ministry Assistant</string>
+    <string name="no_householders">Nessuna Visita</string>
+    <string name="no_publishers">Nessun Proclamatore</string>
+    <string name="no_publications">Nessuna pubblicazione visualizzata</string>
+    <string name="total_time">Tempo Totale</string>
+    <string name="zero_entries">Nessuna registrazione</string>
+    <string name="last_visited_on">Visitato in data {date}</string>
+    <string name="last_active_on">Ultima attiva {date}</string>
+    <string name="last_placed_on">Ultima aggiunta {date}</string>
+    <string name="recent_activity">Atività recente</string>
+    <string name="no_activity">Nessuna attività</string>
+    <string name="inactive">Inattivo</string>
+    <string name="drawer_open">Apri navigazione schedario</string>
+    <string name="drawer_close">Chiudi navigazione schedario</string>
+    <string name="hours_shorthand">h</string>
+    <string name="minutes_shorthand">m</string>
+    <string name="no_backups">Nessun Backup</string>
+    <string name="activity_for_publication">{count} lasciate durante {service}</string>
+    <string name="activity_for_publication_with_householder">{count} lasciate a {householder} durante {service}</string>
+    <string name="activity_for_householder">Visitato per {service}</string>
+    <string name="activity_date_by_publisher">{publisher} in data {date}</string>
+    <string name="month_next">Mese prossimo</string>
+    <string name="month_previous">Mese Precedente</string>
+    <string name="updating_app">Aggiornamento di applicazioni</string>
+    <string name="please_be_patient">Si prega di essere pazienti…</string>
+    <string name="service_year">Servizio Anno</string>
+
+</resources>

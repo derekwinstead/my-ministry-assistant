@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="id">
+
+    <string name="menu_add_new">Tambahkan Yang Baru</string>
+    <string name="menu_add_new_with_plus">+ Tambahkan yang baru</string>
+    <string name="menu_cancel">Batal</string>
+    <string name="menu_delete">Hapus</string>
+    <string name="menu_done">Selesai</string>
+    <string name="menu_save">Simpan</string>
+    <string name="menu_share">Berbagi</string>
+    <string name="menu_entries">Judul</string>
+    <string name="menu_no_householder">Tidak Ada Penghuni Rumah</string>
+    <string name="menu_no_publications">Tidak Ada Publikasi</string>
+    <string name="menu_rv_publications_notes">Kunjungan Kembali, Publikasi, dan Catatan</string>
+    <string name="menu_options">Pilihan</string>
+    <string name="menu_change_log">Ganti Log</string>
+    <string name="menu_transfer_to">Transfer ke</string>
+    <string name="menu_schedule_backups">Jadwalkan Backup</string>
+    <string name="menu_more">lebih</string>
+    <string name="menu_count_as_return_visit">Dihitung sebagai kunjungan kembali</string>
+    <string name="menu_do_not_count_as_return_visit">Tidak dihitung sebagai sebuah kunjungan kembali</string>
+    <string name="menu_sort">Menyortir</string>
+    <string name="menu_sort_alpha_asc">Urutkan A-Z</string>
+    <string name="menu_sort_alpha_desc">Urutkan Z-A</string>
+    <string name="menu_sort_most_used">Urutkan berdasarkan paling banyak digunakan</string>
+    <string name="menu_sort_most_placed">Urutkan oleh kebanyakan ditempatkan</string>
+    <string name="menu_send_report">Kirim Laporan</string>
+    <string name="menu_add_time">Tambahkan Waktu</string>
+
+</resources>

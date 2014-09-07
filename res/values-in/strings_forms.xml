@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="in">
+
+    <string name="form_name">Nama</string>
+    <string name="form_rename">Ganti Nama</string>
+    <string name="form_publisher">Penyiar</string>
+    <string name="form_type">Jenis</string>
+    <string name="form_publication_types">Jenis Publikasi</string>
+    <string name="form_notes">Catatan</string>
+    <string name="form_start">Mulai</string>
+    <string name="form_end">Mengakhiri</string>
+    <string name="form_is_active">Aktif</string>
+    <string name="form_is_pair">Pasangan</string>
+    <string name="form_address">Alamat</string>
+    <string name="form_phone_mobile">Telepon Mobil</string>
+    <string name="form_phone_home">Telepon Rumah</string>
+    <string name="form_phone_work">Telepon Kerja</string>
+    <string name="form_phone_other">Telepon Lain</string>
+    <string name="form_daily_backups">Backup Harian</string>
+    <string name="form_weekly_backups">Backup Mingguan</string>
+
+</resources>

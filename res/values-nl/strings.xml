@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="nl">
+
+    <string name="app_name">My Ministry Assistant</string>
+    <string name="no_householders">Geen Huisbewoner</string>
+    <string name="no_publishers">Geen Verkondigers</string>
+    <string name="no_publications">Geen publicaties om weer te geven</string>
+    <string name="total_time">Totale Tijd</string>
+    <string name="zero_entries">Geen Ingegeven Tijd</string>
+    <string name="last_visited_on">Laatst bezocht op {date}</string>
+    <string name="last_active_on">Laatst actief op {date}</string>
+    <string name="last_placed_on">Laatst verspreid op {date}</string>
+    <string name="recent_activity">Recente Activiteit</string>
+    <string name="no_activity">Geen Activity</string>
+    <string name="inactive">Inactief</string>
+    <string name="drawer_open">Open navigatie</string>
+    <string name="drawer_close">Sluit navigatie</string>
+    <string name="hours_shorthand">h</string>
+    <string name="minutes_shorthand">m</string>
+    <string name="no_backups">Geen Backups</string>
+    <string name="activity_for_publication">{count} geplaatst tijdens {service}</string>
+    <string name="activity_for_publication_with_householder">{count} geplaatst met {householder} tijdens {service}</string>
+    <string name="activity_for_householder">Bezocht tijdens {service}</string>
+    <string name="activity_date_by_publisher">{date} door {publisher}</string>
+    <string name="month_next">Volgende maand</string>
+    <string name="month_previous">Vorige maand</string>
+    <string name="updating_app">Updaten Application</string>
+    <string name="please_be_patient">Een ogenblik aub…</string>
+    <string name="service_year">dienst Jaar</string>
+
+</resources>

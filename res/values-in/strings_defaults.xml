@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="in">
+
+    <string name="navdrawer_item_select_publisher">Válassza ki a Publisher</string>
+    <string name="navdrawer_item_summary">Ringkasan</string>
+    <string name="navdrawer_item_publications">Publikasi</string>
+    <string name="navdrawer_item_householders">Penghuni Rumah</string>
+    <string name="navdrawer_item_publishers">Penyiar</string>
+    <string name="navdrawer_item_entry_types">Jenis Judul</string>
+    <string name="navdrawer_item_backups">Backup</string>
+    <string name="navdrawer_item_settings">Pengaturan</string>
+    <string name="navdrawer_item_help">Bantuan</string>
+    <string name="tab_item_monthly">Bulanan</string>
+    <string name="tab_item_yearly">tahunan</string>
+    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
+    <string name="tab_item_publication_types">@string/form_publication_types</string>
+    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
+    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
+    <string name="default_rollover_time">Waktu Bergulir</string>
+    <string name="default_bible_study">Pelajaran Alkitab</string>
+    <string name="default_return_visit">Kunjungan Kembali</string>
+    <string name="default_ministry_service">Dinas Pelayanan</string>
+    <string name="default_rebuild_committee">Panitia Pembangunan Kembali</string>
+    <string name="default_books">Buku</string>
+    <string name="default_booklets">Buku Kecil &amp; Brosur</string>
+    <string name="default_magazines">Majalah</string>
+    <string name="default_media">Media</string>
+    <string name="default_tracts">Risalat</string>
+    <string name="default_pioneering">Perintis Biasa</string>
+    <string name="default_pioneering_aux">Perintis Ekstra</string>
+    <string name="default_pioneering_aux_special">Perintis Ekstra Khusus</string>
+
+</resources>

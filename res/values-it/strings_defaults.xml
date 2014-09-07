@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="it">
+
+    <string name="navdrawer_item_select_publisher">Pilih Penyiar</string>
+    <string name="navdrawer_item_summary">Sommario</string>
+    <string name="navdrawer_item_publications">Pubblicazioni</string>
+    <string name="navdrawer_item_householders">Padroni di Casa</string>
+    <string name="navdrawer_item_publishers">Proclamatori</string>
+    <string name="navdrawer_item_entry_types">Tipo di Voce</string>
+    <string name="navdrawer_item_backups">Backup</string>
+    <string name="navdrawer_item_settings">Impostazioni</string>
+    <string name="navdrawer_item_help">Aiuto</string>
+    <string name="tab_item_monthly">mensile</string>
+    <string name="tab_item_yearly">annuale</string>
+    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
+    <string name="tab_item_publication_types">@string/form_publication_types</string>
+    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
+    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
+    <string name="default_rollover_time">Tempo avanzato</string>
+    <string name="default_bible_study">Studio Biblico</string>
+    <string name="default_return_visit">Visita Ulteriore</string>
+    <string name="default_ministry_service">Servizio</string>
+    <string name="default_rebuild_committee">Comitato di Costruzione</string>
+    <string name="default_books">Libri</string>
+    <string name="default_booklets">Opuscoli</string>
+    <string name="default_magazines">Riviste</string>
+    <string name="default_media">Digitali</string>
+    <string name="default_tracts">Volantini</string>
+    <string name="default_pioneering">Pioniere Regolare</string>
+    <string name="default_pioneering_aux">Pioniere ausiliario</string>
+    <string name="default_pioneering_aux_special">Pioniere Ausiliario Speciale</string>
+
+</resources>

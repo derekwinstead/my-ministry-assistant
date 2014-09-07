@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+
+    <string name="form_name">nom</string>
+    <string name="form_rename">rebaptiser</string>
+    <string name="form_publisher">éditeur</string>
+    <string name="form_type">type</string>
+    <string name="form_publication_types">Types de publication</string>
+    <string name="form_notes">Remarques</string>
+    <string name="form_start">Démarrer</string>
+    <string name="form_end">fin</string>
+    <string name="form_is_active">est active</string>
+    <string name="form_is_pair">Est une paire</string>
+    <string name="form_address">adresse</string>
+    <string name="form_phone_mobile">téléphone mobile</string>
+    <string name="form_phone_home">téléphone à la maison</string>
+    <string name="form_phone_work">téléphone au travail</string>
+    <string name="form_phone_other">autre téléphone</string>
+    <string name="form_daily_backups">sauvegardes quotidiennes</string>
+    <string name="form_weekly_backups">Les sauvegardes hebdomadaires</string>
+
+</resources>

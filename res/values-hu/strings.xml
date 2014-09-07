@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="hu">
+
+    <string name="app_name">My Minisztérium helyettes</string>
+    <string name="no_householders">Még nincsenek házigazdák</string>
+    <string name="no_publishers">Még nincsenek hírnökök</string>
+    <string name="no_publications">Nincs megjeleníthető irodalom</string>
+    <string name="total_time">Összes idő</string>
+    <string name="zero_entries">Nincsenek bevitt adatok.</string>
+    <string name="last_visited_on">Utolsó látogatás: {date}</string>
+    <string name="last_active_on">Utolsó aktív {date}</string>
+    <string name="last_placed_on">Utolsó helyezett {date}</string>
+    <string name="recent_activity">legutóbbi tevékenység</string>
+    <string name="no_activity">semmilyen tevékenység</string>
+    <string name="inactive">tétlen</string>
+    <string name="drawer_open">Nyílt navigációs fiók</string>
+    <string name="drawer_close">Bezárása navigáció fiók</string>
+    <string name="hours_shorthand">ó</string>
+    <string name="minutes_shorthand">p</string>
+    <string name="no_backups">No mentések</string>
+    <string name="activity_for_publication">{count} helyezni közben {service}</string>
+    <string name="activity_for_publication_with_householder">{count} elhelyezett {householder} közben {service}</string>
+    <string name="activity_for_householder">Közben meglátogatott {service}</string>
+    <string name="activity_date_by_publisher">{date}. {publisher}</string>
+    <string name="month_next">Következő hónap</string>
+    <string name="month_previous">Előző hónap</string>
+    <string name="updating_app">Frissítése alkalmazás</string>
+    <string name="please_be_patient">Kérjük, legyen türelemmel…</string>
+    <string name="service_year">szolgáltatás év</string>
+
+</resources>

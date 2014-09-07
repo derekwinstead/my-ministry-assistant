@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
+
+    <string name="app_name">Meu Assistente Ministerial</string>
+    <string name="no_householders">Não há Interessados</string>
+    <string name="no_publishers">Não há Publicadores</string>
+    <string name="no_publications">Não há publicações disponíveis</string>
+    <string name="total_time">Total de Tempo</string>
+    <string name="zero_entries">Não há tempo registrado</string>
+    <string name="last_visited_on">Última visita em {date}</string>
+    <string name="last_active_on">Ativo pela última vez na {date}</string>
+    <string name="last_placed_on">Última colocada na {date}</string>
+    <string name="recent_activity">Atividades Recentes</string>
+    <string name="no_activity">Não há Atividades</string>
+    <string name="inactive">Inativo</string>
+    <string name="drawer_open">Abrir navegação</string>
+    <string name="drawer_close">Fechar navegação</string>
+    <string name="hours_shorthand">h</string>
+    <string name="minutes_shorthand">m</string>
+    <string name="no_backups">Não Backups</string>
+    <string name="activity_for_publication">{count} colocado durante {service}</string>
+    <string name="activity_for_publication_with_householder">{count} colocado com {householder} durante {service}</string>
+    <string name="activity_for_householder">Visitou durante {service}</string>
+    <string name="activity_date_by_publisher">{date} de {publisher}</string>
+    <string name="month_next">próximo mês</string>
+    <string name="month_previous">Mês Anterior</string>
+    <string name="updating_app">Atualizando aplicativos</string>
+    <string name="please_be_patient">Por favor, seja paciente…</string>
+    <string name="service_year">Serviço de Ano</string>
+
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="tu">
+
+    <string name="pref_update_title">Проверить наличие обновлений</string>
+    <string name="pref_update_summary">Проверьте веб-сайт, чтобы увидеть, если есть доступное обновление. Это используется для телефонов или планшетов, которые не имеют на рынке доступны.</string>
+    <string name="pref_backup_title">Резервное копирование базы данных</string>
+    <string name="pref_backup_summary">Нажмите, чтобы создать резервную копию базы данных на внешние устройства хранения.</string>
+    <string name="pref_restore_title">Восстановление базы данных</string>
+    <string name="pref_restore_dialog">База данных восстановить</string>
+    <string name="pref_clear_title">Очистить старых резервных копий</string>
+    <string name="pref_clear_summary">Удалить все резервные базы данных, за исключением совсем недавно была создана.</string>
+    <string name="pref_schedule_summary">График ежедневных или еженедельных автоматическое резервное копирование.</string>
+    <string name="pref_donate_title">Пожертвовать</string>
+    <string name="pref_feedback_cat">Связаться с разработчиком</string>
+    <string name="pref_bugs_title">ошибка Представление</string>
+    <string name="pref_features_title">Запрос о возможностях</string>
+    <string name="pref_translations_title">Перевод Запрос</string>
+    <string name="pref_about_licenses">Лицензии открытого ПО</string>
+    <string name="pref_version">Версия</string>
+    <string name="pref_version_summary">Спасибо за загрузку. Наслаждайтесь!</string>
+    <string name="pref_rollover_summary">Рассчитать время опрокидывания.</string>
+    <string name="pref_show_minutes_title">Минуты Основная</string>
+    <string name="pref_show_minutes_summary">Показать минут каждый месяц. Неограниченный показывает целые часы.</string>
+
+</resources>

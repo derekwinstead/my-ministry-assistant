@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="hu">
+
+    <string name="navdrawer_item_select_publisher">Sélectionnez un éditeur</string>
+    <string name="navdrawer_item_summary">Összefoglalás</string>
+    <string name="navdrawer_item_publications">Kiadványok</string>
+    <string name="navdrawer_item_householders">A tulaj</string>
+    <string name="navdrawer_item_publishers">Kiadók</string>
+    <string name="navdrawer_item_entry_types">Bevitel típusa</string>
+    <string name="navdrawer_item_backups">Biztonsági mentés</string>
+    <string name="navdrawer_item_settings">Beállítások</string>
+    <string name="navdrawer_item_help">Segítség</string>
+    <string name="tab_item_monthly">havi</string>
+    <string name="tab_item_yearly">éves</string>
+    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
+    <string name="tab_item_publication_types">@string/form_publication_types</string>
+    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
+    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
+    <string name="default_rollover_time">Fennmaradó idő</string>
+    <string name="default_bible_study">Bibliatanulmányozás</string>
+    <string name="default_return_visit">Újralátogatás</string>
+    <string name="default_ministry_service">Szántóföldi szolgálat</string>
+    <string name="default_rebuild_committee">Építő Bizottság</string>
+    <string name="default_books">Könyvek</string>
+    <string name="default_booklets">Füzetek</string>
+    <string name="default_magazines">Folyóiratok</string>
+    <string name="default_media">Média</string>
+    <string name="default_tracts">Pályák</string>
+    <string name="default_pioneering">Rendszeres Úttörő</string>
+    <string name="default_pioneering_aux">Kiegészítő Úttörő</string>
+    <string name="default_pioneering_aux_special">Speciális Kiegészítő Úttörő</string>
+
+</resources>

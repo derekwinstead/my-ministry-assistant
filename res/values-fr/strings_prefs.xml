@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+
+    <string name="pref_update_title">Vérifier une mise à jour</string>
+    <string name="pref_update_summary">Consultez le site Web pour voir si il ya une mise à jour disponible. Il est utilisé pour les téléphones ou tablettes qui n\'ont pas marché disponible.</string>
+    <string name="pref_backup_title">base de données de sauvegarde</string>
+    <string name="pref_backup_summary">Tapez pour créer une sauvegarde de la base de données sur le stockage externe.</string>
+    <string name="pref_restore_title">restaurer la base de données</string>
+    <string name="pref_restore_dialog">Base de données de restauration</string>
+    <string name="pref_clear_title">Les anciennes sauvegardes claires</string>
+    <string name="pref_clear_summary">Supprimer toutes les bases de données de sauvegarde à l\'exception de la plus récemment créée.</string>
+    <string name="pref_schedule_summary">Planifier des sauvegardes automatiques quotidiennes, hebdomadaires ou.</string>
+    <string name="pref_donate_title">donner</string>
+    <string name="pref_feedback_cat">Contactez le développeur</string>
+    <string name="pref_bugs_title">bug Soumission</string>
+    <string name="pref_features_title">Demande de fonctionnalité</string>
+    <string name="pref_translations_title">Demande de traduction</string>
+    <string name="pref_about_licenses">Licences open source</string>
+    <string name="pref_version">version</string>
+    <string name="pref_version_summary">Merci d\'avoir téléchargé. Amusez-vous!</string>
+    <string name="pref_rollover_summary">Calculer le temps de retournement.</string>
+    <string name="pref_show_minutes_title">Minutes Sommaire</string>
+    <string name="pref_show_minutes_summary">Voir les minutes chaque mois. Décochée montre des heures entières.</string>
+
+</resources>

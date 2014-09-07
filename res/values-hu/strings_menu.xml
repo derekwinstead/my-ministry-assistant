@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="hu">
+
+    <string name="menu_add_new">Új</string>
+    <string name="menu_add_new_with_plus">+ Új</string>
+    <string name="menu_cancel">Mégsem</string>
+    <string name="menu_delete">Töröl</string>
+    <string name="menu_done">Csinált</string>
+    <string name="menu_save">Kivéve</string>
+    <string name="menu_share">Részvény</string>
+    <string name="menu_entries">Bejegyzés</string>
+    <string name="menu_no_householder">No Householder</string>
+    <string name="menu_no_publications">No Kiadványok</string>
+    <string name="menu_rv_publications_notes">Visszatérő látogatók, kiadványok, és a Megjegyzések</string>
+    <string name="menu_options">Beállítások</string>
+    <string name="menu_change_log">Módosítása Napló</string>
+    <string name="menu_transfer_to">Transzfer a</string>
+    <string name="menu_schedule_backups">Biztonsági mentések időzítése</string>
+    <string name="menu_more">több</string>
+    <string name="menu_count_as_return_visit">Számít a visszatérő látogatás</string>
+    <string name="menu_do_not_count_as_return_visit">Nem számít a visszatérő látogatás</string>
+    <string name="menu_sort">Rendezés</string>
+    <string name="menu_sort_alpha_asc">Rendezés A-Zs</string>
+    <string name="menu_sort_alpha_desc">Rendezés Zs-A</string>
+    <string name="menu_sort_most_used">Rendezés leggyakrabban használt</string>
+    <string name="menu_sort_most_placed">Rendezés legtöbb elhelyezett</string>
+    <string name="menu_send_report">Send Report</string>
+    <string name="menu_add_time">Add idő</string>
+
+</resources>

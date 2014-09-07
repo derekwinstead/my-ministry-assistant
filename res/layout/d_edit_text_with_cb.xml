@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <EditText
+        android:id="@+id/text1"
+        style="@style/EditTextAppBaseTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/form_name"
+        android:inputType="textCapSentences" />
+
+    <CheckBox
+        android:id="@+id/cb_is_active"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/thumb_height"
+        android:text="@string/form_is_active"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textsizeSM" />
+
+</LinearLayout>

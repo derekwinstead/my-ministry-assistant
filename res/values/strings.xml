@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+
+    <string name="app_name">My Ministry Assistant</string>
+    <string name="no_householders">No Householders</string>
+    <string name="no_publishers">No Publishers</string>
+    <string name="no_publications">No publications to display</string>
+    <string name="total_time">Total Time</string>
+    <string name="zero_entries">No Recorded Time</string>
+    <string name="last_visited_on">Last visited on {date}</string>
+    <string name="last_active_on">Last active on {date}</string>
+    <string name="last_placed_on">Last placed on {date}</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="no_activity">No Activity</string>
+    <string name="inactive">Inactive</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="hours_shorthand">h</string>
+    <string name="minutes_shorthand">m</string>
+    <string name="no_backups">No Backups</string>
+    <string name="activity_for_publication">{count} placed during {service}</string>
+    <string name="activity_for_publication_with_householder">{count} placed with {householder} during {service}</string>
+    <string name="activity_for_householder">Visited during {service}</string>
+    <string name="activity_date_by_publisher">{date} by {publisher}</string>
+    <string name="month_next">Next Month</string>
+    <string name="month_previous">Previous Month</string>
+    <string name="updating_app">Updating Application</string>
+    <string name="please_be_patient">Please be patient…</string>
+    <string name="service_year">Service Year</string>
+
+</resources>

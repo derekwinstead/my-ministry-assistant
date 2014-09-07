@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/negative_default_padding"
+            android:paddingLeft="@dimen/default_padding_double"
+            android:paddingTop="@dimen/default_padding_half"
+            android:text="@string/form_publication_types"
+            android:textColor="@color/appbasetheme_color"
+            android:textSize="@dimen/flet_hint_text_size" />
+
+        <Spinner
+            android:id="@+id/literatureTypes"
+            style="@style/SpinnerAppBaseTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_padding_half"
+            android:layout_marginRight="@dimen/default_padding_half" />
+
+        <com.myMinistry.ui.FloatLabeledEditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_padding_half"
+            android:layout_marginRight="@dimen/default_padding_half"
+            android:inputType="textCapSentences"
+            android:paddingTop="@dimen/default_padding_half"
+            float:fletFloatingHint="@string/form_name" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/default_padding_half"
+            android:paddingTop="@dimen/default_padding_half" >
+
+            <CheckBox
+                android:id="@+id/cb_is_active"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/default_padding_double"
+                android:layout_weight="1"
+                android:text="@string/form_is_active"
+                android:textColor="@color/holo_grey_light" />
+
+            <CheckBox
+                android:id="@+id/cb_is_pair"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_padding_double"
+                android:layout_weight="1"
+                android:text="@string/form_is_pair"
+                android:textColor="@color/holo_grey_light" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/recent_activity_text"
+        style="?android:attr/spinnerItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/default_padding"
+        android:paddingTop="@dimen/default_padding"
+        android:text="@string/recent_activity" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/default_padding" />
+
+    <TextView
+        android:id="@id/android:empty"
+        style="@style/empty_list_text_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/thumb_height"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding"
+        android:text="@string/no_activity" />
+
+</LinearLayout>

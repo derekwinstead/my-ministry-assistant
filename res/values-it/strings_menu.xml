@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="it">
+
+    <string name="menu_add_new">Aggiungi Nuovo</string>
+    <string name="menu_add_new_with_plus">+ Aggiungi Nuovo</string>
+    <string name="menu_cancel">Cancella</string>
+    <string name="menu_delete">Elimina</string>
+    <string name="menu_done">Fatto</string>
+    <string name="menu_save">Salva</string>
+    <string name="menu_share">Condividi</string>
+    <string name="menu_entries">Voci</string>
+    <string name="menu_no_householder">Nessun Padrone di Casa</string>
+    <string name="menu_no_publications">Nessuna Pubblicazione</string>
+    <string name="menu_rv_publications_notes">Visite Ulteriori, Pubblicazioni e Note</string>
+    <string name="menu_options">Opzioni</string>
+    <string name="menu_change_log">Cambia Registrazione</string>
+    <string name="menu_transfer_to">Sposta</string>
+    <string name="menu_schedule_backups">Backup Pianificato</string>
+    <string name="menu_more">Altro</string>
+    <string name="menu_count_as_return_visit">Conta come una visita di ritorno</string>
+    <string name="menu_do_not_count_as_return_visit">Non conta come una visita di ritorno</string>
+    <string name="menu_sort">Ordinamento</string>
+    <string name="menu_sort_alpha_asc">Ordina A-Z</string>
+    <string name="menu_sort_alpha_desc">Ordina Z-A</string>
+    <string name="menu_sort_most_used">Ordina per più utilizzati</string>
+    <string name="menu_sort_most_placed">Ordina per posta</string>
+    <string name="menu_send_report">Invia segnalazione</string>
+    <string name="menu_add_time">Aggiungere Tempo</string>
+
+</resources>

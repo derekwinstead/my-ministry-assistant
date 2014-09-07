@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="in">
+
+    <string name="app_name">Asisten Pelayananku</string>
+    <string name="no_householders">Tidak Ada Penghuni Rumah</string>
+    <string name="no_publishers">Tidak Ada Penyiar</string>
+    <string name="no_publications">Tidak ada publikasi untuk ditampilkan</string>
+    <string name="total_time">Total Waktu</string>
+    <string name="zero_entries">Tidak Ada Waktu Yang Dicatat</string>
+    <string name="last_visited_on">Terakhir dikunjungi tanggal {date}</string>
+    <string name="last_active_on">Terakhir aktif tanggal {date}</string>
+    <string name="last_placed_on">Terakhir ditempatkan tanggal {date}</string>
+    <string name="recent_activity">Kegiatan Terbaru</string>
+    <string name="no_activity">Tidak Ada Kegiatan</string>
+    <string name="inactive">Tidak Aktif</string>
+    <string name="drawer_open">Buka laci navigasi</string>
+    <string name="drawer_close">Tutup laci navigasi</string>
+    <string name="hours_shorthand">j</string>
+    <string name="minutes_shorthand">m</string>
+    <string name="no_backups">Tidak Ada Backup</string>
+    <string name="activity_for_publication">{count} ditempatkan selama {service}</string>
+    <string name="activity_for_publication_with_householder">{count} ditempatkan dengan {householder} selama {service}</string>
+    <string name="activity_for_householder">Mengunjungi selama {service}</string>
+    <string name="activity_date_by_publisher">{date} oleh {publisher}</string>
+    <string name="month_next">Bulan Berikutnya</string>
+    <string name="month_previous">Bulan Sebelumnya</string>
+    <string name="updating_app">Memperbarui Aplikasi</string>
+    <string name="please_be_patient">Harap bersabar…</string>
+    <string name="service_year">layanan Tahun</string>
+
+</resources>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="0dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/default_padding_half"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding"
+            android:text="@string/form_daily_backups"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/default_padding"
+            android:paddingLeft="@dimen/default_padding_half" >
+
+            <CheckBox
+                android:id="@+id/cb_is_active_daily"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/thumb_height"
+                android:paddingRight="@dimen/default_padding"
+                android:text="@string/form_is_active" />
+
+            <Button
+                android:id="@+id/b_daily_time"
+                style="@style/SpinnerAppBaseTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/thumb_height" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/navdrawer_divider" />
+
+        <LinearLayout
+            android:id="@+id/b_daily_save"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thumb_height"
+            android:background="@drawable/appbasetheme_list_selector_holo_light"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:src="@drawable/ic_action_accept_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="@dimen/default_padding_half"
+                android:text="@string/menu_save"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="0dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/default_padding_half"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding"
+            android:text="@string/form_weekly_backups"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/default_padding"
+            android:paddingLeft="@dimen/default_padding_half" >
+
+            <CheckBox
+                android:id="@+id/cb_is_active_weekly"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/thumb_height"
+                android:paddingRight="@dimen/default_padding"
+                android:text="@string/form_is_active" />
+
+            <Spinner
+                android:id="@+id/s_weekday"
+                style="@style/SpinnerAppBaseTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/thumb_height" />
+
+            <TextView
+                android:id="@+id/b_weekly_time"
+                style="@style/SpinnerAppBaseTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/thumb_height" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/navdrawer_divider" />
+
+        <LinearLayout
+            android:id="@+id/b_weekly_save"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thumb_height"
+            android:background="@drawable/appbasetheme_list_selector_holo_light"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:src="@drawable/ic_action_accept_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="@dimen/default_padding_half"
+                android:text="@string/menu_save"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

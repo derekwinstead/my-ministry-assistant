@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ru">
+
+    <string name="app_name">Мой помощник Министерство</string>
+    <string name="no_householders">Нет Домовладельцы</string>
+    <string name="no_publishers">Нет Издатели</string>
+    <string name="no_publications">Нет публикации для отображения</string>
+    <string name="total_time">Общее время</string>
+    <string name="zero_entries">Нет времени записи</string>
+    <string name="last_visited_on">Последнее посещение на {date}</string>
+    <string name="last_active_on">Последняя активность на {date}</string>
+    <string name="last_placed_on">Последние размещены на {date}</string>
+    <string name="recent_activity">Последняя активность</string>
+    <string name="no_activity">Нет активности</string>
+    <string name="inactive">Неактивный</string>
+    <string name="drawer_open">Открыть навигации ящик</string>
+    <string name="drawer_close">Закрыть навигации ящик</string>
+    <string name="hours_shorthand">ч</string>
+    <string name="minutes_shorthand">м</string>
+    <string name="no_backups">Нет Резервные копии</string>
+    <string name="activity_for_publication">{count} размещается в течение {service}</string>
+    <string name="activity_for_publication_with_householder">{count} размещены с {name} во время {service}</string>
+    <string name="activity_for_householder">Посетили в течение {service}</string>
+    <string name="activity_date_by_publisher">{date} {publisher}</string>
+    <string name="month_next">Следующий месяц</string>
+    <string name="month_previous">Предыдущий месяц</string>
+    <string name="updating_app">Обновление приложений</string>
+    <string name="please_be_patient">Пожалуйста будьте терпеливы…</string>
+    <string name="service_year">Сервис Год</string>
+
+</resources>

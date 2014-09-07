@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="nl">
+
+    <string name="toast_export_text">Database van backup genomen.</string>
+    <string name="toast_export_text_error">Kon geen backup maken.</string>
+    <string name="toast_import_text">Backup hersteld.</string>
+    <string name="toast_import_text_error">Kon database niet importeren.</string>
+    <string name="toast_cleaned_backups">Backups verwijderd.</string>
+    <string name="toast_cleaned_backups_only_one">Er zijn te weinig backups om dit te doen.</string>
+    <string name="toast_cleaned_backups_error">Fout opgetreden tijdens het verwijderen van backups.</string>
+    <string name="toast_saved">Opgeslagen.</string>
+    <string name="toast_saved_problem">Probleem tijdens opslaan.</string>
+    <string name="toast_saved_with_space">{name} is opgeslagen.</string>
+    <string name="toast_saved_problem_with_space">Probleem met opslaan van {name}.</string>
+    <string name="toast_created">Aangemaakt.</string>
+    <string name="toast_created_problem">Probleem bij aanmaak.</string>
+    <string name="toast_created_with_space">{name} is aangemaakt.</string>
+    <string name="toast_created_problem_with_space">Probleem met aanmaken van {name}.</string>
+    <string name="toast_provide_name">Geef aub. een naam in.</string>
+    <string name="toast_cannot_modify_rollover_time">Kan de overlap entries niet aanpassen.</string>
+    <string name="toast_deleted">Verwijderd.</string>
+    <string name="toast_deleted_with_space">{name} is verwijderd.</string>
+    <string name="toast_daily_backup_scheduled">Dagelijkse backups ingepland om {time}.</string>
+    <string name="toast_daily_backup_cancelled">Dagelijkse backups geannuleerd.</string>
+    <string name="toast_weekly_backup_scheduled">Wekelijkse backups ingepland op {weekday} om {time}.</string>
+    <string name="toast_weekly_backup_cancelled">Wekelijkse backups geannuleerd.</string>
+    <string name="toast_db_updated_successfully">Database bijgewerkt.</string>
+    <string name="toast_update_done">Update gedaan.</string>
+
+</resources>

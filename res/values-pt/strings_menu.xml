@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
+
+    <string name="menu_add_new">Adicionar</string>
+    <string name="menu_add_new_with_plus">+ Adicionar</string>
+    <string name="menu_cancel">Cancelar</string>
+    <string name="menu_delete">Apagar</string>
+    <string name="menu_done">Feito</string>
+    <string name="menu_save">Salvar</string>
+    <string name="menu_share">Compartilhar</string>
+    <string name="menu_entries">Entradas</string>
+    <string name="menu_no_householder">Não há Interessados</string>
+    <string name="menu_no_publications">Não há Publicações</string>
+    <string name="menu_rv_publications_notes">Revisitas, Publicações, e Anotações</string>
+    <string name="menu_options">Opções</string>
+    <string name="menu_change_log">Alterar Registro</string>
+    <string name="menu_transfer_to">Transferir para</string>
+    <string name="menu_schedule_backups">Programe backups</string>
+    <string name="menu_more">mais</string>
+    <string name="menu_count_as_return_visit">Conte como uma visita de retorno</string>
+    <string name="menu_do_not_count_as_return_visit">Não conte como uma visita de retorno</string>
+    <string name="menu_sort">Ordenar</string>
+    <string name="menu_sort_alpha_asc">Ordenar A-Z</string>
+    <string name="menu_sort_alpha_desc">Ordenar Z-A</string>
+    <string name="menu_sort_most_used">Ordenar por mais utilizada</string>
+    <string name="menu_sort_most_placed">Ordenar por mais colocado</string>
+    <string name="menu_send_report">Enviar relatório</string>
+    <string name="menu_add_time">Adicionar Tempo</string>
+
+</resources>

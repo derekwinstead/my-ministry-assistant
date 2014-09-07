@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+
+    <string name="toast_export_text">Base de données sauvegardée avec succès.</string>
+    <string name="toast_export_text_error">Ne pouvait pas la base de données de sauvegarde.</string>
+    <string name="toast_import_text">Sauvegarde restaurée avec succès.</string>
+    <string name="toast_import_text_error">Impossible d\'importer la base de données.</string>
+    <string name="toast_cleaned_backups">Les sauvegardes ont été nettoyés.</string>
+    <string name="toast_cleaned_backups_only_one">Il n\'y a pas suffisamment de sauvegardes pour compléter cette demande.</string>
+    <string name="toast_cleaned_backups_error">Il y avait une erreur d\'essayer de nettoyer vos sauvegardes.</string>
+    <string name="toast_saved">Enregistré.</string>
+    <string name="toast_saved_problem">Problème lors de sauvegarder.</string>
+    <string name="toast_saved_with_space">Sauvegardé {name}.</string>
+    <string name="toast_saved_problem_with_space">Sauver {name} problème.</string>
+    <string name="toast_created">Crée.</string>
+    <string name="toast_created_problem">Problème lors de la création.</string>
+    <string name="toast_created_with_space">Crée {name}.</string>
+    <string name="toast_created_problem_with_space">Problème de création {name}.</string>
+    <string name="toast_provide_name">S\'il vous plaît fournir un nom.</string>
+    <string name="toast_cannot_modify_rollover_time">Vous ne pouvez pas modifier les entrées de roulement.</string>
+    <string name="toast_deleted">Supprimé.</string>
+    <string name="toast_deleted_with_space">Supprimé {name}.</string>
+    <string name="toast_daily_backup_scheduled">Les sauvegardes quotidiennes prévues pour {time}.</string>
+    <string name="toast_daily_backup_cancelled">Les sauvegardes quotidiennes annulées.</string>
+    <string name="toast_weekly_backup_scheduled">Sauvegardes hebdomadaires prévues pour {weekday} à {time}.</string>
+    <string name="toast_weekly_backup_cancelled">Sauvegardes hebdomadaires annulées.</string>
+    <string name="toast_db_updated_successfully">Base de données mise à jour.</string>
+    <string name="toast_update_done">Mise à jour effectuée.</string>
+
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
+
+    <string name="pref_update_title">Verifique se há atualizações</string>
+    <string name="pref_update_summary">Confira o site para ver se há uma atualização disponível. Isto é usado para telefones ou tablets que não têm o Market disponível.</string>
+    <string name="pref_backup_title">Cópia de segurança dos dados</string>
+    <string name="pref_backup_summary">Toque para criar uma cópia de segurança dos dados.</string>
+    <string name="pref_restore_title">Restaurar Dados</string>
+    <string name="pref_restore_dialog">Restaurar dados</string>
+    <string name="pref_clear_title">Apagar cópias de segurança antigas</string>
+    <string name="pref_clear_summary">Remove todas as cópias de segurança, exceto a criada mais recentemente.</string>
+    <string name="pref_schedule_summary">Programação diária ou backups automáticos semanais.</string>
+    <string name="pref_donate_title">Doações</string>
+    <string name="pref_feedback_cat">Contate o Desenvolvedor</string>
+    <string name="pref_bugs_title">Submissão Erro</string>
+    <string name="pref_features_title">Solicitação de recurso</string>
+    <string name="pref_translations_title">Pedido de Tradução</string>
+    <string name="pref_about_licenses">Licenças de código aberto</string>
+    <string name="pref_version">Versão</string>
+    <string name="pref_version_summary">Obrigado por baixar. Divirta-se!</string>
+    <string name="pref_rollover_summary">Calcule o tempo de transferência.</string>
+    <string name="pref_show_minutes_title">Minutos Em Síntese</string>
+    <string name="pref_show_minutes_summary">Mostrar os minutos de cada mês. Desmarcada mostra horas inteiras.</string>
+
+</resources>

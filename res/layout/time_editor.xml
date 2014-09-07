@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/default_padding" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/negative_default_padding"
+            android:paddingLeft="@dimen/default_padding"
+            android:text="@string/form_publisher"
+            android:textColor="@color/appbasetheme_color"
+            android:textSize="@dimen/flet_hint_text_size" />
+
+        <Spinner
+            android:id="@+id/publishers"
+            style="@style/SpinnerAppBaseTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/default_padding" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/negative_default_padding"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding_half"
+            android:text="@string/form_type"
+            android:textColor="@color/appbasetheme_color"
+            android:textSize="@dimen/flet_hint_text_size" />
+
+        <Spinner
+            android:id="@+id/entryTypes"
+            style="@style/SpinnerAppBaseTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/default_padding" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/negative_default_padding"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding"
+                android:text="@string/form_start"
+                android:textColor="@color/appbasetheme_color"
+                android:textSize="@dimen/flet_hint_text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_padding_extra" >
+
+                <Button
+                    android:id="@+id/dateStart"
+                    style="@style/SpinnerAppBaseTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:paddingLeft="@dimen/default_padding" />
+
+                <Button
+                    android:id="@+id/timeStart"
+                    style="@style/SpinnerAppBaseTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:paddingLeft="@dimen/default_padding" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/negative_default_padding"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding"
+                android:text="@string/form_end"
+                android:textColor="@color/appbasetheme_color"
+                android:textSize="@dimen/flet_hint_text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_padding_extra" >
+
+                <Button
+                    android:id="@+id/dateEnd"
+                    style="@style/SpinnerAppBaseTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:paddingLeft="@dimen/default_padding" />
+
+                <Button
+                    android:id="@+id/timeEnd"
+                    style="@style/SpinnerAppBaseTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:paddingLeft="@dimen/default_padding" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/default_padding_half"
+            android:text="@string/menu_rv_publications_notes"
+            android:textSize="@dimen/textsizeMD" />
+
+        <ImageView
+            android:id="@+id/addListItem"
+            style="@style/ButtonAppBaseTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/menu_add_new"
+            android:src="@drawable/ic_action_new" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/default_padding" />
+
+</LinearLayout>

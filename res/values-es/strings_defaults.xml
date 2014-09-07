@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="es">
+
+    <string name="navdrawer_item_select_publisher">Wählen Sie einen Verlag</string>
+    <string name="navdrawer_item_summary">Informe Actual</string>
+    <string name="navdrawer_item_publications">Publicaciones</string>
+    <string name="navdrawer_item_householders">Amos de Casa</string>
+    <string name="navdrawer_item_publishers">Publicadores</string>
+    <string name="navdrawer_item_entry_types">Tipos de Entradas</string>
+    <string name="navdrawer_item_backups">Copias de Seguridad</string>
+    <string name="navdrawer_item_settings">Ajustes</string>
+    <string name="navdrawer_item_help">Ayuda</string>
+    <string name="tab_item_monthly">Mensual</string>
+    <string name="tab_item_yearly">anual</string>
+    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
+    <string name="tab_item_publication_types">@string/form_publication_types</string>
+    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
+    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
+    <string name="default_rollover_time">Sobrante Mes Anterior</string>
+    <string name="default_bible_study">Estudio de la Biblia</string>
+    <string name="default_return_visit">Revisitas</string>
+    <string name="default_ministry_service">Servicio de Ministerio</string>
+    <string name="default_rebuild_committee">Comité de Construcción</string>
+    <string name="default_books">Libros</string>
+    <string name="default_booklets">Folletos</string>
+    <string name="default_magazines">Revistas</string>
+    <string name="default_media">Multimedia</string>
+    <string name="default_tracts">Tratados</string>
+    <string name="default_pioneering">Pioneros regular</string>
+    <string name="default_pioneering_aux">Pioneros Auxiliar</string>
+    <string name="default_pioneering_aux_special">Especial Pionero Auxiliar</string>
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_key_rollover"
+        android:summary="@string/pref_rollover_summary"
+        android:title="@string/default_rollover_time" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_key_show_minutes"
+        android:summary="@string/pref_show_minutes_summary"
+        android:title="@string/pref_show_minutes_title" />
+
+    <Preference
+        android:key="email_developer"
+        android:title="@string/pref_feedback_cat" />
+    <Preference
+        android:key="licences"
+        android:title="@string/pref_about_licenses" />
+    <Preference
+        android:key="changelog"
+        android:title="@string/menu_change_log" />
+    <Preference
+        android:key="donate"
+        android:summary="@string/link_donate"
+        android:title="@string/pref_donate_title" />
+    <Preference
+        android:key="version"
+        android:summary="@string/pref_version_summary" />
+    <Preference
+        android:key="checkForUpdate"
+        android:summary="@string/pref_update_summary"
+        android:title="@string/pref_update_title" />
+
+</PreferenceScreen>

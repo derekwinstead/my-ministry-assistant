@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
+
+    <string name="toast_export_text">Cópia de segurança criada.</string>
+    <string name="toast_export_text_error">Não foi possível criar cópia de segurança.</string>
+    <string name="toast_import_text">Cópia de segurança restaurada.</string>
+    <string name="toast_import_text_error">Não foi possível importar dados.</string>
+    <string name="toast_cleaned_backups">Cópias de segurança apagadas.</string>
+    <string name="toast_cleaned_backups_only_one">Não há cópias de segurança.</string>
+    <string name="toast_cleaned_backups_error">Houve um erro ao tentar apagar suas cópias de segurança.</string>
+    <string name="toast_saved">Salvo.</string>
+    <string name="toast_saved_problem">Problema ao salvar.</string>
+    <string name="toast_saved_with_space">{name} Salvo.</string>
+    <string name="toast_saved_problem_with_space">Economizando problema {name}.</string>
+    <string name="toast_created">Criado.</string>
+    <string name="toast_created_problem">Problema durante criação.</string>
+    <string name="toast_created_with_space">Criado {name}.</string>
+    <string name="toast_created_problem_with_space">Problema ao criar {name}.</string>
+    <string name="toast_provide_name">Por favor, forneça um nome.</string>
+    <string name="toast_cannot_modify_rollover_time">Não é possível modificar entradas transferidas.</string>
+    <string name="toast_deleted">Deletado.</string>
+    <string name="toast_deleted_with_space">Deletado {name}.</string>
+    <string name="toast_daily_backup_scheduled">Os backups diários agendada para {time}.</string>
+    <string name="toast_daily_backup_cancelled">Os backups diários cancelada.</string>
+    <string name="toast_weekly_backup_scheduled">Backups semanais prevista para {weekday} às {time}.</string>
+    <string name="toast_weekly_backup_cancelled">Backups semanais cancelada.</string>
+    <string name="toast_db_updated_successfully">Banco de dados atualizado com sucesso.</string>
+    <string name="toast_update_done">Atualização feito.</string>
+
+</resources>

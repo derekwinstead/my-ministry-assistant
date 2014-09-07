@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+
+    <string name="app_name">Mon adjoint Ministère</string>
+    <string name="no_householders">Pas de bulletins</string>
+    <string name="no_publishers">Pas éditeurs</string>
+    <string name="no_publications">Aucune publication à afficher</string>
+    <string name="total_time">Temps total</string>
+    <string name="zero_entries">Pas de temps enregistré</string>
+    <string name="last_visited_on">Dernière visite le {date}</string>
+    <string name="last_active_on">Dernière connexion le {date}</string>
+    <string name="last_placed_on">Dernière placé {date}</string>
+    <string name="recent_activity">Activité récente</string>
+    <string name="no_activity">aucune activité</string>
+    <string name="inactive">inactif</string>
+    <string name="drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="drawer_close">Fermer navigation tiroir</string>
+    <string name="hours_shorthand">h</string>
+    <string name="minutes_shorthand">m</string>
+    <string name="no_backups">Pas de sauvegardes</string>
+    <string name="activity_for_publication">{count} placé pendant {service}</string>
+    <string name="activity_for_publication_with_householder">{count} placé avec {householder} pendant {service}</string>
+    <string name="activity_for_householder">Visité en {service}</string>
+    <string name="activity_date_by_publisher">{date} par {publisher}</string>
+    <string name="month_next">mois prochain</string>
+    <string name="month_previous">mois précédent</string>
+    <string name="updating_app">Updating Application</string>
+    <string name="please_be_patient">S\'il vous plaît être patient…</string>
+    <string name="service_year">Année service</string>
+
+</resources>

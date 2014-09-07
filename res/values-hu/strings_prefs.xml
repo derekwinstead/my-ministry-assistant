@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="hu">
+
+    <string name="pref_update_title">Frissítések ellenőrzése</string>
+    <string name="pref_update_summary">Ellenőrizze, hogy a honlapján, hogy ha van elérhető frissítés. Ezt használják a telefonok, vagy tabletták, amelyek nem rendelkeznek a piacon elérhető.</string>
+    <string name="pref_backup_title">Biztonsági mentés adatbázist</string>
+    <string name="pref_backup_summary">Érintse meg, hogy hozzon létre egy biztonsági másolatot az adatbázis külső tároló.</string>
+    <string name="pref_restore_title">Állítsa vissza az adatbázis</string>
+    <string name="pref_restore_dialog">Adatbázis visszaállítása</string>
+    <string name="pref_clear_title">Tiszta régi mentések</string>
+    <string name="pref_clear_summary">Vegye ki az összes mentési adatbázisok, kivéve a legutóbb létrehozott.</string>
+    <string name="pref_schedule_summary">Menetrend napi vagy heti automatikus mentést.</string>
+    <string name="pref_donate_title">Adományoz</string>
+    <string name="pref_feedback_cat">Lépjen kapcsolatba a fejlesztő</string>
+    <string name="pref_bugs_title">Hiba Benyújtása</string>
+    <string name="pref_features_title">Funkció Kérése</string>
+    <string name="pref_translations_title">Fordítás kérelem</string>
+    <string name="pref_about_licenses">Nyílt forráskódú licencek</string>
+    <string name="pref_version">Változat</string>
+    <string name="pref_version_summary">Köszönjük a letöltést. Jó szórakozást!</string>
+    <string name="pref_rollover_summary">Számolja ki a hátralévő időt.</string>
+    <string name="pref_show_minutes_title">Percig Összegzés</string>
+    <string name="pref_show_minutes_summary">Mutasd a perc minden hónapban. Ellenőrizetlenül mutat az egész órát.</string>
+
+</resources>
