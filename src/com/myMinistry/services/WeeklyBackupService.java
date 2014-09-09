@@ -23,8 +23,6 @@ public class WeeklyBackupService extends Service {
 					extDB.createNewFile();
 				
 				FileUtils.copyFile(intDB, extDB);
-				
-				Toast.makeText(getApplicationContext(), "Weekly backup done", Toast.LENGTH_LONG).show();
 			}
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), "Error during weekly backup", Toast.LENGTH_LONG).show();

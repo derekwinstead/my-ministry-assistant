@@ -23,8 +23,6 @@ public class DailyBackupService extends Service {
 					extDB.createNewFile();
 				
 				FileUtils.copyFile(intDB, extDB);
-				
-				Toast.makeText(getApplicationContext(), "Daily backup done", Toast.LENGTH_LONG).show();
 			}
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), "Error during daily backup", Toast.LENGTH_LONG).show();
