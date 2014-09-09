@@ -25,8 +25,6 @@ import android.widget.ListView;
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.dialogfragments.PublicationTypeDialogFragment;
-import com.myMinistry.dialogfragments.PublicationTypeDialogFragment.LiteratureTypeDialogFragmentListener;
 import com.myMinistry.model.DialogItemAdapter;
 import com.myMinistry.model.ItemAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
