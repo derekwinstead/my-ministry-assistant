@@ -20,8 +20,8 @@
     <string name="menu_count_as_return_visit">Dihitung sebagai kunjungan kembali</string>
     <string name="menu_do_not_count_as_return_visit">Tidak dihitung sebagai sebuah kunjungan kembali</string>
     <string name="menu_sort">Menyortir</string>
-    <string name="menu_sort_alpha_asc">Urutkan A-Z</string>
-    <string name="menu_sort_alpha_desc">Urutkan Z-A</string>
+    <string name="menu_sort_alpha_asc">Urutkan berdasarkan nama</string>
+    <string name="menu_sort_alpha_desc">Urutkan berdasarkan nama terbalik</string>
     <string name="menu_sort_most_used">Urutkan berdasarkan paling banyak digunakan</string>
     <string name="menu_sort_most_placed">Urutkan oleh kebanyakan ditempatkan</string>
     <string name="menu_send_report">Kirim Laporan</string>

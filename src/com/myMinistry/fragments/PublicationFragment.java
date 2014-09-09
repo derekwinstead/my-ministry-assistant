@@ -147,6 +147,8 @@ public class PublicationFragment extends ListFragment {
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
     	
+    	getActivity().setTitle(R.string.navdrawer_item_publications);
+    	
     	database.openWritable();
     	
     	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), literature, R.string.last_placed_on, false);

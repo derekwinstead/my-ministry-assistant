@@ -20,8 +20,8 @@
     <string name="menu_count_as_return_visit">Count as a return visit</string>
     <string name="menu_do_not_count_as_return_visit">Do not count as a return visit</string>
     <string name="menu_sort">Sorting</string>
-    <string name="menu_sort_alpha_asc">Sort A-Z</string>
-    <string name="menu_sort_alpha_desc">Sort Z-A</string>
+    <string name="menu_sort_alpha_asc">Sort by name</string>
+    <string name="menu_sort_alpha_desc">Sort by name reversed</string>
     <string name="menu_sort_most_used">Sort by most used</string>
     <string name="menu_sort_most_placed">Sort by most placed</string>
     <string name="menu_send_report">Send Report</string>

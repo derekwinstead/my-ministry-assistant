@@ -20,8 +20,8 @@
     <string name="menu_count_as_return_visit">Считать как с ответным визитом</string>
     <string name="menu_do_not_count_as_return_visit">Не рассчитывайте, как с ответным визитом</string>
     <string name="menu_sort">Сортировка</string>
-    <string name="menu_sort_alpha_asc">Сортировать-Z</string>
-    <string name="menu_sort_alpha_desc">Сортировать Z-</string>
+    <string name="menu_sort_alpha_asc">Сортировать по имени</string>
+    <string name="menu_sort_alpha_desc">Сортировать по имени вспять</string>
     <string name="menu_sort_most_used">Сортировать по используется</string>
     <string name="menu_sort_most_placed">Сортировать по помещены</string>
     <string name="menu_send_report">Отправить отчет</string>

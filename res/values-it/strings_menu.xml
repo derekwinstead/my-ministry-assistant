@@ -20,8 +20,8 @@
     <string name="menu_count_as_return_visit">Conta come una visita di ritorno</string>
     <string name="menu_do_not_count_as_return_visit">Non conta come una visita di ritorno</string>
     <string name="menu_sort">Ordinamento</string>
-    <string name="menu_sort_alpha_asc">Ordina A-Z</string>
-    <string name="menu_sort_alpha_desc">Ordina Z-A</string>
+    <string name="menu_sort_alpha_asc">Ordina per nome</string>
+    <string name="menu_sort_alpha_desc">Ordina per nome invertito</string>
     <string name="menu_sort_most_used">Ordina per più utilizzati</string>
     <string name="menu_sort_most_placed">Ordina per posta</string>
     <string name="menu_send_report">Invia segnalazione</string>
