@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,9 @@ import android.widget.ListView;
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.dialogfragments.PublicationTypeDialogFragment;
+import com.myMinistry.dialogfragments.PublicationTypeDialogFragment.LiteratureTypeDialogFragmentListener;
+import com.myMinistry.model.DialogItemAdapter;
 import com.myMinistry.model.ItemAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
@@ -136,19 +140,19 @@ public class PublicationManagerFrag extends ListFragment {
     
     @Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-    	if((int)id > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
+    	if(adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
     		
     		//showTransferToDialog((int)id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)));
-    		showTransferToDialog((int)id, adapter.getItem(position).toString());
+    		showTransferToDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString());
     	} else {
 			if(is_dual_pane) {
 				PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
-				f.switchForm(id);
+				f.switchForm(adapter.getItem(position).getID());
 			} else {
 				//cursor.moveToPosition(position);
 				//createDialog(id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)));
 				// TODO CHANGE THE "1"!!!
-				createDialog(id, adapter.getItem(position).toString(), 1);
+				createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), 1);
 			}
     	}
     }
@@ -190,21 +194,28 @@ public class PublicationManagerFrag extends ListFragment {
     }
 	
 	public void showTransferToDialog(final int id, final String name) {
+		database.openWritable();
+		final Cursor cursor = database.fetchDefaultPublicationTypes();
+		final DialogItemAdapter mAdapter = new DialogItemAdapter(getActivity().getApplicationContext());;
+		while(cursor.moveToNext())
+			mAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+		
+		cursor.close();
+		database.close();
+		
 		AlertDialog.Builder builder = new Builder(PublicationManagerFrag.this.getActivity());
-    	database.openWritable();
-		final Cursor defaults = database.fetchDefaultPublicationTypes();
-		builder.setTitle(R.string.menu_transfer_to);
-		builder.setCursor(defaults, new DialogInterface.OnClickListener() {
+		builder.setTitle(getActivity().getApplicationContext().getString(R.string.menu_transfer_to));
+		builder.setAdapter(mAdapter,  new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				defaults.moveToPosition(which);
-				database.reassignPublications(id, defaults.getInt(defaults.getColumnIndex(LiteratureType._ID)));
+				database.openWritable();
+				database.reassignPublications(id, mAdapter.getItem(which).getID());
 				database.removePublication(id);
-				
-				HelpUtils.sortPublicationTypes(getActivity().getApplicationContext(), PrefUtils.getPublicationTypeSort(getActivity()));
+				database.close();
 				reloadCursor();
 			}
-		}, LiteratureType.NAME);
+		});
+		
 		builder.show();
 	}
 	
