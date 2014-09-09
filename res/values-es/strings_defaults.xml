@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="es">
 
-    <string name="navdrawer_item_select_publisher">Wählen Sie einen Verlag</string>
-    <string name="navdrawer_item_summary">Informe Actual</string>
+    <string name="navdrawer_item_select_publisher">Seleccionar un publicador</string>
+    <string name="navdrawer_item_summary">Sumario</string>
     <string name="navdrawer_item_publications">Publicaciones</string>
     <string name="navdrawer_item_householders">Amos de Casa</string>
     <string name="navdrawer_item_publishers">Publicadores</string>
@@ -14,6 +14,9 @@
     <string name="tab_item_yearly">anual</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
     <string name="tab_item_publication_types">@string/form_publication_types</string>
+    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
+    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
+    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
     <string name="tab_item_backups">@string/navdrawer_item_backups</string>
     <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Sobrante Mes Anterior</string>
