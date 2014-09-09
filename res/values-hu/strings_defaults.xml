@@ -14,6 +14,9 @@
     <string name="tab_item_yearly">éves</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
     <string name="tab_item_publication_types">@string/form_publication_types</string>
+    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
+    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
+    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
     <string name="tab_item_backups">@string/navdrawer_item_backups</string>
     <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Fennmaradó idő</string>
