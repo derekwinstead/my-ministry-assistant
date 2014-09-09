@@ -276,6 +276,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        case NAVDRAWER_ITEM_HOUSEHOLDERS:
 	        	getSupportActionBar().removeAllTabs();
 	        	
+	        	if(!is_dual_pane) {
+	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_householders).setTabListener(this));
+	        	}
+	        	
     			if(!(frag instanceof HouseholdersFragment)) {
     				HouseholdersFragment f = new HouseholdersFragment().newInstance();
     				
@@ -292,6 +296,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        case NAVDRAWER_ITEM_PUBLISHERS:
 	        	getSupportActionBar().removeAllTabs();
 	        	
+	        	if(!is_dual_pane) {
+	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publishers).setTabListener(this));
+	        	}
+	        	
     			if(!(frag instanceof PublishersFragment)) {
     				PublishersFragment f = new PublishersFragment().newInstance();
     				
@@ -307,6 +315,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			return true;
 	        case NAVDRAWER_ITEM_ENTRY_TYPES:
 	        	getSupportActionBar().removeAllTabs();
+	        	
+	        	if(!is_dual_pane) {
+	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_entry_types).setTabListener(this));
+	        	}
 	        	
     			if(!(frag instanceof EntryTypeManagerFrag)) {
     				EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
@@ -406,7 +418,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
             @Override
             public void onDrawerOpened(View drawerView) {
             	setTitle(mDrawerTitle);
-            	//supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            	supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             @Override
