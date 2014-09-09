@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +22,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.myMinistry.FragmentActivityStatus;
+import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.model.ItemAdapter;
+import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -33,8 +35,7 @@ import com.myMinistry.util.PrefUtils;
 public class PublicationManagerFrag extends ListFragment {
 	private boolean is_dual_pane = false;
 	
-	private Cursor cursor;
-	private SimpleCursorAdapter adapter;
+	private ItemAdapter adapter;
 	private ContentValues values = null;
 	private MinistryService database;
 	private FragmentManager fm;
@@ -94,7 +95,6 @@ public class PublicationManagerFrag extends ListFragment {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
@@ -110,8 +110,10 @@ public class PublicationManagerFrag extends ListFragment {
     	database = new MinistryService(getActivity().getApplicationContext());
 		database.openWritable();
 		
+		adapter = new ItemAdapter(getActivity().getApplicationContext());
+		
 		loadCursor();
-		adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.li_bg_card_tv, cursor, new String[] {LiteratureType.NAME}, new int[] {android.R.id.text1});
+		
 		setListAdapter(adapter);
         
         database.close();
@@ -135,14 +137,18 @@ public class PublicationManagerFrag extends ListFragment {
     @Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
     	if((int)id > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
-    		showTransferToDialog((int)id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)));
+    		
+    		//showTransferToDialog((int)id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)));
+    		showTransferToDialog((int)id, adapter.getItem(position).toString());
     	} else {
 			if(is_dual_pane) {
 				PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
 				f.switchForm(id);
 			} else {
-				cursor.moveToPosition(position);
-				createDialog(id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)));
+				//cursor.moveToPosition(position);
+				//createDialog(id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)));
+				// TODO CHANGE THE "1"!!!
+				createDialog(id, adapter.getItem(position).toString(), 1);
 			}
     	}
     }
@@ -205,11 +211,17 @@ public class PublicationManagerFrag extends ListFragment {
 	private void loadCursor() {
 		if(!database.isOpen())
 			database.openWritable();
-		cursor = database.fetchAllPublicationTypes();
+		
+		adapter.clear();
+		final Cursor cursor = database.fetchAllPublicationTypes();
+	    while(cursor.moveToNext())
+	    	adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+	    cursor.close();
+	    database.close();
 	}
 	
 	public void reloadCursor() {
 		loadCursor();
-		adapter.changeCursor(cursor);
+		adapter.notifyDataSetChanged();
 	}
 }

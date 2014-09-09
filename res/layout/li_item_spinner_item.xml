@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menurow_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/thumb_height"
+    android:background="@drawable/bg_card_li"
+    android:drawablePadding="@dimen/default_padding"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/default_padding_half"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textColor="@color/black" />
