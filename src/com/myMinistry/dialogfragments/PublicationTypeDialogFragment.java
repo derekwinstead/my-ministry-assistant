@@ -11,7 +11,7 @@ import android.support.v4.app.DialogFragment;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.model.DialogItemAdapter;
+import com.myMinistry.adapters.DialogItemAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;

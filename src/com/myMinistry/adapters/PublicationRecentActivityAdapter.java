@@ -1,4 +1,4 @@
-package com.myMinistry.model;
+package com.myMinistry.adapters;
 
 import java.util.Calendar;
 import java.util.Locale;

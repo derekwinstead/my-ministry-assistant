@@ -38,6 +38,7 @@ import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.adapters.TimeEditorEntryAdapter;
 import com.myMinistry.dialogfragments.DatePickerDialogFragment;
 import com.myMinistry.dialogfragments.DatePickerDialogFragment.DatePickerDialogFragmentListener;
 import com.myMinistry.dialogfragments.HouseholderDialogFragment;
@@ -56,7 +57,6 @@ import com.myMinistry.dialogfragments.TimePickerDialogFragment;
 import com.myMinistry.dialogfragments.TimePickerDialogFragment.TimePickerDialogFragmentListener;
 import com.myMinistry.model.HouseholderForTime;
 import com.myMinistry.model.QuickLiterature;
-import com.myMinistry.model.TimeEditorEntryAdapter;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryContract.Literature;

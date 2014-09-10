@@ -1,4 +1,4 @@
-package com.myMinistry.model;
+package com.myMinistry.adapters;
 
 import java.io.File;
 import java.util.ArrayList;

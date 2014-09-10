@@ -1,4 +1,4 @@
-package com.myMinistry.model;
+package com.myMinistry.adapters;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.myMinistry.R;
+import com.myMinistry.model.ItemWithDate;
 import com.myMinistry.provider.MinistryDatabase;
 
 public class TitleAndDateItemAdapter extends ArrayAdapter<ItemWithDate> {

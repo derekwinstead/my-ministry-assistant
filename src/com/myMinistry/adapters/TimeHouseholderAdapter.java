@@ -1,8 +1,10 @@
-package com.myMinistry.model;
+package com.myMinistry.adapters;
 
 import java.util.ArrayList;
 
 import com.myMinistry.R;
+import com.myMinistry.model.HouseholderForTime;
+import com.myMinistry.model.QuickLiterature;
 
 import android.content.Context;
 import android.view.LayoutInflater;

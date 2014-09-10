@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 import com.myMinistry.R;
-import com.myMinistry.model.DialogItemAdapter;
+import com.myMinistry.adapters.DialogItemAdapter;
 import com.myMinistry.model.HouseholderForTime;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.Householder;

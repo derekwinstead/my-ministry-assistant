@@ -1,4 +1,4 @@
-package com.myMinistry.model;
+package com.myMinistry.adapters;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.model.HouseholderForTime;
+import com.myMinistry.model.QuickLiterature;
 
 public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 	public static final int LAYOUT_ID = R.layout.li_time_editor_entry;

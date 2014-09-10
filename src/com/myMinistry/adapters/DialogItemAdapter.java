@@ -1,6 +1,7 @@
-package com.myMinistry.model;
+package com.myMinistry.adapters;
 
 import com.myMinistry.R;
+import com.myMinistry.model.NavDrawerMenuItem;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
