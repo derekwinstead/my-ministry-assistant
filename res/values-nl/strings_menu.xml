@@ -20,8 +20,8 @@
     <string name="menu_count_as_return_visit">Tellen als een tegenbezoek</string>
     <string name="menu_do_not_count_as_return_visit">Niet als een tegenbezoek</string>
     <string name="menu_sort">Rangschikken</string>
-    <string name="menu_sort_alpha_asc">Sorteren van A-Z</string>
-    <string name="menu_sort_alpha_desc">Sorteren van Z-Z</string>
+    <string name="menu_sort_alpha_asc">Sorteren op naam</string>
+    <string name="menu_sort_alpha_desc">Sorteren op naam teruggedraaid</string>
     <string name="menu_sort_most_used">Sorteer op gebruikte</string>
     <string name="menu_sort_most_placed">Sorteer op geplaatst</string>
     <string name="menu_send_report">Rapport verzenden</string>

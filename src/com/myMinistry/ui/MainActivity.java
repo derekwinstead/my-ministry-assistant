@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     
-    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_SUMMARY;
+    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_PUBLISHERS;
 
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
@@ -276,8 +276,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        case NAVDRAWER_ITEM_HOUSEHOLDERS:
 	        	getSupportActionBar().removeAllTabs();
 	        	
-	        	if(!is_dual_pane)
+	        	if(!is_dual_pane) {
 	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_householders).setTabListener(this));
+	        	}
 	        	
     			if(!(frag instanceof HouseholdersFragment)) {
     				HouseholdersFragment f = new HouseholdersFragment().newInstance();
@@ -295,8 +296,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        case NAVDRAWER_ITEM_PUBLISHERS:
 	        	getSupportActionBar().removeAllTabs();
 	        	
-	        	if(!is_dual_pane)
+	        	if(!is_dual_pane) {
 	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publishers).setTabListener(this));
+	        	}
 	        	
     			if(!(frag instanceof PublishersFragment)) {
     				PublishersFragment f = new PublishersFragment().newInstance();
@@ -314,8 +316,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        case NAVDRAWER_ITEM_ENTRY_TYPES:
 	        	getSupportActionBar().removeAllTabs();
 	        	
-	        	if(!is_dual_pane)
+	        	if(!is_dual_pane) {
 	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_entry_types).setTabListener(this));
+	        	}
 	        	
     			if(!(frag instanceof EntryTypeManagerFrag)) {
     				EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
@@ -385,7 +388,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 		
 		setAccountBoxPublisherName(_name);
 		
-		onNavDrawerItemClicked(NAVDRAWER_ITEM_SUMMARY);
+		onNavDrawerItemClicked(getDefaultNavDrawerItem());
 	}
 
 	public void savePublisherNameAndIdPrefs(int _ID,String _name) {
@@ -481,11 +484,13 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     private View makeNavDrawerItem(final int itemId, ViewGroup container) {
         boolean selected = getDefaultNavDrawerItem() == itemId;
         int layoutToInflate = 0;
+        
         if (itemId == NAVDRAWER_ITEM_SEPARATOR) {
             layoutToInflate = R.layout.navdrawer_separator;
         } else {
             layoutToInflate = R.layout.navdrawer_item;
         }
+        
         View view = getLayoutInflater().inflate(layoutToInflate, container, false);
 
         if (isSeparator(itemId)) {
@@ -496,11 +501,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 
         ImageView iconView = (ImageView) view.findViewById(R.id.icon);
         TextView titleView = (TextView) view.findViewById(R.id.title);
-        int iconId = itemId >= 0 && itemId < NAVDRAWER_ICON_RES_ID.length ?
-                NAVDRAWER_ICON_RES_ID[itemId] : 0;
-        int titleId = itemId >= 0 && itemId < NAVDRAWER_TITLE_RES_ID.length ?
-                NAVDRAWER_TITLE_RES_ID[itemId] : 0;
-
+        int iconId = itemId >= 0 && itemId < NAVDRAWER_ICON_RES_ID.length ? NAVDRAWER_ICON_RES_ID[itemId] : 0;
+        int titleId = itemId >= 0 && itemId < NAVDRAWER_TITLE_RES_ID.length ? NAVDRAWER_TITLE_RES_ID[itemId] : 0;
+        
         // set icon and text
         iconView.setVisibility(iconId > 0 ? View.VISIBLE : View.GONE);
         if (iconId > 0) {
@@ -665,10 +668,6 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		if(isDrawerOpen()) {
-			mDrawerLayout.closeDrawer(GravityCompat.START);
-		}
-		
 		if(execute_tab) {
 			if(fm.findFragmentById(R.id.primary_fragment_container) != null) {
 				if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_monthly))) {

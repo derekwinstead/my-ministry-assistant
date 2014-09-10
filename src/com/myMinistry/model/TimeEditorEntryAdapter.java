@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 
-public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime>{
+public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 	public static final int LAYOUT_ID = R.layout.li_time_editor_entry;
 	private Context context;
 	private ArrayList<HouseholderForTime> entries;
