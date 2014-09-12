@@ -43,12 +43,12 @@ public class HouseholderDialogFragment extends DialogFragment {
 		MinistryService database = new MinistryService(getActivity());
 		adapter = new DialogItemAdapter(getActivity().getApplicationContext());
 		
-		adapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_with_plus), R.drawable.ic_action_profile, CREATE_ID));
+		adapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_with_plus), R.drawable.ic_drawer_householder, CREATE_ID));
 		
 		database.openWritable();
 		final Cursor cursor = database.fetchActiveHouseholders();
 	    while(cursor.moveToNext())
-			adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Householder.NAME)), R.drawable.ic_action_profile, cursor.getInt(cursor.getColumnIndex(Householder._ID))));
+			adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Householder.NAME)), R.drawable.ic_drawer_householder, cursor.getInt(cursor.getColumnIndex(Householder._ID))));
 	    cursor.close();
 	    database.close();
 	    

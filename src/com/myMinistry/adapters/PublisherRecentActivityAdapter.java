@@ -182,7 +182,7 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
 				tv.setTextColor(context.getResources().getColor(R.color.bg_card_title_text_holo_light));
 				tv.setGravity(Gravity.CENTER_VERTICAL);
 				tv.setLayoutParams(lp1);
-				tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_action_profile), null, null, null);
+				tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_drawer_householder), null, null, null);
 				tv.setCompoundDrawablePadding(padding);
 				holder.linlay.addView(tv);
 			}
