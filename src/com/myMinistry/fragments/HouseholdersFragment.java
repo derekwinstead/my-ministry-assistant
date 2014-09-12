@@ -16,14 +16,14 @@ import android.widget.ListView;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
-import com.myMinistry.adapters.TitleAndDateItemAdapter;
+import com.myMinistry.adapters.TitleAndDateAdapter;
 import com.myMinistry.provider.MinistryService;
 
 public class HouseholdersFragment extends ListFragment {
 	private boolean is_dual_pane = false;
 	
 	private MinistryService database;
-	private TitleAndDateItemAdapter adapter;
+	private TitleAndDateAdapter adapter;
 	
 	private FragmentManager fm;
 	
@@ -81,7 +81,7 @@ public class HouseholdersFragment extends ListFragment {
     	fm = getActivity().getSupportFragmentManager();
     	
     	database.openWritable();
-    	adapter = new TitleAndDateItemAdapter(getActivity().getApplicationContext(), database.fetchAllHouseholdersWithActivityDates(), R.string.last_visited_on);
+    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), database.fetchAllHouseholdersWithActivityDates(), R.string.last_visited_on);
     	setListAdapter(adapter);
     	database.close();
     	

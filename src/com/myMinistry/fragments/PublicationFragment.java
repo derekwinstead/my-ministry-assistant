@@ -21,7 +21,7 @@ import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.TitleAndDateItemAdapter;
+import com.myMinistry.adapters.TitleAndDateAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
@@ -36,7 +36,7 @@ public class PublicationFragment extends ListFragment {
     
 	private MinistryService database;
 	private Spinner myspinner;
-	private TitleAndDateItemAdapter adapter;
+	private TitleAndDateAdapter adapter;
 	private Cursor cursor;
 	private int literatureTypeId = 0;
 	private FragmentManager fm;
@@ -147,7 +147,7 @@ public class PublicationFragment extends ListFragment {
     	
     	database.openWritable();
     	
-    	adapter = new TitleAndDateItemAdapter(getActivity().getApplicationContext(), null, R.string.last_placed_on);
+    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), null, R.string.last_placed_on);
     	setListAdapter(adapter);
     	database.close();
     	
