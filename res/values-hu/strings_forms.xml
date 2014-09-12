@@ -10,6 +10,7 @@
     <string name="form_start">Indul</string>
     <string name="form_end">Befejez</string>
     <string name="form_is_active">Aktív</string>
+    <string name="form_is_inactive">Inaktív</string>
     <string name="form_is_pair">Egy Pár</string>
     <string name="form_address">Cím</string>
     <string name="form_phone_mobile">Otthoni telefon</string>

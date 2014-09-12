@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.app.Activity;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,15 +16,14 @@ import android.widget.ListView;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
-import com.myMinistry.model.TitleAndDateAdapter;
+import com.myMinistry.adapters.TitleAndDateItemAdapter;
 import com.myMinistry.provider.MinistryService;
 
 public class HouseholdersFragment extends ListFragment {
 	private boolean is_dual_pane = false;
 	
-	private Cursor householders;
 	private MinistryService database;
-	private TitleAndDateAdapter adapter;
+	private TitleAndDateItemAdapter adapter;
 	
 	private FragmentManager fm;
 	
@@ -83,8 +81,7 @@ public class HouseholdersFragment extends ListFragment {
     	fm = getActivity().getSupportFragmentManager();
     	
     	database.openWritable();
-    	householders = database.fetchAllHouseholdersWithActivityDates();
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), householders, R.string.last_visited_on, false);
+    	adapter = new TitleAndDateItemAdapter(getActivity().getApplicationContext(), database.fetchAllHouseholdersWithActivityDates(), R.string.last_visited_on);
     	setListAdapter(adapter);
     	database.close();
     	
@@ -122,10 +119,7 @@ public class HouseholdersFragment extends ListFragment {
 	
 	public void updateHouseholderList() {
 		database.openWritable();
-		householders = database.fetchAllHouseholdersWithActivityDates();
-		adapter.changeCursor(householders);
-		adapter.resetInactiveFlag();
-		adapter.notifyDataSetChanged();
+		adapter.loadNewData(database.fetchAllHouseholdersWithActivityDates());
 		database.close();
     }
 	

@@ -26,7 +26,7 @@ import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.Techniques;
 import com.myMinistry.YoYo;
-import com.myMinistry.model.TimeEntryAdapter;
+import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;

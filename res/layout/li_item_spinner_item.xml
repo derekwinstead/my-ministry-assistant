@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/menurow_title"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/thumb_height"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_card_li"
-    android:drawablePadding="@dimen/default_padding"
-    android:gravity="center_vertical"
-    android:paddingLeft="@dimen/default_padding_half"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textColor="@color/black" />
+    android:minHeight="@dimen/thumb_height" >
+
+    <TextView
+        android:id="@+id/menurow_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/inner_padding"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menurow_title"
+        android:textColor="@color/bg_card_default_text"
+        android:textSize="@dimen/textsizeSM" />
+
+</RelativeLayout>

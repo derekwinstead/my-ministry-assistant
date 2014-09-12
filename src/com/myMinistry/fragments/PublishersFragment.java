@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
-import com.myMinistry.model.TitleAndDateAdapter;
+import com.myMinistry.adapters.TitleAndDateItemAdapter;
 import com.myMinistry.provider.MinistryService;
 
 public class PublishersFragment extends ListFragment {
@@ -25,7 +25,7 @@ public class PublishersFragment extends ListFragment {
 	
 	private Cursor publishers;
 	private MinistryService database;
-	private TitleAndDateAdapter adapter;
+	private TitleAndDateItemAdapter adapter;
 	
 	private FragmentManager fm;
 	
@@ -84,7 +84,7 @@ public class PublishersFragment extends ListFragment {
     	
     	database.openWritable();
     	publishers = database.fetchAllPublishersWithActivityDates();
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), publishers, R.string.last_active_on, false);
+    	adapter = new TitleAndDateItemAdapter(getActivity().getApplicationContext(), publishers, R.string.last_active_on);
     	setListAdapter(adapter);
     	database.close();
     	
@@ -122,10 +122,7 @@ public class PublishersFragment extends ListFragment {
 	
 	public void updatePublisherList() {
 		database.openWritable();
-		publishers = database.fetchAllPublishersWithActivityDates();
-		adapter.changeCursor(publishers);
-		adapter.resetInactiveFlag();
-		adapter.notifyDataSetChanged();
+		adapter.loadNewData(database.fetchAllPublishersWithActivityDates());
 		database.close();
     }
 	

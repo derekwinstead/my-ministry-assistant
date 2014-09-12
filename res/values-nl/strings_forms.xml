@@ -10,6 +10,7 @@
     <string name="form_start">Begin</string>
     <string name="form_end">Eindigen</string>
     <string name="form_is_active">Is Actief</string>
+    <string name="form_is_inactive">Inactief</string>
     <string name="form_is_pair">Is een paar</string>
     <string name="form_address">Adres</string>
     <string name="form_phone_mobile">Mobielnummer</string>

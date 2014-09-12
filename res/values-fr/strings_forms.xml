@@ -9,7 +9,8 @@
     <string name="form_notes">Remarques</string>
     <string name="form_start">Démarrer</string>
     <string name="form_end">fin</string>
-    <string name="form_is_active">est active</string>
+    <string name="form_is_active">Est Active</string>
+    <string name="form_is_inactive">Est Inactif</string>
     <string name="form_is_pair">Est une paire</string>
     <string name="form_address">adresse</string>
     <string name="form_phone_mobile">téléphone mobile</string>

@@ -10,6 +10,7 @@
     <string name="form_start">Inizio</string>
     <string name="form_end">Fine</string>
     <string name="form_is_active">Attivo</string>
+    <string name="form_is_inactive">È Inattivo</string>
     <string name="form_is_pair">Coppia</string>
     <string name="form_address">Indirizzo</string>
     <string name="form_phone_mobile">Cellulare</string>

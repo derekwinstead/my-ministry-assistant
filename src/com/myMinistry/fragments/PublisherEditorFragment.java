@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
-import com.myMinistry.model.TimeEntryAdapter;
+import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;

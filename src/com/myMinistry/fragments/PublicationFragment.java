@@ -21,8 +21,8 @@ import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
+import com.myMinistry.adapters.TitleAndDateItemAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.model.TitleAndDateAdapter;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -34,10 +34,9 @@ public class PublicationFragment extends ListFragment {
     
     private boolean is_dual_pane = false;
     
-	private Cursor literature;
 	private MinistryService database;
 	private Spinner myspinner;
-	private TitleAndDateAdapter adapter;
+	private TitleAndDateItemAdapter adapter;
 	private Cursor cursor;
 	private int literatureTypeId = 0;
 	private FragmentManager fm;
@@ -99,15 +98,12 @@ public class PublicationFragment extends ListFragment {
 		
 		sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 		
-		
-		
 		database.openWritable();
 		cursor = database.fetchActiveTypesOfLiterature();
 		
 		while(cursor.moveToNext())
 			sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
 		
-		//sadapter.setDropDownViewResource(R.layout.li_spinner_item);
 		myspinner.setAdapter(sadapter);
 		myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -151,7 +147,7 @@ public class PublicationFragment extends ListFragment {
     	
     	database.openWritable();
     	
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), literature, R.string.last_placed_on, false);
+    	adapter = new TitleAndDateItemAdapter(getActivity().getApplicationContext(), null, R.string.last_placed_on);
     	setListAdapter(adapter);
     	database.close();
     	
@@ -209,10 +205,7 @@ public class PublicationFragment extends ListFragment {
 		}
 		
 		database.openWritable();
-		literature = database.fetchLiteratureByTypeWithActivityDates(literatureTypeId);
-		adapter.changeCursor(literature);
-		adapter.resetInactiveFlag();
-		adapter.notifyDataSetChanged();
+		adapter.loadNewData(database.fetchLiteratureByTypeWithActivityDates(literatureTypeId));
 		database.close();
     }
 	

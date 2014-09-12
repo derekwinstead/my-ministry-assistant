@@ -10,6 +10,7 @@
     <string name="form_start">Mulai</string>
     <string name="form_end">Mengakhiri</string>
     <string name="form_is_active">Aktif</string>
+    <string name="form_is_inactive">Adalah Tidak Aktif</string>
     <string name="form_is_pair">Pasangan</string>
     <string name="form_address">Alamat</string>
     <string name="form_phone_mobile">Telepon Mobil</string>

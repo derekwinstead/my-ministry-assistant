@@ -10,6 +10,7 @@
     <string name="form_start">Начать</string>
     <string name="form_end">Конец</string>
     <string name="form_is_active">активен</string>
+    <string name="form_is_inactive">неактивен</string>
     <string name="form_is_pair">Пара</string>
     <string name="form_address">Адрес</string>
     <string name="form_phone_mobile">Мобильный телефон</string>

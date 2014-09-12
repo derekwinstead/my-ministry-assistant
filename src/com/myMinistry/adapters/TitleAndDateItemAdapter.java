@@ -1,9 +1,13 @@
 package com.myMinistry.adapters;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,135 +16,162 @@ import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.model.ItemWithDate;
+import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
 import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.provider.MinistryService;
+import com.myMinistry.util.TimeUtils;
+import com.squareup.phrase.Phrase;
 
 public class TitleAndDateItemAdapter extends ArrayAdapter<ItemWithDate> {
-	private static final int LAYOUT_ID = R.layout.li_title_and_date;
-	private Calendar displayDate = Calendar.getInstance(Locale.getDefault());
-	private int leadingTextID = 0;
-	private int seperatorID = MinistryDatabase.CREATE_ID;
+	private static final int LAYOUT_CONTENT_ID = R.layout.li_item_spinner_item;
+	private static final int LAYOUT_SEPARATOR_ID = R.layout.li_separator_item_spinner_item;
 	
+	private int separatorId = MinistryDatabase.CREATE_ID;
+	private int leadingTextResId = 0;
 	private Context context;
-	private ArrayAdapter<ItemWithDate> entries;
 	
 	private static final int ITEM_VIEW_TYPE_RECORD = 0;
     private static final int ITEM_VIEW_TYPE_SEPARATOR = 1;
     private static final int ITEM_VIEW_TYPE_COUNT = 2;
-	
-	public TitleAndDateItemAdapter(Context context, ArrayAdapter<ItemWithDate> entries, int _leadingTextID) {
-		super(context, LAYOUT_ID);
-		
-
+    
+	public TitleAndDateItemAdapter(Context context) {
+		super(context, 0);
+	}
+    
+	public TitleAndDateItemAdapter(Context context, Cursor cursor, int leadingTextResId) {
+		super(context, 0);
+		this.leadingTextResId = leadingTextResId;
 		this.context = context;
-		this.entries = entries;
-		
-		//super(context, LAYOUT_ID, cursor, ResourceCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-		//public TimeEditorEntryAdapter(Context context, ArrayList<HouseholderForTime> entries) {
-		//super()
-		
-		leadingTextID = _leadingTextID;
-		//has_notes = _has_notes;
+		loadNewData(cursor);
 	}
 	
-	private class ViewHolder {
-		TextView section_header;
-		TextView title;
-		TextView titleHeader;
-		TextView activity;
+	public void loadNewData(Cursor cursor) {
+		this.clear();
+		int activeId = -1;
+		int firstActivePosition = -1;
+		int firstInActivePosition = -1;
+		int activeCount = 0;
+		int inactiveCount = 0;
+		if(cursor != null) {
+			for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+				if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE)
+					activeCount++;
+				else
+					inactiveCount++;
+				
+				if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) != activeId) {
+					if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE)
+						firstActivePosition = cursor.getPosition();
+					else
+						firstInActivePosition = cursor.getPosition();
+					
+					activeId = cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE));
+					addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.form_is_inactive) : context.getResources().getString(R.string.form_is_active), cursor.getCount() - cursor.getPosition());
+				}
+				
+				
+				addItem( cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef._ID))
+						,cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE))
+						,cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE))
+				);
+			}
+			
+			if(firstActivePosition != -1) {
+				getItem(firstActivePosition).setCount(activeCount);
+			}
+			
+			if(firstInActivePosition != -1) {
+				getItem(firstInActivePosition).setCount(inactiveCount);
+			}
+		}
 	}
+	
+	public void addSeparatorItem(String title, int count) {
+		addItem(new ItemWithDate(separatorId, title, count));
+	}
+	
+	private String createDisplayDate(Calendar date) {
+		return Phrase.from(context, leadingTextResId).put("date", DateUtils.formatDateTime(context, date.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY)).format().toString();
+	}
+	
+	public void addItem(int id, String title, String date) {
+		Calendar convertedDate = Calendar.getInstance(Locale.getDefault());
+		if(!TextUtils.isEmpty(date)) {
+			try {
+				convertedDate.setTime(TimeUtils.dbDateFormat.parse(date));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		addItem(new ItemWithDate(id, title, !TextUtils.isEmpty(date) ? createDisplayDate(convertedDate) : context.getResources().getString(R.string.no_activity)));
+	}
+	
+	private void addItem(ItemWithDate itemModel) {
+		add(itemModel);
+	}
+	
+	public void setTitle(String title, int position) {
+		getItem(position).setTitle(title);
+	}
+	
+	@Override
+	public long getItemId(int position) {
+		return getItem(position).getID();
+	}
+
+    @Override
+    public int getViewTypeCount() {
+        return ITEM_VIEW_TYPE_COUNT;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (getItem(position).getID() == separatorId) ? ITEM_VIEW_TYPE_SEPARATOR : ITEM_VIEW_TYPE_RECORD;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return getItemViewType(position) != ITEM_VIEW_TYPE_SEPARATOR; // A separator cannot be clicked !
+    }
+	
+	public static class ViewHolder {
+		public final TextView menurow_title;
+		public final TextView menurow_count;
+		public final TextView activity;
+		
+		public ViewHolder(TextView text1, TextView count, TextView activity) {
+			this.menurow_title = text1;
+			this.menurow_count = count;
+			this.activity = activity;
+		}
+	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View row = convertView;
+		final int type = getItemViewType(position);
 		ViewHolder holder = null;
 		
-		if(row == null) {
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = inflater.inflate(LAYOUT_ID, parent, false);
-			
-			holder = new ViewHolder();
-			//holder.linlay = (LinearLayout)row.findViewById(R.id.linlay);
-			
-			row.setTag(holder);
-		}
-		else {
-			holder = (ViewHolder)row.getTag();
-			//holder.linlay.removeAllViews();
+		if (convertView == null) {
+        	convertView = LayoutInflater.from(getContext()).inflate(type == ITEM_VIEW_TYPE_SEPARATOR ? LAYOUT_SEPARATOR_ID : LAYOUT_CONTENT_ID, parent, false);
+        	TextView text1 = (TextView) convertView.findViewById(R.id.menurow_title);
+        	TextView tvCount = (TextView) convertView.findViewById(R.id.menurow_count);
+        	TextView tvActivity = (TextView) convertView.findViewById(R.id.activity);
+        	convertView.setTag(new ViewHolder(text1, tvCount, tvActivity));
+        }
+        
+		if(holder == null && convertView != null) {
+			Object tag = convertView.getTag();
+			if (tag instanceof ViewHolder)
+				holder = (ViewHolder) tag;
 		}
 		
-		//entry = entries.get(position);
+		holder.menurow_title.setText(getItem(position).toString());
+		if(type == ITEM_VIEW_TYPE_SEPARATOR) {
+			holder.menurow_count.setText(getItem(position).getCount());
+		} else {
+			holder.activity.setText(getItem(position).getDate());
+		}
 		
-		//TextView tv;
-		return row;
+		return convertView;
 	}
-	/*
-	public void resetInactiveFlag() {
-		inactivePosition = MinistryDatabase.CREATE_ID;
-	}
-	*/
-	/*
-	@Override
-    public View newView(Context context, Cursor cur, ViewGroup parent) {
-		LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = li.inflate(LAYOUT_ID, parent, false);
-		ViewHolder holder = new ViewHolder();
-		holder.section_header = (TextView) view.findViewById(R.id.section_header);
-		holder.title = (TextView) view.findViewById(R.id.title);
-		holder.titleHeader = (TextView) view.findViewById(R.id.titleHeader);
-		holder.activity = (TextView) view.findViewById(R.id.activity);
-		view.setTag(holder);
-		return view;
-	}
-	*/
-	/*
-	@Override
-	public void bindView(View view, Context context, Cursor cursor) {
-		ViewHolder holder = (ViewHolder) view.getTag();
-		
-		if(inactivePosition == MinistryDatabase.CREATE_ID && cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.INACTIVE)
-			inactivePosition = cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef._ID));
-		
-		
-		holder.title.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE)));
-		
-		// Show/Hide publication name text 
-		if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.TYPE_ID)) == MinistryDatabase.ID_UNION_TYPE_PUBLICATION) {
-			holder.titleHeader.setVisibility(View.VISIBLE);
-			holder.titleHeader.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.NAME)));
-		}
-		else
-			holder.titleHeader.setVisibility(View.GONE);
-		
-		// Show/Hide inactive text
-		if(inactivePosition == cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef._ID))) {
-			holder.section_header.setVisibility(View.VISIBLE);
-		}
-		else
-			holder.section_header.setVisibility(View.GONE);
-		
-		// Display activity text
-		if(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE)) != null && cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE)).length() > 0) {
-			String[] thedate = cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE)).split("-");
-    		if(thedate.length == 3) {
-    			// We have the three numbers to make the date. Subtract 1 for zero based months. 
-    			displayDate.set(Integer.valueOf(thedate[0]),Integer.valueOf(thedate[1])-1,Integer.valueOf(thedate[2]));
-    			String date = DateUtils.formatDateTime(context, displayDate.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY);
-    			String displayText = "";
-    			
-    			if(leadingTextID != 0)
-    				displayText = Phrase.from(mContext, leadingTextID).put("date", date).format().toString();
-    			else
-    				displayText = date;
-    			
-    			if(has_notes && cursor.getString(cursor.getColumnIndex(Notes.NOTES)) != null && cursor.getString(cursor.getColumnIndex(Notes.NOTES)).length() > 0 && cursor.getString(cursor.getColumnIndex(Notes.NOTES)) != "0")
-    				displayText = displayText + "\n\n" + context.getString(R.string.form_notes) + ": " + cursor.getString(cursor.getColumnIndex(Notes.NOTES));
-    			
-    			holder.activity.setText(displayText);
-    		}
-    		else
-    			holder.activity.setText(R.string.no_activity);
-		}
-		else
-			holder.activity.setText(R.string.no_activity);
-	}
-*/
 }

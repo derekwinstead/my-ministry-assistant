@@ -9,7 +9,7 @@
         style="@style/SpinnerAppBaseTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/default_padding" />
+        android:layout_marginBottom="@dimen/default_padding" />
 
     <ListView
         android:id="@android:id/list"

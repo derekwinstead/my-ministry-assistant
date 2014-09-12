@@ -10,12 +10,13 @@
     <string name="form_start">Start</string>
     <string name="form_end">End</string>
     <string name="form_is_active">Is Active</string>
+    <string name="form_is_inactive">Is Inactive</string>
     <string name="form_is_pair">Is a Pair</string>
     <string name="form_address">Address</string>
-    <string name="form_phone_mobile">Mobile</string>
-    <string name="form_phone_home">Home</string>
-    <string name="form_phone_work">Work</string>
-    <string name="form_phone_other">Other</string>
+    <string name="form_phone_mobile">Mobile Phone</string>
+    <string name="form_phone_home">Home Phone</string>
+    <string name="form_phone_work">Work Phone</string>
+    <string name="form_phone_other">Other Phone</string>
     <string name="form_daily_backups">Daily Backups</string>
     <string name="form_weekly_backups">Weekly Backups</string>
 
