@@ -160,42 +160,7 @@ At least some variation of the above should work for you.
 			} catch (IOException e) { }
 			
 			/** This is to recalculate everyone's roll over time entries. */
-			MinistryService database = new MinistryService(mContext);
-			database.openWritable();
-        	//SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        	Calendar start = Calendar.getInstance(Locale.getDefault());
-        	int pubID = 0;
-        	
-        	/** Loop over each publisher for each available month to convert */
-        	if(!database.isOpen())
-        		database.openWritable();
-        	
-        	Cursor pubs = database.fetchAllPublishers();
-        	Cursor theDate;
-        	try {
-				Thread.sleep(500);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-        	for(pubs.moveToFirst();!pubs.isAfterLast();pubs.moveToNext()) {
-        		pubID = pubs.getInt(pubs.getColumnIndex(Publisher._ID));
-        		
-        		/** Get first time entry date for publisher */
-        		theDate = database.fetchPublisherFirstTimeEntry(pubID);
-    			
-    			if(theDate.moveToFirst()) {
-					try {
-						start.setTime(TimeUtils.dbDateFormat.parse(theDate.getString(theDate.getColumnIndex(Time.DATE_START))));
-						database.processRolloverTime(pubID, start);
-					} catch (ParseException e) {
-						start = Calendar.getInstance(Locale.getDefault());
-					}
-    			}
-    			theDate.close();
-        	}
-        	pubs.close();
-        	database.close();
+			processRolloverTime(mContext);
 		}
 		
 		PrefUtils.setVersionNumber(mContext,currentVersionNumber);
@@ -313,5 +278,43 @@ At least some variation of the above should work for you.
 		}
 		cursor.close();
 		database.close();
+	}
+	
+	public static void processRolloverTime(Context mContext) {
+		MinistryService database = new MinistryService(mContext);
+		database.openWritable();
+    	Calendar start = Calendar.getInstance(Locale.getDefault());
+    	int pubID = 0;
+    	
+    	/** Loop over each publisher for each available month to convert */
+    	if(!database.isOpen())
+    		database.openWritable();
+    	
+    	Cursor pubs = database.fetchAllPublishers();
+    	Cursor theDate;
+    	try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	for(pubs.moveToFirst();!pubs.isAfterLast();pubs.moveToNext()) {
+    		pubID = pubs.getInt(pubs.getColumnIndex(Publisher._ID));
+    		
+    		/** Get first time entry date for publisher */
+    		theDate = database.fetchPublisherFirstTimeEntry(pubID);
+			
+			if(theDate.moveToFirst()) {
+				try {
+					start.setTime(TimeUtils.dbDateFormat.parse(theDate.getString(theDate.getColumnIndex(Time.DATE_START))));
+					database.processRolloverTime(pubID, start);
+				} catch (ParseException e) {
+					start = Calendar.getInstance(Locale.getDefault());
+				}
+			}
+			theDate.close();
+    	}
+    	pubs.close();
+    	database.close();
 	}
 }

@@ -21,5 +21,6 @@
     <string name="pref_rollover_summary">Calculer le temps de retournement.</string>
     <string name="pref_show_minutes_title">Minutes Sommaire</string>
     <string name="pref_show_minutes_summary">Voir les minutes chaque mois. Décochée montre des heures entières.</string>
+    <string name="pref_recalc_ro_time">Recalculer Survolez Temps</string>
 
 </resources>

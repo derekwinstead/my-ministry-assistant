@@ -21,5 +21,6 @@
     <string name="pref_rollover_summary">Számolja ki a hátralévő időt.</string>
     <string name="pref_show_minutes_title">Percig Összegzés</string>
     <string name="pref_show_minutes_summary">Mutasd a perc minden hónapban. Ellenőrizetlenül mutat az egész órát.</string>
+    <string name="pref_recalc_ro_time">Újratervezés Gördülő idő</string>
 
 </resources>

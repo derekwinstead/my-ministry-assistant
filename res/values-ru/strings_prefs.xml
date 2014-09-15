@@ -21,5 +21,6 @@
     <string name="pref_rollover_summary">Рассчитать время опрокидывания.</string>
     <string name="pref_show_minutes_title">Минуты Основная</string>
     <string name="pref_show_minutes_summary">Показать минут каждый месяц. Неограниченный показывает целые часы.</string>
+    <string name="pref_recalc_ro_time">Пересчитать Перевернулся Время</string>
 
 </resources>

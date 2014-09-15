@@ -144,6 +144,23 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
     	
     	getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    	
+    	if(HelpUtils.isApplicationUpdated(this)) {
+    		MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
+    		final ProgressDialog ringProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.updating_app), getResources().getString(R.string.please_be_patient), true);
+    		ringProgressDialog.setCancelable(true);
+    		new Thread(new Runnable() {
+    			@Override
+    			public void run() {
+    				try {
+    					HelpUtils.doApplicationUpdatedWork(getApplicationContext());
+    				} catch (Exception e) {
+
+    				}
+    				ringProgressDialog.dismiss();
+    			}
+    		}).start();
+    	}
 	}
     
     @Override
@@ -168,23 +185,6 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	@Override
     protected void onPostCreate(Bundle savedInstanceState) {
     	super.onPostCreate(savedInstanceState);
-    	
-    	if(HelpUtils.isApplicationUpdated(this)) {
-    		MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
-    		final ProgressDialog ringProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.updating_app), getResources().getString(R.string.please_be_patient), true);
-    		ringProgressDialog.setCancelable(true);
-    		new Thread(new Runnable() {
-    			@Override
-    			public void run() {
-    				try {
-    					HelpUtils.doApplicationUpdatedWork(getApplicationContext());
-    				} catch (Exception e) {
-
-    				}
-    				ringProgressDialog.dismiss();
-    			}
-    		}).start();
-    	}
     	
     	setPublisherId(PrefUtils.getPublisherId(this),PrefUtils.getPublisherName(this));
     	

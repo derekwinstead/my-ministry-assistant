@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -45,6 +46,25 @@ public class SettingsActivity extends PreferenceActivity {
 		}
 		
 		findPreference("version").setTitle(getApplicationContext().getString(R.string.app_name) + " " + versionName);
+        
+        findPreference("recalculate_ro_time").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        	public boolean onPreferenceClick(final Preference preference) {
+    			final ProgressDialog ringProgressDialog = ProgressDialog.show(preference.getContext(), getResources().getString(R.string.updating_app), getResources().getString(R.string.please_be_patient), true);
+        		ringProgressDialog.setCancelable(true);
+        		new Thread(new Runnable() {
+        			@Override
+        			public void run() {
+        				try {
+        					HelpUtils.processRolloverTime(getApplicationContext());
+        				} catch (Exception e) {
+
+        				}
+        				ringProgressDialog.dismiss();
+        			}
+        		}).start();
+				return true;
+        	}
+        });
         
         findPreference("email_developer").setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	public boolean onPreferenceClick(final Preference preference) {

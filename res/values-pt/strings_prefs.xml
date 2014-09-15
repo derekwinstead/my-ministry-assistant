@@ -21,5 +21,6 @@
     <string name="pref_rollover_summary">Calcule o tempo de transferência.</string>
     <string name="pref_show_minutes_title">Minutos Em Síntese</string>
     <string name="pref_show_minutes_summary">Mostrar os minutos de cada mês. Desmarcada mostra horas inteiras.</string>
+    <string name="pref_recalc_ro_time">Recalcular Rollover Tempo</string>
 
 </resources>
