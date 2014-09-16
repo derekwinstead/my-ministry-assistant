@@ -315,5 +315,6 @@ At least some variation of the above should work for you.
 			theDate.close();
     	}
     	pubs.close();
+    	database.close();
 	}
 }

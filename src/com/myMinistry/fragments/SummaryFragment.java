@@ -110,7 +110,7 @@ public class SummaryFragment extends Fragment {
 		
 		fm = getActivity().getSupportFragmentManager();
 		
-		database = new MinistryService(getActivity());
+		database = new MinistryService(getActivity().getApplicationContext());
 		
 		monthPicked.set(Calendar.MONTH, PrefUtils.getSummaryMonth(getActivity(), monthPicked));
 		monthPicked.set(Calendar.YEAR, PrefUtils.getSummaryYear(getActivity(), monthPicked));
@@ -358,7 +358,8 @@ public class SummaryFragment extends Fragment {
     }
 	
 	public void calculateSummaryValues(boolean is_month) {
-		database.openWritable();
+    	if(!database.isOpen())
+    		database.openWritable();
 		
 		if(is_month) {
 			mMonth = buttonFormat.format(monthPicked.getTime()).toString().toUpperCase(Locale.getDefault());
@@ -374,11 +375,17 @@ public class SummaryFragment extends Fragment {
 			dbTimeFrame = "year";
 		}
 		
+    	if(!database.isOpen())
+    		database.openWritable();
+		
 		if(PrefUtils.shouldCalculateRolloverTime(getActivity()))
 			mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity()));
 		else
 			mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity()));
-		
+
+    	if(!database.isOpen())
+    		database.openWritable();
+    	
 		Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
     	for(literatureTypes.moveToFirst();!literatureTypes.isAfterLast();literatureTypes.moveToNext()) {
     		switch(literatureTypes.getPosition()) {
@@ -406,6 +413,9 @@ public class SummaryFragment extends Fragment {
     	}
     	literatureTypes.close();
     	
+    	if(!database.isOpen())
+    		database.openWritable();
+    	
     	Cursor entryTypes = database.fetchEntryTypeCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
     	for(entryTypes.moveToFirst();!entryTypes.isAfterLast();entryTypes.moveToNext()) {
     		switch(entryTypes.getInt(entryTypes.getColumnIndex(EntryType._ID))) {
@@ -424,7 +434,6 @@ public class SummaryFragment extends Fragment {
         	}
         }
     	entryTypes.close();
-    	
     	database.close();
 	}
 	

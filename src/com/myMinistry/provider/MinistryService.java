@@ -49,7 +49,7 @@ public class MinistryService {
     }
     
     public boolean isOpen() {
-    	return sqlDB.isOpen();
+    	return sqlDB == null ? false : sqlDB.isOpen();
     }
     
     public void close() {
