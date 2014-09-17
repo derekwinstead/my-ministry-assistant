@@ -23,6 +23,7 @@
         android:title="@string/pref_about_licenses" />
     <Preference
         android:key="changelog"
+        android:summary="@string/link_changelog"
         android:title="@string/menu_change_log" />
     <Preference
         android:key="donate"

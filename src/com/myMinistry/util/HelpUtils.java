@@ -74,53 +74,6 @@ public class HelpUtils {
                     .create();
         }
     }
-
-    public static void showChangeLog(Activity activity) {
-        FragmentManager fm = activity.getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("dialog_changelog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        new ChangeLogDialog().show(ft, "dialog_changelog");
-    }
-
-    public static class ChangeLogDialog extends DialogFragment {
-
-        public ChangeLogDialog() {
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            WebView webView = new WebView(getActivity());
-            webView.loadUrl("file:///android_asset/changelog.html");
-            
-
-    		/*
-    		 * This isn't supported directly but here is what I have done...
-
-Separate your files into groups by country code (like what you would do for normal resource files) and then create a localized string in each of your localized string.xml files called something like "prefix" (where prefix would be "en" for English for example).
-
-Then when you build your asset filenames simple use something like getString("prefix") + "-" + "<name-of-asset->.
-
-At least some variation of the above should work for you.
-    		 */
-
-            return new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.menu_change_log)
-                    .setView(webView)
-                    .setPositiveButton(R.string.ok,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    )
-                    .create();
-        }
-    }
 	
 	public static boolean isApplicationUpdated(Context context) {
 		int currentVersionNumber = 0;

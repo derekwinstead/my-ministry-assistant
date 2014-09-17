@@ -126,20 +126,10 @@ public class SettingsActivity extends PreferenceActivity {
         
         findPreference("changelog").setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
-				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-					HelpUtils.showChangeLog(SettingsActivity.this);
-				} else {
-					LayoutInflater li = LayoutInflater.from(SettingsActivity.this);
-	        		View promptsView = li.inflate(R.layout.d_webview, null);
-	        		
-	        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
-	        		alertDialogBuilder.setTitle(R.string.menu_change_log);
-	        		alertDialogBuilder.setView(promptsView);
-	        		final WebView webview = (WebView) promptsView.findViewById(R.id.webview_dialog);
-	        		webview.loadUrl("file:///android_asset/changelog.html");
-	        		final AlertDialog alertDialog = alertDialogBuilder.create();
-	        		alertDialog.show();
-				}
+        		String url = getApplicationContext().getString(R.string.link_changelog);  
+        		Intent i = new Intent(Intent.ACTION_VIEW);  
+        		i.setData(Uri.parse(url));  
+        		startActivity(i);
         		return true;
         	}
         });
