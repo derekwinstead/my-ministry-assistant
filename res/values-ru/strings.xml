@@ -15,8 +15,8 @@
     <string name="inactive">Неактивный</string>
     <string name="drawer_open">Открыть навигации ящик</string>
     <string name="drawer_close">Закрыть навигации ящик</string>
-    <string name="hours_shorthand">ч</string>
-    <string name="minutes_shorthand">м</string>
+    <string name="hours_label">ч</string>
+    <string name="minutes_label">м</string>
     <string name="no_backups">Нет Резервные копии</string>
     <string name="activity_for_publication">{count} размещается в течение {service}</string>
     <string name="activity_for_publication_with_householder">{count} размещены с {name} во время {service}</string>

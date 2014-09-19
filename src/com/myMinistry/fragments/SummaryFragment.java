@@ -379,9 +379,9 @@ public class SummaryFragment extends Fragment {
     		database.openWritable();
 		
 		if(PrefUtils.shouldCalculateRolloverTime(getActivity()))
-			mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity()));
+			mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
 		else
-			mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity()));
+			mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
 
     	if(!database.isOpen())
     		database.openWritable();
@@ -459,9 +459,9 @@ public class SummaryFragment extends Fragment {
 			/** Set total hours */
 			retVal.append("\n" + getResources().getString(R.string.total_time) + ": ");
 			if(PrefUtils.shouldCalculateRolloverTime(getActivity()))
-				retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(formattedDate, pubs.getInt(pubs.getColumnIndex(Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity())));
+				retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(formattedDate, pubs.getInt(pubs.getColumnIndex(Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
 	    	else
-	    		retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(formattedDate, pubs.getInt(pubs.getColumnIndex(Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity())));
+	    		retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(formattedDate, pubs.getInt(pubs.getColumnIndex(Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
 			
 			/** Fill all the publication amounts */
 			Cursor lit = database.fetchTypesOfLiteratureCountsForPublisher(pubs.getInt(pubs.getColumnIndex(Publisher._ID)), formattedDate, "month");
@@ -479,7 +479,7 @@ public class SummaryFragment extends Fragment {
 	    		if(entryTypes.getInt(2) > 0) {
 					retVal.append("\n" + entryTypes.getString(lit.getColumnIndex(EntryType.NAME)) + ": ");
 					if(entryTypes.getInt(entryTypes.getColumnIndex(EntryType._ID)) == MinistryDatabase.ID_RBC)
-						retVal.append(TimeUtils.getTimeLength(database.fetchListOfRBCHoursForPublisher(formattedDate, pubs.getInt(pubs.getColumnIndex(Publisher._ID))), getActivity().getApplicationContext().getString(R.string.hours_shorthand), getActivity().getApplicationContext().getString(R.string.minutes_shorthand), PrefUtils.shouldShowMinutesInTotals(getActivity())));
+						retVal.append(TimeUtils.getTimeLength(database.fetchListOfRBCHoursForPublisher(formattedDate, pubs.getInt(pubs.getColumnIndex(Publisher._ID))), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
 					else
 						retVal.append(String.valueOf(entryTypes.getInt(2)));
 				}

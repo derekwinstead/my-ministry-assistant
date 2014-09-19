@@ -131,7 +131,7 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
 		holder.thistime.setText(Helper.buildTimeEntryDateAndTime(context, displayDateStart, displayDateEnd));
 		
 		/** Set the display in the view as Xh Ym */
-		holder.hours.setText(TimeUtils.getTimeLength(displayDateStart, displayDateEnd, context.getString(R.string.hours_shorthand), context.getString(R.string.minutes_shorthand)));
+		holder.hours.setText(TimeUtils.getTimeLength(displayDateStart, displayDateEnd, context.getString(R.string.hours_label), context.getString(R.string.minutes_label)));
 		
 		/** Set the display in the view for the header */
 		holder.title.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.ENTRY_TYPE_NAME)));

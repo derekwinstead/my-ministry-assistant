@@ -15,8 +15,8 @@
     <string name="inactive">Tidak Aktif</string>
     <string name="drawer_open">Buka laci navigasi</string>
     <string name="drawer_close">Tutup laci navigasi</string>
-    <string name="hours_shorthand">j</string>
-    <string name="minutes_shorthand">m</string>
+    <string name="hours_label">j</string>
+    <string name="minutes_label">m</string>
     <string name="no_backups">Tidak Ada Backup</string>
     <string name="activity_for_publication">{count} ditempatkan selama {service}</string>
     <string name="activity_for_publication_with_householder">{count} ditempatkan dengan {householder} selama {service}</string>

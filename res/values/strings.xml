@@ -15,8 +15,8 @@
     <string name="inactive">Inactive</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="hours_shorthand">h</string>
-    <string name="minutes_shorthand">m</string>
+    <string name="hours_label">h</string>
+    <string name="minutes_label">m</string>
     <string name="no_backups">No Backups</string>
     <string name="activity_for_publication">{count} placed during {service}</string>
     <string name="activity_for_publication_with_householder">{count} placed with {householder} during {service}</string>

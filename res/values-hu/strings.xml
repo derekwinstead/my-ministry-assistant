@@ -15,8 +15,8 @@
     <string name="inactive">tétlen</string>
     <string name="drawer_open">Nyílt navigációs fiók</string>
     <string name="drawer_close">Bezárása navigáció fiók</string>
-    <string name="hours_shorthand">ó</string>
-    <string name="minutes_shorthand">p</string>
+    <string name="hours_label">ó</string>
+    <string name="minutes_label">p</string>
     <string name="no_backups">No mentések</string>
     <string name="activity_for_publication">{count} helyezni közben {service}</string>
     <string name="activity_for_publication_with_householder">{count} elhelyezett {householder} közben {service}</string>
