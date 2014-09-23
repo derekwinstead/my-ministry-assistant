@@ -37,7 +37,6 @@
             android:name=".services.DailyBackupService"
             android:enabled="true" >
         </service>
-
         <service
             android:name=".services.WeeklyBackupService"
             android:enabled="true" >
