@@ -11,11 +11,11 @@
     <string name="toast_saved">Salvato.</string>
     <string name="toast_saved_problem">Problema durante il salvataggio.</string>
     <string name="toast_saved_with_space">{name} Salvato.</string>
-    <string name="toast_saved_problem_with_space">Spazio insufficente per salvare {name}.</string>
+    <string name="toast_saved_problem_with_space">Salvare {name} problema.</string>
     <string name="toast_created">Creato.</string>
     <string name="toast_created_problem">Problema durante la creazione.</string>
     <string name="toast_created_with_space">{name} Creato.</string>
-    <string name="toast_created_problem_with_space">Sapzio insufficente per creare {name}.</string>
+    <string name="toast_created_problem_with_space">Problema creazione di {name}.</string>
     <string name="toast_provide_name">Inserisci un nome.</string>
     <string name="toast_cannot_modify_rollover_time">Impossibile modificare le voci di avanzo.</string>
     <string name="toast_deleted">Cancellato.</string>
