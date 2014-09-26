@@ -224,6 +224,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_monthly).setTabListener(this));
     	    	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_yearly).setTabListener(this));
     	    	
+    	    	if(!is_dual_pane)
+    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.menu_entries).setTabListener(this));
+    	    	
     			Calendar date = Calendar.getInstance(Locale.getDefault());
     			if(!(frag instanceof SummaryFragment)) {
     				if(firstLoad)
@@ -686,6 +689,43 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 						TimeEntriesFragment f = (TimeEntriesFragment) fm.findFragmentById(R.id.primary_fragment_container);
 						f.switchToYearList();
 					}
+				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.menu_entries))) {
+					Calendar date = Calendar.getInstance(Locale.getDefault());
+					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					
+					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+					boolean is_month_summary = true;
+					
+					TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getApplicationContext(), date), PrefUtils.getSummaryYear(getApplicationContext(), date), publisherId, is_month_summary);
+					
+					if(frag != null)
+		        		ft.remove(frag);
+		        	
+		        	ft.add(R.id.primary_fragment_container, f1);
+		        	
+		        	ActionBar ab = getSupportActionBar();
+		        	
+		        	Tab t = ab.getTabAt(0);
+					ab.selectTab(t);
+					tab.setText(R.string.navdrawer_item_summary);
+					setTitle(R.string.menu_entries);
+				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.navdrawer_item_summary))) {
+					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					
+					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+					new SummaryFragment();
+					SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(getApplicationContext()));
+					
+					if(frag != null)
+						ft.remove(frag);
+					
+					ft.add(R.id.primary_fragment_container, f);
+					
+					ActionBar ab = getSupportActionBar();
+					Tab t = ab.getTabAt(0);
+					ab.selectTab(t);
+					tab.setText(R.string.menu_entries);
+					setTitle(R.string.navdrawer_item_summary);
 				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_publications))) {
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 		    		PublicationFragment f = new PublicationFragment().newInstance();;
