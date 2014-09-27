@@ -696,35 +696,26 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 					boolean is_month_summary = true;
 					
-					TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getApplicationContext(), date), PrefUtils.getSummaryYear(getApplicationContext(), date), publisherId, is_month_summary);
+					TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(this, date), PrefUtils.getSummaryYear(this, date), publisherId, is_month_summary);
 					
 					if(frag != null)
 		        		ft.remove(frag);
 		        	
 		        	ft.add(R.id.primary_fragment_container, f1);
 		        	
-		        	ActionBar ab = getSupportActionBar();
-		        	
-		        	Tab t = ab.getTabAt(0);
-					ab.selectTab(t);
-					tab.setText(R.string.navdrawer_item_summary);
-					setTitle(R.string.menu_entries);
+		        	setTitle(R.string.menu_entries);
 				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.navdrawer_item_summary))) {
 					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 					
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 					new SummaryFragment();
-					SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(getApplicationContext()));
+					SummaryFragment f = SummaryFragment.newInstance(publisherId);
 					
 					if(frag != null)
 						ft.remove(frag);
 					
 					ft.add(R.id.primary_fragment_container, f);
 					
-					ActionBar ab = getSupportActionBar();
-					Tab t = ab.getTabAt(0);
-					ab.selectTab(t);
-					tab.setText(R.string.menu_entries);
 					setTitle(R.string.navdrawer_item_summary);
 				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_publications))) {
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
@@ -774,8 +765,11 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	}
 	
 	@Override
-	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.menu_entries))) {
+	    	tab.setText(R.string.navdrawer_item_summary);
+		} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.navdrawer_item_summary))) {
+			tab.setText(R.string.menu_entries);
+		}
 	}
 }

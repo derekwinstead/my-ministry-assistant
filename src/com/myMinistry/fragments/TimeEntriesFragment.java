@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,16 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.Techniques;
 import com.myMinistry.YoYo;
@@ -70,18 +65,6 @@ public class TimeEntriesFragment extends ListFragment {
 	private String dbDateFormatted = "";
 	private String dbTimeFrame = "";
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	/*
-	public TimeEntriesFragment newInstance(int month, int year, int _publisherID) {
-    	TimeEntriesFragment f = new TimeEntriesFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_YEAR, year);
-        args.putInt(ARG_MONTH, month);
-        args.putInt(ARG_PUBLISHER_ID, _publisherID);
-        f.setArguments(args);
-        return f;
-    }
-	*/
 	public TimeEntriesFragment newInstance(int month, int year, int _publisherID, boolean is_month) {
     	TimeEntriesFragment f = new TimeEntriesFragment();
         Bundle args = new Bundle();
@@ -92,37 +75,11 @@ public class TimeEntriesFragment extends ListFragment {
         f.setArguments(args);
         return f;
     }
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(is_dual_pane)
-			menu.removeItem(R.id.time_entries_summary);
-		
-		if(menu.findItem(R.id.time_entries_summary) != null)
-    		menu.findItem(R.id.time_entries_summary).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.time_entries, menu);
-	}
     
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.time_entries, container, false);
         Bundle args = getArguments();
-        
-        setHasOptionsMenu(true);
         
         fm = getActivity().getSupportFragmentManager();
         
@@ -337,34 +294,6 @@ public class TimeEntriesFragment extends ListFragment {
     	
     	calculateValues();
     	updateList();
-	}
-    
-    @Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.time_entries_summary:
-				if(!is_dual_pane) {
-					PrefUtils.setSummaryMonthAndYear(getActivity(), date);
-		        	FragmentTransaction ft = fm.beginTransaction();
-		        	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-					
-					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-					new SummaryFragment();
-					SummaryFragment f = SummaryFragment.newInstance(publisherID);
-					
-					if(frag != null)
-						ft.remove(frag);
-					
-					ft.add(R.id.primary_fragment_container, f);
-		        	ft.addToBackStack(null);
-		        	
-		        	ft.commit();
-		        }
-				
-	        	return true;
-		}
-		
-		return super.onOptionsItemSelected(item);
 	}
 	
     private void adjustMonth(int addValue) {

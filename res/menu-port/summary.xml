@@ -8,15 +8,9 @@
         android:title="@string/menu_send_report"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/summary_entries"
-        android:icon="@drawable/ic_action_entries"
-        android:orderInCategory="20"
-        android:title="@string/menu_entries"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/summary_add_item"
         android:icon="@drawable/ic_action_new_event"
-        android:orderInCategory="30"
+        android:orderInCategory="20"
         android:title="@string/menu_add_time"
         app:showAsAction="always"/>
 

@@ -87,9 +87,7 @@ public class SummaryFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
         
-        if(menu.findItem(R.id.summary_entries) != null)
-    		menu.findItem(R.id.summary_entries).setVisible((menu.findItem(R.id.menu_save) != null) ? false : !drawerOpen);
-    	if(menu.findItem(R.id.summary_send_report) != null)
+        if(menu.findItem(R.id.summary_send_report) != null)
     		menu.findItem(R.id.summary_send_report).setVisible((menu.findItem(R.id.menu_save) != null) ? false : !drawerOpen);
     	if(menu.findItem(R.id.summary_add_item) != null)
     		menu.findItem(R.id.summary_add_item).setVisible((menu.findItem(R.id.menu_save) != null) ? false : !drawerOpen);
@@ -523,20 +521,6 @@ public class SummaryFragment extends Fragment {
 				
 				ft.commit();
 				
-				return true;
-				
-			case R.id.summary_entries:
-				frag = fm.findFragmentById(R.id.primary_fragment_container);
-				TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId, is_month_summary);
-				
-				if(frag != null)
-	        		ft.remove(frag);
-	        	
-	        	ft.add(R.id.primary_fragment_container, f1);
-	        	ft.addToBackStack(null);
-	        	
-	        	ft.commit();
-	        	
 				return true;
 		}
 		

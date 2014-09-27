@@ -8,24 +8,10 @@
         android:title="@string/menu_add_time"
         app:showAsAction="always"/>
     <item
-        android:icon="@drawable/ic_action_core_overflow"
+        android:id="@+id/summary_send_report"
+        android:icon="@drawable/ic_action_share"
         android:orderInCategory="20"
-        android:title="@string/menu_more"
-        app:showAsAction="always">
-        <menu>
-            <item
-                android:id="@+id/summary_entries"
-                android:icon="@drawable/ic_action_entries"
-                android:orderInCategory="10"
-                android:title="@string/menu_entries"
-                app:showAsAction="always"/>
-            <item
-                android:id="@+id/summary_send_report"
-                android:icon="@drawable/ic_action_share"
-                android:orderInCategory="20"
-                android:title="@string/menu_send_report"
-                app:showAsAction="ifRoom"/>
-        </menu>
-    </item>
+        android:title="@string/menu_send_report"
+        app:showAsAction="ifRoom"/>
 
 </menu>
