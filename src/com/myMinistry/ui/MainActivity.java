@@ -55,7 +55,6 @@ import com.myMinistry.util.UIUtils;
 public class MainActivity extends ActionBarActivity implements FragmentActivityStatus, TabListener {
 	private static final String TAG = makeLogTag(MainActivity.class);
 	private TextView nameTextView = null;
-	//private TextView emailTextView = null;
 	
 	private boolean execute_tab = false;
 	private boolean is_dual_pane = false;
@@ -224,8 +223,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_monthly).setTabListener(this));
     	    	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_yearly).setTabListener(this));
     	    	
-    	    	if(!is_dual_pane)
+    	    	if(!is_dual_pane) {
     	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.menu_entries).setTabListener(this));
+    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.navdrawer_item_summary).setTabListener(this));
+    	    	}
     	    	
     			Calendar date = Calendar.getInstance(Locale.getDefault());
     			if(!(frag instanceof SummaryFragment)) {
@@ -664,10 +665,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     }
 
 	@Override
-	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTabReselected(Tab tab, FragmentTransaction ft) { }
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) { }
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
@@ -762,14 +762,5 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 		}
 		
 		execute_tab = true;
-	}
-	
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.menu_entries))) {
-	    	tab.setText(R.string.navdrawer_item_summary);
-		} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.navdrawer_item_summary))) {
-			tab.setText(R.string.menu_entries);
-		}
 	}
 }
