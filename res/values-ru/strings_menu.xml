@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Сортировать по имени вспять</string>
     <string name="menu_sort_most_used">Сортировать по используется</string>
     <string name="menu_sort_most_placed">Сортировать по помещены</string>
+    <string name="menu_sort_last_visit">Сортировать по дате последнего визита</string>
+    <string name="menu_sort_last_visit_reversed">Сортировать по дате последнего визита вспять</string>
     <string name="menu_send_report">Отправить отчет</string>
     <string name="menu_add_time">Добавить время</string>
 

@@ -1,6 +1,8 @@
 package com.myMinistry.fragments;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,11 +19,15 @@ import android.widget.ListView;
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.adapters.TitleAndDateAdapter;
+import com.myMinistry.provider.MinistryContract.Householder;
+import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.util.PrefUtils;
 
 public class HouseholdersFragment extends ListFragment {
 	private boolean is_dual_pane = false;
 	
+	private Cursor cursor;
 	private MinistryService database;
 	private TitleAndDateAdapter adapter;
 	
@@ -80,8 +86,10 @@ public class HouseholdersFragment extends ListFragment {
     	
     	fm = getActivity().getSupportFragmentManager();
     	
-    	database.openWritable();
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), database.fetchAllHouseholdersWithActivityDates(), R.string.last_visited_on);
+    	loadCursor();
+		//adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.li_bg_card_tv, cursor, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
+		
+    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), cursor, R.string.last_visited_on);
     	setListAdapter(adapter);
     	database.close();
     	
@@ -111,6 +119,22 @@ public class HouseholdersFragment extends ListFragment {
 		switch (item.getItemId()) {
 			case R.id.householder_create:
 				openEditor(HouseholderEditorFragment.CREATE_ID);
+				return true;
+			case R.id.sort_alpha:
+				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
+				sortList(MinistryDatabase.SORT_BY_ASC);
+				return true;
+			case R.id.sort_alpha_desc:
+				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_DESC);
+				sortList(MinistryDatabase.SORT_BY_DESC);
+				return true;
+			case R.id.sort_last_visit:
+				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_DATE);
+				sortList(MinistryDatabase.SORT_BY_DATE);
+				return true;
+			case R.id.sort_last_visit_desc:
+				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_DATE_DESC);
+				sortList(MinistryDatabase.SORT_BY_DATE_DESC);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -162,5 +186,40 @@ public class HouseholdersFragment extends ListFragment {
         	
         	ft.commit();
 		}
+	}
+	
+	public void sortList(int how_to_sort) {
+		if(!database.isOpen())
+			database.openWritable();
+		
+		if(how_to_sort == MinistryDatabase.SORT_BY_ASC)
+			cursor = database.fetchAllHouseholders("ASC");
+		else if(how_to_sort == MinistryDatabase.SORT_BY_DESC)
+			cursor = database.fetchAllHouseholders("DESC");
+		else if(how_to_sort == MinistryDatabase.SORT_BY_DATE)
+			cursor = database.fetchAllHouseholdersWithActivityDates("DESC");
+		else if(how_to_sort == MinistryDatabase.SORT_BY_DATE_DESC)
+			cursor = database.fetchAllHouseholdersWithActivityDates("ASC");
+		
+		int count = 0;
+		ContentValues values = new ContentValues();
+		for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+			count++;
+			values.put(Householder.SORT_ORDER, count);
+			database.saveHouseholder(cursor.getLong(cursor.getColumnIndex(Householder._ID)), values);
+		}
+		
+		reloadCursor();
+	}
+	
+	private void loadCursor() {
+		if(!database.isOpen())
+			database.openWritable();
+		cursor = database.fetchAllHouseholdersWithActivityDates();
+	}
+	
+	public void reloadCursor() {
+		loadCursor();
+		adapter.loadNewData(cursor);
 	}
 }

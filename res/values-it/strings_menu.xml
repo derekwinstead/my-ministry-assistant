@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Ordina per nome invertito</string>
     <string name="menu_sort_most_used">Ordina per più utilizzati</string>
     <string name="menu_sort_most_placed">Ordina per posta</string>
+    <string name="menu_sort_last_visit">Ordina per data ultima visita</string>
+    <string name="menu_sort_last_visit_reversed">Ordina per data ultima visita invertito</string>
     <string name="menu_send_report">Invia segnalazione</string>
     <string name="menu_add_time">Aggiungere Tempo</string>
 

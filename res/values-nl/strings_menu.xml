@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Sorteren op naam teruggedraaid</string>
     <string name="menu_sort_most_used">Sorteer op gebruikte</string>
     <string name="menu_sort_most_placed">Sorteer op geplaatst</string>
+    <string name="menu_sort_last_visit">Sorteren op laatste bezoek datum</string>
+    <string name="menu_sort_last_visit_reversed">Sorteren op laatste bezoek datum teruggedraaid</string>
     <string name="menu_send_report">Rapport verzenden</string>
     <string name="menu_add_time">Voeg Tijd</string>
 

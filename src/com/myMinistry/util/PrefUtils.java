@@ -41,6 +41,7 @@ public class PrefUtils  {
 	private static final String PREF_ENTRY_TYPE_SORT		= "entry_type_sort";
 	private static final String PREF_PUBLICATION_TYPE_SORT	= "publication_type_sort";
 	private static final String PREF_PUBLICATION_SORT		= "publication_sort";
+	private static final String PREF_HOUSEHOLDER_SORT		= "householder_sort";
 	private static final String PREF_PUBLISHER_ID			= "publisher_id";
 	private static final String PREF_SUMMARY_MONTH			= "saved_month";
 	private static final String PREF_SUMMARY_YEAR			= "saved_year";
@@ -223,6 +224,16 @@ public class PrefUtils  {
 	public static void setPublicationSort(final Context context, int sortId) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		sp.edit().putInt(PREF_PUBLICATION_SORT, sortId).commit();
+	}
+	
+	public static int getHouseholderSort(final Context context) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		return sp.getInt(PREF_HOUSEHOLDER_SORT, 0);
+	}
+	
+	public static void setHouseholderSort(final Context context, int sortId) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		sp.edit().putInt(PREF_HOUSEHOLDER_SORT, sortId).commit();
 	}
 	
 	public static boolean shouldCalculateRolloverTime(final Context context) {

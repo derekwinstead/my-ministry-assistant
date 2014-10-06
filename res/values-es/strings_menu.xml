@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Ordenar por nombre invirtió</string>
     <string name="menu_sort_most_used">Ordenar por más utilizado</string>
     <string name="menu_sort_most_placed">Ordenar por puesto</string>
+    <string name="menu_sort_last_visit">Ordenar por fecha de la última visita</string>
+    <string name="menu_sort_last_visit_reversed">Ordenar por fecha de la última visita revirtió</string>
     <string name="menu_send_report">Enviar informe</string>
     <string name="menu_add_time">Añadir Tiempo</string>
 

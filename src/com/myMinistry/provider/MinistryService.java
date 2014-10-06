@@ -29,6 +29,7 @@ import com.myMinistry.provider.MinistryContract.Rollover;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsCols;
+import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
 import com.myMinistry.provider.MinistryDatabase.Tables;
 import com.myMinistry.util.FileUtils;
 import com.myMinistry.util.TimeUtils;
@@ -364,6 +365,24 @@ public class MinistryService {
 						+ " ORDER BY thecount DESC";
 		
 		return sqlDB.rawQuery(sql, null);
+    }
+    
+	public Cursor fetchAllHouseholdersWithActivityDates(String sort) {
+		String sql =	"SELECT " + Householder._ID + "," + Householder.NAME + UnionsNameAsCols.TITLE + "," + Householder.ACTIVE + UnionsNameAsCols.ACTIVE
+						+ ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + Joins.TIMEHOUSEHOLDER_JOIN_TIME + " WHERE " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " = " + Qualified.HOUSEHOLDER_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1)" + UnionsNameAsCols.DATE
+						+ "," + MinistryDatabase.ID_UNION_TYPE_PERSON + UnionsNameAsCols.TYPE_ID
+						+ " FROM " + Tables.HOUSEHOLDERS
+						+ " ORDER BY " + UnionsNameAsRef.DATE + " " + sort;
+    	
+    	return sqlDB.rawQuery(sql, null);
+    }
+    
+	public Cursor fetchAllHouseholders(String sort) {
+		String sql =	"SELECT " + Householder._ID
+						+ " FROM " + Tables.HOUSEHOLDERS
+						+ " ORDER BY " + Householder.NAME + " " + sort;
+    	
+    	return sqlDB.rawQuery(sql, null);
     }
     
     public Cursor fetchAllPublicationTypes() {

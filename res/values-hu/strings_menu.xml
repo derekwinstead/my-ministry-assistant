@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Rendezés név szerint fordított</string>
     <string name="menu_sort_most_used">Rendezés leggyakrabban használt</string>
     <string name="menu_sort_most_placed">Rendezés legtöbb elhelyezett</string>
+    <string name="menu_sort_last_visit">Rendezés utolsó látogatás dátuma</string>
+    <string name="menu_sort_last_visit_reversed">Rendezés utolsó látogatás dátuma fordított</string>
     <string name="menu_send_report">Send Report</string>
     <string name="menu_add_time">Add idő</string>
 

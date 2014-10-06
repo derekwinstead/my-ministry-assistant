@@ -72,6 +72,8 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 	public static final int SORT_BY_ASC = 1;
 	public static final int SORT_BY_DESC = 2;
 	public static final int SORT_BY_POPULAR = 3;
+	public static final int SORT_BY_DATE = 4;
+	public static final int SORT_BY_DATE_DESC = 5;
 	
 	/** NOTE: carefully update onUpgrade() when bumping database versions to make sure user data is saved. */
 	private static final int VER_LAUNCH = 1;
@@ -85,8 +87,9 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     private static final int VER_REMOVE_TOTAL_TIME_COLUMN = 9;
     private static final int VER_ADD_PIONEERING = 10;
     private static final int VER_ADD_IS_RETURN_VISIT = 11;
+    private static final int VER_ADD_HOUSEHOLDER_SORT_ORDER = 12;
     
-    public static final int DATABASE_VERSION = VER_ADD_IS_RETURN_VISIT;
+    public static final int DATABASE_VERSION = VER_ADD_HOUSEHOLDER_SORT_ORDER;
     
     interface Tables {
     	String ENTRY_TYPES = "entryTypes";
@@ -427,6 +430,12 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             		db.execSQL("ALTER TABLE " + Tables.TIME_HOUSEHOLDERS + " ADD COLUMN " + TimeHouseholder.RETURN_VISIT + " INTEGER DEFAULT 1");
             	
             	version = VER_ADD_IS_RETURN_VISIT;
+            case VER_ADD_IS_RETURN_VISIT:
+            	versionBackup(version);
+            	
+            	db.execSQL("ALTER TABLE " + Tables.HOUSEHOLDERS + " ADD COLUMN " + Householder.SORT_ORDER + " INTEGER DEFAULT 1");
+            	
+            	version = VER_ADD_HOUSEHOLDER_SORT_ORDER;
         }
     }
     

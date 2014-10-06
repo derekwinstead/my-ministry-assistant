@@ -87,10 +87,12 @@ public class MinistryContract {
 		String OTHER_PHONE = "phoneOther";
 		/** Active flag. */
 		String ACTIVE = "isActive";
+		/** Sort order. */
+		String SORT_ORDER = "sortOrder";
 	}
 	
 	public static class Householder implements HouseholderColumns, BaseColumns {
-		public static final String DEFAULT_SORT = HouseholderColumns.ACTIVE + " DESC," + HouseholderColumns.NAME + " COLLATE NOCASE ASC";
+		public static final String DEFAULT_SORT = HouseholderColumns.ACTIVE + " DESC," + HouseholderColumns.SORT_ORDER + " ASC, " + HouseholderColumns.NAME + " COLLATE NOCASE ASC";
 		public static final String[] All_COLS = new String[] {_ID,NAME,ADDR,MOBILE_PHONE,HOME_PHONE,WORK_PHONE,OTHER_PHONE,ACTIVE};
 		public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.HOUSEHOLDERS + " ("
 													+ 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
@@ -100,7 +102,8 @@ public class MinistryContract {
 													+ "," + HOME_PHONE		+ " TEXT"
 													+ "," + WORK_PHONE		+ " TEXT"
 													+ "," + OTHER_PHONE		+ " TEXT"
-													+ "," + ACTIVE			+ " INTEGER )";
+													+ "," + ACTIVE			+ " INTEGER"
+													+ "," + SORT_ORDER		+ " INTEGER DEFAULT 1)";
 	}
 
 	interface LiteratureColumns {

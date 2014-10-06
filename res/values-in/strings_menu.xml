@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="id">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="in">
 
     <string name="menu_add_new">Tambahkan Yang Baru</string>
     <string name="menu_add_new_with_plus">+ Tambahkan yang baru</string>
@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Urutkan berdasarkan nama terbalik</string>
     <string name="menu_sort_most_used">Urutkan berdasarkan paling banyak digunakan</string>
     <string name="menu_sort_most_placed">Urutkan oleh kebanyakan ditempatkan</string>
+    <string name="menu_sort_last_visit">Urut berdasarkan Tanggal kunjungan terakhir</string>
+    <string name="menu_sort_last_visit_reversed">Urut berdasarkan Tanggal kunjungan terakhir terbalik</string>
     <string name="menu_send_report">Kirim Laporan</string>
     <string name="menu_add_time">Tambahkan Waktu</string>
 

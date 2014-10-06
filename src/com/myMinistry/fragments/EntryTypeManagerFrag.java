@@ -75,6 +75,7 @@ public class EntryTypeManagerFrag extends ListFragment {
         if(menu.findItem(R.id.manage_new) != null)
     		menu.findItem(R.id.manage_new).setVisible(!drawerOpen);
 	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

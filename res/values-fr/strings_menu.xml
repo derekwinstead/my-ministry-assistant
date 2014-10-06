@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Trier par nom inversé</string>
     <string name="menu_sort_most_used">Trier par le plus utilisé</string>
     <string name="menu_sort_most_placed">Trier par plus placé</string>
+    <string name="menu_sort_last_visit">Trier par date de dernière visite</string>
+    <string name="menu_sort_last_visit_reversed">Trier par date de dernière visite inversé</string>
     <string name="menu_send_report">Envoyer un rapport</string>
     <string name="menu_add_time">Ajouter Temps</string>
 

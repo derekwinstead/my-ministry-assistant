@@ -24,6 +24,8 @@
     <string name="menu_sort_alpha_desc">Sort by name reversed</string>
     <string name="menu_sort_most_used">Sort by most used</string>
     <string name="menu_sort_most_placed">Sort by most placed</string>
+    <string name="menu_sort_last_visit">Sort by last visit date</string>
+    <string name="menu_sort_last_visit_reversed">Sort by last visit date reversed</string>
     <string name="menu_send_report">Send Report</string>
     <string name="menu_add_time">Add Time</string>
 
