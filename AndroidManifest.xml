@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myMinistry"
     android:installLocation="auto"
-    android:versionCode="197"
-    android:versionName="3.1.1.2" >
+    android:versionCode="198"
+    android:versionName="3.1.1.3" >
 
     <!-- Version Name has ending of DIGIT - Google/Amazon, W - Web, O - Other -->
 
