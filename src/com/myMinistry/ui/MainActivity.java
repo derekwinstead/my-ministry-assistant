@@ -33,10 +33,6 @@ import android.widget.TextView;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
-import com.myMinistry.dialogfragments.PublisherDialogFragment;
-import com.myMinistry.dialogfragments.PublisherDialogFragment.PublisherDialogFragmentListener;
-import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
-import com.myMinistry.dialogfragments.PublisherNewDialogFragment.PublisherNewDialogFragmentListener;
 import com.myMinistry.fragments.DBBackupsFragment;
 import com.myMinistry.fragments.DBBackupsListFragment;
 import com.myMinistry.fragments.DBScheduleFragment;
@@ -54,7 +50,6 @@ import com.myMinistry.util.UIUtils;
 
 public class MainActivity extends ActionBarActivity implements FragmentActivityStatus, TabListener {
 	private static final String TAG = makeLogTag(MainActivity.class);
-	private TextView nameTextView = null;
 	
 	private boolean execute_tab = false;
 	private boolean is_dual_pane = false;
@@ -185,10 +180,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     protected void onPostCreate(Bundle savedInstanceState) {
     	super.onPostCreate(savedInstanceState);
     	
-    	setPublisherId(PrefUtils.getPublisherId(this),PrefUtils.getPublisherName(this));
-    	
     	setupNavDrawer();
-    	setupAccountBox();
+    	
+    	onNavDrawerItemClicked(getDefaultNavDrawerItem());
     	
     	if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
 	    	View mainContent = findViewById(R.id.primary_fragment_container);
@@ -219,14 +213,14 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	switch (itemId) {
     		case NAVDRAWER_ITEM_SUMMARY:
     			getSupportActionBar().removeAllTabs();
+    	    	
+    	    	if(!is_dual_pane) {
+    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.navdrawer_item_summary).setTabListener(this));
+    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.menu_entries).setTabListener(this));
+    	    	}
     			
     			getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_monthly).setTabListener(this));
     	    	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_yearly).setTabListener(this));
-    	    	
-    	    	if(!is_dual_pane) {
-    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.menu_entries).setTabListener(this));
-    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.navdrawer_item_summary).setTabListener(this));
-    	    	}
     	    	
     			Calendar date = Calendar.getInstance(Locale.getDefault());
     			if(!(frag instanceof SummaryFragment)) {
@@ -251,7 +245,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 		        	date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
 					
     				SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-    				f.setPublisherId(publisherId);
+    				//f.setPublisherId(publisherId);
     				f.setDate(date);
     				f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
     			}	
@@ -390,14 +384,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	public void setPublisherId(int _ID,String _name) {
 		publisherId = _ID;
 		
-		setAccountBoxPublisherName(_name);
-		
 		onNavDrawerItemClicked(getDefaultNavDrawerItem());
-	}
-
-	public void savePublisherNameAndIdPrefs(int _ID,String _name) {
-		PrefUtils.setPublisherId(this, _ID);
-		PrefUtils.setPublisherName(this, _name);
 	}
 	
 	@Override
@@ -597,73 +584,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
             }
         }
     }
-
-    /**
-     * Sets up the account box. The account box is the area at the top of the nav drawer that
-     * shows which account the user is logged in as, and lets them switch accounts.
-     */
-    private void setupAccountBox() {
-        final View chosenAccountView = findViewById(R.id.chosen_account_view);
-        
-        //ImageView coverImageView = (ImageView) chosenAccountView.findViewById(R.id.profile_cover_image);
-        //ImageView profileImageView = (ImageView) chosenAccountView.findViewById(R.id.profile_image);
-        nameTextView = (TextView) chosenAccountView.findViewById(R.id.profile_name_text);
-        //emailTextView = (TextView) chosenAccountView.findViewById(R.id.profile_email_text);
-        
-        //profileImageView.setImageResource(R.drawable.ic_action_profile_v2);
-        
-        setAccountBoxPublisherName(PrefUtils.getPublisherName(this));
-        //emailTextView.setText("Pioneer");
-        
-        chosenAccountView.setEnabled(true);
-        
-        chosenAccountView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// launch the target Activity after a short delay, to allow the close animation to play
-		        mHandler.postDelayed(new Runnable() {
-		            @Override
-		            public void run() {
-		            	showPublisherPicker();
-		            }
-		        }, NAVDRAWER_LAUNCH_DELAY);
-		        
-		        if(isDrawerOpen())
-		        	mDrawerLayout.closeDrawer(GravityCompat.START);
-			}
-		});
-    }
     
-    private void setAccountBoxPublisherName(String publisherName) {
-    	if(nameTextView != null)
-    		nameTextView.setText(publisherName);
-    }
-    
-    private void showPublisherPicker() {
-		PublisherDialogFragment f = PublisherDialogFragment.newInstance();
-		f.setPublisherDialogFragmentListener(new PublisherDialogFragmentListener() {
-			@Override
-			public void publisherDialogFragmentSet(int _ID, String _name) {
-				if(_ID == PublisherDialogFragment.CREATE_ID) {
-					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
-					f.setPositiveButton(new PublisherNewDialogFragmentListener() {
-						@Override
-						public void setPositiveButton(int _ID, String _name) {
-							savePublisherNameAndIdPrefs(_ID,_name);
-							setPublisherId(_ID,_name);
-						}
-					});
-					f.show(fm, PublisherNewDialogFragment.TAG);
-				}
-				else {
-					savePublisherNameAndIdPrefs(_ID,_name);
-					setPublisherId(_ID,_name);
-				}
-			}
-		});
-		f.show(fm, PublisherDialogFragment.TAG);
-    }
-
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) { }
 	@Override
@@ -696,7 +617,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 					boolean is_month_summary = true;
 					
-					TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(this, date), PrefUtils.getSummaryYear(this, date), publisherId, is_month_summary);
+					TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(this, date), PrefUtils.getSummaryYear(this, date), PrefUtils.getPublisherId(this), is_month_summary);
 					
 					if(frag != null)
 		        		ft.remove(frag);
@@ -709,7 +630,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 					
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 					new SummaryFragment();
-					SummaryFragment f = SummaryFragment.newInstance(publisherId);
+					SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(this));
 					
 					if(frag != null)
 						ft.remove(frag);
