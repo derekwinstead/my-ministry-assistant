@@ -63,6 +63,12 @@
                 android:src="@drawable/ic_action_next_item" />
         </LinearLayout>
 
+        <com.myMinistry.model.PublisherSpinner
+            android:id="@+id/publishers"
+            style="@style/SpinnerAppBaseTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

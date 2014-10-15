@@ -3,6 +3,7 @@
 
     <string name="menu_add_new">Añadir Nuevo</string>
     <string name="menu_add_new_with_plus">+ Añadir Nuevo</string>
+    <string name="menu_add_new_publisher">+ Añadir nuevo editor</string>
     <string name="menu_cancel">Cancelar</string>
     <string name="menu_delete">Borrar</string>
     <string name="menu_done">Hecho</string>

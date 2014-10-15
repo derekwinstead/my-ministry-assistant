@@ -3,6 +3,7 @@
 
     <string name="menu_add_new">Tambahkan Yang Baru</string>
     <string name="menu_add_new_with_plus">+ Tambahkan yang baru</string>
+    <string name="menu_add_new_publisher">+ Tambahkan publisher baru</string>
     <string name="menu_cancel">Batal</string>
     <string name="menu_delete">Hapus</string>
     <string name="menu_done">Selesai</string>

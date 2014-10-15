@@ -3,6 +3,7 @@
 
     <string name="menu_add_new">Добавить новый</string>
     <string name="menu_add_new_with_plus">+ Добавить</string>
+    <string name="menu_add_new_publisher">+ Добавить новый издатель</string>
     <string name="menu_cancel">Отменить</string>
     <string name="menu_delete">Удалить</string>
     <string name="menu_done">Готово</string>

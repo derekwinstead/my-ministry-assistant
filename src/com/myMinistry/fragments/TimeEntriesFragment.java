@@ -14,6 +14,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,7 +22,13 @@ import android.widget.TextView;
 import com.myMinistry.R;
 import com.myMinistry.Techniques;
 import com.myMinistry.YoYo;
+import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEntryAdapter;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment.PublisherNewDialogFragmentListener;
+import com.myMinistry.model.NavDrawerMenuItem;
+import com.myMinistry.model.PublisherSpinner;
+import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -47,8 +54,11 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	private String mMonth, mYear = "";
 	
+	private PublisherSpinner publishers;
 	private TextView month, year;
 	private LinearLayout monthNavigation;
+	
+	private NavDrawerMenuItemAdapter pubsAdapter;
 	
 	private FragmentManager fm;
 	
@@ -58,7 +68,7 @@ public class TimeEntriesFragment extends ListFragment {
 	private Cursor entries = null;
 	//private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 	private TimeEntryAdapter adapter = null;
-	private int publisherID = 0;
+	private int publisherId = 0;
 	private Calendar date = Calendar.getInstance(Locale.getDefault());
 	private Calendar serviceYear = Calendar.getInstance(Locale.getDefault());
 	
@@ -95,7 +105,7 @@ public class TimeEntriesFragment extends ListFragment {
 	        	serviceYear.set(Calendar.MONTH, args.getInt(ARG_MONTH));
 	        }
 	        if(args.containsKey(ARG_PUBLISHER_ID))
-	        	setPublisher(args.getInt(ARG_PUBLISHER_ID));
+	        	setPublisherId(args.getInt(ARG_PUBLISHER_ID));
 
 	        if(args.containsKey(ARG_IS_MONTH))
 	        	is_month = args.getBoolean(ARG_IS_MONTH);
@@ -110,7 +120,7 @@ public class TimeEntriesFragment extends ListFragment {
 		    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		    	
 		    	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-		    	TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(publisherID);
+		    	TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(publisherId);
 		    	
 		    	if(frag != null)
 		    		ft.remove(frag);
@@ -122,6 +132,7 @@ public class TimeEntriesFragment extends ListFragment {
 			}
 		});
         
+        publishers = (PublisherSpinner) view.findViewById(R.id.publishers);
         monthNavigation = (LinearLayout) view.findViewById(R.id.monthNavigation);
         month = (TextView) view.findViewById(R.id.month);
     	year = (TextView) view.findViewById(R.id.year);
@@ -154,6 +165,7 @@ public class TimeEntriesFragment extends ListFragment {
         
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
+        pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
     	setListAdapter(adapter);
     	
 		return view;
@@ -165,9 +177,9 @@ public class TimeEntriesFragment extends ListFragment {
     	
     	database.openWritable();
 		if(PrefUtils.shouldCalculateRolloverTime(getActivity())) {
-			entries = database.fetchTimeEntriesByPublisherAndMonth(publisherID, dbDateFormatted, dbTimeFrame);
+			entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, dbDateFormatted, dbTimeFrame);
 		} else {
-			entries = database.fetchTimeEntriesByPublisherAndMonthNoRollover(publisherID, dbDateFormatted, dbTimeFrame);
+			entries = database.fetchTimeEntriesByPublisherAndMonthNoRollover(publisherId, dbDateFormatted, dbTimeFrame);
 		}
 		adapter.changeCursor(entries);
 		database.close();
@@ -244,8 +256,8 @@ public class TimeEntriesFragment extends ListFragment {
 		}, ANIMATION_DURATION);
     }
 	
-	public void setPublisher(int _id) {
-		publisherID = _id;
+	public void setPublisherId(int _id) {
+		publisherId = _id;
 	}
     
     public void switchDate(Calendar _date) {
@@ -271,7 +283,7 @@ public class TimeEntriesFragment extends ListFragment {
         	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     		
         	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-        	TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherID);
+        	TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
         	
         	if(frag != null)
         		ft.remove(frag);
@@ -291,6 +303,9 @@ public class TimeEntriesFragment extends ListFragment {
     	
     	if(is_dual_pane)
     		monthNavigation.setVisibility(View.GONE);
+    	
+    	if(!is_dual_pane)
+    		loadPublisherAdapter();
     	
     	calculateValues();
     	updateList();
@@ -377,5 +392,53 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	public void refresh(final int changeDirection) {
 		animatePage(changeDirection);
+	}
+	
+	private void loadPublisherAdapter() {
+		int initialSelection = 0;
+		// Add new publisher item
+		pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher, MinistryDatabase.CREATE_ID));
+		
+		database.openWritable();
+		final Cursor cursor = database.fetchActivePublishers();
+        while(cursor.moveToNext()) {
+        	if(cursor.getInt(cursor.getColumnIndex(Publisher._ID)) == publisherId)
+        		initialSelection = pubsAdapter.getCount();
+        	pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, cursor.getInt(cursor.getColumnIndex(Publisher._ID))));
+        }
+        cursor.close();
+        database.close();
+        
+        pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+		publishers.setAdapter(pubsAdapter);
+		publishers.setSelection(initialSelection);
+		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
+					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
+					f.setPositiveButton(new PublisherNewDialogFragmentListener() {
+						@Override
+						public void setPositiveButton(int _ID, String _name) {
+							pubsAdapter.addItem(new NavDrawerMenuItem(_name, R.drawable.ic_drawer_publisher, _ID));
+							publishers.setSelection(pubsAdapter.getCount() - 1);
+						}
+					});
+					f.show(fm, PublisherNewDialogFragment.TAG);
+				}
+				else {
+					setPublisherId(pubsAdapter.getItem(position).getID());
+					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
+					calculateValues();
+					animatePage(DIRECTION_NO_CHANGE);
+				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+        
 	}
 }

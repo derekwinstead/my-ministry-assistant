@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myMinistry.FragmentActivityStatus;
@@ -27,7 +26,10 @@ import com.myMinistry.R;
 import com.myMinistry.Techniques;
 import com.myMinistry.YoYo;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment.PublisherNewDialogFragmentListener;
 import com.myMinistry.model.NavDrawerMenuItem;
+import com.myMinistry.model.PublisherSpinner;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryContract.Publisher;
@@ -52,12 +54,14 @@ public class SummaryFragment extends Fragment {
     
     private String mMonth, mYear, mTotalHoursCount, mPublicationText0, mPublicationText1, mPublicationText2, mPublicationText3, mPublicationText4, mPublicationCount0, mPublicationCount1, mPublicationCount2, mPublicationCount3, mPublicationCount4, mRVText, mRVCount, mBSText, mBSCount, mRBCText, mRBCCount = "";
     
-    private Spinner publishers;
+    private PublisherSpinner publishers;
     private TextView month, year, total_hours_count, tv_pub_text_0, tv_pub_text_1, tv_pub_text_2, tv_pub_text_3, tv_pub_text_4, tv_pub_count_0, tv_pub_count_1, tv_pub_count_2, tv_pub_count_3, tv_pub_count_4, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, rbc_text, rbc_count;
 	private Calendar monthPicked = Calendar.getInstance();
 	private Calendar serviceYear = Calendar.getInstance();
 	private int publisherId = 0;
 	private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+	
+	private NavDrawerMenuItemAdapter pubsAdapter;
 	
 	private FragmentManager fm;
 	
@@ -120,7 +124,7 @@ public class SummaryFragment extends Fragment {
 		
 		setPublisherId(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
 		
-		publishers = (Spinner) root.findViewById(R.id.publishers);
+		publishers = (PublisherSpinner) root.findViewById(R.id.publishers);
 		tv_pub_text_0 = (TextView) root.findViewById(R.id.tv_pub_text_0);
 		tv_pub_count_0 = (TextView) root.findViewById(R.id.tv_pub_count_0);
 		tv_pub_text_1 = (TextView) root.findViewById(R.id.tv_pub_text_1);
@@ -176,55 +180,7 @@ public class SummaryFragment extends Fragment {
 			}
 		});
     	
-
-		
-		final NavDrawerMenuItemAdapter pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
-		int initialSelection = 0;
-		pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_with_plus), R.drawable.ic_drawer_publisher, MinistryDatabase.CREATE_ID));
-		
-		database.openWritable();
-		final Cursor cursor = database.fetchActivePublishers();
-        while(cursor.moveToNext()) {
-        	if(cursor.getInt(cursor.getColumnIndex(Publisher._ID)) == publisherId)
-        		initialSelection = pubsAdapter.getCount();
-        	pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, cursor.getInt(cursor.getColumnIndex(Publisher._ID))));
-        }
-        cursor.close();
-        database.close();
-        
-        pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-		publishers.setAdapter(pubsAdapter);
-		publishers.setSelection(initialSelection);
-		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				if(id == MinistryDatabase.CREATE_ID) {
-					/*
-					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
-					f.setPositiveButton(new PublisherNewDialogFragmentListener() {
-						@Override
-						public void setPositiveButton(int _ID, String _name) {
-							savePublisherNameAndIdPrefs(_ID,_name);
-							setPublisherId(_ID,_name);
-						}
-					});
-					f.show(fm, PublisherNewDialogFragment.TAG);
-					*/
-				}
-				else {
-					setPublisherId(pubsAdapter.getItem(position).getID());
-					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
-					calculateSummaryValues(is_month_summary);
-					animatePage(DIRECTION_NO_CHANGE);
-				}
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				
-			}
-		});
-        
+    	pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
     	
     	return root;
     }
@@ -234,6 +190,11 @@ public class SummaryFragment extends Fragment {
 		super.onActivityCreated(savedState);
 		
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+		
+		calculateSummaryValues(is_month_summary);
+		fillPublisherSummary();
+		
+		loadPublisherAdapter();
 	}
 	
 	public void setPublisherId(int _id) {
@@ -364,7 +325,7 @@ public class SummaryFragment extends Fragment {
         	if(rf instanceof TimeEntriesFragment) {
         		TimeEntriesFragment f = (TimeEntriesFragment) fm.findFragmentById(R.id.secondary_fragment_container);
         		
-        		f.setPublisher(publisherId);
+        		f.setPublisherId(publisherId);
         		
         		if(is_month_summary) {
         			f.switchToMonthList(monthPicked);
@@ -604,32 +565,50 @@ public class SummaryFragment extends Fragment {
 		calculateSummaryValues(is_month_summary);
 		refresh(DIRECTION_CHANGE_TITLES);
 	}
-}
-
-/*
-
-private void showPublisherPicker() {
-	PublisherDialogFragment f = PublisherDialogFragment.newInstance();
-	f.setPublisherDialogFragmentListener(new PublisherDialogFragmentListener() {
-		@Override
-		public void publisherDialogFragmentSet(int _ID, String _name) {
-			if(_ID == PublisherDialogFragment.CREATE_ID) {
-				PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
-				f.setPositiveButton(new PublisherNewDialogFragmentListener() {
-					@Override
-					public void setPositiveButton(int _ID, String _name) {
-						savePublisherNameAndIdPrefs(_ID,_name);
-						setPublisherId(_ID,_name);
-					}
-				});
-				f.show(fm, PublisherNewDialogFragment.TAG);
+	
+	private void loadPublisherAdapter() {
+		int initialSelection = 0;
+		// Add new publisher item
+		pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher, MinistryDatabase.CREATE_ID));
+		
+		database.openWritable();
+		final Cursor cursor = database.fetchActivePublishers();
+        while(cursor.moveToNext()) {
+        	if(cursor.getInt(cursor.getColumnIndex(Publisher._ID)) == publisherId)
+        		initialSelection = pubsAdapter.getCount();
+        	pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, cursor.getInt(cursor.getColumnIndex(Publisher._ID))));
+        }
+        cursor.close();
+        database.close();
+        
+        pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+		publishers.setAdapter(pubsAdapter);
+		publishers.setSelection(initialSelection);
+		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
+					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
+					f.setPositiveButton(new PublisherNewDialogFragmentListener() {
+						@Override
+						public void setPositiveButton(int _ID, String _name) {
+							pubsAdapter.addItem(new NavDrawerMenuItem(_name, R.drawable.ic_drawer_publisher, _ID));
+							publishers.setSelection(pubsAdapter.getCount() - 1);
+						}
+					});
+					f.show(fm, PublisherNewDialogFragment.TAG);
+				}
+				else {
+					setPublisherId(pubsAdapter.getItem(position).getID());
+					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
+					calculateSummaryValues(is_month_summary);
+					animatePage(DIRECTION_NO_CHANGE);
+				}
 			}
-			else {
-				savePublisherNameAndIdPrefs(_ID,_name);
-				setPublisherId(_ID,_name);
-			}
-		}
-	});
-	f.show(fm, PublisherDialogFragment.TAG);
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) { }
+		});
+        
+	}
 }
-*/

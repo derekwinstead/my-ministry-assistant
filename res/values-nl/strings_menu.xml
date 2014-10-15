@@ -3,6 +3,7 @@
 
     <string name="menu_add_new">Voeg Toe</string>
     <string name="menu_add_new_with_plus">+ Voeg Toe</string>
+    <string name="menu_add_new_publisher">+ Voeg nieuwe uitgever</string>
     <string name="menu_cancel">Annuleer</string>
     <string name="menu_delete">Verwijder</string>
     <string name="menu_done">Klaar</string>

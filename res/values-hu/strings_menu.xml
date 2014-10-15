@@ -3,6 +3,7 @@
 
     <string name="menu_add_new">Új</string>
     <string name="menu_add_new_with_plus">+ Új</string>
+    <string name="menu_add_new_publisher">+ Új kiadó</string>
     <string name="menu_cancel">Mégsem</string>
     <string name="menu_delete">Töröl</string>
     <string name="menu_done">Csinált</string>

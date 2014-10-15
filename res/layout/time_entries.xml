@@ -10,49 +10,65 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_padding"
         android:background="@drawable/bg_card"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/prev"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:contentDescription="@string/month_previous"
-            android:src="@drawable/ic_action_previous_item" />
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding" >
 
         <LinearLayout
-            android:id="@+id/monthYear"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/thumb_height"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:orientation="vertical" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/negative_default_padding_half"
+            android:layout_marginRight="@dimen/negative_default_padding_half"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/month"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/prev"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:contentDescription="@string/month_previous"
+                android:src="@drawable/ic_action_previous_item" />
 
-            <TextView
-                android:id="@+id/year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/monthYear"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/thumb_height"
+                android:layout_weight="3"
                 android:gravity="center"
-                android:textSize="@dimen/textsizeSM" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/textsizeSM" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:contentDescription="@string/month_next"
+                android:src="@drawable/ic_action_next_item" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/next"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:contentDescription="@string/month_next"
-            android:src="@drawable/ic_action_next_item" />
+        <com.myMinistry.model.PublisherSpinner
+            android:id="@+id/publishers"
+            style="@style/SpinnerAppBaseTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <ListView
