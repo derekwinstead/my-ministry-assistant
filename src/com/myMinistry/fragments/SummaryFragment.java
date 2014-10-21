@@ -583,7 +583,8 @@ public class SummaryFragment extends Fragment {
         
         pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 		publishers.setAdapter(pubsAdapter);
-		publishers.setSelection(initialSelection);
+		if(initialSelection != 0)
+			publishers.setSelection(initialSelection);
 		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {

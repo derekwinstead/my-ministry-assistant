@@ -92,7 +92,12 @@ public class DBBackupsListFragment extends ListFragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	fileList = loadFileList();
-    	Arrays.sort(fileList);
+    	
+    	if(fileList != null)
+    		Arrays.sort(fileList);
+    	else
+    		fileList = new String[0];
+    	
     	adapter = new ArrayAdapter<String>(getActivity(), R.layout.li_db_item, fileList);
     	adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 		setListAdapter(adapter);
@@ -165,7 +170,12 @@ public class DBBackupsListFragment extends ListFragment {
     
     public void reloadFileList() {
     	fileList = loadFileList();
-    	Arrays.sort(fileList);
+
+    	if(fileList != null)
+    		Arrays.sort(fileList);
+    	else
+    		fileList = new String[0];
+    	
     	adapter = new ArrayAdapter<String>(getActivity(), R.layout.li_db_item, fileList);
     	getListView().setAdapter(adapter);
     }
