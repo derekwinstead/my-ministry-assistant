@@ -129,6 +129,7 @@ public class HouseholderEditorFragment extends ListFragment {
     	fillForm();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

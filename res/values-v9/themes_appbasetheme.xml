@@ -5,6 +5,10 @@
         <item name="android:textSelectHandleLeft">@drawable/appbasetheme_text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/appbasetheme_text_select_handle_right</item>
         <item name="android:textSelectHandle">@drawable/appbasetheme_text_select_handle_middle</item>
+        
+        <!-- Set AppCompat’s color theming attrs -->
+        <item name="colorPrimary">@color/actionbar_background</item>
+        <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
     </style>
 
 </resources>

@@ -48,6 +48,7 @@ import com.myMinistry.util.HelpUtils;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.UIUtils;
 
+@SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements FragmentActivityStatus, TabListener {
 	private static final String TAG = makeLogTag(MainActivity.class);
 	
@@ -117,8 +118,8 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     
-    private CharSequence mTitle;
-    private CharSequence mDrawerTitle;
+    //private CharSequence mTitle;
+    //private CharSequence mDrawerTitle;
     
     private Boolean firstLoad = true;
     
@@ -133,7 +134,8 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	
     	fm = getSupportFragmentManager();
     	
-    	mTitle = mDrawerTitle = getTitle();
+    	//mTitle = mDrawerTitle = getTitle();
+    	//mDrawerTitle = getTitle();
     	
     	is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
     	
@@ -169,9 +171,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     @Override
     public void setTitle(CharSequence title)
     {
+    	/*
     	if(title != mDrawerTitle)
             mTitle = title;
-    	
+    	*/
     	getSupportActionBar().setTitle(title);
     }
     
@@ -402,13 +405,13 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_navigation_drawer,R.string.drawer_open,R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
-            	setTitle(mTitle);
+            	//setTitle(mTitle);
         		supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-            	setTitle(mDrawerTitle);
+            	//setTitle(mDrawerTitle);
             	supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
