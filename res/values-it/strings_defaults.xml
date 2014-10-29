@@ -10,6 +10,7 @@
     <string name="navdrawer_item_backups">Backup</string>
     <string name="navdrawer_item_settings">Impostazioni</string>
     <string name="navdrawer_item_help">Aiuto</string>
+    <string name="navdrawer_item_time_entry">Tempo di Entrata</string>
     <string name="tab_item_monthly">mensile</string>
     <string name="tab_item_yearly">annuale</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

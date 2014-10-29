@@ -10,6 +10,7 @@
     <string name="navdrawer_item_backups">Biztonsági mentés</string>
     <string name="navdrawer_item_settings">Beállítások</string>
     <string name="navdrawer_item_help">Segítség</string>
+    <string name="navdrawer_item_time_entry">idő Nevezési</string>
     <string name="tab_item_monthly">havi</string>
     <string name="tab_item_yearly">éves</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

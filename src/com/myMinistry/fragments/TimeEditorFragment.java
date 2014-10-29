@@ -339,6 +339,8 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		super.onActivityCreated(savedState);
 		
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+		
+		getActivity().setTitle(R.string.navdrawer_item_time_entry);
 	}
 	
 	public void setTimeEntry(int _timeID) {

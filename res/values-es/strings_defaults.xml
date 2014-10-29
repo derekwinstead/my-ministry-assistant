@@ -10,6 +10,7 @@
     <string name="navdrawer_item_backups">Copias de Seguridad</string>
     <string name="navdrawer_item_settings">Ajustes</string>
     <string name="navdrawer_item_help">Ayuda</string>
+    <string name="navdrawer_item_time_entry">Entrada Tiempo</string>
     <string name="tab_item_monthly">Mensual</string>
     <string name="tab_item_yearly">anual</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
