@@ -16,7 +16,7 @@
         <item name="android:listChoiceIndicatorSingle">@drawable/appbasetheme_btn_radio_holo_light</item>
         <item name="android:buttonStyle">@style/ButtonAppBaseTheme</item>
         <item name="android:imageButtonStyle">@style/ImageButtonAppBaseTheme</item>
-        <item name="android:dropDownSpinnerStyle">@style/SpinnerAppBaseTheme</item>
+        <!-- <item name="android:dropDownSpinnerStyle">@style/SpinnerAppBaseTheme</item> -->
         <item name="android:listChoiceBackgroundIndicator">@drawable/appbasetheme_list_selector_holo_light</item>
         <item name="android:activatedBackgroundIndicator">@drawable/appbasetheme_activated_background_holo_light</item>
         <item name="android:fastScrollThumbDrawable">@drawable/appbasetheme_fastscroll_thumb_holo</item>

@@ -1,82 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/monthNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_padding"
-        android:background="@drawable/bg_card"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/default_padding"
-        android:paddingRight="@dimen/default_padding" >
+        card_view:cardCornerRadius="@dimen/material_corner_radius" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/negative_default_padding_half"
-            android:layout_marginRight="@dimen/negative_default_padding_half"
-            android:orientation="horizontal" >
+            android:layout_marginBottom="@dimen/default_padding"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/default_padding_half"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding_half" >
 
-            <ImageView
-                android:id="@+id/prev"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:contentDescription="@string/month_previous"
-                android:src="@drawable/ic_action_previous_item" />
-
-            <LinearLayout
-                android:id="@+id/monthYear"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/thumb_height"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/textsizeSM" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/next"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:contentDescription="@string/month_next"
-                android:src="@drawable/ic_action_next_item" />
+            <include layout="@layout/summary_navigation" />
         </LinearLayout>
-
-        <com.myMinistry.model.PublisherSpinner
-            android:id="@+id/publishers"
-            style="@style/SpinnerAppBaseTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/default_padding"
+        android:dividerHeight="@dimen/inner_padding"
         android:scrollbarStyle="outsideOverlay" />
 
     <LinearLayout
@@ -95,20 +50,28 @@
             android:gravity="center"
             android:text="@string/zero_entries" />
 
-        <TextView
-            android:id="@+id/tv_add_item"
-            style="@style/empty_list_text_settings"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/default_padding"
-            android:background="@drawable/bg_card_li"
-            android:drawableLeft="@drawable/ic_action_event_add_light"
-            android:drawablePadding="@dimen/default_padding_half"
-            android:gravity="center"
             android:padding="@dimen/default_padding"
-            android:text="@string/menu_add_time"
-            android:textColor="@color/black" />
+            card_view:cardCornerRadius="@dimen/material_corner_radius" >
+
+            <TextView
+                android:id="@+id/tv_add_item"
+                style="@style/empty_list_text_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_action_event_add_light"
+                android:drawablePadding="@dimen/default_padding_half"
+                android:gravity="center"
+                android:padding="@dimen/default_padding"
+                android:text="@string/menu_add_time"
+                android:textColor="@color/black" />
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

@@ -42,6 +42,7 @@ import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublicationManagerFrag;
 import com.myMinistry.fragments.PublishersFragment;
 import com.myMinistry.fragments.SummaryFragment;
+import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.fragments.TimeEntriesFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.HelpUtils;
@@ -70,8 +71,11 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     protected static final int NAVDRAWER_ITEM_BACKUPS = 5;
     protected static final int NAVDRAWER_ITEM_SETTINGS = 6;
     protected static final int NAVDRAWER_ITEM_HELP = 7;
+    protected static final int NAVDRAWER_ITEM_TIME_ENTRY = 8;
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
+    
+    public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     
     protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_SUMMARY;
 
@@ -213,6 +217,8 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	
     	Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
     	
+    	boolean is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
+    	
     	switch (itemId) {
     		case NAVDRAWER_ITEM_SUMMARY:
     			getSupportActionBar().removeAllTabs();
@@ -340,8 +346,6 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_backups).setTabListener(this));
 	        	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_schedule_backups).setTabListener(this));
 	        	
-	        	boolean is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
-	    		
 	        	if(!(frag instanceof DBBackupsFragment)) {
 	        		if(is_dual_pane) {
 		        		DBBackupsFragment f = new DBBackupsFragment().newInstance();
@@ -379,6 +383,24 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
         		startActivity(i);
         		
         		return true;
+        		
+	        case NAVDRAWER_ITEM_TIME_ENTRY:
+	        	getSupportActionBar().removeAllTabs();
+	        	
+	        	int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
+				
+				frag = fm.findFragmentById(LAYOUT_ID);
+				TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(publisherId);
+				
+				if(frag != null)
+	        		ft.remove(frag);
+				
+				ft.add(LAYOUT_ID, f);
+				ft.addToBackStack(null);
+				
+				ft.commit();
+    			
+    			return true;
 	    }
 		
     	return false;

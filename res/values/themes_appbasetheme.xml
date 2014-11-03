@@ -18,7 +18,7 @@
         <item name="android:radioButtonStyle">@style/RadioButtonAppBaseTheme</item>
         <item name="android:buttonStyle">@style/ButtonAppBaseTheme</item>
         <item name="android:imageButtonStyle">@style/ImageButtonAppBaseTheme</item>
-        <item name="android:spinnerStyle">@style/SpinnerAppBaseTheme</item>
+        <!-- <item name="android:spinnerStyle">@style/SpinnerAppBaseTheme</item> -->
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppBaseTheme</item>
         <item name="android:listViewStyle">@style/ListViewAppBaseTheme</item>
         <item name="android:listViewWhiteStyle">@style/ListViewAppBaseTheme.White</item>

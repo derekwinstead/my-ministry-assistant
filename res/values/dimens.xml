@@ -3,6 +3,7 @@
 
     <dimen name="navdrawer_width">260dp</dimen>
     <dimen name="corner_radius">1dp</dimen>
+    <dimen name="material_corner_radius">4dp</dimen>
     <dimen name="inner_padding">3dp</dimen>
     <dimen name="thumb_height">48dp</dimen>
     <dimen name="default_padding">10dp</dimen>

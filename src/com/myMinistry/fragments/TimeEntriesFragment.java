@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	private PublisherSpinner publishers;
 	private TextView month, year;
-	private LinearLayout monthNavigation;
+	private CardView monthNavigation;
 	
 	private NavDrawerMenuItemAdapter pubsAdapter;
 	
@@ -133,7 +134,7 @@ public class TimeEntriesFragment extends ListFragment {
 		});
         
         publishers = (PublisherSpinner) view.findViewById(R.id.publishers);
-        monthNavigation = (LinearLayout) view.findViewById(R.id.monthNavigation);
+        monthNavigation = (CardView) view.findViewById(R.id.monthNavigation);
         month = (TextView) view.findViewById(R.id.month);
     	year = (TextView) view.findViewById(R.id.year);
     	

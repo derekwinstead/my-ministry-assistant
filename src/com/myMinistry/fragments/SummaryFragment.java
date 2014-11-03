@@ -35,6 +35,7 @@ import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 import com.nineoldandroids.animation.Animator;
@@ -507,10 +508,10 @@ public class SummaryFragment extends Fragment {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		FragmentTransaction ft = fm.beginTransaction();
-		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		//FragmentTransaction ft = fm.beginTransaction();
+		//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		
-		Fragment frag = null;
+		//Fragment frag = null;
 		
 		switch (item.getItemId()) {
 			case R.id.summary_send_report:
@@ -524,18 +525,7 @@ public class SummaryFragment extends Fragment {
 	    		return true;
 	        	
 			case R.id.summary_add_item:
-				int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-				
-				frag = fm.findFragmentById(LAYOUT_ID);
-				TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(publisherId);
-				
-				if(frag != null)
-	        		ft.remove(frag);
-				
-				ft.add(LAYOUT_ID, f);
-				ft.addToBackStack(null);
-				
-				ft.commit();
+				((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
 				
 				return true;
 		}

@@ -5,6 +5,7 @@
 	<projects>
 		<project>BetterPickers</project>
 		<project>android-support-v7-appcompat</project>
+		<project>cardview</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
