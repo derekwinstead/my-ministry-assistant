@@ -5,11 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.model.NavDrawerMenuItem;
 
@@ -66,13 +64,7 @@ public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
 		
 		if(view == null) {
 			view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
-			
 			TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
-			/*
-			LayoutParams params = text1.getLayoutParams();
-			params.height = Helper.dipsToPix(getContext(), 48);
-			text1.setLayoutParams(params);
-			*/
 			view.setTag(new ViewHolder(text1));
 		}
 		
@@ -88,29 +80,4 @@ public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
 		
 		return view;
 	}
-	/*
-	public View getDropDownView(int position, View convertView, ViewGroup parent) {
-		NavDrawerMenuItem item = getItem(position);
-		ViewHolder holder = null;
-		View view = convertView;
-		
-		if(view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.li_spinner_item_dropdown, parent, false);
-			
-			TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
-			view.setTag(new ViewHolder(text1));
-		}
-		
-		if(holder == null && view != null) {
-			Object tag = view.getTag();
-			if (tag instanceof ViewHolder)
-				holder = (ViewHolder) tag;
-		}
-		
-		Drawable img = getContext().getResources().getDrawable( item.iconRes );
-		holder.textHolder.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
-		holder.textHolder.setText(item.title);
-		
-		return view;
-	}*/
 }
