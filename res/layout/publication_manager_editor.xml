@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.myMinistry.ui.FloatLabeledEditText xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:float="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/et_name"
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_card"
-    android:inputType="textCapSentences"
-    android:padding="@dimen/default_padding_extra"
-    float:fletFloatingHint="@string/form_name" />
+    card_view:cardCornerRadius="@dimen/material_corner_radius" >
+
+    <com.myMinistry.ui.FloatLabeledEditText
+        xmlns:float="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:padding="@dimen/default_padding"
+        float:fletFloatingHint="@string/form_name" />
+
+</android.support.v7.widget.CardView>
