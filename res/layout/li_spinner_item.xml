@@ -3,7 +3,7 @@
     android:id="@+id/menurow_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:drawablePadding="@dimen/default_padding"
+    android:drawablePadding="@dimen/default_padding_half"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/default_padding_half"
     android:textAppearance="?android:attr/textAppearanceMedium"

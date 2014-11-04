@@ -1,10 +1,5 @@
 package com.myMinistry.adapters;
 
-import com.myMinistry.Helper;
-import com.myMinistry.R;
-import com.myMinistry.adapters.NavDrawerMenuItemAdapter.ViewHolder;
-import com.myMinistry.model.NavDrawerMenuItem;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -14,8 +9,12 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.myMinistry.Helper;
+import com.myMinistry.R;
+import com.myMinistry.model.NavDrawerMenuItem;
+
 public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
-	private int LAYOUT_VIEW_ID = R.layout.li_item_spinner_item;
+	private int LAYOUT_VIEW_ID = R.layout.li_item_spinner_item_2;
 	
 	public ItemAdapter(Context context) {
 		super(context, 0);
@@ -69,11 +68,11 @@ public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
 			view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
 			
 			TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
-			
+			/*
 			LayoutParams params = text1.getLayoutParams();
 			params.height = Helper.dipsToPix(getContext(), 48);
 			text1.setLayoutParams(params);
-			
+			*/
 			view.setTag(new ViewHolder(text1));
 		}
 		
