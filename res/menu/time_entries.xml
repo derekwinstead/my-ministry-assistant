@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/time_entries_add_item"
+        android:icon="@drawable/ic_action_new_event"
+        android:title="@string/menu_add_time"
+        app:showAsAction="always"/>
+
+</menu>

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,13 +14,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.Techniques;
 import com.myMinistry.YoYo;
@@ -28,11 +33,11 @@ import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment.PublisherNewDialogFragmentListener;
 import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.model.PublisherSpinner;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 import com.nineoldandroids.animation.Animator;
@@ -55,11 +60,13 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	private String mMonth, mYear = "";
 	
-	private PublisherSpinner publishers;
+	private Spinner publishers;
 	private TextView month, year;
 	private CardView monthNavigation;
 	
 	private NavDrawerMenuItemAdapter pubsAdapter;
+	
+	private FragmentActivityStatus fragmentActivityStatus;
 	
 	private FragmentManager fm;
 	
@@ -85,6 +92,27 @@ public class TimeEntriesFragment extends ListFragment {
         args.putBoolean(ARG_IS_MONTH, is_month);
         f.setArguments(args);
         return f;
+    }
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.time_entries, menu);
+	}
+	
+	@Override
+    public void onAttach(Activity activity) {
+		super.onAttach(activity);
+        fragmentActivityStatus = (FragmentActivityStatus)activity;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
+        
+        if(menu.findItem(R.id.time_entries_add_item) != null)
+    		menu.findItem(R.id.time_entries_add_item).setVisible(!drawerOpen);
+    	
+    	super.onPrepareOptionsMenu(menu);
     }
     
     @Override
@@ -133,7 +161,7 @@ public class TimeEntriesFragment extends ListFragment {
 			}
 		});
         
-        publishers = (PublisherSpinner) view.findViewById(R.id.publishers);
+        publishers = (Spinner) view.findViewById(R.id.publishers);
         monthNavigation = (CardView) view.findViewById(R.id.monthNavigation);
         month = (TextView) view.findViewById(R.id.month);
     	year = (TextView) view.findViewById(R.id.year);
@@ -301,6 +329,8 @@ public class TimeEntriesFragment extends ListFragment {
 		super.onActivityCreated(savedState);
 		
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+		
+		setHasOptionsMenu((is_dual_pane) ? false : true);
     	
     	if(is_dual_pane)
     		monthNavigation.setVisibility(View.GONE);
@@ -442,5 +472,16 @@ public class TimeEntriesFragment extends ListFragment {
 			}
 		});
         
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.time_entries_add_item:
+				((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
+				
+				return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 }

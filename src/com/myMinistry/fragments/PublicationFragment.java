@@ -127,7 +127,7 @@ public class PublicationFragment extends ListFragment {
 			}
 		}
 		
-		root.findViewById(R.id.btn_add_item).setOnClickListener(new View.OnClickListener() {
+		root.findViewById(R.id.tv_add_item).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				openEditor(PublicationEditorFragment.CREATE_ID);

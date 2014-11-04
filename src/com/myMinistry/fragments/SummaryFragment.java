@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myMinistry.FragmentActivityStatus;
@@ -29,7 +30,6 @@ import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment.PublisherNewDialogFragmentListener;
 import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.model.PublisherSpinner;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryContract.Publisher;
@@ -55,7 +55,7 @@ public class SummaryFragment extends Fragment {
     
     private String mMonth, mYear, mTotalHoursCount, mPublicationText0, mPublicationText1, mPublicationText2, mPublicationText3, mPublicationText4, mPublicationCount0, mPublicationCount1, mPublicationCount2, mPublicationCount3, mPublicationCount4, mRVText, mRVCount, mBSText, mBSCount, mRBCText, mRBCCount = "";
     
-    private PublisherSpinner publishers;
+    private Spinner publishers;
     private TextView month, year, total_hours_count, tv_pub_text_0, tv_pub_text_1, tv_pub_text_2, tv_pub_text_3, tv_pub_text_4, tv_pub_count_0, tv_pub_count_1, tv_pub_count_2, tv_pub_count_3, tv_pub_count_4, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, rbc_text, rbc_count;
 	private Calendar monthPicked = Calendar.getInstance();
 	private Calendar serviceYear = Calendar.getInstance();
@@ -125,7 +125,7 @@ public class SummaryFragment extends Fragment {
 		
 		setPublisherId(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
 		
-		publishers = (PublisherSpinner) root.findViewById(R.id.publishers);
+		publishers = (Spinner) root.findViewById(R.id.publishers);
 		tv_pub_text_0 = (TextView) root.findViewById(R.id.tv_pub_text_0);
 		tv_pub_count_0 = (TextView) root.findViewById(R.id.tv_pub_count_0);
 		tv_pub_text_1 = (TextView) root.findViewById(R.id.tv_pub_text_1);

@@ -56,7 +56,7 @@
             android:src="@drawable/ic_action_next_item" />
     </LinearLayout>
 
-    <com.myMinistry.model.PublisherSpinner
+    <Spinner
         android:id="@+id/publishers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
