@@ -1,136 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_card"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/default_padding" >
+        card_view:cardCornerRadius="@dimen/material_corner_radius" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                style="?android:attr/spinnerItemStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/form_publisher" />
-
-            <Spinner
-                android:id="@+id/publishers"
-                style="@style/SpinnerAppBaseTheme"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                style="?android:attr/spinnerItemStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/form_type" />
-
-            <Spinner
-                android:id="@+id/entryTypes"
-                style="@style/SpinnerAppBaseTheme"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                style="?android:attr/spinnerItemStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/form_start" />
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding" >
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
                 android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/dateStart"
-                    style="@style/SpinnerAppBaseTheme"
+                <TextView
+                    style="?android:attr/spinnerItemStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingRight="@dimen/default_padding_double" />
-
-                <Button
-                    android:id="@+id/timeStart"
-                    style="@style/SpinnerAppBaseTheme"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingRight="@dimen/default_padding_double" />
+                    android:text="@string/form_publisher" />
+
+                <Spinner
+                    android:id="@+id/publishers"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                style="?android:attr/spinnerItemStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/form_end" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
                 android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/dateEnd"
-                    style="@style/SpinnerAppBaseTheme"
+                <TextView
+                    style="?android:attr/spinnerItemStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingRight="@dimen/default_padding_double" />
-
-                <Button
-                    android:id="@+id/timeEnd"
-                    style="@style/SpinnerAppBaseTheme"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingRight="@dimen/default_padding_double" />
+                    android:text="@string/form_type" />
+
+                <Spinner
+                    android:id="@+id/entryTypes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="?android:attr/spinnerItemStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/form_start" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/dateStart"
+                        style="?android:attr/spinnerStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding_double" />
+
+                    <Button
+                        android:id="@+id/timeStart"
+                        style="?android:attr/spinnerItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding_double" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="?android:attr/spinnerItemStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/form_end" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/dateEnd"
+                        style="@style/SpinnerAppBaseTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding_double" />
+
+                    <Button
+                        android:id="@+id/timeEnd"
+                        style="@style/SpinnerAppBaseTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding_double" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <RelativeLayout
         android:layout_width="match_parent"

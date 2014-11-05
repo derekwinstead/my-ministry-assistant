@@ -75,9 +75,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     
+    public static final int SUMMARY_ID = NAVDRAWER_ITEM_SUMMARY;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     
-    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_SUMMARY;
+    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_TIME_ENTRY;
 
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
@@ -222,7 +223,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	switch (itemId) {
     		case NAVDRAWER_ITEM_SUMMARY:
     			getSupportActionBar().removeAllTabs();
-    	    	
+    			
+    			getSupportActionBar().setTitle(R.string.navdrawer_item_summary);
+    			
     	    	if(!is_dual_pane) {
     	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.navdrawer_item_summary).setTabListener(this));
     	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.menu_entries).setTabListener(this));

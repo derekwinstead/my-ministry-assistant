@@ -511,8 +511,10 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				
 				return true;
 			case R.id.menu_cancel:
+				getActivity().setTitle(R.string.navdrawer_item_summary);
+				
 				if(is_dual_pane) {
-		        	/** The fragment is the time entry one, just update the frag instead of doing a replacement. */
+		        	// The fragment is the time entry one, just update the frag instead of doing a replacement.
 	        		SummaryFragment fragment = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
 	        		if(timeId > 0) {
 		        		fragment.setPublisherId(originalPublisherId);
@@ -543,13 +545,14 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 						ft.remove(frag);
 					
 					ft.add(R.id.primary_fragment_container, f);
-		        	ft.addToBackStack(null);
 		        	
 		        	ft.commit();	
 				}
 				return true;
 			case R.id.menu_discard:
 				if(allowedToEdit) {
+					getActivity().setTitle(R.string.navdrawer_item_summary);
+					
 					// Delete Time Entries Deep
 					database.openWritable();
 					database.removeTimeEntryDeep(timeId);
