@@ -34,6 +34,11 @@
         <item name="android:checkMark">@drawable/appbasetheme_btn_radio_holo_light</item>
     </style>
 
+    <style name="SpinnerMaterial" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/abc_spinner_mtrl_am_alpha_cust</item>
+        <item name="android:textSize">@dimen/abc_text_size_medium_material</item>
+    </style>
+
     <style name="ListViewAppBaseTheme" parent="android:Widget.ListView">
         <item name="android:listSelector">@drawable/appbasetheme_list_selector_holo_light</item>
     </style>

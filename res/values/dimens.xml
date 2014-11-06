@@ -8,6 +8,7 @@
     <dimen name="thumb_height">48dp</dimen>
     <dimen name="default_padding">10dp</dimen>
     <dimen name="default_padding_half">5dp</dimen>
+    <dimen name="default_padding_two_third">7dp</dimen>
     <dimen name="default_padding_extra">15dp</dimen>
     <dimen name="default_padding_double">20dp</dimen>
     <dimen name="negative_default_padding">-10dp</dimen>

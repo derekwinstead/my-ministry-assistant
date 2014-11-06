@@ -15,20 +15,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/default_padding"
-            android:paddingTop="@dimen/default_padding" >
+            android:padding="@dimen/default_padding" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/default_padding_half" >
 
                 <TextView
-                    style="?android:attr/spinnerItemStyle"
+                    style="?android:attr/spinnerStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:text="@string/form_publisher" />
 
                 <Spinner
@@ -41,14 +42,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/default_padding_half"
+                android:paddingTop="@dimen/default_padding_half" >
 
                 <TextView
-                    style="?android:attr/spinnerItemStyle"
+                    style="?android:attr/spinnerStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:text="@string/form_type" />
 
                 <Spinner
@@ -61,14 +65,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/default_padding_half"
+                android:paddingTop="@dimen/default_padding_half" >
 
                 <TextView
-                    style="?android:attr/spinnerItemStyle"
+                    style="?android:attr/spinnerStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:text="@string/form_start" />
 
                 <LinearLayout
@@ -77,18 +84,18 @@
                     android:layout_weight="3"
                     android:orientation="horizontal" >
 
-                    <Button
+                    <TextView
                         android:id="@+id/dateStart"
-                        style="?android:attr/spinnerStyle"
+                        style="@style/SpinnerMaterial"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingLeft="@dimen/default_padding_two_third"
                         android:paddingRight="@dimen/default_padding_double" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/timeStart"
-                        style="?android:attr/spinnerItemStyle"
+                        style="@style/SpinnerMaterial"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -100,14 +107,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_padding_half" >
 
                 <TextView
-                    style="?android:attr/spinnerItemStyle"
+                    style="?android:attr/spinnerStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:text="@string/form_end" />
 
                 <LinearLayout
@@ -116,18 +125,18 @@
                     android:layout_weight="3"
                     android:orientation="horizontal" >
 
-                    <Button
+                    <TextView
                         android:id="@+id/dateEnd"
-                        style="@style/SpinnerAppBaseTheme"
+                        style="@style/SpinnerMaterial"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingLeft="@dimen/default_padding_two_third"
                         android:paddingRight="@dimen/default_padding_double" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/timeEnd"
-                        style="@style/SpinnerAppBaseTheme"
+                        style="@style/SpinnerMaterial"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

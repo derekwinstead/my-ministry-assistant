@@ -66,19 +66,17 @@
 
                 <TextView
                     android:id="@+id/dateStart"
-                    style="?android:attr/spinnerStyle"
+                    style="@style/SpinnerMaterial"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@drawable/abc_spinner_mtrl_am_alpha_cust" />
+                    android:layout_weight="3" />
 
                 <TextView
                     android:id="@+id/timeStart"
-                    style="?android:attr/spinnerStyle"
+                    style="@style/SpinnerMaterial"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:background="@drawable/abc_spinner_mtrl_am_alpha_cust"
                     android:paddingLeft="@dimen/default_padding" />
             </LinearLayout>
 
@@ -96,23 +94,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingBottom="@dimen/default_padding_half"
                 android:paddingLeft="@dimen/default_padding_half" >
 
                 <TextView
                     android:id="@+id/dateEnd"
-                    style="?android:attr/spinnerStyle"
+                    style="@style/SpinnerMaterial"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@drawable/abc_spinner_mtrl_am_alpha_cust" />
+                    android:layout_weight="3" />
 
                 <TextView
                     android:id="@+id/timeEnd"
-                    style="?android:attr/spinnerStyle"
+                    style="@style/SpinnerMaterial"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:background="@drawable/abc_spinner_mtrl_am_alpha_cust"
                     android:paddingLeft="@dimen/default_padding" />
             </LinearLayout>
         </LinearLayout>

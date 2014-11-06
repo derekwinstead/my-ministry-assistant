@@ -14,4 +14,9 @@
         <item name="android:dropDownSelector">@drawable/appbasetheme_list_selector_holo_light</item>
     </style>
 
+    <style name="SpinnerMaterial" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/abc_spinner_mtrl_am_alpha_cust</item>
+        <item name="android:textSize">@dimen/abc_text_size_medium_material</item>
+    </style>
+
 </resources>
