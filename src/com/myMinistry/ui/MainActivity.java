@@ -49,6 +49,7 @@ import com.myMinistry.util.HelpUtils;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.UIUtils;
 
+@SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements FragmentActivityStatus, TabListener {
 	private static final String TAG = makeLogTag(MainActivity.class);
 	

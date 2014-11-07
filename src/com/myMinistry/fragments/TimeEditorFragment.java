@@ -46,14 +46,14 @@ import com.myMinistry.dialogfragments.HouseholderDialogFragment;
 import com.myMinistry.dialogfragments.HouseholderDialogFragment.HouseholderDialogFragmentListener;
 import com.myMinistry.dialogfragments.HouseholderNewDialogFragment;
 import com.myMinistry.dialogfragments.HouseholderNewDialogFragment.HouseholderNewDialogFragmentListener;
+import com.myMinistry.dialogfragments.NotesDialogFragment;
+import com.myMinistry.dialogfragments.NotesDialogFragment.NotesDialogFragmentListener;
 import com.myMinistry.dialogfragments.PublicationDialogFragment;
 import com.myMinistry.dialogfragments.PublicationDialogFragment.LiteratureDialogFragmentListener;
 import com.myMinistry.dialogfragments.PublicationNewDialogFragment;
 import com.myMinistry.dialogfragments.PublicationNewDialogFragment.LiteratureNewDialogFragmentListener;
 import com.myMinistry.dialogfragments.PublicationTypeDialogFragment;
 import com.myMinistry.dialogfragments.PublicationTypeDialogFragment.LiteratureTypeDialogFragmentListener;
-import com.myMinistry.dialogfragments.NotesDialogFragment;
-import com.myMinistry.dialogfragments.NotesDialogFragment.NotesDialogFragmentListener;
 import com.myMinistry.dialogfragments.TimePickerDialogFragment;
 import com.myMinistry.dialogfragments.TimePickerDialogFragment.TimePickerDialogFragmentListener;
 import com.myMinistry.model.HouseholderForTime;
@@ -63,7 +63,6 @@ import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteraturePlaced;
-import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryContract.Notes;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
@@ -181,6 +180,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View root = inflater.inflate(R.layout.time_editor, container, false);

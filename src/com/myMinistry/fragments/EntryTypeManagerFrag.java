@@ -37,7 +37,6 @@ public class EntryTypeManagerFrag extends ListFragment {
 	private boolean is_dual_pane = false;
 	
 	private Cursor cursor;
-	//private SimpleCursorAdapter adapter;
 	private ItemAdapter adapter;
 	private ContentValues values = null;
 	private MinistryService database;

@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -505,18 +507,15 @@ public class SummaryFragment extends Fragment {
     	return retVal.toString();
 	}
 	
+	@SuppressWarnings("deprecation")
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		//FragmentTransaction ft = fm.beginTransaction();
-		//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		
-		//Fragment frag = null;
-		
 		switch (item.getItemId()) {
 			case R.id.summary_send_report:
 				Intent share = new Intent(android.content.Intent.ACTION_SEND);
 	    		share.setType("text/plain");
-	    		share.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+	    		share.setFlags((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET); 
 	    		share.putExtra(android.content.Intent.EXTRA_TEXT, populateShareString());
 	    		share.putExtra(android.content.Intent.EXTRA_SUBJECT, buttonFormat.format(monthPicked.getTime()).toString() + " " + monthPicked.get(Calendar.YEAR));
 	    		startActivity(Intent.createChooser(share, getResources().getString(R.string.menu_send_report)));
@@ -600,6 +599,5 @@ public class SummaryFragment extends Fragment {
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) { }
 		});
-        
 	}
 }

@@ -26,6 +26,7 @@ import com.myMinistry.util.HelpUtils;
 public class SettingsActivity extends PreferenceActivity {
 	private String versionName = "0";
 	
+	@SuppressWarnings("deprecation")
 	@SuppressLint("InflateParams")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

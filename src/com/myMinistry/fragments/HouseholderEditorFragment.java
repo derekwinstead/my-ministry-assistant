@@ -1,8 +1,12 @@
 package com.myMinistry.fragments;
 
+import java.util.Locale;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -129,15 +133,25 @@ public class HouseholderEditorFragment extends ListFragment {
     	fillForm();
 	}
 	
+	@SuppressWarnings("deprecation")
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_save:
 				if(et_name.getText().toString().trim().length() > 0) {
-					et_phone_mobile.setText(PhoneNumberUtils.formatNumber(et_phone_mobile.getText().toString()));
-					et_phone_home.setText(PhoneNumberUtils.formatNumber(et_phone_home.getText().toString()));
-					et_phone_work.setText(PhoneNumberUtils.formatNumber(et_phone_work.getText().toString()));
-					et_phone_other.setText(PhoneNumberUtils.formatNumber(et_phone_other.getText().toString()));
+					if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+						et_phone_mobile.setText(PhoneNumberUtils.formatNumber(et_phone_mobile.getText().toString(), Locale.getDefault().getISO3Country()));
+						et_phone_home.setText(PhoneNumberUtils.formatNumber(et_phone_home.getText().toString(), Locale.getDefault().getISO3Country()));
+						et_phone_work.setText(PhoneNumberUtils.formatNumber(et_phone_work.getText().toString(), Locale.getDefault().getISO3Country()));
+						et_phone_other.setText(PhoneNumberUtils.formatNumber(et_phone_other.getText().toString(), Locale.getDefault().getISO3Country()));
+					} else {
+						et_phone_mobile.setText(PhoneNumberUtils.formatNumber(et_phone_mobile.getText().toString()));
+						et_phone_home.setText(PhoneNumberUtils.formatNumber(et_phone_home.getText().toString()));
+						et_phone_work.setText(PhoneNumberUtils.formatNumber(et_phone_work.getText().toString()));
+						et_phone_other.setText(PhoneNumberUtils.formatNumber(et_phone_other.getText().toString()));
+					}
+					
 					
 					ContentValues values = new ContentValues();
     				values.put(Householder.NAME, et_name.getText().toString().trim());

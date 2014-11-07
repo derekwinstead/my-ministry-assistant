@@ -31,6 +31,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 	private LayoutParams lp1;
 	private LayoutParams lp2;
 	
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.FROYO)
 	public TimeEditorEntryAdapter(Context context, ArrayList<HouseholderForTime> entries) {
 		super(context, LAYOUT_ID, entries);
@@ -51,6 +52,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 		LinearLayout linlay;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

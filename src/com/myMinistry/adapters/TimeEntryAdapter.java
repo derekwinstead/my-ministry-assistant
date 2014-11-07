@@ -44,6 +44,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 	private LayoutParams lp1;
 	private LayoutParams lp2;
 	
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.FROYO)
 	public TimeEntryAdapter(Context context, Cursor cursor) {
 		super(context, LAYOUT_ID, cursor, ResourceCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -80,6 +81,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 		return view;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
@@ -171,7 +173,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 			for(Entry entry : entries) {
 				if(!TextUtils.isEmpty(entry.getHouseholder()) || !TextUtils.isEmpty(entry.getNotes()) || entry.pubs.size() > 0) { 
 					View v = new View(context);
-					LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
+					LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams((Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) ? LayoutParams.MATCH_PARENT : LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
 					lp3.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
 					v.setLayoutParams(lp3);
 					v.setBackgroundColor(context.getResources().getColor(R.color.navdrawer_divider));
