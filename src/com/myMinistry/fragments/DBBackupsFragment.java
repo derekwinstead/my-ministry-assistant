@@ -56,7 +56,7 @@ public class DBBackupsFragment extends Fragment {
 							
 							if(frag instanceof DBBackupsListFragment) {
 								DBBackupsListFragment f = (DBBackupsListFragment) fm.findFragmentById(R.id.secondary_fragment_container);
-					        	f.reloadFileList();
+					        	f.reloadAdapter();
 							}
 							else {
 					    		DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
@@ -98,7 +98,7 @@ public class DBBackupsFragment extends Fragment {
 					
 					if(frag instanceof DBBackupsListFragment) {
 						DBBackupsListFragment f = (DBBackupsListFragment) fm.findFragmentById(R.id.secondary_fragment_container);
-			        	f.reloadFileList();
+			        	f.reloadAdapter();
 					}
 					else {
 			    		DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
@@ -115,26 +115,7 @@ public class DBBackupsFragment extends Fragment {
 					}
 				}
 		}});
-        /*
-		view.findViewById(R.id.schedule_bu).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(is_dual_pane) {
-					Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
-					DBScheduleFragment f = new DBScheduleFragment().newInstance();
-		        	FragmentTransaction ft = fm.beginTransaction();
-		        	
-		        	 if(frag != null)
-		        		 ft.remove(frag);
-		        	
-		        	ft.add(R.id.secondary_fragment_container, f);
-		        	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		        	ft.addToBackStack(null);
-		        	
-		        	ft.commit();
-				}
-		}});
-		*/
+		
         return view;
 	}
 	

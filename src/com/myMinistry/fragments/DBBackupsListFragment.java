@@ -20,20 +20,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.adapters.ItemAdapter;
+import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.util.FileUtils;
 
 public class DBBackupsListFragment extends ListFragment {
 	private String[] fileList;
-	private ArrayAdapter<String> adapter;
+	private ItemAdapter adapter;
 	
 	private final int REF_RESTORE = 0;
 	private final int REF_EMAIL = 1;
@@ -74,7 +75,7 @@ public class DBBackupsListFragment extends ListFragment {
 		
 		setHasOptionsMenu(true);
         
-		view.findViewById(R.id.btn_add_item).setOnClickListener(new View.OnClickListener() {
+		view.findViewById(R.id.tv_add_item).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				createBackup();
@@ -83,24 +84,13 @@ public class DBBackupsListFragment extends ListFragment {
         return view;
 	}
 	
-	private String[] loadFileList() {
-    	return FileUtils.getExternalDBFile(getActivity().getApplicationContext(), "").list();
-    }
-	
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	
-    	fileList = loadFileList();
-    	
-    	if(fileList != null)
-    		Arrays.sort(fileList);
-    	else
-    		fileList = new String[0];
-    	
-    	adapter = new ArrayAdapter<String>(getActivity(), R.layout.li_db_item, fileList);
-    	adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-		setListAdapter(adapter);
+    	adapter = new ItemAdapter(getActivity().getApplicationContext());
+    	loadAdapter();
+    	setListAdapter(adapter);
 	}
     
     @Override
@@ -135,14 +125,12 @@ public class DBBackupsListFragment extends ListFragment {
 				}
 				else if(item == REF_DELETE) {
 					file.delete();
-					reloadFileList();
+					reloadAdapter();
 				}
 			}
 		});
 		AlertDialog alert = builder.create();
 		alert.show();
-		
-		
 	}
     
     private void createBackup() {
@@ -159,7 +147,7 @@ public class DBBackupsListFragment extends ListFragment {
 				
 				FileUtils.copyFile(intDB, extDB);
 				
-				reloadFileList();
+				reloadAdapter();
 				
 				Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_export_text), Toast.LENGTH_SHORT).show();
 			}
@@ -168,18 +156,6 @@ public class DBBackupsListFragment extends ListFragment {
 		}
     }
     
-    public void reloadFileList() {
-    	fileList = loadFileList();
-
-    	if(fileList != null)
-    		Arrays.sort(fileList);
-    	else
-    		fileList = new String[0];
-    	
-    	adapter = new ArrayAdapter<String>(getActivity(), R.layout.li_db_item, fileList);
-    	getListView().setAdapter(adapter);
-    }
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -196,11 +172,33 @@ public class DBBackupsListFragment extends ListFragment {
 				else if(FLAG == 0)
 					Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_cleaned_backups_error), Toast.LENGTH_SHORT).show();
 				
-				reloadFileList();
+				reloadAdapter();
 				
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private String[] loadFileList() {
+    	return FileUtils.getExternalDBFile(getActivity().getApplicationContext(), "").list();
+    }
+	
+	private void loadAdapter() {
+		fileList = loadFileList();
+		
+		if(fileList != null)
+    		Arrays.sort(fileList);
+		else
+    		fileList = new String[0];
+    	
+		for(String filename : fileList)
+			adapter.addItem(new NavDrawerMenuItem(filename, R.drawable.ic_drawer_db, 1));
+	}
+	
+	public void reloadAdapter() {
+		adapter.clear();
+		loadAdapter();
+		adapter.notifyDataSetChanged();
 	}
 }
