@@ -45,7 +45,6 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
 	private LayoutParams lp2;
 	
 	@TargetApi(Build.VERSION_CODES.FROYO)
-	@SuppressWarnings("deprecation")
 	public PublisherRecentActivityAdapter(Context context, Cursor cursor) {
 		super(context, LAYOUT_ID, cursor, ResourceCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 		database = new MinistryService(context);
@@ -165,7 +164,6 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
 		
 		for(Entry entry : entries) {
 			View v = new View(context);
-			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
 			lp3.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
 			v.setLayoutParams(lp3);

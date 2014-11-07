@@ -44,7 +44,6 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 	private LayoutParams lp1;
 	private LayoutParams lp2;
 	
-	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.FROYO)
 	public TimeEntryAdapter(Context context, Cursor cursor) {
 		super(context, LAYOUT_ID, cursor, ResourceCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -81,7 +80,6 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 		return view;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {

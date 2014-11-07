@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.myMinistry.FragmentActivityStatus;
@@ -21,7 +22,6 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.ui.FloatLabeledEditText;
 import com.myMinistry.util.PrefUtils;
 import com.squareup.phrase.Phrase;
 
@@ -30,7 +30,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	
 	private boolean is_dual_pane = false;
 	
-	private FloatLabeledEditText et_name;
+	private EditText et_name;
 	private CheckBox cb_is_active;
 	
 	private long resID = 0;
@@ -83,7 +83,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 		
 		setHasOptionsMenu(true);
 		
-		et_name = (FloatLabeledEditText) root.findViewById(R.id.et_name);
+		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
 		
 		database = new MinistryService(getActivity().getApplicationContext());

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,6 @@ import com.myMinistry.adapters.HouseholderRecentActivityAdapter;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.ui.FloatLabeledEditText;
 import com.squareup.phrase.Phrase;
 
 public class HouseholderEditorFragment extends ListFragment {
@@ -36,7 +36,7 @@ public class HouseholderEditorFragment extends ListFragment {
 	private boolean is_dual_pane = false;
 	
 	/** Display vars */
-	private FloatLabeledEditText et_name, et_address, et_phone_mobile, et_phone_home, et_phone_work, et_phone_other;
+	private EditText et_name, et_address, et_phone_mobile, et_phone_home, et_phone_work, et_phone_other;
 	private CheckBox cb_is_active;
 	private TextView recent_activity_text;
 	/** Internal vars */
@@ -103,12 +103,12 @@ public class HouseholderEditorFragment extends ListFragment {
 		
 		fm = getActivity().getSupportFragmentManager();
 		
-		et_name = (FloatLabeledEditText) root.findViewById(R.id.et_name);
-		et_address = (FloatLabeledEditText) root.findViewById(R.id.et_address);
-		et_phone_mobile = (FloatLabeledEditText) root.findViewById(R.id.et_phone_mobile);
-		et_phone_home = (FloatLabeledEditText) root.findViewById(R.id.et_phone_home);
-		et_phone_work = (FloatLabeledEditText) root.findViewById(R.id.et_phone_work);
-		et_phone_other = (FloatLabeledEditText) root.findViewById(R.id.et_phone_other);
+		et_name = (EditText) root.findViewById(R.id.et_name);
+		et_address = (EditText) root.findViewById(R.id.et_address);
+		et_phone_mobile = (EditText) root.findViewById(R.id.et_phone_mobile);
+		et_phone_home = (EditText) root.findViewById(R.id.et_phone_home);
+		et_phone_work = (EditText) root.findViewById(R.id.et_phone_work);
+		et_phone_other = (EditText) root.findViewById(R.id.et_phone_other);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
 		recent_activity_text = (TextView) root.findViewById(R.id.recent_activity_text);
 		
@@ -129,7 +129,6 @@ public class HouseholderEditorFragment extends ListFragment {
     	fillForm();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

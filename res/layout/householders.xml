@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/default_padding" />
+        android:dividerHeight="@dimen/inner_padding" />
 
     <LinearLayout
         android:id="@id/android:empty"
@@ -36,6 +36,7 @@
             android:background="@drawable/bg_card_li"
             android:drawableLeft="@drawable/ic_action_person_add"
             android:drawablePadding="@dimen/default_padding_half"
+            android:drawableStart="@drawable/ic_action_person_add"
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="@string/menu_add_new"

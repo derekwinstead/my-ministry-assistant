@@ -5,13 +5,12 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="@dimen/material_corner_radius" >
 
-    <com.myMinistry.ui.FloatLabeledEditText
-        xmlns:float="http://schemas.android.com/apk/res-auto"
+    <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
-        android:padding="@dimen/default_padding"
-        float:fletFloatingHint="@string/form_name" />
+        android:layout_margin="@dimen/default_padding"
+        android:hint="@string/form_name"
+        android:inputType="textCapSentences" />
 
 </android.support.v7.widget.CardView>

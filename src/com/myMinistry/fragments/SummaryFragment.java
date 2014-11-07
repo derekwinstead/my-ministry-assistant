@@ -505,7 +505,6 @@ public class SummaryFragment extends Fragment {
     	return retVal.toString();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		//FragmentTransaction ft = fm.beginTransaction();

@@ -49,7 +49,6 @@ import com.myMinistry.util.HelpUtils;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.UIUtils;
 
-@SuppressWarnings("deprecation")
 public class MainActivity extends ActionBarActivity implements FragmentActivityStatus, TabListener {
 	private static final String TAG = makeLogTag(MainActivity.class);
 	
@@ -78,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     public static final int SUMMARY_ID = NAVDRAWER_ITEM_SUMMARY;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     
-    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_TIME_ENTRY;
+    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_ENTRY_TYPES;
 
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{

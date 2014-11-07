@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,6 @@ import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.ui.FloatLabeledEditText;
 import com.squareup.phrase.Phrase;
 
 public class PublisherEditorFragment extends ListFragment {
@@ -34,7 +34,7 @@ public class PublisherEditorFragment extends ListFragment {
 	
 	private boolean is_dual_pane = false;
 	
-	private FloatLabeledEditText et_name;
+	private EditText et_name;
 	private CheckBox cb_is_active;
 	private TextView recent_activity_text;
 	
@@ -99,7 +99,7 @@ public class PublisherEditorFragment extends ListFragment {
 		
 		fm = getActivity().getSupportFragmentManager();
 		
-		et_name = (FloatLabeledEditText) root.findViewById(R.id.et_name);
+		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	recent_activity_text = (TextView) root.findViewById(R.id.recent_activity_text);
 		

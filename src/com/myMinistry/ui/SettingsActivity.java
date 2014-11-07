@@ -27,7 +27,6 @@ public class SettingsActivity extends PreferenceActivity {
 	private String versionName = "0";
 	
 	@SuppressLint("InflateParams")
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

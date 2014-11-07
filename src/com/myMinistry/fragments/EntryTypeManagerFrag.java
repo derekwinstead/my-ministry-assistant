@@ -24,10 +24,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.myMinistry.FragmentActivityStatus;
+import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.adapters.ItemAdapter;
 import com.myMinistry.dialogfragments.EntryTypeNewDialogFrag;
 import com.myMinistry.dialogfragments.EntryTypeNewDialogFrag.EntryTypeNewDialogFragListener;
+import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.EntryType;
+import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.util.PrefUtils;
@@ -36,7 +40,8 @@ public class EntryTypeManagerFrag extends ListFragment {
 	private boolean is_dual_pane = false;
 	
 	private Cursor cursor;
-	private SimpleCursorAdapter adapter;
+	//private SimpleCursorAdapter adapter;
+	private ItemAdapter adapter;
 	private ContentValues values = null;
 	private MinistryService database;
 	private FragmentManager fm;
@@ -111,7 +116,6 @@ public class EntryTypeManagerFrag extends ListFragment {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
@@ -125,8 +129,11 @@ public class EntryTypeManagerFrag extends ListFragment {
     	database = new MinistryService(getActivity().getApplicationContext());
 		database.openWritable();
 		
+		adapter = new ItemAdapter(getActivity().getApplicationContext());
+		
 		loadCursor();
-		adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.li_bg_card_tv, cursor, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
+		
+		//adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.li_bg_card_tv, cursor, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
 		setListAdapter(adapter);
         
         database.close();
@@ -151,11 +158,33 @@ public class EntryTypeManagerFrag extends ListFragment {
 		EntryTypeManagerEditorFrag f = (EntryTypeManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
 		f.switchForm(id);
 	}
-    
+    /*
     @Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		cursor.moveToPosition(position);
 		createDialog(id, cursor.getString(cursor.getColumnIndex(EntryType.NAME)), cursor.getInt(cursor.getColumnIndex(EntryType.ACTIVE)));
+    }
+    */
+    @Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+    	
+    	createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), (adapter.getItem(position).getID() == MinistryDatabase.ID_ROLLOVER) ? 0 : 1);
+    	/*
+    	if(adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
+    		
+    		//showTransferToDialog((int)id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)));
+    		showTransferToDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString());
+    	} else {
+			if(is_dual_pane) {
+				PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
+				f.switchForm(adapter.getItem(position).getID());
+			} else {
+				//cursor.moveToPosition(position);
+				//createDialog(id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)));
+				// TODO CHANGE THE "1"!!!
+				createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), 1);
+			}
+    	}*/
     }
 	
     private void createDialog(final long id, String name, int isActive) {
@@ -271,6 +300,24 @@ public class EntryTypeManagerFrag extends ListFragment {
 	private void loadCursor() {
 		if(!database.isOpen())
 			database.openWritable();
+		
+		adapter.clear();
+		final Cursor cursor = database.fetchAllEntryTypes();
+	    while(cursor.moveToNext())
+	    	adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types, cursor.getInt(cursor.getColumnIndex(EntryType._ID))));
+	    cursor.close();
+	    database.close();
+	}
+	
+	public void reloadCursor() {
+		loadCursor();
+		adapter.notifyDataSetChanged();
+	}
+	
+	/*
+	private void loadCursor() {
+		if(!database.isOpen())
+			database.openWritable();
 		cursor = database.fetchAllEntryTypes();
 	}
 	
@@ -278,7 +325,7 @@ public class EntryTypeManagerFrag extends ListFragment {
 		loadCursor();
 		adapter.changeCursor(cursor);
 	}
-	
+	*/
 	public void sortList(int how_to_sort) {
 		if(!database.isOpen())
 			database.openWritable();

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.myMinistry.FragmentActivityStatus;
@@ -20,7 +21,6 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.ui.FloatLabeledEditText;
 import com.squareup.phrase.Phrase;
 
 public class PublicationManagerEditorFrag extends Fragment {
@@ -28,7 +28,7 @@ public class PublicationManagerEditorFrag extends Fragment {
 	
 	private boolean is_dual_pane = false;
 	
-	private FloatLabeledEditText et_name;
+	private EditText et_name;
 	
 	private long resID = 0;
 	
@@ -80,7 +80,7 @@ public class PublicationManagerEditorFrag extends Fragment {
 		
 		setHasOptionsMenu(true);
 		
-		et_name = (FloatLabeledEditText) root.findViewById(R.id.et_name);
+		et_name = (EditText) root.findViewById(R.id.et_name);
 		
 		database = new MinistryService(getActivity().getApplicationContext());
 		

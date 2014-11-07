@@ -5,6 +5,7 @@
     <string name="form_rename">Hernoem</string>
     <string name="form_publisher">Verkondiger</string>
     <string name="form_type">Type</string>
+    <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Publicaties</string>
     <string name="form_notes">Notities</string>
     <string name="form_start">Begin</string>

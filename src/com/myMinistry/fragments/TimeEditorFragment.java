@@ -38,6 +38,7 @@ import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
+import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEditorEntryAdapter;
 import com.myMinistry.dialogfragments.DatePickerDialogFragment;
 import com.myMinistry.dialogfragments.DatePickerDialogFragment.DatePickerDialogFragmentListener;
@@ -56,11 +57,13 @@ import com.myMinistry.dialogfragments.NotesDialogFragment.NotesDialogFragmentLis
 import com.myMinistry.dialogfragments.TimePickerDialogFragment;
 import com.myMinistry.dialogfragments.TimePickerDialogFragment.TimePickerDialogFragmentListener;
 import com.myMinistry.model.HouseholderForTime;
+import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.model.QuickLiterature;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteraturePlaced;
+import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryContract.Notes;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
@@ -97,7 +100,8 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 	private boolean allowedToEdit = true;
 	private boolean publisherExists = false;
 	private boolean showFlow = true;
-	private SimpleCursorAdapter typesAdapter, pubsAdapter;
+	private SimpleCursorAdapter typesAdapter;
+	private NavDrawerMenuItemAdapter pubsAdapter;
 	private Animation anim;
 	private FragmentManager fm;
 	
@@ -177,7 +181,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View root = inflater.inflate(R.layout.time_editor, container, false);
@@ -212,6 +215,45 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		database = new MinistryService(getActivity());
 		database.openWritable();
 		
+		if(_timeID == 0)
+			qEntryTypes = database.fetchActiveEntryTypes();
+		else 
+			qEntryTypes = database.fetchActiveEntryTypes();
+		
+		pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+		
+		if(_timeID == 0)
+			qPublishers = database.fetchActivePublishers();
+		else
+			qPublishers = database.fetchAllPublishers();
+		
+		//qPublishers = database.fetchActivePublishers();
+		
+		while(qPublishers.moveToNext())
+			pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+		
+		publishers.setAdapter(pubsAdapter);
+		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				publisherId = pubsAdapter.getItem(position).getID();
+				//qPublishers.moveToPosition(position);
+				publisherName = pubsAdapter.getItem(position).toString();
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+		
+		/*
+		database.close();
+		
+		
+		
+		
+		
 		qPublishers = database.fetchActivePublishers();
 		
 		if(_timeID == 0)
@@ -235,7 +277,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				
 			}
 		});
-		
+		*/
 		typesAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.simple_spinner_item_holo_light, qEntryTypes, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
 		typesAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 		entryTypes.setAdapter(typesAdapter);
@@ -391,7 +433,14 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     			/** The publisher doesn't exist in the cursor so we need to grab ALL the publishers. */
     			if(!publisherExists) {
     				qPublishers = database.fetchAllPublishers();
-    				pubsAdapter.changeCursor(qPublishers);
+    				
+    				pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+    				while(qPublishers.moveToNext())
+    					pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+    				
+    				
+    				
+    				//pubsAdapter.changeCursor(qPublishers);
     				pubsAdapter.notifyDataSetChanged();
     				publisherExists = true;
     				

@@ -1,108 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:float="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_card"
-        android:orientation="vertical" >
-
-        <com.myMinistry.ui.FloatLabeledEditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_padding_half"
-            android:layout_marginRight="@dimen/default_padding_half"
-            android:inputType="textCapSentences"
-            android:paddingTop="@dimen/default_padding_half"
-            float:fletFloatingHint="@string/form_name" />
-
-        <com.myMinistry.ui.FloatLabeledEditText
-            android:id="@+id/et_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_padding_half"
-            android:layout_marginRight="@dimen/default_padding_half"
-            android:inputType="textCapSentences"
-            android:paddingTop="@dimen/default_padding_half"
-            float:fletFloatingHint="@string/form_address" />
+        card_view:cardCornerRadius="@dimen/material_corner_radius" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/default_padding_half" >
+            android:background="@drawable/bg_card"
+            android:orientation="vertical" >
 
-            <com.myMinistry.ui.FloatLabeledEditText
-                android:id="@+id/et_phone_mobile"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/default_padding_half"
                 android:layout_marginRight="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:inputType="phone"
-                float:fletFloatingHint="@string/form_phone_mobile" />
+                android:hint="@string/form_name"
+                android:inputType="textCapSentences"
+                android:paddingTop="@dimen/default_padding_half" />
 
-            <com.myMinistry.ui.FloatLabeledEditText
-                android:id="@+id/et_phone_home"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/default_padding_half"
                 android:layout_marginRight="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:inputType="phone"
-                float:fletFloatingHint="@string/form_phone_home" />
+                android:hint="@string/form_address"
+                android:inputType="textCapSentences"
+                android:paddingTop="@dimen/default_padding_half" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_padding_half" >
+
+                <EditText
+                    android:id="@+id/et_phone_mobile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_padding_half"
+                    android:layout_marginRight="@dimen/default_padding_half"
+                    android:layout_weight="1"
+                    android:hint="@string/form_phone_mobile"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/et_phone_home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_padding_half"
+                    android:layout_marginRight="@dimen/default_padding_half"
+                    android:layout_weight="1"
+                    android:hint="@string/form_phone_home"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/default_padding_half" >
+
+                <EditText
+                    android:id="@+id/et_phone_work"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_padding_half"
+                    android:layout_marginRight="@dimen/default_padding_half"
+                    android:layout_weight="1"
+                    android:hint="@string/form_phone_work"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/et_phone_other"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_padding_half"
+                    android:layout_marginRight="@dimen/default_padding_half"
+                    android:layout_weight="1"
+                    android:hint="@string/form_phone_other"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cb_is_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding"
+                android:text="@string/form_is_active"
+                android:textColor="@color/holo_grey_light" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/default_padding_half" >
-
-            <com.myMinistry.ui.FloatLabeledEditText
-                android:id="@+id/et_phone_work"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_padding_half"
-                android:layout_marginRight="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:inputType="phone"
-                float:fletFloatingHint="@string/form_phone_work" />
-
-            <com.myMinistry.ui.FloatLabeledEditText
-                android:id="@+id/et_phone_other"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_padding_half"
-                android:layout_marginRight="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:inputType="phone"
-                float:fletFloatingHint="@string/form_phone_other" />
-        </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/cb_is_active"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/default_padding"
-            android:paddingTop="@dimen/default_padding"
-            android:text="@string/form_is_active"
-            android:textColor="@color/holo_grey_light" />
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/recent_activity_text"
         style="?android:attr/spinnerItemStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/default_padding"
-        android:paddingTop="@dimen/default_padding"
+        android:paddingBottom="@dimen/default_padding_half"
+        android:paddingTop="@dimen/default_padding_half"
         android:text="@string/recent_activity" />
 
     <ListView
@@ -110,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/default_padding" />
+        android:dividerHeight="@dimen/inner_padding" />
 
     <TextView
         android:id="@id/android:empty"

@@ -5,6 +5,7 @@
     <string name="form_rename">Ganti Nama</string>
     <string name="form_publisher">Penyiar</string>
     <string name="form_type">Jenis</string>
+    <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Jenis Publikasi</string>
     <string name="form_notes">Catatan</string>
     <string name="form_start">Mulai</string>

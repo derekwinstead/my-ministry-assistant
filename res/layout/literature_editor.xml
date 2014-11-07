@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:float="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="@dimen/material_corner_radius" >
@@ -16,31 +14,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/default_padding" >
+            android:padding="@dimen/default_padding" >
 
-            <Spinner
-                android:id="@+id/literatureTypes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_padding_half"
-                android:layout_marginRight="@dimen/default_padding_half" />
-
-            <com.myMinistry.ui.FloatLabeledEditText
+            <EditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/default_padding_half"
                 android:layout_marginRight="@dimen/default_padding_half"
-                android:inputType="textCapSentences"
+                android:hint="@string/form_name"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="4"
                 android:paddingTop="@dimen/default_padding_half"
-                float:fletFloatingHint="@string/form_name" />
+                android:scrollHorizontally="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/inner_padding"
+                android:paddingEnd="@dimen/default_padding_half"
+                android:paddingLeft="@dimen/default_padding_half"
+                android:paddingRight="@dimen/default_padding_half"
+                android:paddingStart="@dimen/default_padding_half"
+                android:paddingTop="@dimen/default_padding"
+                android:text="@string/form_publication_type"
+                android:textColor="@color/bg_card_default_text"
+                android:textSize="@dimen/flet_hint_text_size" />
+
+            <Spinner
+                android:id="@+id/literatureTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/default_padding_half"
                 android:paddingTop="@dimen/default_padding_half" >
 
                 <CheckBox
@@ -48,6 +58,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/default_padding_double"
                     android:layout_marginRight="@dimen/default_padding_double"
                     android:layout_weight="1"
                     android:text="@string/form_is_active"
@@ -58,6 +69,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_padding_double"
+                    android:layout_marginStart="@dimen/default_padding_double"
                     android:layout_weight="1"
                     android:text="@string/form_is_pair"
                     android:textColor="@color/holo_grey_light" />
@@ -70,8 +82,8 @@
         style="?android:attr/spinnerItemStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/default_padding"
-        android:paddingTop="@dimen/default_padding"
+        android:paddingBottom="@dimen/default_padding_half"
+        android:paddingTop="@dimen/default_padding_half"
         android:text="@string/recent_activity" />
 
     <ListView
@@ -82,7 +94,6 @@
         android:dividerHeight="@dimen/inner_padding" />
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@id/android:empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

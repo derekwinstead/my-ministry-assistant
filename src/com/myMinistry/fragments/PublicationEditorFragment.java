@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,7 +33,6 @@ import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.ui.FloatLabeledEditText;
 import com.squareup.phrase.Phrase;
 
 public class PublicationEditorFragment extends ListFragment {
@@ -40,7 +40,7 @@ public class PublicationEditorFragment extends ListFragment {
 	
 	private boolean is_dual_pane = false;
 	
-	private FloatLabeledEditText et_name;
+	private EditText et_name;
 	private Spinner s_publicationTypes;
 	private CheckBox cb_is_active;
 	private CheckBox cb_is_pair;
@@ -112,7 +112,7 @@ public class PublicationEditorFragment extends ListFragment {
 		
 		sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 		
-		et_name = (FloatLabeledEditText) root.findViewById(R.id.et_name);
+		et_name = (EditText) root.findViewById(R.id.et_name);
 		s_publicationTypes = (Spinner) root.findViewById(R.id.literatureTypes);
     	cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
