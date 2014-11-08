@@ -28,7 +28,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,7 +98,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 	private boolean allowedToEdit = true;
 	private boolean publisherExists = false;
 	private boolean showFlow = true;
-	private SimpleCursorAdapter typesAdapter;
+	private NavDrawerMenuItemAdapter typesAdapter;
 	private NavDrawerMenuItemAdapter pubsAdapter;
 	private Animation anim;
 	private FragmentManager fm;
@@ -115,7 +114,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 	SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.getDefault());
 	SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm aaa", Locale.getDefault());
 	
-	//SimpleDateFormat saveDateFormat	= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 	SimpleDateFormat saveTimeFormat	= new SimpleDateFormat("HH:mm", Locale.getDefault());
 	
 	private FragmentActivityStatus fragmentActivityStatus;
@@ -180,7 +178,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View root = inflater.inflate(R.layout.time_editor, container, false);
@@ -215,22 +212,32 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		database = new MinistryService(getActivity());
 		database.openWritable();
 		
-		if(_timeID == 0)
+		if(_timeID == 0) {
 			qEntryTypes = database.fetchActiveEntryTypes();
-		else 
+			qPublishers = database.fetchActivePublishers();
+		} else { 
 			qEntryTypes = database.fetchActiveEntryTypes();
+			qPublishers = database.fetchAllPublishers();
+		}
+		
+		
+		typesAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+		while(qEntryTypes.moveToNext())
+			typesAdapter.addItem(new NavDrawerMenuItem(qEntryTypes.getString(qEntryTypes.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types, qEntryTypes.getInt(qEntryTypes.getColumnIndex(EntryType._ID))));
 		
 		pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
-		
-		if(_timeID == 0)
-			qPublishers = database.fetchActivePublishers();
-		else
-			qPublishers = database.fetchAllPublishers();
-		
-		//qPublishers = database.fetchActivePublishers();
-		
 		while(qPublishers.moveToNext())
 			pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+		
+		entryTypes.setAdapter(typesAdapter);
+		entryTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				entryTypeId = typesAdapter.getItem(position).getID();
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) { }
+		});
 		
 		publishers.setAdapter(pubsAdapter);
 		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -239,52 +246,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				publisherId = pubsAdapter.getItem(position).getID();
 				//qPublishers.moveToPosition(position);
 				publisherName = pubsAdapter.getItem(position).toString();
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				
-			}
-		});
-		
-		/*
-		database.close();
-		
-		
-		
-		
-		
-		qPublishers = database.fetchActivePublishers();
-		
-		if(_timeID == 0)
-			qEntryTypes = database.fetchActiveEntryTypes();
-		else 
-			qEntryTypes = database.fetchActiveEntryTypes();
-		
-		pubsAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.simple_spinner_item_holo_light, qPublishers, new String[] {Publisher.NAME}, new int[] {android.R.id.text1});
-		pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-		publishers.setAdapter(pubsAdapter);
-		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				publisherId = (int) id;
-				qPublishers.moveToPosition(position);
-				publisherName = qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME));
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				
-			}
-		});
-		*/
-		typesAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.simple_spinner_item_holo_light, qEntryTypes, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
-		typesAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-		entryTypes.setAdapter(typesAdapter);
-		entryTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				entryTypeId = (int) id;
 			}
 			
 			@Override
@@ -430,18 +391,16 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     				}
     			}
     			
-    			/** The publisher doesn't exist in the cursor so we need to grab ALL the publishers. */
+    			// The publisher doesn't exist in the cursor so we need to grab ALL the publishers.
     			if(!publisherExists) {
     				qPublishers = database.fetchAllPublishers();
     				
-    				pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+    				pubsAdapter.clear();
     				while(qPublishers.moveToNext())
     					pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
     				
-    				
-    				
-    				//pubsAdapter.changeCursor(qPublishers);
     				pubsAdapter.notifyDataSetChanged();
+    				
     				publisherExists = true;
     				
     				for(qPublishers.moveToFirst();!qPublishers.isAfterLast();qPublishers.moveToNext()) {
@@ -457,8 +416,14 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     			if(record.getInt(record.getColumnIndex(Time.ENTRY_TYPE_ID)) == MinistryDatabase.ID_ROLLOVER) {
     				allowedToEdit = false;
     				ActivityCompat.invalidateOptionsMenu(getActivity());
+    				
     				qEntryTypes = database.fetchAllEntryTypes();
-    				typesAdapter.changeCursor(qEntryTypes);
+    				
+    				typesAdapter.clear();
+    				while(qEntryTypes.moveToNext())
+    					typesAdapter.addItem(new NavDrawerMenuItem(qEntryTypes.getString(qEntryTypes.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types, qEntryTypes.getInt(qEntryTypes.getColumnIndex(EntryType._ID))));
+    				
+    				typesAdapter.notifyDataSetChanged();
     			}
     			
     			for(qEntryTypes.moveToFirst();!qEntryTypes.isAfterLast();qEntryTypes.moveToNext()) {
@@ -468,7 +433,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     				}
     			}
     			
-    			/** Let's get all the return visits/studies for this entry :) */
+    			// Let's get all the return visits/studies for this entry :)
     			Cursor qTimeHouseholders = database.fetchTimeHouseholdersForTimeByID(timeId);
     			Cursor qTimeLiterature;
     			for(qTimeHouseholders.moveToFirst();!qTimeHouseholders.isAfterLast();qTimeHouseholders.moveToNext()) {
@@ -481,7 +446,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		    				householderForTime.setNotes(qTimeHouseholders.getString(qTimeHouseholders.getColumnIndex(Notes.NOTES)));
 	    				}
 	    				householderList.add(householderForTime);
-	    				/** Let's get all the literature placed for this householder :) */
+	    				// Let's get all the literature placed for this householder :)
 	    				qTimeLiterature = database.fetchPlacedLitByTimeAndHouseholderID(timeId, qTimeHouseholders.getInt(qTimeHouseholders.getColumnIndex(TimeHouseholder.HOUSEHOLDER_ID)));
 	    				for(qTimeLiterature.moveToFirst();!qTimeLiterature.isAfterLast();qTimeLiterature.moveToNext()) {
 	    					householderList.get(householderList.size() - 1).addLit(new QuickLiterature(qTimeLiterature.getInt(qTimeLiterature.getColumnIndex(LiteraturePlaced.LITERATURE_ID)), qTimeLiterature.getString(qTimeLiterature.getColumnIndex(Literature.NAME)), qTimeLiterature.getInt(qTimeLiterature.getColumnIndex(LiteraturePlaced.COUNT)), qTimeLiterature.getInt(qTimeLiterature.getColumnIndex(Literature.TYPE_OF_LIERATURE_ID))));
@@ -496,7 +461,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     		adapter.notifyDataSetChanged();
     	}
 		
-		/** Set Defaults */
+		// Set Defaults
 		else {
 			selectedDateEnd = Helper.roundMinutesAndHour(selectedDateEnd,15);
 			
@@ -547,7 +512,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 					if(saveTime()) {
 						PrefUtils.setSummaryMonthAndYear(getActivity(), selectedDateStart);
 						
-						/** This will update the action bar with the new publisher */
+						// This will update the action bar with the new publisher
 						MainActivity mainFrag = (MainActivity) getActivity();
 						mainFrag.setPublisherId(publisherId, publisherName);
 					}
