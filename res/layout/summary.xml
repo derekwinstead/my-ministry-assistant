@@ -38,6 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="@string/total_time"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -66,6 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -94,6 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -122,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -150,6 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -178,6 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -206,6 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -234,6 +241,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
@@ -262,6 +270,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/textsizeMD" />
 
                     <TextView
