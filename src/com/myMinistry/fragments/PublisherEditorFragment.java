@@ -41,7 +41,7 @@ public class PublisherEditorFragment extends ListFragment {
 	private TextView recent_activity_text;
 	
 	static final long CREATE_ID = (long)MinistryDatabase.CREATE_ID;
-	private long publisherID = CREATE_ID;
+	private long publisherId = CREATE_ID;
 	
 	private MinistryService database;
 	private Cursor activity;
@@ -84,7 +84,7 @@ public class PublisherEditorFragment extends ListFragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		if(publisherID == CREATE_ID)
+		if(publisherId == CREATE_ID)
 			inflater.inflate(R.menu.save_cancel, menu);
 		else
 			inflater.inflate(R.menu.save_cancel_discard, menu);
@@ -136,8 +136,8 @@ public class PublisherEditorFragment extends ListFragment {
 					values.put(Publisher.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
 					
 					database.openWritable();
-					if(publisherID > 0) {
-						if(database.savePublisher(publisherID, values) > 0) {
+					if(publisherId > 0) {
+						if(database.savePublisher(publisherId, values) > 0) {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_with_space)
 						    				.put("name", et_name.getText().toString().trim())
@@ -218,7 +218,7 @@ public class PublisherEditorFragment extends ListFragment {
 				        case DialogInterface.BUTTON_POSITIVE:
 				        	FragmentManager fm1 = getActivity().getSupportFragmentManager();
 							database.openWritable();
-							database.deletePublisherByID((int)publisherID);
+							database.deletePublisherByID((int)publisherId);
 							database.close();
 							
 							Toast.makeText(getActivity()
@@ -263,7 +263,7 @@ public class PublisherEditorFragment extends ListFragment {
 	}
 	
 	public void setPublisher(long _id) {
-    	publisherID = _id;
+		publisherId = _id;
     }
     
     public void switchForm(long _id) {
@@ -274,7 +274,7 @@ public class PublisherEditorFragment extends ListFragment {
     
     public void fillForm() {
     	et_name.setError(null);
-    	if(publisherID == CREATE_ID) {
+    	if(publisherId == CREATE_ID) {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
     		
@@ -288,7 +288,7 @@ public class PublisherEditorFragment extends ListFragment {
     		getListView().getEmptyView().setVisibility(View.VISIBLE);
     		
 	    	database.openWritable();
-	    	Cursor publisher = database.fetchPublisher((int)publisherID);
+	    	Cursor publisher = database.fetchPublisher((int)publisherId);
 	    	if(publisher.moveToFirst()) {
 	    		et_name.setText(publisher.getString(publisher.getColumnIndex(Publisher.NAME)));
 	    		cb_is_active.setChecked((publisher.getInt(publisher.getColumnIndex(Publisher.ACTIVE)) == 1) ? true : false);
@@ -298,7 +298,7 @@ public class PublisherEditorFragment extends ListFragment {
 	    		cb_is_active.setChecked(true);
 	    	}
 	    	publisher.close();
-	    	activity = database.fetchActivityForPublisher((int) publisherID);
+	    	activity = database.fetchActivityForPublisher((int) publisherId);
 	    	adapter.changeCursor(activity);
 	    	database.close();
 	    }
