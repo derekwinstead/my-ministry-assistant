@@ -37,7 +37,7 @@
                 android:paddingBottom="@dimen/inner_padding"
                 android:paddingLeft="@dimen/default_padding_half"
                 android:paddingTop="@dimen/default_padding"
-                android:text="@string/form_type"
+                android:text="@string/form_entry_type"
                 android:textColor="@color/bg_card_default_text"
                 android:textSize="@dimen/flet_hint_text_size" />
 

@@ -7,6 +7,7 @@
     <string name="form_type">Tipo</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Tipos de publicação</string>
+    <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Anotações</string>
     <string name="form_start">Começar</string>
     <string name="form_end">Terminar</string>

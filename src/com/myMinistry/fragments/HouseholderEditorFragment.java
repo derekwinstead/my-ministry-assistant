@@ -4,7 +4,9 @@ import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -240,34 +242,52 @@ public class HouseholderEditorFragment extends ListFragment {
 				}
 				return true;
 			case R.id.menu_discard:
-				database.openWritable();
-				database.deleteHouseholderByID((int)householderID);
-				database.close();
+				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        switch (which){
+				        case DialogInterface.BUTTON_POSITIVE:							
+							database.openWritable();
+							database.deleteHouseholderByID((int)householderID);
+							database.close();
+							
+							Toast.makeText(getActivity()
+									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
+						    				.put("name", et_name.getText().toString().trim())
+						    				.format()
+									, Toast.LENGTH_SHORT).show();
+							
+							if(is_dual_pane) {
+								HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
+								f.updateHouseholderList();
+								switchForm(CREATE_ID);
+							}
+							else {
+								HouseholdersFragment newFragment = new HouseholdersFragment().newInstance();
+					        	Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+					        	FragmentTransaction transaction = fm.beginTransaction();
+					        	
+					        	if(replaceFrag != null) {
+					        		transaction.remove(replaceFrag);
+					        		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					        	}
+					        	
+					        	transaction.add(R.id.primary_fragment_container, newFragment);
+					        	transaction.commit();
+							}
+				        	
+				        	
+				        	break;
+				        }
+				    }
+				};
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage(R.string.confirm_deletion)
+					.setPositiveButton(R.string.menu_delete, dialogClickListener)
+					.setNegativeButton(R.string.menu_cancel, dialogClickListener)
+					.show();
 				
-				Toast.makeText(getActivity()
-						,Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-			    				.put("name", et_name.getText().toString().trim())
-			    				.format()
-						, Toast.LENGTH_SHORT).show();
-				
-				if(is_dual_pane) {
-					HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
-					f.updateHouseholderList();
-					switchForm(CREATE_ID);
-				}
-				else {
-					HouseholdersFragment newFragment = new HouseholdersFragment().newInstance();
-		        	Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
-		        	FragmentTransaction transaction = fm.beginTransaction();
-		        	
-		        	if(replaceFrag != null) {
-		        		transaction.remove(replaceFrag);
-		        		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		        	}
-		        	
-		        	transaction.add(R.id.primary_fragment_container, newFragment);
-		        	transaction.commit();
-				}
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

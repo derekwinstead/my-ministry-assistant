@@ -565,51 +565,69 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				return true;
 			case R.id.menu_discard:
 				if(allowedToEdit) {
-					getActivity().setTitle(R.string.navdrawer_item_summary);
 					
-					// Delete Time Entries Deep
-					database.openWritable();
-					database.removeTimeEntryDeep(timeId);
-					database.processRolloverTime(originalPublisherId, originalSelectedDateStart);
-					database.close();
-					
-					Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_deleted), Toast.LENGTH_SHORT).show();
-					
-					if(is_dual_pane) {
-		        		SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-		        		if(timeId > 0) {
-			        		f.setPublisherId(originalPublisherId);
-			        		f.setDate(originalSelectedDateStart);
-		        		}
-		        		f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
-					}
-					else {
-						FragmentTransaction ft = fm.beginTransaction();
-						ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-						
-						Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-						
-						new SummaryFragment();
-						SummaryFragment f;
-						if(timeId > 0) {
-							f = SummaryFragment.newInstance(originalPublisherId);
-							f.setDate(originalSelectedDateStart);
-						}
-						else {
-							f = SummaryFragment.newInstance(publisherId);
-							f.setDate(selectedDateStart);
-						}
-						
-						f.setDate(originalSelectedDateStart);
-						
-						if(frag != null)
-							ft.remove(frag);
-						
-						ft.add(R.id.primary_fragment_container, f);
-						ft.addToBackStack(null);
-						
-			        	ft.commit();	
-					}
+					DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+					    @Override
+					    public void onClick(DialogInterface dialog, int which) {
+					        switch (which){
+					        case DialogInterface.BUTTON_POSITIVE:
+					        	getActivity().setTitle(R.string.navdrawer_item_summary);
+								
+								// Delete Time Entries Deep
+								database.openWritable();
+								database.removeTimeEntryDeep(timeId);
+								database.processRolloverTime(originalPublisherId, originalSelectedDateStart);
+								database.close();
+								
+								Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_deleted), Toast.LENGTH_SHORT).show();
+								
+								if(is_dual_pane) {
+					        		SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
+					        		if(timeId > 0) {
+						        		f.setPublisherId(originalPublisherId);
+						        		f.setDate(originalSelectedDateStart);
+					        		}
+					        		f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
+								}
+								else {
+									FragmentTransaction ft = fm.beginTransaction();
+									ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+									
+									Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+									
+									new SummaryFragment();
+									SummaryFragment f;
+									if(timeId > 0) {
+										f = SummaryFragment.newInstance(originalPublisherId);
+										f.setDate(originalSelectedDateStart);
+									}
+									else {
+										f = SummaryFragment.newInstance(publisherId);
+										f.setDate(selectedDateStart);
+									}
+									
+									f.setDate(originalSelectedDateStart);
+									
+									if(frag != null)
+										ft.remove(frag);
+									
+									ft.add(R.id.primary_fragment_container, f);
+									ft.addToBackStack(null);
+									
+						        	ft.commit();	
+								}
+					        	
+					        	
+					        	break;
+					        }
+					    }
+					};
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setMessage(R.string.confirm_deletion)
+						.setPositiveButton(R.string.menu_delete, dialogClickListener)
+						.setNegativeButton(R.string.menu_cancel, dialogClickListener)
+						.show();
 				}
 				else
 					Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_cannot_modify_rollover_time), Toast.LENGTH_SHORT).show();

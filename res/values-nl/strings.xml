@@ -27,5 +27,6 @@
     <string name="updating_app">Updaten Application</string>
     <string name="please_be_patient">Een ogenblik aub…</string>
     <string name="service_year">dienst Jaar</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
 
 </resources>

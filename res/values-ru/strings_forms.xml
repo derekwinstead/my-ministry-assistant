@@ -7,6 +7,7 @@
     <string name="form_type">Тип</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Типы публикаций</string>
+    <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Примечания</string>
     <string name="form_start">Начать</string>
     <string name="form_end">Конец</string>

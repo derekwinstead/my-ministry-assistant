@@ -27,5 +27,6 @@
     <string name="updating_app">Memperbarui Aplikasi</string>
     <string name="please_be_patient">Harap bersabar…</string>
     <string name="service_year">layanan Tahun</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
 
 </resources>

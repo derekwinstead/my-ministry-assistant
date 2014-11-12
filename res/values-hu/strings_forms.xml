@@ -7,6 +7,7 @@
     <string name="form_type">Típus</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Kiadványtípusok</string>
+    <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Megjegyzések</string>
     <string name="form_start">Indul</string>
     <string name="form_end">Befejez</string>

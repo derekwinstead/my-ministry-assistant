@@ -1,7 +1,9 @@
 package com.myMinistry.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -209,33 +211,51 @@ public class PublisherEditorFragment extends ListFragment {
 				}
 				return true;
 			case R.id.menu_discard:
-				database.openWritable();
-				database.deletePublisherByID((int)publisherID);
-				database.close();
-				
-				Toast.makeText(getActivity()
-						,Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-			    				.put("name", et_name.getText().toString().trim())
-			    				.format()
-						, Toast.LENGTH_SHORT).show();
-				
-				if(is_dual_pane) {
-					PublishersFragment f = (PublishersFragment)fm.findFragmentById(R.id.primary_fragment_container);
-					f.updatePublisherList();
-					switchForm(CREATE_ID);
-				}
-				else {
-					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-					PublishersFragment f = new PublishersFragment().newInstance();
-					
-					if(frag != null)
-						ft.remove(frag);
-					
-					ft.add(R.id.primary_fragment_container, f);
-					ft.addToBackStack(null);
-					
-		        	ft.commit();
-				}
+				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        switch (which){
+				        case DialogInterface.BUTTON_POSITIVE:
+				        	FragmentManager fm1 = getActivity().getSupportFragmentManager();
+							database.openWritable();
+							database.deletePublisherByID((int)publisherID);
+							database.close();
+							
+							Toast.makeText(getActivity()
+									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
+						    				.put("name", et_name.getText().toString().trim())
+						    				.format()
+									, Toast.LENGTH_SHORT).show();
+							
+							if(is_dual_pane) {
+								PublishersFragment f = (PublishersFragment)fm1.findFragmentById(R.id.primary_fragment_container);
+								f.updatePublisherList();
+								switchForm(CREATE_ID);
+							}
+							else {
+								FragmentTransaction ft = fm1.beginTransaction();
+								Fragment frag = fm1.findFragmentById(R.id.primary_fragment_container);
+								PublishersFragment f = new PublishersFragment().newInstance();
+								
+								if(frag != null)
+									ft.remove(frag);
+								
+								ft.add(R.id.primary_fragment_container, f);
+								ft.addToBackStack(null);
+								
+					        	ft.commit();
+							}
+							
+							break;
+				        }
+				    }
+				};
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage(R.string.confirm_deletion)
+					.setPositiveButton(R.string.menu_delete, dialogClickListener)
+					.setNegativeButton(R.string.menu_cancel, dialogClickListener)
+					.show();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

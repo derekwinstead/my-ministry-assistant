@@ -52,7 +52,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:background="@color/transparent"
-                    android:text="@string/form_type" />
+                    android:text="@string/form_entry_type" />
 
                 <Spinner
                     android:id="@+id/entryTypes"

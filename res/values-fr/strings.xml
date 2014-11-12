@@ -27,5 +27,6 @@
     <string name="updating_app">Updating Application</string>
     <string name="please_be_patient">S\'il vous plaît être patient…</string>
     <string name="service_year">Année service</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
 
 </resources>

@@ -27,5 +27,6 @@
     <string name="updating_app">Frissítése alkalmazás</string>
     <string name="please_be_patient">Kérjük, legyen türelemmel…</string>
     <string name="service_year">szolgáltatás év</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
 
 </resources>
