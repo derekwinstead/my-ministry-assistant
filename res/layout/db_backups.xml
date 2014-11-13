@@ -9,12 +9,12 @@
         android:id="@+id/create_bu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="@dimen/material_corner_radius" >
+        card_view:cardCornerRadius="@dimen/material_corner_radius"
+        card_view:contentPadding="@dimen/default_padding" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/default_padding" >
+            android:layout_height="wrap_content" >
 
             <ImageView
                 android:id="@+id/img1"
@@ -24,7 +24,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/pref_backup_title"
-                android:paddingLeft="@dimen/default_padding"
+                android:paddingEnd="@dimen/default_padding"
                 android:paddingRight="@dimen/default_padding"
                 android:src="@drawable/ic_db_create_light" />
 
@@ -56,12 +56,12 @@
         android:id="@+id/cleanup_bu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="@dimen/material_corner_radius" >
+        card_view:cardCornerRadius="@dimen/material_corner_radius"
+        card_view:contentPadding="@dimen/default_padding" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/default_padding" >
+            android:layout_height="wrap_content" >
 
             <ImageView
                 android:id="@+id/img3"
@@ -71,7 +71,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/pref_clear_title"
-                android:paddingLeft="@dimen/default_padding"
+                android:paddingEnd="@dimen/default_padding"
                 android:paddingRight="@dimen/default_padding"
                 android:src="@drawable/ic_action_discard_light" />
 

@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="@dimen/material_corner_radius" >
+    card_view:cardCornerRadius="@dimen/material_corner_radius"
+    card_view:contentPadding="@dimen/default_padding" >
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/default_padding" >
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/et_name"

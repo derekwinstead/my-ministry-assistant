@@ -15,9 +15,10 @@
     <LinearLayout
         android:id="@id/android:empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingTop="@dimen/default_padding_extra" >
 
         <TextView
             style="@style/empty_list_text_settings"
@@ -32,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/default_padding"
-            android:padding="@dimen/default_padding"
-            card_view:cardCornerRadius="@dimen/material_corner_radius" >
+            card_view:cardCornerRadius="@dimen/material_corner_radius"
+            card_view:contentPaddingLeft="@dimen/default_padding_half"
+            card_view:contentPaddingRight="@dimen/default_padding" >
 
             <TextView
                 style="@style/empty_list_text_settings"
@@ -45,7 +46,7 @@
                 android:drawablePadding="@dimen/default_padding_half"
                 android:drawableStart="@drawable/ic_db_create_light"
                 android:gravity="center"
-                android:padding="@dimen/default_padding"
+                android:minHeight="@dimen/thumb_height"
                 android:text="@string/pref_backup_title"
                 android:textColor="@color/black" />
         </android.support.v7.widget.CardView>

@@ -3,7 +3,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="@dimen/material_corner_radius" >
+    card_view:cardCornerRadius="@dimen/material_corner_radius"
+    card_view:contentPadding="@dimen/default_padding" >
 
     <TextView
         android:id="@+id/text1"
@@ -12,10 +13,6 @@
         android:drawablePadding="@dimen/default_padding_half"
         android:gravity="center_vertical"
         android:minHeight="@dimen/thumb_height"
-        android:paddingEnd="@dimen/default_padding_half"
-        android:paddingLeft="@dimen/default_padding_half"
-        android:paddingRight="@dimen/default_padding_half"
-        android:paddingStart="@dimen/default_padding_half"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
 
