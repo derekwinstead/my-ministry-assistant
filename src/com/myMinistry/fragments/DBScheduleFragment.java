@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -58,7 +59,18 @@ public class DBScheduleFragment extends Fragment {
 		b_daily_time = (TextView) root.findViewById(R.id.b_daily_time);
 		b_weekly_time = (TextView) root.findViewById(R.id.b_weekly_time);
 		
-		root.findViewById(R.id.b_daily_save).setOnClickListener(new View.OnClickListener() {
+		TextView t_daily_save = (TextView) root.findViewById(R.id.t_daily_save);
+		TextView t_weekly_save = (TextView) root.findViewById(R.id.t_weekly_save);
+		
+		t_daily_save.setText(getActivity().getApplicationContext().getString(R.string.menu_save).toUpperCase(Locale.getDefault()));
+		t_daily_save.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.appbasetheme_color));
+		t_daily_save.setTypeface(t_daily_save.getTypeface(), Typeface.BOLD);
+		
+		t_weekly_save.setText(getActivity().getApplicationContext().getString(R.string.menu_save).toUpperCase(Locale.getDefault()));
+		t_weekly_save.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.appbasetheme_color));
+		t_weekly_save.setTypeface(t_weekly_save.getTypeface(), Typeface.BOLD);
+		
+		root.findViewById(R.id.t_daily_save).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				PrefUtils.setDBBackupDaily(getActivity(), cb_is_active_daily.isChecked());
@@ -87,7 +99,7 @@ public class DBScheduleFragment extends Fragment {
 			}
 		});
 		
-		root.findViewById(R.id.b_weekly_save).setOnClickListener(new View.OnClickListener() {
+		root.findViewById(R.id.t_weekly_save).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				PrefUtils.setDBBackupWeekly(getActivity(), cb_is_active_weekly.isChecked());
