@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{publisher} in data {date}</string>
     <string name="month_next">Mese prossimo</string>
     <string name="month_previous">Mese Precedente</string>
-    <string name="updating_app">Aggiornamento di applicazioni</string>
+    <string name="updating_app">Aggiornamento di applicazioni\nSi prega di essere pazienti#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Si prega di essere pazienti…</string>
     <string name="service_year">Servizio Anno</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Pilih Penyiar</string>
     <string name="navdrawer_item_summary">Sommario</string>
     <string name="navdrawer_item_publications">Pubblicazioni</string>
@@ -82,7 +82,7 @@
     <string name="form_weekly_backups">Backup Settimanale</string>
     <string name="menu_add_new">Aggiungi Nuovo</string>
     <string name="menu_add_new_with_plus">+ Aggiungi Nuovo</string>
-    <string name="menu_add_new_publisher">+ Aggiungi nuovo editore</string>
+    <string name="menu_add_new_publisher"></string>
     <string name="menu_cancel">Cancella</string>
     <string name="menu_delete">Elimina</string>
     <string name="menu_done">Fatto</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">Impossibile modificare le voci di avanzo.</string>
     <string name="toast_deleted">Cancellato.</string>
     <string name="toast_deleted_with_space">{name} Cancellato.</string>
+    
     <string name="toast_daily_backup_scheduled">Backup giornaliero programmato per le {time}.</string>
     <string name="toast_daily_backup_cancelled">Backup giornaliero Cancellato.</string>
     <string name="toast_weekly_backup_scheduled">Backup Settimanale Programmato per il {weekday} alle {time}.</string>

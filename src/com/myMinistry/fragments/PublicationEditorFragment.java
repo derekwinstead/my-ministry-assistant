@@ -287,7 +287,7 @@ public class PublicationEditorFragment extends ListFragment {
 				};
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-				builder.setMessage(R.string.confirm_deletion)
+				builder.setTitle(R.string.confirm_deletion)
 					.setPositiveButton(R.string.menu_delete, dialogClickListener)
 					.setNegativeButton(R.string.menu_cancel, dialogClickListener)
 					.show();

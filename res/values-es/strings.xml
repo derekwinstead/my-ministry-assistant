@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{date} por {publisher}</string>
     <string name="month_next">mes próximo</string>
     <string name="month_previous">Mes anterior</string>
-    <string name="updating_app">Actualización de Aplicación</string>
+    <string name="updating_app">Actualización de Aplicación\nPor favor sea paciente#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor sea paciente…</string>
     <string name="service_year">Servicio de Año</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Seleccionar un publicador</string>
     <string name="navdrawer_item_summary">Sumario</string>
     <string name="navdrawer_item_publications">Publicaciones</string>
@@ -82,7 +82,7 @@
     <string name="form_weekly_backups">Las copias de seguridad semanales</string>
     <string name="menu_add_new">Añadir Nuevo</string>
     <string name="menu_add_new_with_plus">+ Añadir Nuevo</string>
-    <string name="menu_add_new_publisher">+ Añadir nuevo editor</string>
+    <string name="menu_add_new_publisher"></string>
     <string name="menu_cancel">Cancelar</string>
     <string name="menu_delete">Borrar</string>
     <string name="menu_done">Hecho</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">No se puede modiciar la entrada de ajuste de tiempo.</string>
     <string name="toast_deleted">Borrado.</string>
     <string name="toast_deleted_with_space">{name} Borrado.</string>
+    
     <string name="toast_daily_backup_scheduled">Copias de seguridad diarias programadas para {time}.</string>
     <string name="toast_daily_backup_cancelled">Copias de seguridad diarias canceladas.</string>
     <string name="toast_weekly_backup_scheduled">Las copias de seguridad semanales programadas para el {weekday} a las {time}.</string>

@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{date} by {publisher}</string>
     <string name="month_next">Next Month</string>
     <string name="month_previous">Previous Month</string>
-    <string name="updating_app">Updating Application</string>
+    <string name="updating_app">Updating Application\nPlease be patient#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Please be patient…</string>
     <string name="service_year">Service Year</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Select a Publisher</string>
     <string name="navdrawer_item_summary">Summary</string>
     <string name="navdrawer_item_publications">Publications</string>
@@ -74,10 +74,10 @@
     <string name="form_is_inactive">Is Inactive</string>
     <string name="form_is_pair">Is a Pair</string>
     <string name="form_address">Address</string>
-    <string name="form_phone_mobile">Mobile</string>
-    <string name="form_phone_home">Home</string>
-    <string name="form_phone_work">Work</string>
-    <string name="form_phone_other">Other</string>
+    <string name="form_phone_mobile">Mobile Phone</string>
+    <string name="form_phone_home">Home Phone</string>
+    <string name="form_phone_work">Work Phone</string>
+    <string name="form_phone_other">Other Phone</string>
     <string name="form_daily_backups">Daily Backups</string>
     <string name="form_weekly_backups">Weekly Backups</string>
     <string name="menu_add_new">Add New</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">Cannot modify rollover entries.</string>
     <string name="toast_deleted">Deleted.</string>
     <string name="toast_deleted_with_space">Deleted {name}.</string>
+    
     <string name="toast_daily_backup_scheduled">Daily backups scheduled for {time}.</string>
     <string name="toast_daily_backup_cancelled">Daily backups cancelled.</string>
     <string name="toast_weekly_backup_scheduled">Weekly backups scheduled for {weekday} at {time}.</string>

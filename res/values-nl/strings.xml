@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{date} door {publisher}</string>
     <string name="month_next">Volgende maand</string>
     <string name="month_previous">Vorige maand</string>
-    <string name="updating_app">Updaten Application</string>
+    <string name="updating_app">Updaten Application\nEen ogenblik aub#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Een ogenblik aub…</string>
     <string name="service_year">dienst Jaar</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Seleziona Proclamatore</string>
     <string name="navdrawer_item_summary">Overzicht</string>
     <string name="navdrawer_item_publications">Publicaties</string>
@@ -122,7 +122,7 @@
     <string name="pref_bugs_title">Bug Rapporteren</string>
     <string name="pref_features_title">Feature Aanvragen</string>
     <string name="pref_translations_title">Vertaling Aanvragen</string>
-    <string name="pref_licenses_title">Open source licentie</string>
+    <string name="pref_about_licenses">Open source licentie</string>
     <string name="pref_version">Versie</string>
     <string name="pref_version_summary">Bedankt om te downloaden! Veel plezier ermee!</string>
     <string name="pref_rollover_summary">Bereken overlap tijd.</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">Kan de overlap entries niet aanpassen.</string>
     <string name="toast_deleted">Verwijderd.</string>
     <string name="toast_deleted_with_space">{name} is verwijderd.</string>
+    
     <string name="toast_daily_backup_scheduled">Dagelijkse backups ingepland om {time}.</string>
     <string name="toast_daily_backup_cancelled">Dagelijkse backups geannuleerd.</string>
     <string name="toast_weekly_backup_scheduled">Wekelijkse backups ingepland op {weekday} om {time}.</string>

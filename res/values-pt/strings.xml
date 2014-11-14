@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{date} de {publisher}</string>
     <string name="month_next">próximo mês</string>
     <string name="month_previous">Mês Anterior</string>
-    <string name="updating_app">Atualizando aplicativos</string>
+    <string name="updating_app">Atualizando aplicativos\nPor favor, seja paciente#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor, seja paciente…</string>
     <string name="service_year">Serviço de Ano</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Kies een Verkondiger</string>
     <string name="navdrawer_item_summary">Relatório</string>
     <string name="navdrawer_item_publications">Publicações</string>
@@ -79,9 +79,10 @@
     <string name="form_phone_work">Trabalho</string>
     <string name="form_phone_other">Outros</string>
     <string name="form_daily_backups">Backups Diários</string>
+    <string name="form_weekly_backups">Backups Semanais</string>
     <string name="menu_add_new">Adicionar</string>
     <string name="menu_add_new_with_plus">+ Adicionar</string>
-    <string name="menu_add_new_publisher">+ Adicionar nova editora</string>
+    <string name="menu_add_new_publisher"></string>
     <string name="menu_cancel">Cancelar</string>
     <string name="menu_delete">Apagar</string>
     <string name="menu_done">Feito</string>
@@ -107,7 +108,6 @@
     <string name="menu_sort_last_visit_reversed">Ordenar por data da última visita revertida</string>
     <string name="menu_send_report">Enviar relatório</string>
     <string name="menu_add_time">Adicionar Tempo</string>
-    <string name="form_weekly_backups">Backups Semanais</string>
     <string name="pref_update_title">Verifique se há atualizações</string>
     <string name="pref_update_summary">Confira o site para ver se há uma atualização disponível. Isto é usado para telefones ou tablets que não têm o Market disponível.</string>
     <string name="pref_backup_title">Cópia de segurança dos dados</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">Não é possível modificar entradas transferidas.</string>
     <string name="toast_deleted">Deletado.</string>
     <string name="toast_deleted_with_space">Deletado {name}.</string>
+    
     <string name="toast_daily_backup_scheduled">Os backups diários agendada para {time}.</string>
     <string name="toast_daily_backup_cancelled">Os backups diários cancelada.</string>
     <string name="toast_weekly_backup_scheduled">Backups semanais prevista para {weekday} às {time}.</string>

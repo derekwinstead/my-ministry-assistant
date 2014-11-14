@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{date} oleh {publisher}</string>
     <string name="month_next">Bulan Berikutnya</string>
     <string name="month_previous">Bulan Sebelumnya</string>
-    <string name="updating_app">Memperbarui Aplikasi</string>
+    <string name="updating_app">memperbarui Aplikasi\nHarap bersabar#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Harap bersabar…</string>
     <string name="service_year">layanan Tahun</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Válassza ki a Publisher</string>
     <string name="navdrawer_item_summary">Ringkasan</string>
     <string name="navdrawer_item_publications">Publikasi</string>
@@ -82,7 +82,7 @@
     <string name="form_weekly_backups">Backup Mingguan</string>
     <string name="menu_add_new">Tambahkan Yang Baru</string>
     <string name="menu_add_new_with_plus">+ Tambahkan yang baru</string>
-    <string name="menu_add_new_publisher">+ Tambahkan publisher baru</string>
+    <string name="menu_add_new_publisher"></string>
     <string name="menu_cancel">Batal</string>
     <string name="menu_delete">Hapus</string>
     <string name="menu_done">Selesai</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">Tidak bisa mengubah waktu bergulir.</string>
     <string name="toast_deleted">Telah dihapus.</string>
     <string name="toast_deleted_with_space">{name} telah dihapus.</string>
+    
     <string name="toast_daily_backup_scheduled">Backup harian dijadwalkan jam {time}.</string>
     <string name="toast_daily_backup_cancelled">Backup harian dibatalkan.</string>
     <string name="toast_weekly_backup_scheduled">Backup mingguan dijadwalkan hari {weekday} jam {time}.</string>

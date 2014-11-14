@@ -24,10 +24,10 @@
     <string name="activity_date_by_publisher">{date} par {publisher}</string>
     <string name="month_next">mois prochain</string>
     <string name="month_previous">mois précédent</string>
-    <string name="updating_app">Updating Application</string>
+    <string name="updating_app">Mise à jour de l\'application\nS\'il vous plaît être patient#8230;</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">S\'il vous plaît être patient…</string>
     <string name="service_year">Année service</string>
-    <string name="confirm_deletion">Confirm Deletion</string>
     <string name="navdrawer_item_select_publisher">Seleccionar Publicador</string>
     <string name="navdrawer_item_summary">Sommaire</string>
     <string name="navdrawer_item_publications">Publications</string>
@@ -148,6 +148,7 @@
     <string name="toast_cannot_modify_rollover_time">Vous ne pouvez pas modifier les entrées de roulement.</string>
     <string name="toast_deleted">Supprimé.</string>
     <string name="toast_deleted_with_space">Supprimé {name}.</string>
+    
     <string name="toast_daily_backup_scheduled">Les sauvegardes quotidiennes prévues pour {time}.</string>
     <string name="toast_daily_backup_cancelled">Les sauvegardes quotidiennes annulées.</string>
     <string name="toast_weekly_backup_scheduled">Sauvegardes hebdomadaires prévues pour {weekday} à {time}.</string>
