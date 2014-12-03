@@ -9,6 +9,7 @@
         android:id="@+id/monthNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dividerHeight"
         card_view:cardCornerRadius="@dimen/material_corner_radius" >
 
         <LinearLayout
@@ -30,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/inner_padding"
+        android:dividerHeight="@dimen/dividerHeight"
         android:scrollbarStyle="outsideOverlay" />
 
     <LinearLayout

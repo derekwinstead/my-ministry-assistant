@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/inner_padding" />
+        android:dividerHeight="@dimen/dividerHeight" />
 
     <LinearLayout
         android:id="@id/android:empty"
