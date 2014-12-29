@@ -296,13 +296,17 @@ public class EntryTypeManagerFrag extends ListFragment {
 			cursor = database.fetchAllEntryTypes("DESC");
 		else if(how_to_sort == MinistryDatabase.SORT_BY_POPULAR)
 			cursor = database.fetchAllEntryTypesByPopularity();
+		else
+			cursor = null;
 		
-		int count = 0;
-		ContentValues values = new ContentValues();
-		for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
-			count++;
-			values.put(EntryType.SORT_ORDER, count);
-			database.saveEntryType(cursor.getLong(cursor.getColumnIndex(EntryType._ID)), values);
+		if(cursor != null) {
+			int count = 0;
+			ContentValues values = new ContentValues();
+			for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+				count++;
+				values.put(EntryType.SORT_ORDER, count);
+				database.saveEntryType(cursor.getLong(cursor.getColumnIndex(EntryType._ID)), values);
+			}
 		}
 		
 		reloadCursor();

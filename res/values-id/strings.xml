@@ -38,6 +38,8 @@
     <string name="navdrawer_item_settings">Pengaturan</string>
     <string name="navdrawer_item_help">Bantuan</string>
     <string name="navdrawer_item_time_entry">Catatan Waktu</string>
+    <string name="title_householder_edit">Householder Sunting</string>
+    <string name="title_publisher_edit">Memodifikasi Proklamator</string>
     <string name="tab_item_monthly">Bulanan</string>
     <string name="tab_item_yearly">tahunan</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
@@ -148,7 +150,6 @@
     <string name="toast_cannot_modify_rollover_time">Tidak bisa mengubah waktu bergulir.</string>
     <string name="toast_deleted">Telah dihapus.</string>
     <string name="toast_deleted_with_space">{name} telah dihapus.</string>
-    
     <string name="toast_daily_backup_scheduled">Backup harian dijadwalkan jam {time}.</string>
     <string name="toast_daily_backup_cancelled">Backup harian dibatalkan.</string>
     <string name="toast_weekly_backup_scheduled">Backup mingguan dijadwalkan hari {weekday} jam {time}.</string>

@@ -38,6 +38,8 @@
     <string name="navdrawer_item_settings">Настройки</string>
     <string name="navdrawer_item_help">Помощь</string>
     <string name="navdrawer_item_time_entry">Время Вступление</string>
+    <string name="title_householder_edit">Арендодатель Редактировать</string>
+    <string name="title_publisher_edit">Изменить проповедует</string>
     <string name="tab_item_monthly">Месячный</string>
     <string name="tab_item_yearly">Годовой</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
@@ -148,7 +150,6 @@
     <string name="toast_cannot_modify_rollover_time">Не можете изменять записи опрокидывание.</string>
     <string name="toast_deleted">Удаленные.</string>
     <string name="toast_deleted_with_space">Удаленные {name}.</string>
-    
     <string name="toast_daily_backup_scheduled">Ежедневное резервное копирование запланировано на {time}.</string>
     <string name="toast_daily_backup_cancelled">Ежедневное резервное копирование отменяется.</string>
     <string name="toast_weekly_backup_scheduled">Еженедельные резервные копии запланирован на {weekday} в {time}.</string>

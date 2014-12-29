@@ -32,12 +32,14 @@
     <string name="navdrawer_item_summary">Sommaire</string>
     <string name="navdrawer_item_publications">Publications</string>
     <string name="navdrawer_item_householders">ménages</string>
-    <string name="navdrawer_item_publishers">éditeurs</string>
+    <string name="navdrawer_item_publishers">Proclamateurs</string>
     <string name="navdrawer_item_entry_types">Types d\'entrée</string>
     <string name="navdrawer_item_backups">sauvegardes</string>
     <string name="navdrawer_item_settings">Réglage</string>
     <string name="navdrawer_item_help">Aider</string>
     <string name="navdrawer_item_time_entry">Temps Entrée</string>
+    <string name="title_householder_edit">Maître de Maison Modifier</string>
+    <string name="title_publisher_edit">Proclamateurs Modifier</string>
     <string name="tab_item_monthly">Mensuel</string>
     <string name="tab_item_yearly">annuel</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
@@ -148,7 +150,6 @@
     <string name="toast_cannot_modify_rollover_time">Vous ne pouvez pas modifier les entrées de roulement.</string>
     <string name="toast_deleted">Supprimé.</string>
     <string name="toast_deleted_with_space">Supprimé {name}.</string>
-    
     <string name="toast_daily_backup_scheduled">Les sauvegardes quotidiennes prévues pour {time}.</string>
     <string name="toast_daily_backup_cancelled">Les sauvegardes quotidiennes annulées.</string>
     <string name="toast_weekly_backup_scheduled">Sauvegardes hebdomadaires prévues pour {weekday} à {time}.</string>

@@ -130,6 +130,8 @@ public class HouseholderEditorFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	
+    	getActivity().setTitle(R.string.title_householder_edit);
+    	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
     	
     	fillForm();

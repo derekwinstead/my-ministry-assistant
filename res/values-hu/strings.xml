@@ -38,6 +38,8 @@
     <string name="navdrawer_item_settings">Beállítások</string>
     <string name="navdrawer_item_help">Segítség</string>
     <string name="navdrawer_item_time_entry">idő Nevezési</string>
+    <string name="title_householder_edit">Házigazdához Szerkesztés</string>
+    <string name="title_publisher_edit">Módosítása Kikiáltó</string>
     <string name="tab_item_monthly">havi</string>
     <string name="tab_item_yearly">éves</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
@@ -148,7 +150,6 @@
     <string name="toast_cannot_modify_rollover_time">Nem lehet módosítani rollover bejegyzéseket.</string>
     <string name="toast_deleted">Törölt</string>
     <string name="toast_deleted_with_space">Törölt {name}.</string>
-    
     <string name="toast_daily_backup_scheduled">Napi mentések tervezett {time}.</string>
     <string name="toast_daily_backup_cancelled">Napi mentések törölve.</string>
     <string name="toast_weekly_backup_scheduled">Heti mentések tervezett {weekday} {time}.</string>

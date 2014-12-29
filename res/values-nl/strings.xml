@@ -38,6 +38,8 @@
     <string name="navdrawer_item_settings">Instellingen</string>
     <string name="navdrawer_item_help">Hulp</string>
     <string name="navdrawer_item_time_entry">Time Entry</string>
+    <string name="title_householder_edit">Huishouder Bewerken</string>
+    <string name="title_publisher_edit">Wijzig Proclaimer</string>
     <string name="tab_item_monthly">Maandelijkse</string>
     <string name="tab_item_yearly">jaarlijkse</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
@@ -148,7 +150,6 @@
     <string name="toast_cannot_modify_rollover_time">Kan de overlap entries niet aanpassen.</string>
     <string name="toast_deleted">Verwijderd.</string>
     <string name="toast_deleted_with_space">{name} is verwijderd.</string>
-    
     <string name="toast_daily_backup_scheduled">Dagelijkse backups ingepland om {time}.</string>
     <string name="toast_daily_backup_cancelled">Dagelijkse backups geannuleerd.</string>
     <string name="toast_weekly_backup_scheduled">Wekelijkse backups ingepland op {weekday} om {time}.</string>

@@ -38,6 +38,8 @@
     <string name="navdrawer_item_settings">Impostazioni</string>
     <string name="navdrawer_item_help">Aiuto</string>
     <string name="navdrawer_item_time_entry">Tempo di Entrata</string>
+    <string name="title_householder_edit">Padrone di casa Edit</string>
+    <string name="title_publisher_edit">Modificare Proclamatori</string>
     <string name="tab_item_monthly">mensile</string>
     <string name="tab_item_yearly">annuale</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>
@@ -148,7 +150,6 @@
     <string name="toast_cannot_modify_rollover_time">Impossibile modificare le voci di avanzo.</string>
     <string name="toast_deleted">Cancellato.</string>
     <string name="toast_deleted_with_space">{name} Cancellato.</string>
-    
     <string name="toast_daily_backup_scheduled">Backup giornaliero programmato per le {time}.</string>
     <string name="toast_daily_backup_cancelled">Backup giornaliero Cancellato.</string>
     <string name="toast_weekly_backup_scheduled">Backup Settimanale Programmato per il {weekday} alle {time}.</string>
