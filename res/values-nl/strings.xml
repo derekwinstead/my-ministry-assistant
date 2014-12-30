@@ -157,5 +157,6 @@
     <string name="toast_weekly_backup_cancelled">Wekelijkse backups geannuleerd.</string>
     <string name="toast_db_updated_successfully">Database bijgewerkt.</string>
     <string name="toast_update_done">Update gedaan.</string>
+    <string name="note_rollover_edit">****************\nOpmerking: Dit is een uniek item type om rollover tijd te beheren. Je kan het niet actief te maken. Niet handmatig een soort rollover item als dit zal worden gebruikt om een automatische berekeningen te doen.\n****************</string>
 
 </resources>

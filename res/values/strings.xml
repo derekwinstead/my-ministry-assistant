@@ -157,5 +157,6 @@
     <string name="toast_weekly_backup_cancelled">Weekly backups cancelled.</string>
     <string name="toast_db_updated_successfully">Database updated successfully.</string>
     <string name="toast_update_done">Update done.</string>
+    <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>
 
 </resources>

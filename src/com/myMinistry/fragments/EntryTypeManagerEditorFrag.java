@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myMinistry.FragmentActivityStatus;
@@ -32,6 +33,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	
 	private EditText et_name;
 	private CheckBox cb_is_active;
+	private TextView tv_note;
 	
 	private long resID = 0;
 	
@@ -85,6 +87,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 		
 		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
+		tv_note = (TextView) root.findViewById(R.id.tv_note);
 		
 		database = new MinistryService(getActivity().getApplicationContext());
 		
@@ -216,10 +219,16 @@ public class EntryTypeManagerEditorFrag extends Fragment {
     	if(cursor.moveToFirst()) {
     		et_name.setText(cursor.getString(cursor.getColumnIndex(EntryType.NAME)));
     		cb_is_active.setChecked((cursor.getInt(cursor.getColumnIndex(EntryType.ACTIVE)) == 1) ? true : false);
+    		if((int)resID == MinistryDatabase.ID_ROLLOVER) {
+    			tv_note.setVisibility(View.VISIBLE);
+    		} else {
+    			tv_note.setVisibility(View.GONE);
+    		}
     	}
     	else {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
+    		tv_note.setVisibility(View.GONE);
     	}
     	cursor.close();
     	database.close();

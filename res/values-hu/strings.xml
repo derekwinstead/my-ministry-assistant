@@ -157,5 +157,6 @@
     <string name="toast_weekly_backup_cancelled">Heti mentések törölve.</string>
     <string name="toast_db_updated_successfully">Adatbázis sikeresen frissítve.</string>
     <string name="toast_update_done">Frissítés kész.</string>
+    <string name="note_rollover_edit">****************\nMegjegyzés: Ez egy egyedülálló bejegyzés típusát kezelni borulás időt. Nem lehet, hogy ez aktív. Ne manuálisan létrehozni egy borulás bejegyzés típusát, mert ez lesz használva, hogy nem minden automatikus számítást.\n****************</string>
 
 </resources>

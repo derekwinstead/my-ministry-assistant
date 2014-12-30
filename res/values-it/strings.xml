@@ -157,5 +157,6 @@
     <string name="toast_weekly_backup_cancelled">Backup Settimanale Cancellato.</string>
     <string name="toast_db_updated_successfully">Database aggiornato con successo.</string>
     <string name="toast_update_done">Aggiornamento fatto.</string>
+    <string name="note_rollover_edit">****************\nNota: Questo è un tipo di voce unica per gestire il tempo rollover. Non è possibile renderlo attivo. Non creare manualmente un tipo di voce rollover come questo sarà usato per fare calcoli automatici.\n****************</string>
 
 </resources>

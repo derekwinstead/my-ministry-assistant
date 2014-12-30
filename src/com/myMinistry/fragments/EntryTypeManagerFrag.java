@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
@@ -184,9 +185,17 @@ public class EntryTypeManagerFrag extends ListFragment {
     	AlertDialog.Builder builder = new Builder(EntryTypeManagerFrag.this.getActivity());
     	final EditText editText = (EditText) view.findViewById(R.id.text1);
     	final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
+    	final TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
     	
     	editText.setText(name);
     	cb_is_active.setChecked(isActive != 0 ? true : false);
+    	if(id == MinistryDatabase.ID_ROLLOVER) {
+    		cb_is_active.setEnabled(false);
+    		cb_is_active.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.holo_grey_light));
+    		tv_note.setVisibility(View.VISIBLE);
+    	} else {
+    		cb_is_active.setEnabled(true);
+    	}
     	
     	builder.setView(view);
     	builder.setTitle(id != MinistryDatabase.CREATE_ID ? R.string.form_rename : R.string.form_name);

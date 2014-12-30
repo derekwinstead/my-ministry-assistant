@@ -157,5 +157,6 @@
     <string name="toast_weekly_backup_cancelled">Backup mingguan dibatalkan.</string>
     <string name="toast_db_updated_successfully">Database berhasil diperbarui.</string>
     <string name="toast_update_done">Pembaruan dilakukan.</string>
+    <string name="note_rollover_edit">****************\nCatatan: Ini adalah jenis entri yang unik untuk mengatur waktu rollover. Anda tidak bisa membuatnya aktif. Jangan manual membuat jenis entri rollover karena hal ini akan digunakan untuk melakukan perhitungan otomatis.\n****************</string>
 
 </resources>
