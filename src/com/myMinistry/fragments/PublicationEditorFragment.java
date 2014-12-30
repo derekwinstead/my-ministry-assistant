@@ -154,6 +154,9 @@ public class PublicationEditorFragment extends ListFragment {
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
     	
+    	if(!is_dual_pane)
+    		getActivity().setTitle(R.string.title_publication_edit);
+    	
     	fillForm();
 	}
 	

@@ -40,6 +40,7 @@
     <string name="navdrawer_item_time_entry">Temps Entrée</string>
     <string name="title_householder_edit">Maître de Maison Modifier</string>
     <string name="title_publisher_edit">Proclamateurs Modifier</string>
+    <string name="title_publication_edit">Modifier Publication</string>
     <string name="tab_item_monthly">Mensuel</string>
     <string name="tab_item_yearly">annuel</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

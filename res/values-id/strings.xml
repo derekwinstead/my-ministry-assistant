@@ -40,6 +40,7 @@
     <string name="navdrawer_item_time_entry">Catatan Waktu</string>
     <string name="title_householder_edit">Householder Sunting</string>
     <string name="title_publisher_edit">Memodifikasi Proklamator</string>
+    <string name="title_publication_edit">Modifikasi Publikasi</string>
     <string name="tab_item_monthly">Bulanan</string>
     <string name="tab_item_yearly">tahunan</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

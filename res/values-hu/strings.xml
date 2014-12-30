@@ -40,6 +40,7 @@
     <string name="navdrawer_item_time_entry">idő Nevezési</string>
     <string name="title_householder_edit">Házigazdához Szerkesztés</string>
     <string name="title_publisher_edit">Módosítása Kikiáltó</string>
+    <string name="title_publication_edit">Módosítása Közzététele</string>
     <string name="tab_item_monthly">havi</string>
     <string name="tab_item_yearly">éves</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

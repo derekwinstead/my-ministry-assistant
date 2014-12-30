@@ -40,6 +40,7 @@
     <string name="navdrawer_item_time_entry">Время Вступление</string>
     <string name="title_householder_edit">Арендодатель Редактировать</string>
     <string name="title_publisher_edit">Изменить проповедует</string>
+    <string name="title_publication_edit">Изменить Публикация</string>
     <string name="tab_item_monthly">Месячный</string>
     <string name="tab_item_yearly">Годовой</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

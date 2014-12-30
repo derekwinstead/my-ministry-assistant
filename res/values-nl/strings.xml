@@ -40,6 +40,7 @@
     <string name="navdrawer_item_time_entry">Time Entry</string>
     <string name="title_householder_edit">Huishouder Bewerken</string>
     <string name="title_publisher_edit">Wijzig Proclaimer</string>
+    <string name="title_publication_edit">Publicatie Wijzigen</string>
     <string name="tab_item_monthly">Maandelijkse</string>
     <string name="tab_item_yearly">jaarlijkse</string>
     <string name="tab_item_publications">@string/navdrawer_item_publications</string>

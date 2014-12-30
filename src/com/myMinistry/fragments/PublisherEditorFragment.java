@@ -117,9 +117,10 @@ public class PublisherEditorFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	
-    	getActivity().setTitle(R.string.title_publisher_edit);
-    	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+    	
+    	if(!is_dual_pane)
+    		getActivity().setTitle(R.string.title_publisher_edit);
     	
     	fillForm();
 	}
