@@ -221,8 +221,10 @@ public class EntryTypeManagerEditorFrag extends Fragment {
     		cb_is_active.setChecked((cursor.getInt(cursor.getColumnIndex(EntryType.ACTIVE)) == 1) ? true : false);
     		if((int)resID == MinistryDatabase.ID_ROLLOVER) {
     			tv_note.setVisibility(View.VISIBLE);
+    			cb_is_active.setEnabled(false);	
     		} else {
     			tv_note.setVisibility(View.GONE);
+    			cb_is_active.setEnabled(true);
     		}
     	}
     	else {

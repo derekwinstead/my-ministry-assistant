@@ -189,12 +189,11 @@ public class EntryTypeManagerFrag extends ListFragment {
     	
     	editText.setText(name);
     	cb_is_active.setChecked(isActive != 0 ? true : false);
+    	
     	if(id == MinistryDatabase.ID_ROLLOVER) {
     		cb_is_active.setEnabled(false);
     		cb_is_active.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.holo_grey_light));
     		tv_note.setVisibility(View.VISIBLE);
-    	} else {
-    		cb_is_active.setEnabled(true);
     	}
     	
     	builder.setView(view);
