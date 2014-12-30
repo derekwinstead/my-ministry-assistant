@@ -230,6 +230,18 @@ public class MinistryService {
     	return sqlDB.rawQuery(sql1, null);
     }
 	
+	public Cursor fetchListOfRBCHoursForPublisher(String formattedDate, int publisherId, String timeFrame) {
+		String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+    					+ " FROM " + Tables.TIMES
+    					+ " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
+    					+ " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
+    					+ " AND date(" + Time.DATE_START + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "')"
+    					+ " AND " + Qualified.TIME_PUBLISHER_ID + " = " + publisherId
+    					+ " AND " + Qualified.ENTRY_TYPE_RBC + " = 1";
+    	
+    	return sqlDB.rawQuery(sql1, null);
+    }
+	
 	public int fetchRecordCountOfRBCHoursForMonthForPublisher(String formattedDate, int publisherId) {
 		String sql =	"SELECT COUNT(" + Qualified.TIME_ID + ")"
     					+ " FROM " + Tables.TIMES

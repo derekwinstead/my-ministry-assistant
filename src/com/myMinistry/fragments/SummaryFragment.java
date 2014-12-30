@@ -445,7 +445,7 @@ public class SummaryFragment extends Fragment {
         		break;
         	case MinistryDatabase.ID_RBC:
         		mRBCText = entryTypes.getString(entryTypes.getColumnIndex(EntryType.NAME));
-        		mRBCCount = String.valueOf(entryTypes.getInt(2));
+        		mRBCCount = TimeUtils.getTimeLength(database.fetchListOfRBCHoursForPublisher(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
         		break;
         	}
         }
