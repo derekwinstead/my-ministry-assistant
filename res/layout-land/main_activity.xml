@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.Main" >
+    tools:context=".ui.MainActivity" >
 
     <!-- Main layout -->
     <LinearLayout
@@ -27,18 +27,8 @@
             android:layout_weight="2"
             android:paddingLeft="@dimen/default_padding" />
     </LinearLayout>
-    
+
     <!-- Nav drawer -->
     <include layout="@layout/navdrawer" />
-    <!-- 
-    <ListView
-        android:id="@+id/drawer"
-        android:layout_width="@dimen/navdrawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/navdrawer_background"
-        android:choiceMode="singleChoice"
-        android:divider="@color/transparent"
-        android:dividerHeight="0dp" />
- -->
+
 </android.support.v4.widget.DrawerLayout>
