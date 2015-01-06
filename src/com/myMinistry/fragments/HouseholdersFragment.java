@@ -59,6 +59,9 @@ public class HouseholdersFragment extends ListFragment {
     	
 		if(menu.findItem(R.id.householder_create) != null)
     		menu.findItem(R.id.householder_create).setVisible(!drawerOpen);
+		
+		if(menu.findItem(R.id.sort_container) != null)
+    		menu.findItem(R.id.sort_container).setVisible(!drawerOpen);
     	
     	super.onPrepareOptionsMenu(menu);
 	}
