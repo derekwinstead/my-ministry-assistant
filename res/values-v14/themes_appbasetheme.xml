@@ -15,7 +15,10 @@
         <!-- Set AppCompat’s color theming attrs -->
         <item name="colorPrimary">@color/actionbar_background</item>
         <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
-
+        
+        <item name="colorControlActivated">@color/actionbar_background_darker</item>
+        <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+        
         <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Apptheme.Widget</item>
     </style>
