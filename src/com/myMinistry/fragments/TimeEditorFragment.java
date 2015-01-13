@@ -67,6 +67,7 @@ import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
+import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
@@ -380,7 +381,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     			
     			setDate(todel2,REF_DATE_END);
     			
-    			/** Set the publisher in the spinner */ 
+    			// Set the publisher in the spinner 
     			for(qPublishers.moveToFirst();!qPublishers.isAfterLast();qPublishers.moveToNext()) {
     				if(qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
     					publishers.setSelection(qPublishers.getPosition());
@@ -396,8 +397,11 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     				qPublishers = database.fetchAllPublishers();
     				
     				pubsAdapter.clear();
-    				while(qPublishers.moveToNext())
-    					pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+    				while(qPublishers.moveToNext()) {
+    					if(qPublishers.getInt(qPublishers.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE || qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
+    						pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+    					}
+    				}	
     				
     				pubsAdapter.notifyDataSetChanged();
     				
@@ -511,7 +515,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				if(allowedToEdit) {
 					if(saveTime()) {
 						PrefUtils.setSummaryMonthAndYear(getActivity(), selectedDateStart);
-						
+						PrefUtils.setPublisherId(getActivity(), publisherId);
 						// This will update the action bar with the new publisher
 						MainActivity mainFrag = (MainActivity) getActivity();
 						mainFrag.setPublisherId(publisherId, publisherName);
@@ -587,6 +591,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 						        		f.setPublisherId(originalPublisherId);
 						        		f.setDate(originalSelectedDateStart);
 					        		}
+					        		f.calculateSummaryValues();
 					        		f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
 								}
 								else {

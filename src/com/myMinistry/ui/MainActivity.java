@@ -128,8 +128,6 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     
     private Boolean firstLoad = true;
     
-    private int publisherId = MinistryDatabase.CREATE_ID;
-    
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -240,7 +238,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     					PrefUtils.setSummaryMonthAndYear(this, date);
     				
     				new SummaryFragment();
-					SummaryFragment f = SummaryFragment.newInstance(publisherId);
+					SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(this));
 		        	
 		        	if(frag != null)
 		        		ft.remove(frag);
@@ -257,8 +255,9 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 		        	date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
 					
     				SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-    				//f.setPublisherId(publisherId);
+    				f.setPublisherId(PrefUtils.getPublisherId(this));
     				f.setDate(date);
+    				f.calculateSummaryValues();
     				f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
     			}	
 	        	
@@ -393,7 +392,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	        	int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
 				
 				frag = fm.findFragmentById(LAYOUT_ID);
-				TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(publisherId);
+				TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
 				
 				if(frag != null)
 	        		ft.remove(frag);
@@ -410,8 +409,6 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	}
 
 	public void setPublisherId(int _ID,String _name) {
-		publisherId = _ID;
-		
 		onNavDrawerItemClicked(getDefaultNavDrawerItem());
 	}
 	

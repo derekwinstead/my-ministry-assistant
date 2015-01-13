@@ -201,6 +201,15 @@ public class SummaryFragment extends Fragment {
 	}
 	
 	public void setPublisherId(int _id) {
+		if(pubsAdapter != null) {
+			for(int i = 0; i <= pubsAdapter.getCount(); i++) {
+				if(_id == pubsAdapter.getItem(i).getID()) {
+					publishers.setSelection(i);
+					break;
+				}
+			}
+		}
+		
 		publisherId = _id;
 	}
 	
@@ -372,6 +381,10 @@ public class SummaryFragment extends Fragment {
     	rbc_text.setText(mRBCText);
     	rbc_count.setText(mRBCCount);
     }
+	
+	public void calculateSummaryValues() {
+		calculateSummaryValues(is_month_summary);
+	}
 	
 	public void calculateSummaryValues(boolean is_month) {
     	if(!database.isOpen())
