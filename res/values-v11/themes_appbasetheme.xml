@@ -25,6 +25,7 @@
         <item name="colorPrimary">@color/actionbar_background</item>
         <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
         
+        <item name="colorControlNormal">@color/actionbar_background</item>
         <item name="colorControlActivated">@color/actionbar_background_darker</item>
         <item name="colorControlHighlight">@color/actionbar_background_darker</item>
     </style>
