@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myMinistry"
     android:installLocation="auto"
-    android:versionCode="210"
-    android:versionName="3.2.0.45" >
+    android:versionCode="211"
+    android:versionName="3.2.0.46" >
 
     <!-- Version Name has ending of DIGIT - Google/Amazon, W - Web, O - Other -->
 
@@ -12,7 +12,9 @@
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
