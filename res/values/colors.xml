@@ -17,6 +17,7 @@
     <color name="bg_card_pressed">#f9f9f9</color>
     <color name="default_text">#59646e</color>
     <color name="alert_bg">#db4437</color>
+    <color name="text_hint">#7d7d7d</color>
 
     <!-- Nav Drawer -->
     <color name="navdrawer_background">#ffffffff</color>
