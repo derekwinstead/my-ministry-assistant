@@ -84,7 +84,8 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/dividerHeight"
         android:paddingTop="@dimen/dividerHeight"
-        android:text="@string/recent_activity" />
+        android:text="@string/recent_activity"
+        android:textColor="@android:color/black" />
 
     <ListView
         android:id="@android:id/list"

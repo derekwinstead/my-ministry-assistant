@@ -3,6 +3,7 @@
     android:id="@+id/menurow_title"
     android:layout_width="match_parent"
     android:layout_height="@dimen/thumb_height"
+    android:background="@android:color/white"
     android:drawablePadding="@dimen/default_padding"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/default_padding"

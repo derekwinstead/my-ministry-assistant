@@ -7,4 +7,4 @@
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/default_padding_half"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textColor="@color/black" />
+    android:textColor="@android:color/black" />

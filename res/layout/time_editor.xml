@@ -126,6 +126,7 @@
             android:layout_centerVertical="true"
             android:paddingLeft="@dimen/default_padding_half"
             android:text="@string/menu_rv_publications_notes"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/textsizeMD" />
 
         <ImageView
