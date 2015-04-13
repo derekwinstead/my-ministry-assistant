@@ -270,4 +270,13 @@ public class HelpUtils {
     	pubs.close();
     	database.close();
 	}
+	/*
+	public static boolean isCreateId(int id) {
+		return (id == MinistryDatabase.CREATE_ID);
+	}
+	
+	public static boolean isCreateId(long id) {
+		return isCreateId((int)id);
+	}
+	*/
 }

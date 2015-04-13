@@ -67,7 +67,6 @@ import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
-import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
