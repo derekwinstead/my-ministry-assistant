@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -57,7 +58,7 @@ public class SummaryFragment extends Fragment {
     
     private String mMonth, mYear, mTotalHoursCount, mPublicationText0, mPublicationText1, mPublicationText2, mPublicationText3, mPublicationText4, mPublicationCount0, mPublicationCount1, mPublicationCount2, mPublicationCount3, mPublicationCount4, mRVText, mRVCount, mBSText, mBSCount, mRBCText, mRBCCount = "";
     
-    private Spinner publishers;
+    private Spinner publishers, monthly_or_yearly, view_type;
     private TextView month, year, total_hours_count, tv_pub_text_0, tv_pub_text_1, tv_pub_text_2, tv_pub_text_3, tv_pub_text_4, tv_pub_count_0, tv_pub_count_1, tv_pub_count_2, tv_pub_count_3, tv_pub_count_4, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, rbc_text, rbc_count;
 	private Calendar monthPicked = Calendar.getInstance();
 	private Calendar serviceYear = Calendar.getInstance();
@@ -128,6 +129,8 @@ public class SummaryFragment extends Fragment {
 		setPublisherId(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
 		
 		publishers = (Spinner) root.findViewById(R.id.publishers);
+		monthly_or_yearly = (Spinner) root.findViewById(R.id.monthly_or_yearly);
+		view_type = (Spinner) root.findViewById(R.id.view_type);
 		tv_pub_text_0 = (TextView) root.findViewById(R.id.tv_pub_text_0);
 		tv_pub_count_0 = (TextView) root.findViewById(R.id.tv_pub_count_0);
 		tv_pub_text_1 = (TextView) root.findViewById(R.id.tv_pub_text_1);
@@ -185,6 +188,64 @@ public class SummaryFragment extends Fragment {
     	
     	pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
     	
+    	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+    	spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
+    	
+    	for(String name : getResources().getStringArray(R.array.summary_time_span)) {
+    		spinnerArrayAdapter.add(name);
+    	}
+    	
+    	monthly_or_yearly.setAdapter(spinnerArrayAdapter);
+    	monthly_or_yearly.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(position == 0) {
+					updatePublisherSummaryMonthly();
+				} else {
+					updatePublisherSummaryYearly();
+				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+    	
+    	ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+    	spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
+    	
+    	for(String name : getResources().getStringArray(R.array.summary_nav_view_type)) {
+    		spinnerArrayAdapterType.add(name);
+    	}
+    	
+    	view_type.setAdapter(spinnerArrayAdapterType);
+    	view_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(position == 1) {
+					Calendar date = Calendar.getInstance(Locale.getDefault());
+					
+					// Create new transaction
+					FragmentTransaction ft = fm.beginTransaction();
+			    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					
+			    	// Create new fragment
+			    	TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()), is_month_summary);
+			    	
+			    	// Replace whatever is in the fragment_container view with this fragment,
+					ft.replace(R.id.primary_fragment_container, f);
+		        	
+					// Commit the transaction
+		        	ft.commit();
+				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+		});
+    	
     	return root;
     }
 	
@@ -193,6 +254,10 @@ public class SummaryFragment extends Fragment {
 		super.onActivityCreated(savedState);
 		
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+		
+		if(is_dual_pane) {
+			view_type.setVisibility(View.GONE);
+		}
 		
 		calculateSummaryValues(is_month_summary);
 		fillPublisherSummary();
@@ -348,10 +413,8 @@ public class SummaryFragment extends Fragment {
         	else {
         		TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId, is_month_summary);
         		FragmentTransaction ft = fm.beginTransaction();
-        		if(rf != null)
-        			ft.remove(rf);
         		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        		ft.add(R.id.secondary_fragment_container, f);
+        		ft.replace(R.id.secondary_fragment_container, f);
         		ft.commit();
         	}
     	}

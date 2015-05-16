@@ -3,7 +3,11 @@
 
     <style name="AppBaseTheme" parent="@style/_AppBaseTheme" />
 
-    <style name="_AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="_AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        
+        <item name="android:textColorPrimary">#ffffff</item>
+        
         <item name="actionBarItemBackground">@drawable/selectable_background_apptheme</item>
         <item name="popupMenuStyle">@style/PopupMenu.AppBaseTheme</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.AppBaseTheme</item>

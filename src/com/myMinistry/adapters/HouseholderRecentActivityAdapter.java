@@ -68,6 +68,7 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
 		return view;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 		ViewHolder holder = (ViewHolder) view.getTag();

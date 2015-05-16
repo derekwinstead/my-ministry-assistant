@@ -57,6 +57,7 @@ public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public View getView(int position, View convertView, ViewGroup parent) {
 		NavDrawerMenuItem item = getItem(position);
 		ViewHolder holder = null;

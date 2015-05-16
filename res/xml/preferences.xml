@@ -16,6 +16,9 @@
         android:key="recalculate_ro_time"
         android:title="@string/pref_recalc_ro_time" />
     <Preference
+        android:key="change_locale"
+        android:title="DEREK CHANGE" />
+    <Preference
         android:key="email_developer"
         android:title="@string/pref_feedback_cat" />
     <Preference

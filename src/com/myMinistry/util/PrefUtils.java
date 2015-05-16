@@ -45,6 +45,7 @@ public class PrefUtils  {
 	private static final String PREF_PUBLISHER_ID			= "publisher_id";
 	private static final String PREF_SUMMARY_MONTH			= "saved_month";
 	private static final String PREF_SUMMARY_YEAR			= "saved_year";
+	private static final String PREF_LOCALE					= "locale";
 	
 	public static TimeZone getDisplayTimeZone(Context context) {
         //TimeZone defaultTz = TimeZone.getDefault();
@@ -245,4 +246,14 @@ public class PrefUtils  {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		return sp.getBoolean(context.getString(R.string.pref_key_show_minutes), true);
 	}
+
+    public static String getLocale(final Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString(PREF_LOCALE, "en");
+    }
+    
+    public static void setLocale(final Context context, String locale) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putString(PREF_LOCALE, locale).commit();
+    }
 }

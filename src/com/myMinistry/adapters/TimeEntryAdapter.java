@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.provider.MinistryService;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteraturePlaced;
@@ -31,6 +31,7 @@ import com.myMinistry.provider.MinistryContract.Notes;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
+import com.myMinistry.provider.MinistryService;
 import com.myMinistry.util.TimeUtils;
 
 public class TimeEntryAdapter extends ResourceCursorAdapter {
@@ -41,8 +42,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 	private Entry entry = new Entry();
 	private ArrayList<Entry> entries;
 	private int padding;
-	private LayoutParams lp1;
-	private LayoutParams lp2;
+	private LayoutParams lp1, lp2, lp_v;
 	
 	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.FROYO)
@@ -51,19 +51,25 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 		database = new MinistryService(context);
 		padding = Helper.dipsToPix(context, 5);
 		
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO)
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
 			lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-		else
+			lp_v = new LayoutParams(LayoutParams.MATCH_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
+		} else {
 			lp1 = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
+			lp_v = new LayoutParams(LayoutParams.FILL_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
+		}
 		
 		lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		
 	}
 	
 	private class ViewHolder {
 		LinearLayout linlay;
 		TextView title;
 		TextView hours;
-		TextView thistime;
+		TextView date;
+		TextView timeStart;
+		TextView timeEnd;
 	}
 	
 	@Override
@@ -75,7 +81,9 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 		holder.linlay = (LinearLayout) view.findViewById(R.id.linlay);
 		holder.title = (TextView) view.findViewById(R.id.title);
 		holder.hours = (TextView) view.findViewById(R.id.hours);
-		holder.thistime = (TextView) view.findViewById(R.id.time);
+		holder.date = (TextView) view.findViewById(R.id.date);
+		holder.timeStart = (TextView) view.findViewById(R.id.timeStart);
+		holder.timeEnd = (TextView) view.findViewById(R.id.timeEnd);
 		
 		view.setTag(holder);
 		return view;
@@ -154,7 +162,9 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 		database.close();
 		
 		/** Set the display in the view as  Ddd, Mmm dd, H:MMTT - H:MMTT */
-		holder.thistime.setText(Helper.buildTimeEntryDateAndTime(context, displayDateStart, displayDateEnd));
+		holder.date.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY | DateUtils.FORMAT_NO_YEAR));
+		holder.timeStart.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
+		holder.timeEnd.setText(DateUtils.formatDateTime(context, displayDateEnd.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
 		
 		/** Set the display in the view as Xh Ym */
 		holder.hours.setText(TimeUtils.getTimeLength(displayDateStart, displayDateEnd, context.getString(R.string.hours_label), context.getString(R.string.minutes_label)));
@@ -163,21 +173,36 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 		holder.title.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE)));
 		
 		if(entries.isEmpty()) {
+			//holder.div.setVisibility(View.GONE);
 			holder.linlay.setVisibility(View.GONE);
 		}
 		else {
+			//holder.div.setVisibility(View.VISIBLE);
 			holder.linlay.setVisibility(View.VISIBLE);
 			/** Clean out the old views for the entries */
 			holder.linlay.removeAllViews();
 			
+			int counter = 0;
 			for(Entry entry : entries) {
+				counter++;
+				LinearLayout ll = new LinearLayout(context);
+				ll.setLayoutParams(lp1);
+				ll.setOrientation(LinearLayout.VERTICAL);
+				ll.setPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
+				
+				if(counter != 1) {
+					View vnew = new View(context);
+					vnew.setLayoutParams(lp_v);
+					vnew.setBackgroundResource(R.color.actionbar_background_darker);
+					
+					holder.linlay.addView(vnew);
+				}
+				
 				if(!TextUtils.isEmpty(entry.getHouseholder()) || !TextUtils.isEmpty(entry.getNotes()) || entry.pubs.size() > 0) { 
 					View v = new View(context);
 					LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams((Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) ? LayoutParams.MATCH_PARENT : LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
-					lp3.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
 					v.setLayoutParams(lp3);
 					v.setBackgroundColor(context.getResources().getColor(R.color.navdrawer_divider));
-					holder.linlay.addView(v);
 					
 					TextView tv;
 					
@@ -197,7 +222,8 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 						tv.setLayoutParams(lp1);
 						tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_action_warning), null, null, null);
 						tv.setCompoundDrawablePadding(padding);
-						holder.linlay.addView(tv);
+						
+						ll.addView(tv);
 					}
 					
 					/** Show Householder if exists */
@@ -210,7 +236,8 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 						tv.setLayoutParams(lp1);
 						tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_drawer_householder), null, null, null);
 						tv.setCompoundDrawablePadding(padding);
-						holder.linlay.addView(tv);
+						
+						ll.addView(tv);
 					}
 					
 					/** Show Notes if exists */
@@ -235,7 +262,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 						linlay.addView(iv);
 						linlay.addView(tv);
 						
-						holder.linlay.addView(linlay);
+						ll.addView(linlay);
 					}
 					
 					/** Load the publications for the entry */
@@ -249,9 +276,11 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 						tv.setCompoundDrawablePadding(padding);
 						tv.setLayoutParams(lp1);
 						
-						holder.linlay.addView(tv);
+						ll.addView(tv);
 					}
 				}
+				
+				holder.linlay.addView(ll);
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package com.myMinistry.ui;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
@@ -22,6 +23,7 @@ import android.webkit.WebView;
 
 import com.myMinistry.R;
 import com.myMinistry.util.HelpUtils;
+import com.myMinistry.util.PrefUtils;
 
 public class SettingsActivity extends PreferenceActivity {
 	private String versionName = "0";
@@ -31,6 +33,8 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		changeLang(PrefUtils.getLocale(getApplicationContext()));
 		
 		addPreferencesFromResource(R.xml.preferences);
 		
@@ -62,6 +66,66 @@ public class SettingsActivity extends PreferenceActivity {
         				ringProgressDialog.dismiss();
         			}
         		}).start();
+				return true;
+        	}
+        });
+        
+        findPreference("change_locale").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        	public boolean onPreferenceClick(final Preference preference) {
+        		AlertDialog.Builder builder = new AlertDialog.Builder(preference.getContext());
+        		
+        		
+        		
+        		
+        		ArrayList<String> localesToShow = new ArrayList<String>();
+        		final Locale[] locales = new Locale[9];
+        		
+        		Locale locale = new Locale("en");
+        		locales[0] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("es");
+        		locales[1] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("fr");
+        		locales[2] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("hu");
+        		locales[3] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("id");
+        		locales[4] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("it");
+        		locales[5] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("nl");
+        		locales[6] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("pt");
+        		locales[7] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		locale = new Locale("ru");
+        		locales[8] = locale;
+        		localesToShow.add(locale.getDisplayLanguage() + " - ("+ locale.toString() + ")");
+        		
+        		String[] items = new String[localesToShow.size()];
+        		items = localesToShow.toArray(items);
+        		
+        		builder.setTitle(preference.getContext().getString(R.string.menu_options));
+        		builder.setItems(items, new DialogInterface.OnClickListener() {
+        			public void onClick(DialogInterface dialog, int which) {
+        				PrefUtils.setLocale(getApplicationContext(), locales[which].toString());
+        			}
+        		});
+        	    builder.create().show();
 				return true;
         	}
         });
@@ -146,4 +210,14 @@ public class SettingsActivity extends PreferenceActivity {
 			});
 		}
     }
+	
+	public void changeLang(String lang) {
+		if (lang.equalsIgnoreCase(""))
+			return;
+		Locale myLocale = new Locale(lang);
+		Locale.setDefault(myLocale);
+		android.content.res.Configuration config = new android.content.res.Configuration();
+		config.locale = myLocale;
+		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+	}
 }

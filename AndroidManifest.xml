@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myMinistry"
     android:installLocation="auto"
-    android:versionCode="214"
-    android:versionName="4.0" >
+    android:versionCode="215"
+    android:versionName="4.05" >
 
     <!-- Version Name has ending of DIGIT - Google/Amazon, W - Web, O - Other -->
 
@@ -20,7 +20,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
-        <activity android:name=".ui.MainActivity" >
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="locale" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +31,7 @@
         </activity>
         <activity
             android:name=".ui.SettingsActivity"
+            android:configChanges="locale"
             android:exported="false" >
         </activity>
 

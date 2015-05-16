@@ -2,6 +2,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppBaseTheme" parent="@style/_AppBaseTheme">
+        <item name="windowActionBar">false</item>
+        
+        <item name="android:textColorPrimary">#ffffff</item>
+        
         <item name="android:textSelectHandleLeft">@drawable/appbasetheme_text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/appbasetheme_text_select_handle_right</item>
         <item name="android:textSelectHandle">@drawable/appbasetheme_text_select_handle_middle</item>

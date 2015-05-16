@@ -2,7 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:locale="en">
 
     <string name="right_parentheses">)</string>
-    <string name="left_parentheses">&#160;(</string>
+    <string name="left_parentheses">&#160;- (</string>
+    <string name="dash">&#160;-&#160;</string>
     <string name="email_address_bugs">bugs@myministryassistant.com</string>
     <string name="email_address_features">features@myministryassistant.com</string>
     <string name="email_address_translations">translations@myministryassistant.com</string>

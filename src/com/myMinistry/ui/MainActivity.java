@@ -21,10 +21,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +43,6 @@ import com.myMinistry.fragments.PublicationManagerFrag;
 import com.myMinistry.fragments.PublishersFragment;
 import com.myMinistry.fragments.SummaryFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
-import com.myMinistry.fragments.TimeEntriesFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.HelpUtils;
 import com.myMinistry.util.PrefUtils;
@@ -129,9 +128,17 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     private Boolean firstLoad = true;
     
     @Override
+	public void onResume() {
+		super.onResume();
+		changeLang(PrefUtils.getLocale(getApplicationContext()));
+	}
+    
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
     	setContentView(R.layout.main_activity);
+    	
+    	changeLang(PrefUtils.getLocale(getApplicationContext()));
     	
     	mHandler = new Handler();
     	
@@ -142,7 +149,11 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	
     	is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
     	
-    	getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    	// Set a toolbar to replace the action bar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    	
+    	//getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     	
     	if(HelpUtils.isApplicationUpdated(this)) {
     		MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
@@ -220,17 +231,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     	
     	switch (itemId) {
     		case NAVDRAWER_ITEM_SUMMARY:
-    			getSupportActionBar().removeAllTabs();
-    			
     			getSupportActionBar().setTitle(R.string.navdrawer_item_summary);
-    			
-    	    	if(!is_dual_pane) {
-    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.navdrawer_item_summary).setTabListener(this));
-    	    		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.menu_entries).setTabListener(this));
-    	    	}
-    			
-    			getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_monthly).setTabListener(this));
-    	    	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_yearly).setTabListener(this));
     	    	
     			Calendar date = Calendar.getInstance(Locale.getDefault());
     			if(!(frag instanceof SummaryFragment)) {
@@ -239,11 +240,8 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     				
     				new SummaryFragment();
 					SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(this));
-		        	
-		        	if(frag != null)
-		        		ft.remove(frag);
-					
-					ft.add(R.id.primary_fragment_container, f);
+		        	// test
+		        	ft.replace(R.id.primary_fragment_container, f);
 		        	
 		        	if(!firstLoad)
 		        		ft.addToBackStack(null);
@@ -264,10 +262,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			firstLoad = false;
 	        	return true;
 	        case NAVDRAWER_ITEM_PUBLICATIONS:
-    			getSupportActionBar().removeAllTabs();
+    			//getSupportActionBar().removeAllTabs();
     			
-    			getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publications).setTabListener(this));
-    	    	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publication_types).setTabListener(this));
+    			//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publications).setTabListener(this));
+    	    	//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publication_types).setTabListener(this));
     	    	
     	    	if(!(frag instanceof PublicationFragment)) {
     				PublicationFragment f = new PublicationFragment().newInstance();
@@ -283,10 +281,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			
     			return true;
 	        case NAVDRAWER_ITEM_HOUSEHOLDERS:
-	        	getSupportActionBar().removeAllTabs();
+	        	//getSupportActionBar().removeAllTabs();
 	        	
 	        	if(!is_dual_pane) {
-	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_householders).setTabListener(this));
+	        		//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_householders).setTabListener(this));
 	        	}
 	        	
     			if(!(frag instanceof HouseholdersFragment)) {
@@ -303,10 +301,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			
     			return true;
 	        case NAVDRAWER_ITEM_PUBLISHERS:
-	        	getSupportActionBar().removeAllTabs();
+	        	//getSupportActionBar().removeAllTabs();
 	        	
 	        	if(!is_dual_pane) {
-	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publishers).setTabListener(this));
+	        		//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publishers).setTabListener(this));
 	        	}
 	        	
     			if(!(frag instanceof PublishersFragment)) {
@@ -323,10 +321,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			
     			return true;
 	        case NAVDRAWER_ITEM_ENTRY_TYPES:
-	        	getSupportActionBar().removeAllTabs();
+	        	//getSupportActionBar().removeAllTabs();
 	        	
 	        	if(!is_dual_pane) {
-	        		getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_entry_types).setTabListener(this));
+	        		//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_entry_types).setTabListener(this));
 	        	}
 	        	
     			if(!(frag instanceof EntryTypeManagerFrag)) {
@@ -343,10 +341,10 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
     			
     			return true;
 	        case NAVDRAWER_ITEM_BACKUPS:
-	        	getSupportActionBar().removeAllTabs();
+	        	//getSupportActionBar().removeAllTabs();
 	        	
-	        	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_backups).setTabListener(this));
-	        	getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_schedule_backups).setTabListener(this));
+	        	//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_backups).setTabListener(this));
+	        	//getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_schedule_backups).setTabListener(this));
 	        	
 	        	if(!(frag instanceof DBBackupsFragment)) {
 	        		if(is_dual_pane) {
@@ -387,18 +385,12 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
         		return true;
         		
 	        case NAVDRAWER_ITEM_TIME_ENTRY:
-	        	getSupportActionBar().removeAllTabs();
-	        	
 	        	int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
 				
 				frag = fm.findFragmentById(LAYOUT_ID);
 				TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
 				
-				if(frag != null)
-	        		ft.remove(frag);
-				
-				ft.add(LAYOUT_ID, f);
-				ft.addToBackStack(null);
+				ft.replace(LAYOUT_ID, f);
 				
 				ft.commit();
     			
@@ -619,51 +611,7 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		if(execute_tab) {
 			if(fm.findFragmentById(R.id.primary_fragment_container) != null) {
-				if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_monthly))) {
-					if(fm.findFragmentById(R.id.primary_fragment_container) instanceof SummaryFragment) {
-						SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-						f.updatePublisherSummaryMonthly();
-					} else if(fm.findFragmentById(R.id.primary_fragment_container) instanceof TimeEntriesFragment) {
-						TimeEntriesFragment f = (TimeEntriesFragment) fm.findFragmentById(R.id.primary_fragment_container);
-						f.switchToMonthList();
-					}
-				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_yearly))) {
-					if(fm.findFragmentById(R.id.primary_fragment_container) instanceof SummaryFragment) {
-						SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-						f.updatePublisherSummaryYearly();
-					} else if(fm.findFragmentById(R.id.primary_fragment_container) instanceof TimeEntriesFragment) {
-						TimeEntriesFragment f = (TimeEntriesFragment) fm.findFragmentById(R.id.primary_fragment_container);
-						f.switchToYearList();
-					}
-				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.menu_entries))) {
-					Calendar date = Calendar.getInstance(Locale.getDefault());
-					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-					
-					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-					boolean is_month_summary = true;
-					
-					TimeEntriesFragment f1 = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(this, date), PrefUtils.getSummaryYear(this, date), PrefUtils.getPublisherId(this), is_month_summary);
-					
-					if(frag != null)
-		        		ft.remove(frag);
-		        	
-		        	ft.add(R.id.primary_fragment_container, f1);
-		        	
-		        	setTitle(R.string.menu_entries);
-				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.navdrawer_item_summary))) {
-					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-					
-					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-					new SummaryFragment();
-					SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(this));
-					
-					if(frag != null)
-						ft.remove(frag);
-					
-					ft.add(R.id.primary_fragment_container, f);
-					
-					setTitle(R.string.navdrawer_item_summary);
-				} else if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_publications))) {
+				if(tab.getText().equals(getApplicationContext().getResources().getString(R.string.tab_item_publications))) {
 					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 		    		PublicationFragment f = new PublicationFragment().newInstance();;
 		        	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -708,5 +656,15 @@ public class MainActivity extends ActionBarActivity implements FragmentActivityS
 		}
 		
 		execute_tab = true;
+	}
+	
+	public void changeLang(String lang) {
+		if (lang.equalsIgnoreCase(""))
+			return;
+		Locale myLocale = new Locale(lang);
+		Locale.setDefault(myLocale);
+		android.content.res.Configuration config = new android.content.res.Configuration();
+		config.locale = myLocale;
+		getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 	}
 }

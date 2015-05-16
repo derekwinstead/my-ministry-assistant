@@ -765,7 +765,8 @@ public class MinistryService {
 						+ LeftJoins.HOUSEHOLDERS_JOIN_TIMEHOUSEHOLDERS
 						+ " LEFT JOIN " + Tables.NOTES + " ON (" + Qualified.NOTES_HOUSEHOLDER_ID + " = " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " AND " + Qualified.NOTES_TIME_ID + " = " + Qualified.TIME_ID + ")"
     					+ " WHERE " + Qualified.TIME_ID + " = " + timeID
-    					+ " AND " + Qualified.TIME_ENTRY_TYPE_ID + " <> " + MinistryDatabase.ID_ROLLOVER;
+    					+ " AND " + Qualified.TIME_ENTRY_TYPE_ID + " <> " + MinistryDatabase.ID_ROLLOVER
+    					+ " AND " + Qualified.TIMEHOUSEHOLDER_ID + " IS NOT NULL";
 		
     	return sqlDB.rawQuery(sql, null);
     }

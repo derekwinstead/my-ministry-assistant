@@ -4,15 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -60,9 +65,9 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	private String mMonth, mYear = "";
 	
-	private Spinner publishers;
+	private Spinner publishers, monthly_or_yearly, view_type;
 	private TextView month, year;
-	private CardView monthNavigation;
+	private LinearLayout monthNavigation;
 	
 	private NavDrawerMenuItemAdapter pubsAdapter;
 	
@@ -162,7 +167,9 @@ public class TimeEntriesFragment extends ListFragment {
 		});
         
         publishers = (Spinner) view.findViewById(R.id.publishers);
-        monthNavigation = (CardView) view.findViewById(R.id.monthNavigation);
+		monthly_or_yearly = (Spinner) view.findViewById(R.id.monthly_or_yearly);
+		view_type = (Spinner) view.findViewById(R.id.view_type);
+        monthNavigation = (LinearLayout) view.findViewById(R.id.monthNavigation);
         month = (TextView) view.findViewById(R.id.month);
     	year = (TextView) view.findViewById(R.id.year);
     	
@@ -196,6 +203,63 @@ public class TimeEntriesFragment extends ListFragment {
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
         pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
     	setListAdapter(adapter);
+    	
+
+    	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+    	spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
+    	
+    	for(String name : getResources().getStringArray(R.array.summary_time_span)) {
+    		spinnerArrayAdapter.add(name);
+    	}
+    	
+    	monthly_or_yearly.setAdapter(spinnerArrayAdapter);
+    	monthly_or_yearly.setSelection((is_month) ? 0 : 1);
+    	monthly_or_yearly.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(position == 0) {
+					switchToMonthList();
+				} else {
+					switchToYearList();
+				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+    	
+    	ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+    	spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
+    	
+    	for(String name : getResources().getStringArray(R.array.summary_nav_view_type)) {
+    		spinnerArrayAdapterType.add(name);
+    	}
+    	
+    	view_type.setAdapter(spinnerArrayAdapterType);
+    	view_type.setSelection(1);
+    	view_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(position == 0) {
+					((MainActivity)getActivity()).setTitle(R.string.menu_entries);
+					
+					FragmentTransaction ft = fm.beginTransaction();
+			    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+					
+					new SummaryFragment();
+					SummaryFragment f1 = SummaryFragment.newInstance(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+					
+					ft.replace(R.id.primary_fragment_container, f1);
+					ft.commit();
+				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+		});
     	
 		return view;
 	}
@@ -324,6 +388,8 @@ public class TimeEntriesFragment extends ListFragment {
     	}
     }
     
+	@TargetApi(Build.VERSION_CODES.FROYO)
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onActivityCreated(Bundle savedState) {
 		super.onActivityCreated(savedState);
@@ -335,8 +401,25 @@ public class TimeEntriesFragment extends ListFragment {
     	if(is_dual_pane)
     		monthNavigation.setVisibility(View.GONE);
     	
-    	if(!is_dual_pane)
+    	if(!is_dual_pane) {
     		loadPublisherAdapter();
+    		/*
+    		LayoutParams lp;
+    		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+    			lp = new LayoutParams(LayoutParams.MATCH_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+    		} else {
+    			lp = new LayoutParams(LayoutParams.FILL_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+    		}
+    		
+    		View v = new View(getActivity().getApplicationContext());
+    		//v.setPadding(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()), 0, 0);
+    		v.setBackgroundResource(R.color.actionbar_background_darker);
+    		
+    		v.setLayoutParams(lp);
+    		monthNavigation.addView(v);
+    		//monthNavigation.setPadding(30, 0, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics()));
+    		*/
+    	}
     	
     	calculateValues();
     	updateList();
