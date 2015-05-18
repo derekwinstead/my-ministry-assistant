@@ -141,7 +141,8 @@ public class SettingsActivity extends PreferenceActivity {
         									+ "\n" + preference.getContext().getString(R.string.email_content_brand_with_space) + android.os.Build.BRAND
         									+ "\n" + preference.getContext().getString(R.string.email_content_model_with_space) + android.os.Build.MODEL
         									+ "\n" + preference.getContext().getString(R.string.email_content_sdk_with_space) + android.os.Build.VERSION.SDK_INT
-        									+ "\n" + preference.getContext().getString(R.string.email_content_locale_with_space) + Locale.getDefault().toString();
+        									+ "\n" + preference.getContext().getString(R.string.email_content_locale_with_space) + Locale.getDefault().toString()
+        									+ "\n" + preference.getContext().getString(R.string.email_content_selected_locale_with_space) + PrefUtils.getLocale(getApplicationContext());
         				
         				String[] values = preference.getContext().getResources().getStringArray(R.array.contact_email_entryValues);
                 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);

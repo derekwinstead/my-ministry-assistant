@@ -16,6 +16,7 @@
     <string name="email_content_model_with_space">Model:&#160;</string>
     <string name="email_content_sdk_with_space">SDK:&#160;</string>
     <string name="email_content_locale_with_space">Default Locale:&#160;</string>
+    <string name="email_content_selected_locale_with_space">Selected Locale:&#160;</string>
     <string name="pref_key_rollover">rollovers</string>
     <string name="pref_key_show_minutes">show_minutes_in_totals</string>
     <string name="placeholder_lorem_ipsum"></string>
