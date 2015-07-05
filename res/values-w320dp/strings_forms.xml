@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
-
-    <string name="form_phone_mobile">Mobile Phone</string>
-    <string name="form_phone_home">Home Phone</string>
-    <string name="form_phone_work">Work Phone</string>
-    <string name="form_phone_other">Other Phone</string>
-
-</resources>
