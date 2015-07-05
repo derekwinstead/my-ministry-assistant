@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="@style/_AppBaseTheme" />
+
+    <style name="_AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        
+        <item name="android:textColorPrimary">@color/white</item>
+        
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
+        <item name="android:actionMenuTextColor">@color/actionbar_text</item>
+        <item name="android:editTextBackground">@drawable/appbasetheme_edit_text_holo_light</item>
+        <item name="android:textColorHighlight">#994684f0</item>
+        <item name="android:textSelectHandleLeft">@drawable/appbasetheme_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/appbasetheme_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/appbasetheme_text_select_handle_middle</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/appbasetheme_btn_check_holo_light</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/appbasetheme_btn_radio_holo_light</item>
+        <item name="android:buttonStyle">@style/ButtonAppBaseTheme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonAppBaseTheme</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/appbasetheme_list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/appbasetheme_activated_background_holo_light</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/appbasetheme_fastscroll_thumb_holo</item>
+        
+        <!-- Set AppCompat’s color theming attrs -->
+        <item name="colorPrimary">@color/actionbar_background</item>
+        <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
+        
+        <item name="colorControlNormal">@color/actionbar_background</item>
+        <item name="colorControlActivated">@color/actionbar_background_darker</item>
+        <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+    </style>
+
+</resources>

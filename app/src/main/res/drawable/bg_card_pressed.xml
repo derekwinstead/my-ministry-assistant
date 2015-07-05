@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+        <shape
+            android:dither="true"
+            android:shape="rectangle" >
+            <corners android:radius="@dimen/corner_radius" />
+
+            <solid android:color="@color/actionbar_background" />
+        </shape>
+    </item>
+    <item android:bottom="@dimen/corner_radius">
+        <shape
+            android:dither="true"
+            android:shape="rectangle" >
+            <corners android:radius="@dimen/corner_radius" />
+
+            <solid android:color="@color/bg_card_pressed" />
+
+            <padding
+                android:bottom="@dimen/default_padding_half"
+                android:left="@dimen/default_padding_half"
+                android:right="@dimen/default_padding_half"
+                android:top="@dimen/default_padding_half" />
+        </shape>
+    </item>
+
+</layer-list>

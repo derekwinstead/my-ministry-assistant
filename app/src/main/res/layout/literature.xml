@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_padding"
+        card_view:cardCornerRadius="@dimen/material_corner_radius" >
+
+        <Spinner
+            android:id="@+id/myspinner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thumb_height" />
+    </android.support.v7.widget.CardView>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/dividerHeight" />
+
+    <LinearLayout
+        android:id="@id/android:empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/empty_list_text_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="@dimen/default_padding"
+            android:text="@string/no_publications" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/default_padding"
+            android:padding="@dimen/default_padding"
+            card_view:cardCornerRadius="@dimen/material_corner_radius" >
+
+            <TextView
+                android:id="@+id/tv_add_item"
+                style="@style/empty_list_text_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_action_event_add_light"
+                android:drawablePadding="@dimen/default_padding_half"
+                android:drawableStart="@drawable/ic_action_event_add_light"
+                android:gravity="center"
+                android:padding="@dimen/default_padding"
+                android:text="@string/menu_add_new"
+                android:textColor="@color/black" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</LinearLayout>

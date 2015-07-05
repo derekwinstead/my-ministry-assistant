@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/create_bu"
+        android:icon="@drawable/ic_db_create"
+        android:orderInCategory="20"
+        android:title="@string/pref_backup_title"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/cleanup_bu"
+        android:icon="@drawable/ic_action_discard"
+        android:orderInCategory="30"
+        android:title="@string/pref_clear_title"
+        app:showAsAction="ifRoom|withText"/>
+
+</menu>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="navdrawer_width">260dp</dimen>
+    <dimen name="corner_radius">1dp</dimen>
+    <dimen name="material_corner_radius">2dp</dimen>
+    <dimen name="inner_padding">3dp</dimen>
+    <dimen name="thumb_height">48dp</dimen>
+    <dimen name="default_padding">10dp</dimen>
+    <dimen name="default_padding_half">5dp</dimen>
+    <dimen name="default_padding_two_third">7dp</dimen>
+    <dimen name="default_padding_extra">15dp</dimen>
+    <dimen name="default_padding_double">20dp</dimen>
+    <dimen name="negative_default_padding">-10dp</dimen>
+    <dimen name="negative_default_padding_half">-5dp</dimen>
+    <dimen name="textsizeSM">12sp</dimen>
+    <dimen name="textsizeMD">16sp</dimen>
+    <dimen name="empty_list_textsize">18sp</dimen>
+    <dimen name="flet_hint_text_size">11sp</dimen>
+    <dimen name="flet_hint_text_padding_horizontal">13dp</dimen>
+    <dimen name="dividerHeight">10dp</dimen>
+
+    <!-- body content -->
+    <dimen name="element_spacing_normal">8dp</dimen>
+    <dimen name="content_padding_normal">16dp</dimen>
+    <dimen name="text_size_xsmall">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+    <dimen name="text_size_diff_large_small">6sp</dimen>
+    
+    <dimen name="keyline_1">16dp</dimen>
+    <dimen name="keyline_1_minus_8dp">8dp</dimen>
+    <dimen name="keyline_2">72dp</dimen>
+    <dimen name="keyline_2_minus_16dp">56dp</dimen>
+    <dimen name="keyline_2_session_detail">@dimen/keyline_2</dimen>
+    <dimen name="navdrawer_chosen_account_height">57dp</dimen>
+    <dimen name="navdrawer_profile_image_size">40dp</dimen>
+
+</resources>

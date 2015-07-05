@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="MMATheme" parent="@style/_MMATheme" />
+
+    <style name="_MMATheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Set AppCompat’s color theming attrs -->
+        <item name="colorPrimary">@color/actionbar_background</item>
+        <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
+        <item name="colorControlNormal">@color/actionbar_background</item>
+        <item name="colorControlActivated">@color/actionbar_background_darker</item>
+        <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+        
+        <!-- 
+        <item name="windowActionBar">false</item>
+        
+        <item name="android:textColorPrimary">@color/white</item>
+        
+        <item name="actionBarItemBackground">@drawable/selectable_background_apptheme</item>
+        <item name="popupMenuStyle">@style/PopupMenu.AppBaseTheme</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.AppBaseTheme</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.AppBaseTheme</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.AppBaseTheme</item>
+        <item name="actionBarTabTextStyle">@style/MyActionBarTabText</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.AppBaseTheme</item>
+        <item name="actionMenuTextColor">@color/actionbar_text</item>
+        <item name="android:editTextStyle">@style/EditTextAppBaseTheme</item>
+        <item name="android:textColorHighlight">#994684f0</item>
+        <item name="android:checkboxStyle">@style/CheckBoxAppBaseTheme</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonAppBaseTheme</item>
+        <item name="android:buttonStyle">@style/ButtonAppBaseTheme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonAppBaseTheme</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemAppBaseTheme</item>
+        <item name="android:listViewStyle">@style/ListViewAppBaseTheme</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewAppBaseTheme.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemAppBaseTheme</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_apptheme</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_apptheme</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.AppBaseTheme</item>
+        <item name="android:windowBackground">@color/appbasetheme_color_window_bg</item>
+         -->
+        <!-- Set AppCompat’s color theming attrs -->
+        <!--
+        <item name="colorPrimary">@color/actionbar_background</item>
+        <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
+        
+        <item name="colorControlNormal">@color/actionbar_background</item>
+        <item name="colorControlActivated">@color/actionbar_background_darker</item>
+        <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+         -->
+        <!-- Light.DarkActionBar specific -->
+        <!--
+        <item name="actionBarWidgetTheme">@style/Theme.Apptheme.Widget</item>
+         -->
+    </style>
+
+</resources>

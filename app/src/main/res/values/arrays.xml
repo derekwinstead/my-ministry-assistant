@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+
+    <array name="time_editor_list_item_options_no_count">
+        <item>@string/form_notes</item>
+        <item>@string/navdrawer_item_publications</item>
+        <item>@string/menu_delete</item>
+        <item>@string/menu_do_not_count_as_return_visit</item>
+    </array>
+    <array name="time_editor_list_item_options_count">
+        <item>@string/form_notes</item>
+        <item>@string/navdrawer_item_publications</item>
+        <item>@string/menu_delete</item>
+        <item>@string/menu_count_as_return_visit</item>
+    </array>
+    <array name="entry_type_list_item_options">
+        <item>@string/form_rename</item>
+        <item>@string/menu_transfer_to</item>
+        <item>@string/menu_delete</item>
+    </array>
+    <array name="db_backups_list_item_options">
+        <item>@string/pref_restore_title</item>
+        <item>@string/menu_share</item>
+        <item>@string/menu_delete</item>
+    </array>
+    <array name="contact_email_entries">
+        <item>@string/pref_bugs_title</item>
+        <item>@string/pref_features_title</item>
+        <item>@string/pref_translations_title</item>
+    </array>
+    <array name="contact_email_entryValues">
+        <item>@string/email_address_bugs</item>
+        <item>@string/email_address_features</item>
+        <item>@string/email_address_translations</item>
+    </array>
+    <array name="summary_time_span">
+        <item>@string/tab_item_monthly</item>
+        <item>@string/tab_item_yearly</item>
+    </array>
+    <array name="summary_nav_view_type">
+        <item>@string/navdrawer_item_summary</item>
+        <item>@string/menu_entries</item>
+    </array>
+
+</resources>

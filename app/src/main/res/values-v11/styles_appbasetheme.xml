@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="ButtonAppBaseTheme" parent="android:Widget.Holo.Light.Button">
+        <item name="android:background">@drawable/appbasetheme_btn_default_holo_light</item>
+    </style>
+
+    <style name="ImageButtonAppBaseTheme" parent="android:Widget.Holo.Light.ImageButton">
+        <item name="android:background">@drawable/appbasetheme_btn_default_holo_light</item>
+    </style>
+
+    <style name="SpinnerAppBaseTheme" parent="android:Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/appbasetheme_spinner_background_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/appbasetheme_list_selector_holo_light</item>
+    </style>
+
+    <style name="SpinnerMaterial" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/abc_spinner_mtrl_am_alpha_cust</item>
+        <item name="android:textSize">@dimen/abc_text_size_medium_material</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+</resources>
