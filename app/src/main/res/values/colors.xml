@@ -33,4 +33,7 @@
     <color name="navdrawer_text_color">@color/body_text_1</color>
     <color name="navdrawer_text_color_selected">@color/theme_primary</color>
 
+    <color name="colorPrimary">#4684f0</color>
+    <color name="colorPrimaryDark">#033b9c</color>
+
 </resources>

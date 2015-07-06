@@ -5,11 +5,13 @@
 
     <style name="_MMATheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Set AppCompat’s color theming attrs -->
-        <item name="colorPrimary">@color/actionbar_background</item>
-        <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/actionbar_background</item>
         <item name="colorControlActivated">@color/actionbar_background_darker</item>
         <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+
+        <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>
         
         <!-- 
         <item name="windowActionBar">false</item>
@@ -54,4 +56,7 @@
          -->
     </style>
 
+    <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#ffffff</item>
+    </style>
 </resources>
