@@ -159,6 +159,8 @@ public class SummaryFragment extends Fragment {
 				
 				calculateSummaryValues(is_month_summary);
 				//animatePage(DIRECTION_INCREASE);
+				fillPublisherSummary();
+				displayTimeEntries();
 			}
 		});
     	
@@ -172,6 +174,8 @@ public class SummaryFragment extends Fragment {
 				
 				calculateSummaryValues(is_month_summary);
 				//animatePage(DIRECTION_DECREASE);
+				fillPublisherSummary();
+				displayTimeEntries();
 			}
 		});
     	
@@ -300,6 +304,8 @@ public class SummaryFragment extends Fragment {
 	
 	public void refresh(final int changeDirection) {
 		//animatePage(changeDirection);
+		fillPublisherSummary();
+		displayTimeEntries();
 	}
 	
 	private void saveSharedPrefs() {
@@ -581,6 +587,8 @@ public class SummaryFragment extends Fragment {
 					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
 					calculateSummaryValues(is_month_summary);
 					//animatePage(DIRECTION_NO_CHANGE);
+					fillPublisherSummary();
+					displayTimeEntries();
 				}
 			}
 			

@@ -177,6 +177,7 @@ public class TimeEntriesFragment extends ListFragment {
 				
 				calculateValues();
 				//animatePage(DIRECTION_INCREASE);
+				updateList();
 			}
 		});
     	
@@ -190,6 +191,7 @@ public class TimeEntriesFragment extends ListFragment {
 				
 				calculateValues();
 				//animatePage(DIRECTION_DECREASE);
+				updateList();
 			}
 		});
         
@@ -278,10 +280,12 @@ public class TimeEntriesFragment extends ListFragment {
     
     public void switchDate(Calendar _date) {
     	setDate(_date);
-    	if(is_dual_pane)
+    	if(is_dual_pane) {
 			updateList();
-		//else
+		} else {
 			//animatePage(DIRECTION_NO_CHANGE);
+			updateList();
+		}
     }
 	
 	private void setDate(Calendar _date) {
@@ -429,6 +433,7 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	public void refresh(final int changeDirection) {
 		//animatePage(changeDirection);
+		updateList();
 	}
 	
 	private void loadPublisherAdapter() {
@@ -469,6 +474,7 @@ public class TimeEntriesFragment extends ListFragment {
 					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
 					calculateValues();
 					//animatePage(DIRECTION_NO_CHANGE);
+					updateList();
 				}
 			}
 			
