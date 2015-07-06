@@ -14,6 +14,6 @@
     </style>
 
     <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">#ffffff</item>
+        <item name="color">@android:color/white</item>
     </style>
 </resources>
