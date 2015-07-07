@@ -24,7 +24,7 @@
     <string name="activity_date_by_publisher">{date} de {publisher}</string>
     <string name="month_next">próximo mês</string>
     <string name="month_previous">Mês Anterior</string>
-    <string name="updating_app">Atualizando aplicativos\nPor favor, seja paciente#8230;</string>
+    <string name="updating_app">Atualizando aplicativos\nPor favor, seja paciente&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor, seja paciente…</string>
     <string name="service_year">Serviço de Ano</string>

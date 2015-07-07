@@ -24,7 +24,7 @@
     <string name="activity_date_by_publisher">{date} {publisher}</string>
     <string name="month_next">Следующий месяц</string>
     <string name="month_previous">Предыдущий месяц</string>
-    <string name="updating_app">Обновление приложений \ nПожалуйста будьте терпеливы#8230;</string>
+    <string name="updating_app">Обновление приложений \ nПожалуйста будьте терпеливы&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Пожалуйста будьте терпеливы…</string>
     <string name="service_year">Сервис Год</string>

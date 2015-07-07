@@ -24,7 +24,7 @@
     <string name="activity_date_by_publisher">{date} door {publisher}</string>
     <string name="month_next">Volgende maand</string>
     <string name="month_previous">Vorige maand</string>
-    <string name="updating_app">Updaten Application\nEen ogenblik aub#8230;</string>
+    <string name="updating_app">Updaten Application\nEen ogenblik aub&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Een ogenblik aub…</string>
     <string name="service_year">dienst Jaar</string>

@@ -24,7 +24,7 @@
     <string name="activity_date_by_publisher">{date} af {publisher}</string>
     <string name="month_next">Næste måned</string>
     <string name="month_previous">Forrige måned</string>
-    <string name="updating_app">Opdaterer applikation\nVent venligst#8230;</string>
+    <string name="updating_app">Opdaterer applikation\nVent venligst&#8230;</string>
     <string name="confirm_deletion">Bekræft sletning</string>
     <string name="please_be_patient">Ven venligst…</string>
     <string name="service_year">Tjenesteår</string>

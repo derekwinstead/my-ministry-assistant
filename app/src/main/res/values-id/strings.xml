@@ -24,7 +24,7 @@
     <string name="activity_date_by_publisher">{date} oleh {publisher}</string>
     <string name="month_next">Bulan Berikutnya</string>
     <string name="month_previous">Bulan Sebelumnya</string>
-    <string name="updating_app">memperbarui Aplikasi\nHarap bersabar#8230;</string>
+    <string name="updating_app">memperbarui Aplikasi\nHarap bersabar&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Harap bersabar…</string>
     <string name="service_year">layanan Tahun</string>
