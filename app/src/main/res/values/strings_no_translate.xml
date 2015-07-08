@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:locale="en">
 
-    <string name="right_parentheses">)</string>
-    <string name="left_parentheses">&#160;- (</string>
-    <string name="dash">&#160;-&#160;</string>
-    <string name="email_address_bugs">bugs@myministryassistant.com</string>
-    <string name="email_address_features">features@myministryassistant.com</string>
-    <string name="email_address_translations">translations@myministryassistant.com</string>
-    <string name="link_donate">http://myministryassistant.com/donate</string>
-    <string name="link_changelog">http://myministryassistant.com/changelog</string>
-    <string name="link_download_with_slash">http://myministryassistant.com/download/</string>
-    <string name="link_faqs">http://myministryassistant.com/faqs</string>
-    <string name="email_content_version_with_space">Version:&#160;</string>
-    <string name="email_content_brand_with_space">Brand:&#160;</string>
-    <string name="email_content_model_with_space">Model:&#160;</string>
-    <string name="email_content_sdk_with_space">SDK:&#160;</string>
-    <string name="email_content_locale_with_space">Default Locale:&#160;</string>
-    <string name="email_content_selected_locale_with_space">Selected Locale:&#160;</string>
-    <string name="pref_key_rollover">rollovers</string>
-    <string name="pref_key_show_minutes">show_minutes_in_totals</string>
-    <string name="placeholder_lorem_ipsum"></string>
-    <string name="ok">OK</string>
-    <string name="language_english">English</string>
-    <string name="language_spanish">Español</string>
-    <string name="language_danish">Dansk</string> 
-    <string name="language_french">Français</string>
-    <string name="language_hungarian">Magyar</string>
-    <string name="language_indonesian">Indonesia</string>
-    <string name="language_italian">Italiano</string>
-    <string name="language_dutch">Nederlands</string>
-    <string name="language_portuguese">Português</string>
-    <string name="language_russian">русский</string>
+    <string name="right_parentheses" translatable="false">)</string>
+    <string name="left_parentheses" translatable="false">&#160;- (</string>
+    <string name="dash" translatable="false">&#160;-&#160;</string>
+    <string name="email_address_bugs" translatable="false">bugs@myministryassistant.com</string>
+    <string name="email_address_features" translatable="false">features@myministryassistant.com</string>
+    <string name="email_address_translations" translatable="false">translations@myministryassistant.com</string>
+    <string name="link_donate" translatable="false">http://myministryassistant.com/donate</string>
+    <string name="link_changelog" translatable="false">http://myministryassistant.com/changelog</string>
+    <string name="link_download_with_slash" translatable="false">http://myministryassistant.com/download/</string>
+    <string name="link_faqs" translatable="false">http://myministryassistant.com/faqs</string>
+    <string name="email_content_version_with_space" translatable="false">Version:&#160;</string>
+    <string name="email_content_brand_with_space" translatable="false">Brand:&#160;</string>
+    <string name="email_content_model_with_space" translatable="false">Model:&#160;</string>
+    <string name="email_content_sdk_with_space" translatable="false">SDK:&#160;</string>
+    <string name="email_content_locale_with_space" translatable="false">Default Locale:&#160;</string>
+    <string name="email_content_selected_locale_with_space" translatable="false">Selected Locale:&#160;</string>
+    <string name="pref_key_rollover" translatable="false">rollovers</string>
+    <string name="pref_key_show_minutes" translatable="false">show_minutes_in_totals</string>
+    <string name="placeholder_lorem_ipsum" translatable="false">Lorem Ipsum</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_spanish" translatable="false">Español</string>
+    <string name="language_danish" translatable="false">Dansk</string>
+    <string name="language_french" translatable="false">Français</string>
+    <string name="language_hungarian" translatable="false">Magyar</string>
+    <string name="language_indonesian" translatable="false">Indonesia</string>
+    <string name="language_italian" translatable="false">Italiano</string>
+    <string name="language_dutch" translatable="false">Nederlands</string>
+    <string name="language_portuguese" translatable="false">Português</string>
+    <string name="language_russian" translatable="false">русский</string>
 
 </resources>

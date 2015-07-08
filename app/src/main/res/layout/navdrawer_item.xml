@@ -4,7 +4,7 @@
     android:gravity="start|center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/keyline_1"
-    android:paddingRight="@dimen/keyline_1" >
+    android:paddingRight="@dimen/keyline_1">
 
     <ImageView
         android:id="@+id/icon"

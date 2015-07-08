@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <include layout="@layout/summary_navigation" />
 
@@ -21,14 +21,14 @@
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
             android:paddingTop="@dimen/default_padding_half"
-            android:showDividers="middle" >
+            android:showDividers="middle">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding" >
+                android:paddingTop="@dimen/default_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,10 +42,10 @@
                 <TextView
                     android:id="@+id/total_hours_count"
                     android:layout_width="wrap_content"
-                    android:text="1"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
@@ -56,15 +56,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/rbc_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/default_rebuild_committee"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_rebuild_committee"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -73,8 +73,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="1"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
@@ -85,15 +85,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/tv_pub_text_0"
                     android:layout_width="wrap_content"
-                    android:text="@string/default_books"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_books"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -102,8 +102,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="1"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
@@ -114,15 +114,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/tv_pub_text_1"
                     android:layout_width="wrap_content"
-                    android:text="@string/default_booklets"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_booklets"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -143,15 +143,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/tv_pub_text_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/default_magazines"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_magazines"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -159,9 +159,9 @@
                     android:id="@+id/tv_pub_count_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
@@ -172,15 +172,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/tv_pub_text_3"
                     android:layout_width="wrap_content"
-                    android:text="@string/default_media"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_media"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -189,8 +189,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="1"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
@@ -201,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/tv_pub_text_4"
@@ -230,15 +230,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/return_visits_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/default_return_visit"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_return_visit"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -246,9 +246,9 @@
                     android:id="@+id/return_visits_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
@@ -259,15 +259,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third" >
+                android:paddingTop="@dimen/default_padding_two_third">
 
                 <TextView
                     android:id="@+id/bible_studies_text"
                     android:layout_width="wrap_content"
-                    android:text="@string/default_bible_study"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:text="@string/default_bible_study"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -276,8 +276,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="1"
                     android:layout_alignParentRight="true"
+                    android:text="1"
                     android:textColor="@color/appbasetheme_color"
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"

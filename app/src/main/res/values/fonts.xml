@@ -3,6 +3,6 @@
 
     <integer name="font_textStyle_drawer_item">0</integer>
 
-    <string name="font_fontFamily_drawer_item">sans-serif</string>
+    <string name="font_fontFamily_drawer_item" translatable="false">sans-serif</string>
 
 </resources>

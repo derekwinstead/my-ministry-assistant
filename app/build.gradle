@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId 'com.myMinistry'
         minSdkVersion 9
         targetSdkVersion 22
-        versionCode 215
-        versionName "4.05"
+        versionCode 216
+        versionName '4.07'
     }
     buildTypes {
         release {

@@ -26,7 +26,7 @@
     <string name="month_previous">mois précédent</string>
     <string name="updating_app">Mise à jour de l\'application\nS\'il vous plaît être patient&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
-    <string name="please_be_patient">S\'il vous plaît être patient…</string>
+    <string name="please_be_patient">S\'il vous plaît être patient&#8230;</string>
     <string name="service_year">Année service</string>
     <string name="navdrawer_item_select_publisher">Seleccionar Publicador</string>
     <string name="navdrawer_item_summary">Sommaire</string>

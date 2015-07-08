@@ -1,8 +1,5 @@
-<resources>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en" tools:ignore="ExtraTranslation">
     <string name="app_name">My Ministry Assistant</string>
     <string name="no_householders">No Householders</string>
     <string name="no_publishers">No Publishers</string>
@@ -28,7 +25,7 @@
     <string name="month_previous">Previous Month</string>
     <string name="updating_app">Updating Application\nPlease be patient&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
-    <string name="please_be_patient">Please be patient…</string>
+    <string name="please_be_patient">Please be patient&#8230;</string>
     <string name="service_year">Service Year</string>
     <string name="navdrawer_item_select_publisher">Select a Publisher</string>
     <string name="navdrawer_item_summary">Summary</string>

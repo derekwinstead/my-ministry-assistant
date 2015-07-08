@@ -6,7 +6,7 @@
     android:background="@drawable/bg_card_li"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical"
-    android:paddingLeft="8dip" >
+    android:paddingLeft="8dip">
 
     <TextView
         android:id="@+id/text_householder"

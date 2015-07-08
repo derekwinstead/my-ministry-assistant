@@ -4,12 +4,12 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity" >
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:background="@color/white" />
     </LinearLayout>
-    
+
     <!-- Nav drawer -->
 
     <include layout="@layout/navdrawer" />

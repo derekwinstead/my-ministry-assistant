@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card_li"
     android:orientation="vertical"
-    android:padding="@dimen/default_padding" >
+    android:padding="@dimen/default_padding">
 
     <TextView
         android:id="@id/title"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/default_padding_half" >
+        android:paddingTop="@dimen/default_padding_half">
 
         <TextView
             android:id="@+id/time"

@@ -5,7 +5,7 @@
     android:paddingBottom="@dimen/inner_padding"
     android:paddingLeft="@dimen/default_padding"
     android:paddingRight="@dimen/default_padding_double"
-    android:paddingTop="@dimen/inner_padding" >
+    android:paddingTop="@dimen/inner_padding">
 
     <TextView
         android:id="@+id/menurow_title"
