@@ -88,7 +88,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="@dimen/default_padding_half" />
+            android:paddingLeft="@dimen/default_padding_half"
+            android:paddingRight="@dimen/default_padding_half" />
     </LinearLayout>
 
 </LinearLayout>

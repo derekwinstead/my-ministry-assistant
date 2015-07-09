@@ -14,7 +14,7 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         -->
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/app_background</item>
         <!--
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         -->
@@ -22,9 +22,5 @@
 
     <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
-    </style>
-
-    <style name="MyTextAppearanced" parent="@android:style/TextAppearance.Large">
-        <item name="color">#ff0000</item>
     </style>
 </resources>

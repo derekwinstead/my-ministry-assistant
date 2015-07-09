@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
     public static final int SUMMARY_ID = NAVDRAWER_ITEM_SUMMARY;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
 
-    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_SUMMARY;
+    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_PUBLICATIONS;//NAVDRAWER_ITEM_SUMMARY;
 
     // titles for navdrawer items (indices must correspond to the above)
    private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
@@ -134,26 +136,22 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
 
         changeLang(PrefUtils.getLocale(getApplicationContext()));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-
         changeLang(PrefUtils.getLocale(getApplicationContext()));
-
         mHandler = new Handler();
-
         fm = getSupportFragmentManager();
-
 
         is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
-        // Set a toolbar to replace the action bar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        initToolbar();
+        setupDrawerLayout();
+        // Default item selected
+        onNavDrawerItemClicked(R.id.drawer_summary);
 
         if(HelpUtils.isApplicationUpdated(this)) {
             MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
@@ -173,22 +171,66 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
         }
     }
 
+    private void setupDrawerLayout() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
+        view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
+                // Handle menu item clicks here.
+                menuItem.setChecked(true);
+                setTitle(menuItem.getTitle());
+                goToNavDrawerItem(menuItem.getItemId());
+                mDrawerLayout.closeDrawers();  // CLOSE DRAWER
+                return true;
+            }
+        });
+
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+    }
+
+    private void initToolbar() {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setTitle(R.string.navdrawer_item_summary);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle != null && mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void setTitle(CharSequence title)
     {
-    	/*
-    	if(title != mDrawerTitle)
-            mTitle = title;
-    	*/
         getSupportActionBar().setTitle(title);
     }
 
@@ -196,10 +238,8 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-        setupNavDrawer();
-
-        onNavDrawerItemClicked(getDefaultNavDrawerItem());
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
             View mainContent = findViewById(R.id.primary_fragment_container);
@@ -231,9 +271,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
         boolean is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
         switch (itemId) {
-            case NAVDRAWER_ITEM_SUMMARY:
-                getSupportActionBar().setTitle(R.string.navdrawer_item_summary);
-
+            case R.id.drawer_summary:
                 Calendar date = Calendar.getInstance(Locale.getDefault());
                 if(!(frag instanceof SummaryFragment)) {
                     if(firstLoad)
@@ -262,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
 
                 firstLoad = false;
                 return true;
-            case NAVDRAWER_ITEM_PUBLICATIONS:
+            case R.id.drawer_publications:
                 //getSupportActionBar().removeAllTabs();
 
                 //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publications).setTabListener(this));
@@ -281,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
                 }
 
                 return true;
-            case NAVDRAWER_ITEM_HOUSEHOLDERS:
+            case R.id.drawer_householders:
                 //getSupportActionBar().removeAllTabs();
 
                 if(!is_dual_pane) {
@@ -301,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
                 }
 
                 return true;
-            case NAVDRAWER_ITEM_PUBLISHERS:
+            case R.id.drawer_publishers:
                 //getSupportActionBar().removeAllTabs();
 
                 if(!is_dual_pane) {
@@ -321,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
                 }
 
                 return true;
-            case NAVDRAWER_ITEM_ENTRY_TYPES:
+            case R.id.drawer_entry_types:
                 //getSupportActionBar().removeAllTabs();
 
                 if(!is_dual_pane) {
@@ -341,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
                 }
 
                 return true;
-            case NAVDRAWER_ITEM_BACKUPS:
+            case R.id.drawer_db:
                 //getSupportActionBar().removeAllTabs();
 
                 //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_backups).setTabListener(this));
@@ -373,11 +411,11 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
                 }
 
                 return true;
-            case NAVDRAWER_ITEM_SETTINGS:
+            case R.id.drawer_settings:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 return true;
 
-            case NAVDRAWER_ITEM_HELP:
+            case R.id.drawer_help:
                 String url = getApplicationContext().getString(R.string.link_faqs);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
