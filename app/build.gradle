@@ -9,8 +9,8 @@ android {
         applicationId 'com.myMinistry'
         minSdkVersion 9
         targetSdkVersion 22
-        versionCode 216
-        versionName '4.07'
+        versionCode 217
+        versionName '4.08'
     }
     buildTypes {
         release {
