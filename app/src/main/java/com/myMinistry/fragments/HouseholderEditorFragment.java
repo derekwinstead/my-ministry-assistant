@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -26,7 +25,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.adapters.HouseholderRecentActivityAdapter;
 import com.myMinistry.provider.MinistryContract.Householder;
@@ -56,8 +54,6 @@ public class HouseholderEditorFragment extends ListFragment {
 	
 	private HouseholderRecentActivityAdapter adapter;
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	
 	public HouseholderEditorFragment newInstance() {
 		return new HouseholderEditorFragment();
     }
@@ -71,32 +67,12 @@ public class HouseholderEditorFragment extends ListFragment {
     }
 	
 	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(menu.findItem(R.id.menu_discard) != null)
-    		menu.findItem(R.id.menu_discard).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.menu_save) != null)
-    		menu.findItem(R.id.menu_save).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.menu_cancel) != null)
-    		menu.findItem(R.id.menu_cancel).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		if(householderID == CREATE_ID)
 			inflater.inflate(R.menu.save_cancel, menu);
 		else
 			inflater.inflate(R.menu.save_cancel_discard, menu);
 	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

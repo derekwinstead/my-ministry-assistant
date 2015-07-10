@@ -23,10 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.fragments.DBBackupsFragment;
 import com.myMinistry.fragments.DBBackupsListFragment;
@@ -41,7 +38,6 @@ import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.HelpUtils;
 import com.myMinistry.util.PrefUtils;
-import com.myMinistry.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,7 +46,7 @@ import java.util.Locale;
 import static com.myMinistry.util.LogUtils.LOGE;
 import static com.myMinistry.util.LogUtils.makeLogTag;
 
-public class MainActivity extends AppCompatActivity implements FragmentActivityStatus, TabListener {
+public class MainActivity extends AppCompatActivity implements TabListener {
     private static final String TAG = makeLogTag(MainActivity.class);
 
     private boolean execute_tab = false;
@@ -65,49 +61,9 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
     // symbols for navdrawer items (indices must correspond to array below). This is
     // not a list of items that are necessarily *present* in the Nav Drawer; rather,
     // it's a list of all possible items.
-    protected static final int NAVDRAWER_ITEM_SUMMARY = 0;
-    protected static final int NAVDRAWER_ITEM_PUBLICATIONS = 1;
-    protected static final int NAVDRAWER_ITEM_HOUSEHOLDERS = 2;
-    protected static final int NAVDRAWER_ITEM_PUBLISHERS = 3;
-    protected static final int NAVDRAWER_ITEM_ENTRY_TYPES = 4;
-    protected static final int NAVDRAWER_ITEM_BACKUPS = 5;
-    protected static final int NAVDRAWER_ITEM_SETTINGS = 6;
-    protected static final int NAVDRAWER_ITEM_HELP = 7;
     protected static final int NAVDRAWER_ITEM_TIME_ENTRY = 8;
-    protected static final int NAVDRAWER_ITEM_INVALID = -1;
-    protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
 
-    public static final int SUMMARY_ID = NAVDRAWER_ITEM_SUMMARY;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
-
-    protected static final int NAVDRAWER_ITEM_DEFAULT = NAVDRAWER_ITEM_PUBLICATIONS;//NAVDRAWER_ITEM_SUMMARY;
-
-    // titles for navdrawer items (indices must correspond to the above)
-   private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
-            R.string.navdrawer_item_summary,
-            R.string.navdrawer_item_publications,
-            R.string.navdrawer_item_householders,
-            R.string.navdrawer_item_publishers,
-            R.string.navdrawer_item_entry_types,
-            R.string.navdrawer_item_backups,
-            R.string.navdrawer_item_settings,
-            R.string.navdrawer_item_help
-    };
-
-    // icons for navdrawer items (indices must correspond to above array)
-    private static final int[] NAVDRAWER_ICON_RES_ID = new int[] {
-            R.drawable.ic_drawer_report,
-            R.drawable.ic_drawer_publications,
-            R.drawable.ic_drawer_householders,
-            R.drawable.ic_drawer_publisher,
-            R.drawable.ic_drawer_entry_types,
-            R.drawable.ic_drawer_db,
-            R.drawable.ic_drawer_settings,
-            R.drawable.ic_drawer_help
-    };
-
-    // delay to launch navdrawer item, to allow close animation to play
-    private static final int NAVDRAWER_LAUNCH_DELAY = 250;
 
     // fade in and fade out durations for the main content when switching between
     // different Activities of the app through the Nav Drawer
@@ -130,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
 
     private Boolean firstLoad = true;
 
+    private int getDefaultNavDrawerItem() { return R.id.drawer_entry_types; }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -151,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
         initToolbar();
         setupDrawerLayout();
         // Default item selected
-        onNavDrawerItemClicked(R.id.drawer_summary);
+        goToNavDrawerItem(getDefaultNavDrawerItem());
 
         if(HelpUtils.isApplicationUpdated(this)) {
             MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
@@ -189,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
+                //invalidateOptionsMenu();
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -205,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
     }
 
     private void initToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
 
@@ -214,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
+            // Defaults to Summary on launch. Changes with navigation selection afterwards.
             actionBar.setTitle(R.string.navdrawer_item_summary);
         }
     }
@@ -440,207 +400,14 @@ public class MainActivity extends AppCompatActivity implements FragmentActivityS
     }
 
     public void setPublisherId(int _ID,String _name) {
-        onNavDrawerItemClicked(getDefaultNavDrawerItem());
+        goToNavDrawerItem(getDefaultNavDrawerItem());
     }
-
+/*
     @Override
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
     }
-
-    // Sets up the navigation drawer as appropriate.
-    private void setupNavDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (mDrawerLayout == null) {
-            return;
-        }
-
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                //setTitle(mTitle);
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                //setTitle(mDrawerTitle);
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(R.string.navdrawer_item_summary);
-
-        // populate the navdrawer with the correct items
-        populateNavDrawer();
-
-        mDrawerToggle.syncState();
-
-        // When the user runs the app for the first time, we want to land them with the
-        // navigation drawer open. But just the first time.
-        if (!PrefUtils.hasOpenedBefore(this)) {
-            // first run of the app starts with the navdrawer open
-            PrefUtils.markOpenedBefore(this);
-            mDrawerLayout.openDrawer(GravityCompat.START);
-        }
-    }
-
-    /** Populates the navigation drawer with the appropriate items. */
-    private void populateNavDrawer() {
-        mNavDrawerItems.clear();
-
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SUMMARY);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_PUBLICATIONS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_HOUSEHOLDERS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_PUBLISHERS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_ENTRY_TYPES);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_BACKUPS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SETTINGS);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_HELP);
-
-        createNavDrawerItems();
-    }
-
-    private void createNavDrawerItems() {
-        mDrawerItemsListContainer = (ViewGroup) findViewById(R.id.navdrawer_items_list);
-        if (mDrawerItemsListContainer == null) {
-            return;
-        }
-
-        mNavDrawerItemViews = new View[mNavDrawerItems.size()];
-        mDrawerItemsListContainer.removeAllViews();
-        int i = 0;
-        for (int itemId : mNavDrawerItems) {
-            mNavDrawerItemViews[i] = makeNavDrawerItem(itemId, mDrawerItemsListContainer);
-            mDrawerItemsListContainer.addView(mNavDrawerItemViews[i]);
-            ++i;
-        }
-    }
-
-    private View makeNavDrawerItem(final int itemId, ViewGroup container) {
-        boolean selected = getDefaultNavDrawerItem() == itemId;
-        int layoutToInflate = 0;
-
-        if (itemId == NAVDRAWER_ITEM_SEPARATOR) {
-            layoutToInflate = R.layout.navdrawer_separator;
-        } else {
-            layoutToInflate = R.layout.navdrawer_item;
-        }
-
-        View view = getLayoutInflater().inflate(layoutToInflate, container, false);
-
-        if (isSeparator(itemId)) {
-            // we are done
-            UIUtils.setAccessibilityIgnore(view);
-            return view;
-        }
-
-        ImageView iconView = (ImageView) view.findViewById(R.id.icon);
-        TextView titleView = (TextView) view.findViewById(R.id.title);
-        int iconId = itemId >= 0 && itemId < NAVDRAWER_ICON_RES_ID.length ? NAVDRAWER_ICON_RES_ID[itemId] : 0;
-        int titleId = itemId >= 0 && itemId < NAVDRAWER_TITLE_RES_ID.length ? NAVDRAWER_TITLE_RES_ID[itemId] : 0;
-
-        // set icon and text
-        iconView.setVisibility(iconId > 0 ? View.VISIBLE : View.GONE);
-        if (iconId > 0) {
-            iconView.setImageResource(iconId);
-        }
-        titleView.setText(getString(titleId));
-
-        formatNavDrawerItem(view, itemId, selected);
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onNavDrawerItemClicked(itemId);
-            }
-        });
-
-        return view;
-    }
-
-    private boolean isSeparator(int itemId) {
-        return itemId == NAVDRAWER_ITEM_SEPARATOR;
-    }
-
-    private int getDefaultNavDrawerItem() {
-        return NAVDRAWER_ITEM_DEFAULT;
-    }
-
-    private void formatNavDrawerItem(View view, int itemId, boolean selected) {
-        if (isSeparator(itemId)) {
-            // not applicable
-            return;
-        }
-
-        //ImageView iconView = (ImageView) view.findViewById(R.id.icon);
-        TextView titleView = (TextView) view.findViewById(R.id.title);
-
-        // configure its appearance according to whether or not it's selected
-        titleView.setTextColor(selected ?
-                getResources().getColor(R.color.navdrawer_text_color_selected) :
-                getResources().getColor(R.color.navdrawer_text_color));
-        /*
-        iconView.setColorFilter(selected ?
-                getResources().getColor(R.color.navdrawer_icon_tint_selected) :
-                getResources().getColor(R.color.navdrawer_icon_tint));
-                */
-        if(selected)
-            setTitle(titleView.getText());
-
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
-    private void onNavDrawerItemClicked(final int itemId) {
-        // launch the target Activity after a short delay, to allow the close animation to play
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                goToNavDrawerItem(itemId);
-            }
-        }, NAVDRAWER_LAUNCH_DELAY);
-
-        // change the active item on the list so the user can see the item changed
-        setSelectedNavDrawerItem(itemId);
-        // fade out the main content
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            View mainContent = findViewById(R.id.primary_fragment_container);
-            if (mainContent != null) {
-                mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-                mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
-            }
-        }
-
-        if(isDrawerOpen())
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
-
-    /**
-     * Sets up the given navdrawer item's appearance to the selected state. Note: this could
-     * also be accomplished (perhaps more cleanly) with state-based layouts.
-     */
-    private void setSelectedNavDrawerItem(int itemId) {
-        if (mNavDrawerItemViews != null) {
-            for (int i = 0; i < mNavDrawerItemViews.length; i++) {
-                if (i < mNavDrawerItems.size()) {
-                    int thisItemId = mNavDrawerItems.get(i);
-                    formatNavDrawerItem(mNavDrawerItemViews[i], thisItemId, itemId == thisItemId);
-                }
-            }
-        }
-    }
-
+*/
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) { }
     @Override

@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,11 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.adapters.ItemAdapter;
+import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.util.FileUtils;
@@ -40,34 +38,14 @@ public class DBBackupsListFragment extends ListFragment {
 	private final int REF_EMAIL = 1;
 	private final int REF_DELETE = 2;
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	
 	public DBBackupsListFragment newInstance() {
 		return new DBBackupsListFragment();
     }
 	
 	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(menu.findItem(R.id.create_bu) != null)
-    		menu.findItem(R.id.create_bu).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.cleanup_bu) != null)
-    		menu.findItem(R.id.cleanup_bu).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.db_backups, menu);
 	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -152,7 +130,8 @@ public class DBBackupsListFragment extends ListFragment {
 				Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_export_text), Toast.LENGTH_SHORT).show();
 			}
 		} catch (IOException e) {
-			Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_export_text_error), Toast.LENGTH_SHORT).show();
+			//getActivity().getApplicationContext().getString(R.string.toast_export_text_error)
+			Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
     }
     

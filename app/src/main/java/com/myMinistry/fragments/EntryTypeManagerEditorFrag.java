@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
@@ -39,8 +37,6 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	
 	private MinistryService database;
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	
 	public EntryTypeManagerEditorFrag newInstance() {
     	return new EntryTypeManagerEditorFrag();
     }
@@ -51,24 +47,6 @@ public class EntryTypeManagerEditorFrag extends Fragment {
         args.putLong(ARG_ENTRY_TYPE_ID, id);
         f.setArguments(args);
         return f;
-    }
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(menu.findItem(R.id.menu_save) != null)
-    		menu.findItem(R.id.menu_save).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.menu_cancel) != null)
-    		menu.findItem(R.id.menu_cancel).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
     }
 	
 	@Override

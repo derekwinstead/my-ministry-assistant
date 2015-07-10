@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -29,7 +28,6 @@ import android.widget.Toast;
 
 import com.doomonafireball.betterpickers.numberpicker.NumberPickerBuilder;
 import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment.NumberPickerDialogHandler;
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
@@ -116,8 +114,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 	
 	SimpleDateFormat saveTimeFormat	= new SimpleDateFormat("HH:mm", Locale.getDefault());
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	
 	public TimeEditorFragment newInstance() {
 		TimeEditorFragment f = new TimeEditorFragment();
         return f;
@@ -146,26 +142,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		args.putInt(ARG_PUBLISHER_ID, publisherId);
 		f.setArguments(args);
 		return f;
-    }
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(menu.findItem(R.id.menu_discard) != null)
-			menu.findItem(R.id.menu_discard).setVisible(!drawerOpen);
-		if(menu.findItem(R.id.menu_save) != null)
-			menu.findItem(R.id.menu_save).setVisible(!drawerOpen);
-		if(menu.findItem(R.id.menu_cancel) != null)
-			menu.findItem(R.id.menu_cancel).setVisible(!drawerOpen);
-		
-		super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
     }
 	
 	@Override

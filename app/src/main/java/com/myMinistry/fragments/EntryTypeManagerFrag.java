@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -22,12 +21,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
-import com.myMinistry.adapters.ItemAdapter;
+import com.myMinistry.adapters.ListItemAdapter;
 import com.myMinistry.dialogfragments.EntryTypeNewDialogFrag;
 import com.myMinistry.dialogfragments.EntryTypeNewDialogFrag.EntryTypeNewDialogFragListener;
-import com.myMinistry.model.NavDrawerMenuItem;
+import com.myMinistry.model.ListItem;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -37,11 +35,10 @@ public class EntryTypeManagerFrag extends ListFragment {
 	private boolean is_dual_pane = false;
 	
 	private Cursor cursor;
-	private ItemAdapter adapter;
+	private ListItemAdapter adapter;
 	private ContentValues values = null;
 	private MinistryService database;
 	private FragmentManager fm;
-	private FragmentActivityStatus fragmentActivityStatus;
 	
 	private final int RENAME_ID = 0;
 	private final int TRANSFER_ID = 1;
@@ -52,12 +49,6 @@ public class EntryTypeManagerFrag extends ListFragment {
     }
 	
 	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
-	
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.entry_type_manager, container, false);
 	}
@@ -65,16 +56,6 @@ public class EntryTypeManagerFrag extends ListFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.sorting_used, menu);
-	}
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-        if(menu.findItem(R.id.sort_container) != null)
-    		menu.findItem(R.id.sort_container).setVisible(!drawerOpen);
-        if(menu.findItem(R.id.manage_new) != null)
-    		menu.findItem(R.id.manage_new).setVisible(!drawerOpen);
 	}
 	
 	@Override
@@ -125,7 +106,7 @@ public class EntryTypeManagerFrag extends ListFragment {
     	database = new MinistryService(getActivity().getApplicationContext());
 		database.openWritable();
 		
-		adapter = new ItemAdapter(getActivity().getApplicationContext());
+		adapter = new ListItemAdapter(getActivity().getApplicationContext());
 		
 		loadCursor();
 		
@@ -201,26 +182,26 @@ public class EntryTypeManagerFrag extends ListFragment {
 		builder.setPositiveButton(R.string.menu_save, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if(values == null)
+				if (values == null)
 					values = new ContentValues();
-				
+
 				values.put(EntryType.NAME, editText.getText().toString());
 				values.put(EntryType.RBC, id != MinistryDatabase.ID_RBC ? MinistryService.INACTIVE : MinistryService.ACTIVE);
-				
-				if(id != MinistryDatabase.ID_ROLLOVER)
+
+				if (id != MinistryDatabase.ID_ROLLOVER)
 					values.put(EntryType.ACTIVE, (cb_is_active.isChecked()) ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 				else
 					values.put(EntryType.ACTIVE, MinistryService.INACTIVE);
-				
+
 				database.openWritable();
-				
-				if(id != MinistryDatabase.CREATE_ID)
+
+				if (id != MinistryDatabase.CREATE_ID)
 					database.saveEntryType(id, values);
 				else
 					database.createEntryType(values);
-				
+
 				reloadCursor();
-				
+
 				database.close();
 			}
 		});
@@ -233,27 +214,26 @@ public class EntryTypeManagerFrag extends ListFragment {
 		builder.setItems(getResources().getStringArray(R.array.entry_type_list_item_options), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				switch(which) {
-				case RENAME_ID:
-					if(is_dual_pane) {
-						populateEditor(id);
-					}
-					else {
-						showEditTextDialog(id, name, isActive);
+				switch (which) {
+					case RENAME_ID:
+						if (is_dual_pane) {
+							populateEditor(id);
+						} else {
+							showEditTextDialog(id, name, isActive);
+							sortList(PrefUtils.getEntryTypeSort(getActivity()));
+						}
+						break;
+					case TRANSFER_ID:
+						showTransferToDialog(id, name);
+						break;
+					case DELETE_ID:
+						database.openWritable();
+						database.deleteEntryTypeByID(id);
+						if (is_dual_pane)
+							populateEditor(MinistryDatabase.CREATE_ID);
 						sortList(PrefUtils.getEntryTypeSort(getActivity()));
-					}
-					break;
-				case TRANSFER_ID:
-					showTransferToDialog(id, name);
-					break;
-				case DELETE_ID:
-					database.openWritable();
-					database.deleteEntryTypeByID(id);
-					if(is_dual_pane)
-						populateEditor(MinistryDatabase.CREATE_ID);
-					sortList(PrefUtils.getEntryTypeSort(getActivity()));
-					database.close();
-					break;
+						database.close();
+						break;
 				}
 			}
 		});
@@ -282,8 +262,13 @@ public class EntryTypeManagerFrag extends ListFragment {
 		
 		adapter.clear();
 		final Cursor cursor = database.fetchAllEntryTypes();
-	    while(cursor.moveToNext())
-	    	adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types, cursor.getInt(cursor.getColumnIndex(EntryType._ID))));
+	    while(cursor.moveToNext()) {
+			adapter.addItem(new ListItem(
+					cursor.getInt(cursor.getColumnIndex(EntryType._ID))
+					,R.drawable.ic_drawer_entry_types
+					,cursor.getString(cursor.getColumnIndex(EntryType.NAME))
+					,(cursor.getInt(cursor.getColumnIndex(EntryType._ID)) > MinistryDatabase.MAX_ENTRY_TYPE_ID) ? "Custom" : ""));
+		}
 	    cursor.close();
 	    database.close();
 	}

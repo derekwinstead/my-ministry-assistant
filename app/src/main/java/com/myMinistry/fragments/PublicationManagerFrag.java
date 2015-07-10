@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.DialogItemAdapter;
@@ -40,7 +38,6 @@ public class PublicationManagerFrag extends ListFragment {
 	private ContentValues values = null;
 	private MinistryService database;
 	private FragmentManager fm;
-	private FragmentActivityStatus fragmentActivityStatus;
 	
 	public PublicationManagerFrag newInstance() {
 		return new PublicationManagerFrag();
@@ -52,25 +49,8 @@ public class PublicationManagerFrag extends ListFragment {
 	}
 	
 	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
-	
-	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.sorting, menu);
-	}
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-        if(menu.findItem(R.id.manage_new) != null)
-    		menu.removeItem(R.id.manage_new);
-
-        if(menu.findItem(R.id.sort_container) != null)
-    		menu.findItem(R.id.sort_container).setVisible(!drawerOpen);
 	}
 	
 	@Override

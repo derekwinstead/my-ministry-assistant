@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -20,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
@@ -65,7 +63,6 @@ public class SummaryFragment extends Fragment {
 	
 	private FragmentManager fm;
 	
-	private FragmentActivityStatus fragmentActivityStatus;
 	private MinistryService database;
 	
 	private static final int ANIMATION_DURATION = 200;
@@ -85,24 +82,6 @@ public class SummaryFragment extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.summary, menu);
 	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-        
-        if(menu.findItem(R.id.summary_send_report) != null)
-    		menu.findItem(R.id.summary_send_report).setVisible((menu.findItem(R.id.menu_save) != null) ? false : !drawerOpen);
-    	if(menu.findItem(R.id.summary_add_item) != null)
-    		menu.findItem(R.id.summary_add_item).setVisible((menu.findItem(R.id.menu_save) != null) ? false : !drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-    }
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

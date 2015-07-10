@@ -56,6 +56,8 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     public static final int ID_SERVICE = 4;
     public static final int ID_RBC = 5;
 
+    public static final int MAX_ENTRY_TYPE_ID = ID_RBC;
+
     public static final int ID_PIONEERING = 1;
     public static final int ID_PIONEERING_AUXILIARY = 2;
     public static final int ID_PIONEERING_AUXILIARY_SPECIAL = 3;

@@ -5,9 +5,9 @@
     <style name="_MMATheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorControlNormal">@color/actionbar_background</item>
-        <item name="colorControlActivated">@color/actionbar_background_darker</item>
-        <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="colorControlHighlight">@color/holo_grey</item>
 
         <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>
         <!--

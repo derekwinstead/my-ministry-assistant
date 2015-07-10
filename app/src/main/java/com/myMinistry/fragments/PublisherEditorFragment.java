@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -23,7 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryContract.Publisher;
@@ -48,8 +46,6 @@ public class PublisherEditorFragment extends ListFragment {
 	private TimeEntryAdapter adapter;
 	private FragmentManager fm;
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	
 	public PublisherEditorFragment newInstance() {
     	return new PublisherEditorFragment();
     }
@@ -60,26 +56,6 @@ public class PublisherEditorFragment extends ListFragment {
         args.putLong(ARG_PUBLISHER_ID, _publisherID);
         f.setArguments(args);
         return f;
-    }
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(menu.findItem(R.id.menu_discard) != null)
-    		menu.findItem(R.id.menu_discard).setVisible(!drawerOpen);
-		if(menu.findItem(R.id.menu_save) != null)
-    		menu.findItem(R.id.menu_save).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.menu_cancel) != null)
-    		menu.findItem(R.id.menu_cancel).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
     }
 	
 	@Override

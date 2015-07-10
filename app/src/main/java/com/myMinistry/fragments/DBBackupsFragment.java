@@ -40,7 +40,7 @@ public class DBBackupsFragment extends Fragment {
 			public void onClick(View v) {
 				SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-aaa", Locale.getDefault());
 				Calendar now = Calendar.getInstance();
-				String date = dateFormatter.format(now.getTime()).toString();
+				String date = dateFormatter.format(now.getTime());
 				File intDB = getActivity().getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME);
 				File extDB = FileUtils.getExternalDBFile(getActivity().getApplicationContext(), date + ".db");
 				
@@ -76,7 +76,8 @@ public class DBBackupsFragment extends Fragment {
 						Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_export_text), Toast.LENGTH_SHORT).show();
 					}
 				} catch (IOException e) {
-					Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_export_text_error), Toast.LENGTH_SHORT).show();
+                    //getActivity().getApplicationContext().getString(R.string.toast_export_text_error)
+					Toast.makeText(getActivity(), e.getMessage() , Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

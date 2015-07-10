@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEntryAdapter;
@@ -65,8 +63,6 @@ public class TimeEntriesFragment extends ListFragment {
 	
 	private NavDrawerMenuItemAdapter pubsAdapter;
 	
-	private FragmentActivityStatus fragmentActivityStatus;
-	
 	private FragmentManager fm;
 	
 	private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
@@ -97,22 +93,6 @@ public class TimeEntriesFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.time_entries, menu);
 	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-        
-        if(menu.findItem(R.id.time_entries_add_item) != null)
-    		menu.findItem(R.id.time_entries_add_item).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-    }
     
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

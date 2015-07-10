@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.R;
 import com.myMinistry.adapters.TitleAndDateAdapter;
 import com.myMinistry.provider.MinistryContract.Householder;
@@ -32,8 +30,6 @@ public class HouseholdersFragment extends ListFragment {
 	private TitleAndDateAdapter adapter;
 	
 	private FragmentManager fm;
-	
-	private FragmentActivityStatus fragmentActivityStatus;
 	
 	public HouseholdersFragment newInstance() {
 		return new HouseholdersFragment();
@@ -52,25 +48,6 @@ public class HouseholdersFragment extends ListFragment {
 		
 		return view;
 	}
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-    	
-		if(menu.findItem(R.id.householder_create) != null)
-    		menu.findItem(R.id.householder_create).setVisible(!drawerOpen);
-		
-		if(menu.findItem(R.id.sort_container) != null)
-    		menu.findItem(R.id.sort_container).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
-    }
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

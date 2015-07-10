@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -25,7 +24,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myMinistry.FragmentActivityStatus;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
@@ -59,7 +57,6 @@ public class PublicationEditorFragment extends ListFragment {
 	private Cursor activity;
 	private PublicationRecentActivityAdapter adapter;
 	private NavDrawerMenuItemAdapter sadapter;
-	private FragmentActivityStatus fragmentActivityStatus;
 	
 	public PublicationEditorFragment newInstance() {
     	return new PublicationEditorFragment();
@@ -71,26 +68,6 @@ public class PublicationEditorFragment extends ListFragment {
         args.putLong(ARG_PUBLICATION_ID, _literatureID);
         f.setArguments(args);
         return f;
-    }
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		boolean drawerOpen = fragmentActivityStatus.isDrawerOpen();
-		
-		if(menu.findItem(R.id.menu_discard) != null)
-    		menu.findItem(R.id.menu_discard).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.menu_save) != null)
-    		menu.findItem(R.id.menu_save).setVisible(!drawerOpen);
-    	if(menu.findItem(R.id.menu_cancel) != null)
-    		menu.findItem(R.id.menu_cancel).setVisible(!drawerOpen);
-    	
-    	super.onPrepareOptionsMenu(menu);
-	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-		super.onAttach(activity);
-        fragmentActivityStatus = (FragmentActivityStatus)activity;
     }
 	
 	@Override
