@@ -11,6 +11,8 @@ android {
         targetSdkVersion 22
         versionCode 217
         versionName '4.08'
+
+        //project.ext.set("archivesBaseName", "MyName-" + defaultConfig.versionName);
     }
     buildTypes {
         release {

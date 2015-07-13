@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +34,8 @@ import com.myMinistry.util.PrefUtils;
 
 public class EntryTypeManagerFrag extends ListFragment {
 	private boolean is_dual_pane = false;
+
+	private FloatingActionButton fab ;
 	
 	private Cursor cursor;
 	private ListItemAdapter adapter;
@@ -50,7 +53,48 @@ public class EntryTypeManagerFrag extends ListFragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.entry_type_manager, container, false);
+        View root = inflater.inflate(R.layout.entry_type_manager, container, false);
+
+        fab = (FloatingActionButton) root.findViewById(R.id.btnFloatingAction);
+        fab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if(is_dual_pane) {
+                    populateEditor(MinistryDatabase.CREATE_ID);
+                }
+                else {
+                    EntryTypeNewDialogFrag f = EntryTypeNewDialogFrag.newInstance();
+                    f.setPositiveButton(new EntryTypeNewDialogFragListener() {
+                        @Override
+                        public void setPositiveButton(boolean created) {
+                            sortList(PrefUtils.getEntryTypeSort(getActivity()));
+                        }
+                    });
+                    f.show(fm, EntryTypeNewDialogFrag.class.getName());
+                }
+                //Toast.makeText(MainActivity.this, "Hello FAB!", Toast.LENGTH_SHORT).show();
+
+                // TODO issue: Rotate animation in pre-lollipop works only once, issue to be resolved!
+               /* if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    RotateAnimation rotateAnimation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    rotateAnimation.setDuration(500);
+                    rotateAnimation.setFillAfter(true);
+                    rotateAnimation.setInterpolator(new FastOutSlowInInterpolator());
+                    btnFab.startAnimation(rotateAnimation);
+                } else {
+                    btnFab.clearAnimation();
+                    ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(btnFab);
+                    animatorCompat.setDuration(500);
+                    animatorCompat.setInterpolator(new FastOutSlowInInterpolator());
+                    animatorCompat.rotation(180);
+                    animatorCompat.start();
+                }*/
+            }
+        });
+
+		return root;
 	}
 	
 	@Override
@@ -92,8 +136,8 @@ public class EntryTypeManagerFrag extends ListFragment {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
-	@Override
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	
