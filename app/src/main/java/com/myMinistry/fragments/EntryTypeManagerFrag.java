@@ -50,49 +50,18 @@ public class EntryTypeManagerFrag extends ListFragment {
 	public EntryTypeManagerFrag newInstance() {
 		return new EntryTypeManagerFrag();
     }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.manage_new).setVisible(false);
+    }
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.entry_type_manager, container, false);
 
-        fab = (FloatingActionButton) root.findViewById(R.id.btnFloatingAction);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                if(is_dual_pane) {
-                    populateEditor(MinistryDatabase.CREATE_ID);
-                }
-                else {
-                    EntryTypeNewDialogFrag f = EntryTypeNewDialogFrag.newInstance();
-                    f.setPositiveButton(new EntryTypeNewDialogFragListener() {
-                        @Override
-                        public void setPositiveButton(boolean created) {
-                            sortList(PrefUtils.getEntryTypeSort(getActivity()));
-                        }
-                    });
-                    f.show(fm, EntryTypeNewDialogFrag.class.getName());
-                }
-                //Toast.makeText(MainActivity.this, "Hello FAB!", Toast.LENGTH_SHORT).show();
-
-                // TODO issue: Rotate animation in pre-lollipop works only once, issue to be resolved!
-               /* if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    RotateAnimation rotateAnimation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                    rotateAnimation.setDuration(500);
-                    rotateAnimation.setFillAfter(true);
-                    rotateAnimation.setInterpolator(new FastOutSlowInInterpolator());
-                    btnFab.startAnimation(rotateAnimation);
-                } else {
-                    btnFab.clearAnimation();
-                    ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(btnFab);
-                    animatorCompat.setDuration(500);
-                    animatorCompat.setInterpolator(new FastOutSlowInInterpolator());
-                    animatorCompat.rotation(180);
-                    animatorCompat.start();
-                }*/
-            }
-        });
+		fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
 		return root;
 	}
@@ -146,6 +115,29 @@ public class EntryTypeManagerFrag extends ListFragment {
     	setHasOptionsMenu(true);
     	
     	fm = getActivity().getSupportFragmentManager();
+
+        if(is_dual_pane) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (is_dual_pane) {
+                        populateEditor(MinistryDatabase.CREATE_ID);
+                    } else {
+                        EntryTypeNewDialogFrag f = EntryTypeNewDialogFrag.newInstance();
+                        f.setPositiveButton(new EntryTypeNewDialogFragListener() {
+                            @Override
+                            public void setPositiveButton(boolean created) {
+                                sortList(PrefUtils.getEntryTypeSort(getActivity()));
+                            }
+                        });
+                        f.show(fm, EntryTypeNewDialogFrag.class.getName());
+                    }
+                }
+            });
+        }
     	
     	database = new MinistryService(getActivity().getApplicationContext());
 		database.openWritable();

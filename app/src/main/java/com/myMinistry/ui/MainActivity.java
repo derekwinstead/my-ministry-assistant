@@ -7,7 +7,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +38,6 @@ import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.HelpUtils;
 import com.myMinistry.util.PrefUtils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -54,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements TabListener {
 
     private Toolbar toolbar;
 
-    private Handler mHandler;
-
     private ViewGroup mDrawerItemsListContainer;
 
     // symbols for navdrawer items (indices must correspond to array below). This is
@@ -67,22 +63,12 @@ public class MainActivity extends AppCompatActivity implements TabListener {
 
     // fade in and fade out durations for the main content when switching between
     // different Activities of the app through the Nav Drawer
-    private static final int MAIN_CONTENT_FADEOUT_DURATION = 150;
     private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
-
-    // list of navdrawer items that were actually added to the navdrawer, in order
-    private ArrayList<Integer> mNavDrawerItems = new ArrayList<Integer>();
-
-    // views that correspond to each navdrawer item, null if not yet created
-    private View[] mNavDrawerItemViews = null;
 
     private FragmentManager fm;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-
-    //private CharSequence mTitle;
-    //private CharSequence mDrawerTitle;
 
     private Boolean firstLoad = true;
 
@@ -101,13 +87,14 @@ public class MainActivity extends AppCompatActivity implements TabListener {
         setContentView(R.layout.main_activity);
 
         changeLang(PrefUtils.getLocale(getApplicationContext()));
-        mHandler = new Handler();
+
         fm = getSupportFragmentManager();
 
         is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
         initToolbar();
         setupDrawerLayout();
+
         // Default item selected
         goToNavDrawerItem(getDefaultNavDrawerItem());
 

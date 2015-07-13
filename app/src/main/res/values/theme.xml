@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
     <style name="MMATheme" parent="@style/_MMATheme" />
 
     <style name="_MMATheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorControlNormal">@color/black</item>
-        <item name="colorControlActivated">@color/black</item>
-        <item name="colorControlHighlight">@color/holo_grey</item>
-
-        <item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>
-        <!--
-        <item name="android:textColorPrimary">@android:color/white</item>
-        -->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="actionMenuTextColor">@color/white</item>
         <item name="android:windowBackground">@color/app_background</item>
-        <!--
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
-        -->
+        <item name="alertDialogTheme">@style/AlertDialogStyle</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
     </style>
 
-    <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <style name="DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/card_background</item>
+        <item name="android:windowBackground">@color/card_background</item>
+    </style>
+
+    <style name="EditTextStyle" parent="android:Widget.EditText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@color/text_hint</item>
     </style>
 </resources>

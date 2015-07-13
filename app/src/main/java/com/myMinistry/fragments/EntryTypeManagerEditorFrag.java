@@ -3,6 +3,7 @@ package com.myMinistry.fragments;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,6 +33,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	private EditText et_name;
 	private CheckBox cb_is_active;
 	private TextView tv_note;
+	private FloatingActionButton fab;
 	
 	private long resID = 0;
 	
@@ -66,7 +68,8 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
 		tv_note = (TextView) root.findViewById(R.id.tv_note);
-		
+		fab = (FloatingActionButton) root.findViewById(R.id.fab);
+
 		database = new MinistryService(getActivity().getApplicationContext());
 		
     	return root;
@@ -77,6 +80,13 @@ public class EntryTypeManagerEditorFrag extends Fragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				switchForm(0);
+			}
+		});
     	
     	fillForm();
 	}

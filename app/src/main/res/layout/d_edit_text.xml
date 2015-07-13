@@ -2,15 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="8dp">
+    android:padding="@dimen/default_padding">
 
     <EditText
         android:id="@+id/text1"
-        style="@style/EditTextAppBaseTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/form_name"
         android:inputType="textCapSentences" />
-
 </LinearLayout>

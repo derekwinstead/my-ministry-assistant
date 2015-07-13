@@ -276,11 +276,6 @@ public class SummaryFragment extends Fragment {
 		saveSharedPrefs();
 	}
 	
-	public void resetDate() {
-		monthPicked = Calendar.getInstance(Locale.getDefault());
-		saveSharedPrefs();
-	}
-	
 	public void refresh(final int changeDirection) {
 		//animatePage(changeDirection);
 		fillPublisherSummary();
@@ -428,13 +423,13 @@ public class SummaryFragment extends Fragment {
 	
 	private String populateShareString() {
 		StringBuilder retVal = new StringBuilder();
-		String formattedDate = TimeUtils.dbDateFormat.format(monthPicked.getTime()).toString();
+		String formattedDate = TimeUtils.dbDateFormat.format(monthPicked.getTime());
 		
 		if(!database.isOpen())
 			database.openWritable();
 		
 		/** Set the date */
-		retVal.append(buttonFormat.format(monthPicked.getTime()).toString() + " " + monthPicked.get(Calendar.YEAR));
+		retVal.append(buttonFormat.format(monthPicked.getTime()) + " " + monthPicked.get(Calendar.YEAR));
 		
 		Cursor pubs = database.fetchActivePublishers();
 		/** Loop over all the active publishers */
@@ -490,7 +485,7 @@ public class SummaryFragment extends Fragment {
 	    		share.setType("text/plain");
 	    		share.setFlags((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET); 
 	    		share.putExtra(Intent.EXTRA_TEXT, populateShareString());
-	    		share.putExtra(Intent.EXTRA_SUBJECT, buttonFormat.format(monthPicked.getTime()).toString() + " " + monthPicked.get(Calendar.YEAR));
+	    		share.putExtra(Intent.EXTRA_SUBJECT, buttonFormat.format(monthPicked.getTime()) + " " + monthPicked.get(Calendar.YEAR));
 	    		startActivity(Intent.createChooser(share, getResources().getString(R.string.menu_send_report)));
 	        	
 	    		return true;

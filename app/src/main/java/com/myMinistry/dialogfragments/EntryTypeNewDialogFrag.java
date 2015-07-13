@@ -19,7 +19,6 @@ import com.myMinistry.provider.MinistryService;
 public class EntryTypeNewDialogFrag extends DialogFragment {
     private EntryTypeNewDialogFragListener sListener;
     private View view;
-    private MinistryService database;
 
     public static EntryTypeNewDialogFrag newInstance() {
         return new EntryTypeNewDialogFrag();
@@ -58,7 +57,7 @@ public class EntryTypeNewDialogFrag extends DialogFragment {
                 values.put(EntryType.ACTIVE, MinistryService.ACTIVE);
                 values.put(EntryType.RBC, MinistryService.INACTIVE);
 
-                database = new MinistryService(getActivity());
+                MinistryService database = new MinistryService(getActivity());
                 database.openWritable();
                 database.createEntryType(values);
                 database.close();
