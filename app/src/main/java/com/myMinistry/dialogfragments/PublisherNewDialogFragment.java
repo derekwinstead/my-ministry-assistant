@@ -16,11 +16,7 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryService;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class PublisherNewDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(PublisherNewDialogFragment.class);
-	
 	private PublisherNewDialogFragmentListener sListener;
 	private View view;
 	private MinistryService database;

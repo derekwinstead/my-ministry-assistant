@@ -16,11 +16,7 @@ import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class HouseholderDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(HouseholderDialogFragment.class);
-	
 	private HouseholderDialogFragmentListener sListener;
 	public static int CREATE_ID = MinistryDatabase.CREATE_ID;
 	HouseholderForTime selectedEntry;

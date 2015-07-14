@@ -243,7 +243,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 						
 					}
 				});
-				frag.show(fm, TimePickerDialogFragment.TAG);
+				frag.show(fm, "TimePickerDialogFragment");
 			}
 		});
 		
@@ -260,7 +260,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 						
 					}
 				});
-				frag.show(fm, TimePickerDialogFragment.TAG);
+				frag.show(fm, "TimePickerDialogFragment");
 			}
 		});
 		
@@ -276,7 +276,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 						
 					}
 				});
-				frag.show(fm, DatePickerDialogFragment.TAG);
+				frag.show(fm, "DatePickerDialogFragment");
 			}
 		});
 		
@@ -292,7 +292,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 						
 					}
 				});
-				frag.show(fm, DatePickerDialogFragment.TAG);
+				frag.show(fm, "DatePickerDialogFragment");
 			}
 		});
 		
@@ -807,7 +807,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 					setSelectedHouseholder(_ID,_name,true);
 			}
 		});
-		frag.show(fm, HouseholderDialogFragment.TAG);
+		frag.show(fm, "HouseholderDialogFragment");
 	}
 	
 	public void showHouseholderCreateNewDialog() {
@@ -818,7 +818,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				setSelectedHouseholder(_ID,_name,_isFirstVisit);
 			}
 		});
-		frag.show(fm, HouseholderNewDialogFragment.TAG);
+		frag.show(fm, "HouseholderNewDialogFragment");
 	}
 	
 	public void showLiteratureTypesDialog() {
@@ -832,7 +832,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 					showLiteratureDialog(_ID, _name);
 			}
 		});
-		frag.show(fm, PublicationTypeDialogFragment.TAG);
+		frag.show(fm, "PublicationTypeDialogFragment");
 	}
 	
 	public void showLiteratureDialog(int _typeID, String _name) {
@@ -854,7 +854,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				}
 			}
 		});
-		frag.show(fm, PublicationDialogFragment.TAG);
+		frag.show(fm, "PublicationDialogFragment");
 	}
 	
 	public void showLiteratureCreateNewDialog(int _typeID) {
@@ -868,7 +868,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				adapter.notifyDataSetChanged();
 			}
 		});
-		frag.show(fm, PublicationNewDialogFragment.TAG);
+		frag.show(fm, "PublicationNewDialogFragment");
 	}
 	
 	public void showLiteratureCountDialog() {
@@ -893,7 +893,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				adapter.notifyDataSetChanged();
 			}
 		});
-		frag.show(fm, NotesDialogFragment.TAG);
+		frag.show(fm, "NotesDialogFragment");
 	}
 	
     @Override

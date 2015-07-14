@@ -554,7 +554,7 @@ public class SummaryFragment extends Fragment {
 							publishers.setSelection(pubsAdapter.getCount() - 1);
 						}
 					});
-					f.show(fm, PublisherNewDialogFragment.TAG);
+					f.show(fm, "PublisherNewDialogFragment");
 				}
 				else {
 					setPublisherId(pubsAdapter.getItem(position).getID());

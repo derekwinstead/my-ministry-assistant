@@ -15,11 +15,7 @@ import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class PublisherDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(PublisherDialogFragment.class);
-	
 	private PublisherDialogFragmentListener sListener;
 	public static int CREATE_ID = MinistryDatabase.CREATE_ID;
 	private DialogItemAdapter adapter;

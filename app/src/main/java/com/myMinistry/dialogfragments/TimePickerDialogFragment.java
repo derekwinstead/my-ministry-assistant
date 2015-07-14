@@ -8,10 +8,7 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class TimePickerDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(TimePickerDialogFragment.class);
 	public static final String ARG_HOUR_OF_DAY = "hour_of_day";
 	public static final String ARG_MINUTES = "minutes";
 	

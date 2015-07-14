@@ -17,11 +17,7 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryService;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class HouseholderNewDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(HouseholderNewDialogFragment.class);
-	
 	private HouseholderNewDialogFragmentListener sListener;
 	private View view;
 	private MinistryService database;

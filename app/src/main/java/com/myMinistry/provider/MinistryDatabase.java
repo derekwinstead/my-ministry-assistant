@@ -32,13 +32,10 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class MinistryDatabase extends SQLiteOpenHelper {
     private static MinistryDatabase mInstance = null;
     private static Context mContext = null;
 
-    public static final String TAG = makeLogTag(MinistryDatabase.class);
     public static final String DATABASE_NAME = "myministry.db";
     public static final String DATABASE_NAME_OLD = "myministry";
 
@@ -227,7 +224,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "onUpgrade() from " + oldVersion + " to " + newVersion);
+        Log.d("MinistryDatabase", "onUpgrade() from " + oldVersion + " to " + newVersion);
 
         /** NOTE: This switch statement is designed to handle cascading database updates, starting at the current version and falling through
          *  to all future upgrade cases. Only use "break;" when you want to drop and recreate the entire database.

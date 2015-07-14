@@ -7,15 +7,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import com.myMinistry.R;
+import com.myMinistry.util.FileUtils;
 
 import java.io.File;
 
-import com.myMinistry.util.FileUtils;
-
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class DBBackupDialogFragment extends DialogFragment {
-    public static final String TAG = makeLogTag(DBBackupDialogFragment.class);
     private DBBackupDialogFragmentListener sListener;
 
     public static DBBackupDialogFragment newInstance() {

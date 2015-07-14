@@ -12,10 +12,7 @@ import android.widget.EditText;
 
 import com.myMinistry.R;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class NotesDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(NotesDialogFragment.class);
 	public static final String ARG_NOTES = "notes";
 	
 	private NotesDialogFragmentListener sListener;

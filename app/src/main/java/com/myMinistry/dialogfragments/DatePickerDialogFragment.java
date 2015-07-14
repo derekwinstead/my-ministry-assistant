@@ -8,15 +8,12 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class DatePickerDialogFragment extends DialogFragment {
     public static String ARG_YEAR = "year";
     public static String ARG_MONTH = "month";
     public static String ARG_DAY = "day";
 
     private DatePickerDialogFragmentListener sListener;
-    public static final String TAG = makeLogTag(DatePickerDialogFragment.class);
 
     public static DatePickerDialogFragment newInstance(Calendar _date) {
         DatePickerDialogFragment frag = new DatePickerDialogFragment();

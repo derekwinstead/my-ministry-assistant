@@ -17,10 +17,7 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryService;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class PublicationNewDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(PublicationNewDialogFragment.class);
 	public static final String ARG_PUBLICATION_TYPE_ID = "publication_type_id";
 	
 	private LiteratureNewDialogFragmentListener sListener;

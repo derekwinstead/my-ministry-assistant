@@ -103,7 +103,7 @@ public class HelpUtils {
             File intDB = mContext.getDatabasePath(MinistryDatabase.DATABASE_NAME);
             File extDB = FileUtils.getExternalDBFile(mContext, "auto-db-v" + MinistryDatabase.DATABASE_VERSION + "-1.db");
 
-            /** Create a backup just in case */
+            // Create a backup just in case
             try {
                 if(extDB != null) {
                     if(!extDB.exists())
@@ -113,7 +113,7 @@ public class HelpUtils {
                 }
             } catch (IOException e) { }
 
-            /** This is to recalculate everyone's roll over time entries. */
+            // This is to recalculate everyone's roll over time entries.
             processRolloverTime(mContext);
         }
 
@@ -136,7 +136,6 @@ public class HelpUtils {
 
         int alarmType = AlarmManager.RTC;
         long interval = AlarmManager.INTERVAL_DAY;
-        //long start = time.getTimeInMillis() + interval;
         long start = time.getTimeInMillis();
 
         PendingIntent pi = PendingIntent.getService(context, 0, new Intent(context, DailyBackupService.class), PendingIntent.FLAG_UPDATE_CURRENT);

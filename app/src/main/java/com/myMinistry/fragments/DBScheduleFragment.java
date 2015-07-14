@@ -112,7 +112,7 @@ public class DBScheduleFragment extends Fragment {
 			    	Toast.makeText(getActivity().getApplicationContext(),
 			    			Phrase.from(getActivity().getApplicationContext(), R.string.toast_weekly_backup_scheduled)
 			    				.put("weekday", DateUtils.formatDateTime(getActivity().getApplicationContext(), weekly.getTimeInMillis(), DateUtils.FORMAT_SHOW_WEEKDAY))
-			    				.put("time", DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()).toString())
+			    				.put("time", DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()))
 			    				.format()
 			    			, Toast.LENGTH_LONG).show();
 			    	
@@ -143,7 +143,7 @@ public class DBScheduleFragment extends Fragment {
 						
 					}
 				});
-				frag.show(fm, TimePickerDialogFragment.TAG);
+				frag.show(fm, "TimePickerDialogFragment");
 			}
 		});
 		
@@ -161,7 +161,7 @@ public class DBScheduleFragment extends Fragment {
 						
 					}
 				});
-				frag.show(fm, TimePickerDialogFragment.TAG);
+				frag.show(fm, "TimePickerDialogFragment");
 			}
 		});
 		

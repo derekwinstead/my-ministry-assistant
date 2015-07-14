@@ -17,13 +17,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.ListItemAdapter;
+import com.myMinistry.dialogfragments.EntryTypeDialogFrag;
+import com.myMinistry.dialogfragments.EntryTypeDialogFrag.EntryTypeDialogFragListener;
 import com.myMinistry.dialogfragments.EntryTypeNewDialogFrag;
 import com.myMinistry.dialogfragments.EntryTypeNewDialogFrag.EntryTypeNewDialogFragListener;
 import com.myMinistry.model.ListItem;
@@ -197,51 +196,34 @@ public class EntryTypeManagerFrag extends ListFragment {
 	
 	@SuppressLint("InflateParams")
 	private void showEditTextDialog(final int id, String name, int isActive) {
-		View view = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.d_edit_text_with_cb, null);
-    	Builder builder = new Builder(EntryTypeManagerFrag.this.getActivity());
-    	final EditText editText = (EditText) view.findViewById(R.id.text1);
-    	final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
-    	final TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
-    	
-    	editText.setText(name);
-    	cb_is_active.setChecked(isActive != 0 ? true : false);
-    	
-    	if(id == MinistryDatabase.ID_ROLLOVER) {
-    		cb_is_active.setEnabled(false);
-    		cb_is_active.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.holo_grey_light));
-    		tv_note.setVisibility(View.VISIBLE);
-    	}
-    	
-    	builder.setView(view);
-    	builder.setTitle(id != MinistryDatabase.CREATE_ID ? R.string.form_rename : R.string.form_name);
-		builder.setNegativeButton(R.string.menu_cancel, null); // Do nothing on cancel - this will dismiss the dialog :)
-		builder.setPositiveButton(R.string.menu_save, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (values == null)
-					values = new ContentValues();
+        EntryTypeDialogFrag frag = EntryTypeDialogFrag.newInstance(id, name, isActive);
+        frag.setPositiveButton(new EntryTypeDialogFragListener() {
+            @Override
+            public void setPositiveButton(String _name, int _isActive) {
+                if (values == null)
+                    values = new ContentValues();
 
-				values.put(EntryType.NAME, editText.getText().toString());
-				values.put(EntryType.RBC, id != MinistryDatabase.ID_RBC ? MinistryService.INACTIVE : MinistryService.ACTIVE);
+                values.put(EntryType.NAME, _name);
+                values.put(EntryType.RBC, id != MinistryDatabase.ID_RBC ? MinistryService.INACTIVE : MinistryService.ACTIVE);
 
-				if (id != MinistryDatabase.ID_ROLLOVER)
-					values.put(EntryType.ACTIVE, (cb_is_active.isChecked()) ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-				else
-					values.put(EntryType.ACTIVE, MinistryService.INACTIVE);
+                if (id != MinistryDatabase.ID_ROLLOVER)
+                    values.put(EntryType.ACTIVE, _isActive);
+                else
+                    values.put(EntryType.ACTIVE, MinistryService.INACTIVE);
 
-				database.openWritable();
+                database.openWritable();
 
-				if (id != MinistryDatabase.CREATE_ID)
-					database.saveEntryType(id, values);
-				else
-					database.createEntryType(values);
+                if (id != MinistryDatabase.CREATE_ID)
+                    database.saveEntryType(id, values);
+                else
+                    database.createEntryType(values);
 
-				reloadCursor();
+                reloadCursor();
 
-				database.close();
-			}
-		});
-		builder.show();
+                database.close();
+            }
+        });
+        frag.show(fm, "EntryTypeDialogFrag");
     }
 	
 	public void showListItems(final int id, final String name, final int isActive) {

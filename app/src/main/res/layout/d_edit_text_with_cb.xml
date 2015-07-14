@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/default_padding">
 
     <EditText
         android:id="@+id/text1"
-        style="@style/EditTextAppBaseTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/form_name"
@@ -19,8 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/thumb_height"
         android:text="@string/form_is_active"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/textsizeSM" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/tv_note"
@@ -31,5 +28,4 @@
         android:text="@string/note_rollover_edit"
         android:textColor="@color/holo_grey_light"
         android:visibility="gone" />
-
 </LinearLayout>

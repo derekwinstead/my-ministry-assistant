@@ -16,10 +16,7 @@ import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 
-import static com.myMinistry.util.LogUtils.makeLogTag;
-
 public class PublicationTypeDialogFragment extends DialogFragment {
-	public static final String TAG = makeLogTag(PublicationTypeDialogFragment.class);
 	public static final String ARG_SHOW_FLOW = "show_flow";
 	
 	private LiteratureTypeDialogFragmentListener sListener;
