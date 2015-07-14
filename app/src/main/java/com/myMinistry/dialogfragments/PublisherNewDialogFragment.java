@@ -1,12 +1,12 @@
 package com.myMinistry.dialogfragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,6 @@ import com.myMinistry.provider.MinistryService;
 public class PublisherNewDialogFragment extends DialogFragment {
 	private PublisherNewDialogFragmentListener sListener;
 	private View view;
-	private MinistryService database;
 	
 	public interface PublisherNewDialogFragmentListener {
 	    public void setPositiveButton(int _ID, String _name);
@@ -56,8 +55,8 @@ public class PublisherNewDialogFragment extends DialogFragment {
 				ContentValues values = new ContentValues();
 				values.put(Publisher.NAME, _name.trim());
 				values.put(Publisher.ACTIVE, MinistryService.ACTIVE);
-				
-				database = new MinistryService(getActivity());
+
+				MinistryService database = new MinistryService(getActivity());
 				database.openWritable();
 				_newID = database.createPublisher(values);
 				database.close();

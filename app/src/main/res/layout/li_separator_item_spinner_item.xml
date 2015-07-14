@@ -2,25 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/inner_padding"
+    android:background="@color/app_background"
+    android:paddingTop="@dimen/default_padding_extra"
+    android:paddingBottom="@dimen/default_padding_extra"
+    android:paddingEnd="@dimen/default_padding_double"
     android:paddingLeft="@dimen/default_padding"
     android:paddingRight="@dimen/default_padding_double"
-    android:paddingTop="@dimen/inner_padding">
+    android:paddingStart="@dimen/default_padding">
 
     <TextView
         android:id="@+id/menurow_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:text="@string/placeholder_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/menurow_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
         android:gravity="center_vertical"
+        android:text="@string/placeholder_lorem_ipsum"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/black" />
 
 </RelativeLayout>

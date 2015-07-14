@@ -2,20 +2,20 @@ package com.myMinistry.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.myMinistry.R;
-import com.myMinistry.adapters.TitleAndDateAdapter;
+import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment.PublisherNewDialogFragmentListener;
 import com.myMinistry.provider.MinistryService;
 
 public class PublishersFragment extends ListFragment {
@@ -23,7 +23,8 @@ public class PublishersFragment extends ListFragment {
 	
 	private Cursor publishers;
 	private MinistryService database;
-	private TitleAndDateAdapter adapter;
+	private TitleAndDateAdapterUpdated adapter;
+	private FloatingActionButton fab;
 	
 	private FragmentManager fm;
 	
@@ -34,22 +35,12 @@ public class PublishersFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.publishers, container, false);
-        
-        view.findViewById(R.id.btn_add_item).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				openEditor(PublisherEditorFragment.CREATE_ID);
-			}
-		});
 
-    	fm = getActivity().getSupportFragmentManager();
-    	
-    	return view;
-	}
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.publishers, menu);
+		fm = getActivity().getSupportFragmentManager();
+
+		fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
+		return view;
 	}
 	
 	@Override
@@ -57,14 +48,30 @@ public class PublishersFragment extends ListFragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+
+        if(is_dual_pane) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
+                    f.setPositiveButton(new PublisherNewDialogFragmentListener() {
+                        @Override
+                        public void setPositiveButton(int _ID, String _name) {
+                            updatePublisherList();
+                        }
+                    });
+                    f.show(fm, PublisherNewDialogFragment.class.getName());
+                }
+            });
+        }
     	
     	database = new MinistryService(getActivity());
     	
-    	setHasOptionsMenu(true);
-    	
     	database.openWritable();
     	publishers = database.fetchAllPublishersWithActivityDates();
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), publishers, R.string.last_active_on);
+    	adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), publishers, R.string.last_active_on);
     	setListAdapter(adapter);
     	database.close();
     	
@@ -82,17 +89,6 @@ public class PublishersFragment extends ListFragment {
         	
         	ft.commit();
     	}
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.publisher_create:
-				openEditor(PublisherEditorFragment.CREATE_ID);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
 	}
     
     @Override

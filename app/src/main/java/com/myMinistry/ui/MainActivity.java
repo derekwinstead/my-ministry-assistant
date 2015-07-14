@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean firstLoad = true;
 
-    private int getDefaultNavDrawerItem() { return R.id.drawer_entry_types; }
+    private int getDefaultNavDrawerItem() { return R.id.drawer_publishers; }
 
     @Override
     public void onResume() {

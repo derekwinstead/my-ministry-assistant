@@ -34,11 +34,6 @@
         <!-- The textColor property is backward compatible with the Support Library -->
     </style>
 
-    <style name="empty_list_text_settings">
-        <item name="android:textSize">@dimen/empty_list_textsize</item>
-        <item name="android:textColor">@color/bg_card_title_text_holo_light</item>
-    </style>
-
     <style name="ActionBar.Solid.AppBaseTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@color/actionbar_background</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_appbasetheme</item>

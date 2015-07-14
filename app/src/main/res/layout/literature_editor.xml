@@ -104,7 +104,7 @@
         card_view:cardCornerRadius="@dimen/material_corner_radius">
 
         <TextView
-            style="@style/empty_list_text_settings"
+            style="@style/EmptyListTextSettings"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/thumb_height"
             android:layout_gravity="center"

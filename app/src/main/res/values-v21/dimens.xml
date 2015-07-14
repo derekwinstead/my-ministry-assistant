@@ -15,7 +15,6 @@
     <dimen name="negative_default_padding_half">-5dp</dimen>
     <dimen name="textsizeSM">12sp</dimen>
     <dimen name="textsizeMD">16sp</dimen>
-    <dimen name="empty_list_textsize">18sp</dimen>
     <dimen name="flet_hint_text_size">11sp</dimen>
     <dimen name="flet_hint_text_padding_horizontal">13dp</dimen>
     <dimen name="dividerHeight">10dp</dimen>
