@@ -214,11 +214,14 @@ public class EntryTypeManagerEditorFrag extends Fragment {
     			tv_note.setVisibility(View.GONE);
     			cb_is_active.setEnabled(true);
     		}
+            fab.setVisibility(View.VISIBLE);
     	}
     	else {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
+			cb_is_active.setEnabled(true);
     		tv_note.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
     	}
     	cursor.close();
     	database.close();
