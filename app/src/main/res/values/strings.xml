@@ -159,5 +159,6 @@
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>
     <string name="pref_locale">Language</string>
     <string name="pref_locale_selected">Currently: {locale}</string>
+    <string name="custom">Custom</string>
 
 </resources>

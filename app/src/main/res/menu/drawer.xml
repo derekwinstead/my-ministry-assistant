@@ -1,47 +1,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/drawer_summary"
-            android:checked="true"
-            android:icon="@drawable/ic_drawer_report"
-            android:title="@string/navdrawer_item_summary" />
-
-        <item
-            android:id="@+id/drawer_publications"
-            android:icon="@drawable/ic_drawer_publications"
-            android:title="@string/navdrawer_item_publications" />
-
-        <item
-            android:id="@+id/drawer_householders"
-            android:icon="@drawable/ic_drawer_householders"
-            android:title="@string/navdrawer_item_householders" />
-
-        <item
-            android:id="@+id/drawer_publishers"
-            android:icon="@drawable/ic_drawer_publisher"
-            android:title="@string/navdrawer_item_publishers" />
-
-        <item
-            android:id="@+id/drawer_entry_types"
-            android:icon="@drawable/ic_drawer_entry_types"
-            android:title="@string/navdrawer_item_entry_types" />
-
-        <item
-            android:id="@+id/drawer_db"
-            android:icon="@drawable/ic_drawer_db"
-            android:title="@string/navdrawer_item_backups" />
-
-        <item
-            android:id="@+id/drawer_settings"
-            android:icon="@drawable/ic_drawer_settings"
-            android:title="@string/navdrawer_item_settings" />
-
-        <item
-            android:id="@+id/drawer_help"
-            android:icon="@drawable/ic_drawer_help"
-            android:title="@string/navdrawer_item_help" />
-
-    </group>
+    <item
+        android:id="@+id/drawer_summary"
+        android:checked="true"
+        android:icon="@drawable/ic_drawer_report"
+        android:title="@string/navdrawer_item_summary" />
+    <item
+        android:id="@+id/drawer_publications"
+        android:icon="@drawable/ic_drawer_publications"
+        android:title="@string/navdrawer_item_publications" />
+    <item
+        android:id="@+id/drawer_householders"
+        android:icon="@drawable/ic_drawer_householders"
+        android:title="@string/navdrawer_item_householders" />
+    <item
+        android:id="@+id/drawer_publishers"
+        android:icon="@drawable/ic_drawer_publisher"
+        android:title="@string/navdrawer_item_publishers" />
+    <item
+        android:id="@+id/drawer_entry_types"
+        android:icon="@drawable/ic_drawer_entry_types"
+        android:title="@string/navdrawer_item_entry_types" />
+    <item
+        android:id="@+id/drawer_db"
+        android:icon="@drawable/ic_drawer_db"
+        android:title="@string/navdrawer_item_backups" />
+    <item
+        android:id="@+id/drawer_settings"
+        android:icon="@drawable/ic_drawer_settings"
+        android:title="@string/navdrawer_item_settings" />
+    <item
+        android:id="@+id/drawer_help"
+        android:icon="@drawable/ic_drawer_help"
+        android:title="@string/navdrawer_item_help" />
 </menu>

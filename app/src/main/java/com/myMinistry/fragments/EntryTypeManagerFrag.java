@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -11,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -227,7 +227,7 @@ public class EntryTypeManagerFrag extends ListFragment {
     }
 	
 	public void showListItems(final int id, final String name, final int isActive) {
-		Builder builder = new Builder(EntryTypeManagerFrag.this.getActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(EntryTypeManagerFrag.this.getActivity());
 		builder.setTitle(R.string.menu_options);
 		builder.setItems(getResources().getStringArray(R.array.entry_type_list_item_options), new DialogInterface.OnClickListener() {
 			@Override
@@ -245,12 +245,31 @@ public class EntryTypeManagerFrag extends ListFragment {
 						showTransferToDialog(id, name);
 						break;
 					case DELETE_ID:
-						database.openWritable();
-						database.deleteEntryTypeByID(id);
-						if (is_dual_pane)
-							populateEditor(MinistryDatabase.CREATE_ID);
-						sortList(PrefUtils.getEntryTypeSort(getActivity()));
-						database.close();
+						DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								switch (which){
+									case DialogInterface.BUTTON_POSITIVE:
+										database.openWritable();
+										database.deleteEntryTypeByID(id);
+										if (is_dual_pane)
+											populateEditor(MinistryDatabase.CREATE_ID);
+										sortList(PrefUtils.getEntryTypeSort(getActivity()));
+										database.close();
+
+										break;
+								}
+							}
+						};
+
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+						builder.setTitle(R.string.confirm_deletion)
+								.setPositiveButton(R.string.menu_delete, dialogClickListener)
+								.setNegativeButton(R.string.menu_cancel, dialogClickListener)
+								.show();
+
+
+
 						break;
 				}
 			}
@@ -259,7 +278,7 @@ public class EntryTypeManagerFrag extends ListFragment {
 	}
 	
 	public void showTransferToDialog(final int id, final String name) {
-		Builder builder = new Builder(EntryTypeManagerFrag.this.getActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(EntryTypeManagerFrag.this.getActivity());
     	database.openWritable();
 		final Cursor defaults = database.fetchAllEntryTypesButID(id);
 		builder.setTitle(R.string.menu_transfer_to);
@@ -285,7 +304,7 @@ public class EntryTypeManagerFrag extends ListFragment {
 					cursor.getInt(cursor.getColumnIndex(EntryType._ID))
 					,R.drawable.ic_drawer_entry_types
 					,cursor.getString(cursor.getColumnIndex(EntryType.NAME))
-					,(cursor.getInt(cursor.getColumnIndex(EntryType._ID)) > MinistryDatabase.MAX_ENTRY_TYPE_ID) ? "Custom" : ""));
+					,(cursor.getInt(cursor.getColumnIndex(EntryType._ID)) > MinistryDatabase.MAX_ENTRY_TYPE_ID) ? getActivity().getResources().getString(R.string.custom) : ""));
 		}
 	    cursor.close();
 	    database.close();

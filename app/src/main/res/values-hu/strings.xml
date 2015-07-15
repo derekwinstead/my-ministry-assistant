@@ -160,5 +160,6 @@
     <string name="note_rollover_edit">****************\nMegjegyzés: Ez egy egyedülálló bejegyzés típusát kezelni borulás időt. Nem lehet, hogy ez aktív. Ne manuálisan létrehozni egy borulás bejegyzés típusát, mert ez lesz használva, hogy nem minden automatikus számítást.\n****************</string>
     <string name="pref_locale">Nyelv</string>
     <string name="pref_locale_selected">Aktuális: {locale}</string>
+    <string name="custom">szokás</string>
 
 </resources>

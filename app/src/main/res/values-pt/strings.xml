@@ -160,5 +160,6 @@
     <string name="note_rollover_edit">****************\nNota: Este é um tipo de entrada única para gerir o tempo de sobreposição. Você não pode torná-la ativa. Não crie manualmente um tipo de entrada rollover como isso vai ser usado para fazer todos os cálculos automáticos.\n****************</string>
     <string name="pref_locale">Língua</string>
     <string name="pref_locale_selected">Atual: {locale}</string>
+    <string name="custom">Personalizadas</string>
 
 </resources>

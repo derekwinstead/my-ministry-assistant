@@ -160,5 +160,6 @@
     <string name="note_rollover_edit">****************\nCatatan: Ini adalah jenis entri yang unik untuk mengatur waktu rollover. Anda tidak bisa membuatnya aktif. Jangan manual membuat jenis entri rollover karena hal ini akan digunakan untuk melakukan perhitungan otomatis.\n****************</string>
     <string name="pref_locale">Bahasa</string>
     <string name="pref_locale_selected">Saat: {locale}</string>
+    <string name="custom">adat</string>
 
 </resources>

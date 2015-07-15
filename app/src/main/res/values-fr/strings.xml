@@ -160,5 +160,6 @@
     <string name="note_rollover_edit">****************\nRemarque: Ce est un type d\'entrée unique pour gérer le temps de renversement. Vous ne pouvez pas le rendre actif. Ne pas créer manuellement un type d\'entrée de roulement comme il sera utilisé pour faire des calculs automatiques.\n****************</string>
     <string name="pref_locale">Langue</string>
     <string name="pref_locale_selected">Courant: {locale}</string>
+    <string name="custom">coutume</string>
 
 </resources>

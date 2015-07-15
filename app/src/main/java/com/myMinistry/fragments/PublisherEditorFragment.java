@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myMinistry.R;
@@ -36,7 +35,6 @@ public class PublisherEditorFragment extends ListFragment {
 	
 	private EditText et_name;
 	private CheckBox cb_is_active;
-	private TextView recent_activity_text;
 	
 	static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
 	private long publisherId = CREATE_ID;
@@ -79,7 +77,6 @@ public class PublisherEditorFragment extends ListFragment {
 		
 		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-    	recent_activity_text = (TextView) root.findViewById(R.id.recent_activity_text);
 		
     	adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
     	setListAdapter(adapter);
@@ -257,12 +254,10 @@ public class PublisherEditorFragment extends ListFragment {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
     		
-    		recent_activity_text.setVisibility(View.GONE);
     		getListView().setVisibility(View.GONE);
     		getListView().getEmptyView().setVisibility(View.GONE);
     	}
     	else {
-    		recent_activity_text.setVisibility(View.VISIBLE);
     		getListView().setVisibility(View.VISIBLE);
     		getListView().getEmptyView().setVisibility(View.VISIBLE);
     		
@@ -270,7 +265,7 @@ public class PublisherEditorFragment extends ListFragment {
 	    	Cursor publisher = database.fetchPublisher((int)publisherId);
 	    	if(publisher.moveToFirst()) {
 	    		et_name.setText(publisher.getString(publisher.getColumnIndex(Publisher.NAME)));
-	    		cb_is_active.setChecked((publisher.getInt(publisher.getColumnIndex(Publisher.ACTIVE)) == 1) ? true : false);
+	    		cb_is_active.setChecked(publisher.getInt(publisher.getColumnIndex(Publisher.ACTIVE)) == 1);
 	    	}
 	    	else {
 	    		et_name.setText("");
