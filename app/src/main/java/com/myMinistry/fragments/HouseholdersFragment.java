@@ -3,6 +3,7 @@ package com.myMinistry.fragments;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.myMinistry.R;
-import com.myMinistry.adapters.TitleAndDateAdapter;
+import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -27,7 +28,8 @@ public class HouseholdersFragment extends ListFragment {
 	
 	private Cursor cursor;
 	private MinistryService database;
-	private TitleAndDateAdapter adapter;
+	private TitleAndDateAdapterUpdated adapter;
+	private FloatingActionButton fab;
 	
 	private FragmentManager fm;
 	
@@ -38,14 +40,19 @@ public class HouseholdersFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.householders, container, false);
-		
+		/*
 		view.findViewById(R.id.btn_add_item).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				openEditor(HouseholderEditorFragment.CREATE_ID);
 			}
 		});
-		
+		*/
+
+		fm = getActivity().getSupportFragmentManager();
+
+		fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
 		return view;
 	}
 	
@@ -63,13 +70,22 @@ public class HouseholdersFragment extends ListFragment {
     	database = new MinistryService(getActivity());
     	
     	setHasOptionsMenu(true);
-    	
-    	fm = getActivity().getSupportFragmentManager();
+
+		if(is_dual_pane) {
+			fab.setVisibility(View.GONE);
+		} else {
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					openEditor(HouseholderEditorFragment.CREATE_ID);
+				}
+			});
+		}
     	
     	loadCursor();
 		//adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.li_bg_card_tv, cursor, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
 		
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), cursor, R.string.last_visited_on);
+    	adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), cursor, R.string.last_visited_on);
     	setListAdapter(adapter);
     	database.close();
     	
@@ -97,9 +113,6 @@ public class HouseholdersFragment extends ListFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.householder_create:
-				openEditor(HouseholderEditorFragment.CREATE_ID);
-				return true;
 			case R.id.sort_alpha:
 				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
 				sortList(MinistryDatabase.SORT_BY_ASC);

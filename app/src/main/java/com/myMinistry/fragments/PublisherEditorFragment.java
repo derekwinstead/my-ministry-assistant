@@ -1,15 +1,16 @@
 package com.myMinistry.fragments;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +44,7 @@ public class PublisherEditorFragment extends ListFragment {
 	private Cursor activity;
 	private TimeEntryAdapter adapter;
 	private FragmentManager fm;
+	private FloatingActionButton fab;
 	
 	public PublisherEditorFragment newInstance() {
     	return new PublisherEditorFragment();
@@ -77,6 +79,7 @@ public class PublisherEditorFragment extends ListFragment {
 		
 		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
+		fab = (FloatingActionButton) root.findViewById(R.id.fab);
 		
     	adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
     	setListAdapter(adapter);
@@ -91,6 +94,17 @@ public class PublisherEditorFragment extends ListFragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+
+        if(!is_dual_pane) {
+            fab.setVisibility(View.GONE);
+        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
     	
     	if(!is_dual_pane)
     		getActivity().setTitle(R.string.title_publisher_edit);
@@ -256,6 +270,8 @@ public class PublisherEditorFragment extends ListFragment {
     		
     		getListView().setVisibility(View.GONE);
     		getListView().getEmptyView().setVisibility(View.GONE);
+            if(is_dual_pane)
+                fab.setVisibility(View.GONE);
     	}
     	else {
     		getListView().setVisibility(View.VISIBLE);
@@ -274,7 +290,9 @@ public class PublisherEditorFragment extends ListFragment {
 	    	publisher.close();
 	    	activity = database.fetchActivityForPublisher((int) publisherId);
 	    	adapter.changeCursor(activity);
-	    	database.close();
+            database.close();
+            if(is_dual_pane)
+                fab.setVisibility(View.VISIBLE);
 	    }
     }
     

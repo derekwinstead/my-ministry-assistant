@@ -48,4 +48,6 @@
         android:paddingLeft="@dimen/default_padding"
         android:paddingRight="@dimen/default_padding"
         android:text="@string/no_activity" />
+
+    <include layout="@layout/fab" />
 </LinearLayout>

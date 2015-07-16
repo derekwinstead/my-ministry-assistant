@@ -1,17 +1,18 @@
 package com.myMinistry.fragments;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myMinistry.R;
@@ -39,11 +39,9 @@ public class HouseholderEditorFragment extends ListFragment {
 	
 	private boolean is_dual_pane = false;
 	
-	/** Display vars */
 	private EditText et_name, et_address, et_phone_mobile, et_phone_home, et_phone_work, et_phone_other;
 	private CheckBox cb_is_active;
-	private TextView recent_activity_text;
-	/** Internal vars */
+
 	static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
 	private long householderID = CREATE_ID;
 	
@@ -51,6 +49,7 @@ public class HouseholderEditorFragment extends ListFragment {
 	private Cursor activity;
 	
 	private FragmentManager fm;
+	private FloatingActionButton fab;
 	
 	private HouseholderRecentActivityAdapter adapter;
 	
@@ -92,7 +91,7 @@ public class HouseholderEditorFragment extends ListFragment {
 		et_phone_work = (EditText) root.findViewById(R.id.et_phone_work);
 		et_phone_other = (EditText) root.findViewById(R.id.et_phone_other);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-		recent_activity_text = (TextView) root.findViewById(R.id.recent_activity_text);
+        fab = (FloatingActionButton) root.findViewById(R.id.fab);
 		
 		adapter = new HouseholderRecentActivityAdapter(getActivity().getApplicationContext(), activity, (int)householderID);
 		setListAdapter(adapter);
@@ -107,8 +106,19 @@ public class HouseholderEditorFragment extends ListFragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-    	
-    	if(!is_dual_pane)
+
+        if(!is_dual_pane) {
+            fab.setVisibility(View.GONE);
+        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
+
+        if(!is_dual_pane)
     		getActivity().setTitle(R.string.title_householder_edit);
     	
     	fillForm();
@@ -132,9 +142,8 @@ public class HouseholderEditorFragment extends ListFragment {
 						et_phone_work.setText(PhoneNumberUtils.formatNumber(et_phone_work.getText().toString()));
 						et_phone_other.setText(PhoneNumberUtils.formatNumber(et_phone_other.getText().toString()));
 					}
-					
-					
-					ContentValues values = new ContentValues();
+
+                    ContentValues values = new ContentValues();
     				values.put(Householder.NAME, et_name.getText().toString().trim());
 					values.put(Householder.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
     				values.put(Householder.ADDR, et_address.getText().toString().trim());
@@ -254,9 +263,8 @@ public class HouseholderEditorFragment extends ListFragment {
 					        	transaction.add(R.id.primary_fragment_container, newFragment);
 					        	transaction.commit();
 							}
-				        	
-				        	
-				        	break;
+
+                            break;
 				        }
 				    }
 				};
@@ -294,12 +302,13 @@ public class HouseholderEditorFragment extends ListFragment {
     		et_phone_work.setText("");
     		et_phone_other.setText("");
     		
-    		recent_activity_text.setVisibility(View.GONE);
     		getListView().setVisibility(View.GONE);
     		getListView().getEmptyView().setVisibility(View.GONE);
+
+            if(is_dual_pane)
+                fab.setVisibility(View.GONE);
     	}
     	else {
-    		recent_activity_text.setVisibility(View.VISIBLE);
     		getListView().setVisibility(View.VISIBLE);
     		getListView().getEmptyView().setVisibility(View.VISIBLE);
     		
@@ -307,7 +316,7 @@ public class HouseholderEditorFragment extends ListFragment {
 	    	Cursor householder = database.fetchHouseholder((int) householderID);
 	    	if(householder.moveToFirst()) {
 	    		et_name.setText(householder.getString(householder.getColumnIndex(Householder.NAME)));
-	    		cb_is_active.setChecked((householder.getInt(householder.getColumnIndex(Householder.ACTIVE)) == 1) ? true : false);
+	    		cb_is_active.setChecked(householder.getInt(householder.getColumnIndex(Householder.ACTIVE)) == 1);
 	    		et_address.setText(householder.getString(householder.getColumnIndex(Householder.ADDR)));
 	    		et_phone_mobile.setText(householder.getString(householder.getColumnIndex(Householder.MOBILE_PHONE)));
 	    		et_phone_home.setText(householder.getString(householder.getColumnIndex(Householder.HOME_PHONE)));
@@ -329,6 +338,9 @@ public class HouseholderEditorFragment extends ListFragment {
 	    	adapter.setHouseholderID((int)householderID);
 	    	adapter.changeCursor(activity);
 	    	database.close();
+
+            if(is_dual_pane)
+                fab.setVisibility(View.VISIBLE);
     	}
     }
     

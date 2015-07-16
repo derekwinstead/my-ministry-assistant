@@ -206,22 +206,26 @@ public class EntryTypeManagerEditorFrag extends Fragment {
     	Cursor cursor = database.fetchEntryType((int)resID);
     	if(cursor.moveToFirst()) {
     		et_name.setText(cursor.getString(cursor.getColumnIndex(EntryType.NAME)));
-    		cb_is_active.setChecked((cursor.getInt(cursor.getColumnIndex(EntryType.ACTIVE)) == 1) ? true : false);
+    		cb_is_active.setChecked(cursor.getInt(cursor.getColumnIndex(EntryType.ACTIVE)) == 1);
     		if((int)resID == MinistryDatabase.ID_ROLLOVER) {
     			tv_note.setVisibility(View.VISIBLE);
-    			cb_is_active.setEnabled(false);	
+    			cb_is_active.setEnabled(false);
     		} else {
     			tv_note.setVisibility(View.GONE);
     			cb_is_active.setEnabled(true);
     		}
-            fab.setVisibility(View.VISIBLE);
+
+            if(is_dual_pane)
+            	fab.setVisibility(View.VISIBLE);
     	}
     	else {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
 			cb_is_active.setEnabled(true);
     		tv_note.setVisibility(View.GONE);
-            fab.setVisibility(View.GONE);
+
+            if(is_dual_pane)
+				fab.setVisibility(View.GONE);
     	}
     	cursor.close();
     	database.close();
