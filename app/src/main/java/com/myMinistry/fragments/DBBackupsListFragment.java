@@ -1,11 +1,11 @@
 package com.myMinistry.fragments;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.adapters.ItemAdapter;
-import com.myMinistry.model.NavDrawerMenuItem;
+import com.myMinistry.adapters.ListItemAdapter;
+import com.myMinistry.model.ListItem;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.util.FileUtils;
@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class DBBackupsListFragment extends ListFragment {
 	private String[] fileList;
-	private ItemAdapter adapter;
+	private ListItemAdapter adapter;
 	
 	private final int REF_RESTORE = 0;
 	private final int REF_EMAIL = 1;
@@ -52,13 +52,14 @@ public class DBBackupsListFragment extends ListFragment {
 		View view = inflater.inflate(R.layout.db_backups_list, container, false);
 		
 		setHasOptionsMenu(true);
-        
-		view.findViewById(R.id.tv_add_item).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				createBackup();
-			}
-		});
+
+        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createBackup();
+            }
+        });
+
         return view;
 	}
 	
@@ -66,7 +67,7 @@ public class DBBackupsListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	
-    	adapter = new ItemAdapter(getActivity().getApplicationContext());
+    	adapter = new ListItemAdapter(getActivity().getApplicationContext());
     	loadAdapter();
     	setListAdapter(adapter);
 	}
@@ -114,7 +115,7 @@ public class DBBackupsListFragment extends ListFragment {
     private void createBackup() {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-aaa", Locale.getDefault());
 		Calendar now = Calendar.getInstance();
-		String date = dateFormatter.format(now.getTime()).toString();
+		String date = dateFormatter.format(now.getTime());
 		File intDB = getActivity().getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME);
 		File extDB = FileUtils.getExternalDBFile(getActivity().getApplicationContext(), date + ".db");
 		
@@ -138,10 +139,6 @@ public class DBBackupsListFragment extends ListFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.create_bu:
-				createBackup();
-				
-				return true;
 			case R.id.cleanup_bu:
 				int FLAG = Helper.clearBackups(getActivity().getApplicationContext());
 				if(FLAG == 1)
@@ -172,7 +169,7 @@ public class DBBackupsListFragment extends ListFragment {
     		fileList = new String[0];
     	
 		for(String filename : fileList)
-			adapter.addItem(new NavDrawerMenuItem(filename, R.drawable.ic_drawer_db, 1));
+			adapter.addItem(new ListItem(0, R.drawable.ic_drawer_db, filename, ""));
 	}
 	
 	public void reloadAdapter() {
