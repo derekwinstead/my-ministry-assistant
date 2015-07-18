@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+String VERSION_NAME = '4.09'
+int VERSION_CODE = 218
+String APK_NAME = "myministryassistant"
+
 android {
     signingConfigs {
     }
@@ -9,14 +13,13 @@ android {
         applicationId 'com.myMinistry'
         minSdkVersion 9
         targetSdkVersion 22
-        versionCode 218
-        versionName '4.09'
-
-        //project.ext.set("archivesBaseName", "MyName-" + defaultConfig.versionName);
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
     }
     buildTypes {
         release {
             minifyEnabled false
+            project.archivesBaseName = VERSION_CODE + "-" + APK_NAME + "-v" + VERSION_NAME;
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
