@@ -53,7 +53,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.save_cancel, menu);
+		inflater.inflate(R.menu.save, menu);
 	}
 	
 	@Override
@@ -169,6 +169,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
     			}
 				
 				return true;
+			/*
 			case R.id.menu_cancel:
 				if(is_dual_pane)
 					switchForm(MinistryDatabase.CREATE_ID);
@@ -186,6 +187,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 		        	ft.commit();
 				}
 				return true;
+				*/
 			default:
 				return super.onOptionsItemSelected(item);
 		}

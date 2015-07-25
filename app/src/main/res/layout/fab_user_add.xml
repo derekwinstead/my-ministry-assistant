@@ -10,7 +10,7 @@
     android:layout_marginBottom="@dimen/fab_margin_bottom"
     android:layout_marginEnd="@dimen/fab_margin_right"
     android:layout_marginRight="@dimen/fab_margin_right"
-    android:src="@drawable/ic_action_add"
+    android:src="@drawable/ic_action_user_add"
     app:backgroundTint="@color/colorPrimary"
     app:borderWidth="0dp"
     app:fabSize="normal" />

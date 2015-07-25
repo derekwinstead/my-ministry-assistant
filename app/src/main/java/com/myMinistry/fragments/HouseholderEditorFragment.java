@@ -68,9 +68,9 @@ public class HouseholderEditorFragment extends ListFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		if(householderID == CREATE_ID)
-			inflater.inflate(R.menu.save_cancel, menu);
+			inflater.inflate(R.menu.save, menu);
 		else
-			inflater.inflate(R.menu.save_cancel_discard, menu);
+			inflater.inflate(R.menu.save_discard, menu);
 	}
 	
 	@Override
@@ -212,6 +212,7 @@ public class HouseholderEditorFragment extends ListFragment {
     			}
 				
 				return true;
+			/*
 			case R.id.menu_cancel:
 				if(is_dual_pane)
 					switchForm(CREATE_ID);
@@ -229,6 +230,7 @@ public class HouseholderEditorFragment extends ListFragment {
 		        	transaction.commit();
 				}
 				return true;
+			*/
 			case R.id.menu_discard:
 				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 				    @Override

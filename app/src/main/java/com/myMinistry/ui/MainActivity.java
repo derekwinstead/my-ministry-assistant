@@ -195,6 +195,9 @@ public class MainActivity extends AppCompatActivity {
 
         //boolean is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
+        // TODO put a condition around this to not always set the visibility and only do it if the backup item was selected and then it changed.
+        findViewById(R.id.primary_fragment_container).setVisibility(View.VISIBLE);
+
         switch (itemId) {
             case R.id.drawer_summary:
                 Calendar date = Calendar.getInstance(Locale.getDefault());
@@ -309,6 +312,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_backups).setTabListener(this));
                 //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_schedule_backups).setTabListener(this));
+
+                if(is_dual_pane)
+                    findViewById(R.id.primary_fragment_container).setVisibility(View.GONE);
 
                 if(!(frag instanceof DBBackupsFragment)) {
                     if(is_dual_pane) {

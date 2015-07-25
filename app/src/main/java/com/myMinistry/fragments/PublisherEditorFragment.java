@@ -61,9 +61,9 @@ public class PublisherEditorFragment extends ListFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		if(publisherId == CREATE_ID)
-			inflater.inflate(R.menu.save_cancel, menu);
+			inflater.inflate(R.menu.save, menu);
 		else
-			inflater.inflate(R.menu.save_cancel_discard, menu);
+			inflater.inflate(R.menu.save_discard, menu);
 	}
 	
 	@Override
@@ -184,6 +184,7 @@ public class PublisherEditorFragment extends ListFragment {
     			}
 				
 				return true;
+			/*
 			case R.id.menu_cancel:
 				if(is_dual_pane)
 					switchForm(CREATE_ID);
@@ -200,6 +201,7 @@ public class PublisherEditorFragment extends ListFragment {
 		        	ft.commit();
 				}
 				return true;
+				*/
 			case R.id.menu_discard:
 				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 				    @Override
