@@ -28,11 +28,13 @@ import java.util.Locale;
 
 public class SummaryNavigationFragment extends Fragment {
     public static String ARG_PUBLISHER_ID = "publisher_id";
+    private static int SUMMARY = 0;
+    private static int ENTRIES = 1;
 
     private boolean is_dual_pane = false;
 
     private String mMonth, mYear = "";
-    private int view_type_position = 0;
+    private int view_type_position = SUMMARY;
     private Spinner publishers, view_type;
     private TextView month, year;
     private Calendar monthPicked = Calendar.getInstance();
@@ -86,6 +88,7 @@ public class SummaryNavigationFragment extends Fragment {
 
                 calculateSummaryValues();
                 fillPublisherSummary();
+                fillNavigationContent();
                 displayTimeEntries();
             }
         });
@@ -97,6 +100,7 @@ public class SummaryNavigationFragment extends Fragment {
 
                 calculateSummaryValues();
                 fillPublisherSummary();
+                fillNavigationContent();
                 displayTimeEntries();
             }
         });
@@ -110,14 +114,14 @@ public class SummaryNavigationFragment extends Fragment {
 
         pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
 
         for(String name : getResources().getStringArray(R.array.summary_time_span)) {
             spinnerArrayAdapter.add(name);
         }
 
-        ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+        ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
         spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
 
         for(String name : getResources().getStringArray(R.array.summary_nav_view_type)) {
@@ -129,7 +133,9 @@ public class SummaryNavigationFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 view_type_position = position;
-                if(position == 0) {
+                if(position == SUMMARY) {
+                    fillNavigationContent();
+                    /*
                     //((MainActivity)getActivity()).setTitle(R.string.menu_entries);
 
                     FragmentTransaction ft = fm.beginTransaction();
@@ -140,8 +146,10 @@ public class SummaryNavigationFragment extends Fragment {
 
                     ft.replace(R.id.summary_navigation_button_content, f1);
                     ft.commit();
+                    */
                 }
-                else if(position == 1) {
+                else if(position == ENTRIES) {
+                    /*
                     Calendar date = Calendar.getInstance(Locale.getDefault());
 
                     // Create new transaction
@@ -156,6 +164,8 @@ public class SummaryNavigationFragment extends Fragment {
 
                     // Commit the transaction
                     ft.commit();
+                    */
+                    fillNavigationContent();
                 }
             }
 
@@ -215,7 +225,7 @@ public class SummaryNavigationFragment extends Fragment {
     }
 
     public void displayTimeEntries() {
-        if (is_dual_pane || view_type_position == 1) {
+        if (is_dual_pane || view_type_position == ENTRIES) {
             int FRAG_CONTAINER_ID;
             if (is_dual_pane) {
                 FRAG_CONTAINER_ID = R.id.secondary_fragment_container;
@@ -247,7 +257,7 @@ public class SummaryNavigationFragment extends Fragment {
     }
 
     public void calculateSummaryValues() {
-        mMonth = buttonFormat.format(monthPicked.getTime()).toString().toUpperCase(Locale.getDefault());
+        mMonth = buttonFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
         mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
         //dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
@@ -300,5 +310,55 @@ public class SummaryNavigationFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+    }
+
+    private void fillNavigationContent() {
+        if (!is_dual_pane) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            Fragment frag = fm.findFragmentById(R.id.summary_navigation_button_content);
+
+            if(view_type_position == SUMMARY) {
+                if(!(frag instanceof SummaryFragment)) {
+                    SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+
+                    if(frag != null)
+                        ft.remove(frag);
+
+                    ft.add(R.id.summary_navigation_button_content, f);
+                    ft.commit();
+                }
+                else {
+                    SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.summary_navigation_button_content);
+                    f.setDate(monthPicked);
+                    f.calculateSummaryValues();
+                    f.fillPublisherSummary();
+                }
+            }
+            else if(view_type_position == ENTRIES) {
+                if(!(frag instanceof TimeEntriesFragment)) {
+                    TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
+
+                    if(frag != null)
+                        ft.remove(frag);
+
+                    ft.replace(R.id.summary_navigation_button_content, f);
+                    ft.commit();
+
+                    //f.setPublisherId(publisherId);
+
+                    //f.switchToMonthList(monthPicked);
+                } else {
+                    TimeEntriesFragment f = (TimeEntriesFragment) fm.findFragmentById(R.id.summary_navigation_button_content);
+                    f.setPublisherId(publisherId);
+                    f.switchToMonthList(monthPicked);
+                    /*
+                    TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
+                    ft.replace(R.id.summary_navigation_button_content, f);
+                    ft.commit();
+                    */
+                }
+            }
+        }
     }
 }

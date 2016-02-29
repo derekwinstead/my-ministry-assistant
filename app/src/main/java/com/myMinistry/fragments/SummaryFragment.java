@@ -243,6 +243,14 @@ public class SummaryFragment extends Fragment {
 		displayTimeEntries();
 	}
 	*/
+
+	public void setDate(Calendar _date) {
+		monthPicked.set(Calendar.YEAR, _date.get(Calendar.YEAR));
+		monthPicked.set(Calendar.MONTH, _date.get(Calendar.MONTH));
+
+		saveSharedPrefs();
+	}
+
 	private void saveSharedPrefs() {
 		if(getActivity() != null)
 			PrefUtils.setSummaryMonthAndYear(getActivity(), monthPicked);
