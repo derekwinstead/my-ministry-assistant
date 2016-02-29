@@ -41,5 +41,29 @@
         <item>@string/navdrawer_item_summary</item>
         <item>@string/menu_entries</item>
     </array>
+    <array name="locale_codes">
+        <item>"en"</item>
+        <item>"es"</item>
+        <item>"da"</item>
+        <item>"fr"</item>
+        <item>"hu"</item>
+        <item>"id"</item>
+        <item>"it"</item>
+        <item>"nl"</item>
+        <item>"pt"</item>
+        <item>"ru"</item>
+    </array>
+    <array name="locale_names">
+        <item>@string/language_english</item>
+        <item>@string/language_spanish</item>
+        <item>@string/language_danish</item>
+        <item>@string/language_french</item>
+        <item>@string/language_hungarian</item>
+        <item>@string/language_indonesian</item>
+        <item>@string/language_italian</item>
+        <item>@string/language_dutch</item>
+        <item>@string/language_portuguese</item>
+        <item>@string/language_russian</item>
+    </array>
 
 </resources>

@@ -161,5 +161,6 @@
     <string name="pref_locale">язык</string>
     <string name="pref_locale_selected">Ток: {locale}</string>
     <string name="custom">обычай</string>
+    <string name="default_videos">Видео</string>
 
 </resources>

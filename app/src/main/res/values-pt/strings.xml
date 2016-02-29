@@ -161,5 +161,6 @@
     <string name="pref_locale">Língua</string>
     <string name="pref_locale_selected">Atual: {locale}</string>
     <string name="custom">Personalizadas</string>
+    <string name="default_videos">Vídeos</string>
 
 </resources>

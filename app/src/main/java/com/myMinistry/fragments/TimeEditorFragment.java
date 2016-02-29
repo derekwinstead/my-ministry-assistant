@@ -6,9 +6,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -203,7 +201,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 		
 		pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 		while(qPublishers.moveToNext())
-			pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+			pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher_female, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
 		
 		entryTypes.setAdapter(typesAdapter);
 		entryTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -374,7 +372,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     				pubsAdapter.clear();
     				while(qPublishers.moveToNext()) {
     					if(qPublishers.getInt(qPublishers.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE || qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
-    						pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+    						pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher_female, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
     					}
     				}	
     				
@@ -505,7 +503,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				return true;
 			case R.id.menu_cancel:
 				getActivity().setTitle(R.string.navdrawer_item_summary);
-				
+				/*
 				if(is_dual_pane) {
 		        	// The fragment is the time entry one, just update the frag instead of doing a replacement.
 	        		SummaryFragment fragment = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
@@ -539,8 +537,9 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 					
 					ft.add(R.id.primary_fragment_container, f);
 		        	
-		        	ft.commit();	
-				}
+		        	ft.commit();
+		        }
+		        */
 				return true;
 			case R.id.menu_discard:
 				if(allowedToEdit) {
@@ -559,7 +558,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 								database.close();
 								
 								Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_deleted), Toast.LENGTH_SHORT).show();
-								
+								/*
 								if(is_dual_pane) {
 					        		SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
 					        		if(timeId > 0) {
@@ -596,7 +595,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 									
 						        	ft.commit();	
 								}
-					        	
+					        	*/
 					        	
 					        	break;
 					        }

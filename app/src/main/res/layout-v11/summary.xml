@@ -8,20 +8,72 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/summary_navigation" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:divider="@drawable/separator"
             android:orientation="vertical"
             android:paddingBottom="@dimen/default_padding_half"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
-            android:paddingTop="@dimen/default_padding_half"
             android:showDividers="middle">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/default_padding_two_third"
+                android:paddingTop="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Placements (Printed and Electronic)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizeMD" />
+
+                <TextView
+                    android:id="@+id/placements_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="55"
+                    android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/textsizeMD"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/default_padding_two_third"
+                android:paddingTop="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Video Showings"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizeMD" />
+
+                <TextView
+                    android:id="@+id/video_showings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="1"
+                    android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/textsizeMD"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,182 +107,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
-
-                <TextView
-                    android:id="@+id/rbc_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/default_rebuild_committee"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
-
-                <TextView
-                    android:id="@+id/rbc_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="1"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
-
-                <TextView
-                    android:id="@+id/tv_pub_text_0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/default_books"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
-
-                <TextView
-                    android:id="@+id/tv_pub_count_0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="1"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
-
-                <TextView
-                    android:id="@+id/tv_pub_text_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/default_booklets"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
-
-                <TextView
-                    android:id="@+id/tv_pub_count_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="1"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
-
-                <TextView
-                    android:id="@+id/tv_pub_text_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/default_magazines"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
-
-                <TextView
-                    android:id="@+id/tv_pub_count_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="1"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
-
-                <TextView
-                    android:id="@+id/tv_pub_text_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/default_media"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
-
-                <TextView
-                    android:id="@+id/tv_pub_count_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="1"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
-
-                <TextView
-                    android:id="@+id/tv_pub_text_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/default_tracts"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
-
-                <TextView
-                    android:id="@+id/tv_pub_count_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:text="1"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
+                android:paddingTop="@dimen/default_padding">
 
                 <TextView
                     android:id="@+id/return_visits_text"
@@ -238,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/default_return_visit"
+                    android:text="Return Visits"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -258,8 +137,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:paddingBottom="@dimen/default_padding_two_third"
-                android:paddingTop="@dimen/default_padding_two_third">
+                android:paddingTop="@dimen/default_padding">
 
                 <TextView
                     android:id="@+id/bible_studies_text"
@@ -267,12 +147,41 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/default_bible_study"
+                    android:text="Number of Different Bible Studies Conducted"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
                 <TextView
                     android:id="@+id/bible_studies_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="1"
+                    android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/textsizeMD"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/default_padding_two_third"
+                android:paddingTop="@dimen/default_padding_two_third">
+
+                <TextView
+                    android:id="@+id/rbc_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/default_rebuild_committee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsizeMD" />
+
+                <TextView
+                    android:id="@+id/rbc_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

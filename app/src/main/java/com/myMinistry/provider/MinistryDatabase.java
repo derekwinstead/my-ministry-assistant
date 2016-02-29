@@ -44,6 +44,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     public static final int ID_MAGAZINES = 3;
     public static final int ID_MEDIA = 4;
     public static final int ID_TRACTS = 5;
+    public static final int ID_VIDEOS_TO_SHOW = 6;
 
     public static final int MAX_PUBLICATION_TYPE_ID = ID_TRACTS;
 
@@ -87,6 +88,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     private static final int VER_ADD_PIONEERING = 10;
     private static final int VER_ADD_IS_RETURN_VISIT = 11;
     private static final int VER_ADD_HOUSEHOLDER_SORT_ORDER = 12;
+    private static final int VER_ADD_VIDEOS_TO_SHOW = 13;
 
     public static final int DATABASE_VERSION = VER_ADD_HOUSEHOLDER_SORT_ORDER;
 
@@ -180,6 +182,11 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
         values.put(LiteratureType._ID, MinistryDatabase.ID_TRACTS);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_tracts));
+
+        db.insert(Tables.TYPES_OF_LIERATURE, null, values);
+
+        values.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
+        values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
@@ -435,6 +442,18 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 db.execSQL("ALTER TABLE " + Tables.HOUSEHOLDERS + " ADD COLUMN " + Householder.SORT_ORDER + " INTEGER DEFAULT 1");
 
                 version = VER_ADD_HOUSEHOLDER_SORT_ORDER;
+            case VER_ADD_HOUSEHOLDER_SORT_ORDER:
+                versionBackup(version);
+
+                ContentValues vvalues = new ContentValues();
+                vvalues.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
+                vvalues.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
+                vvalues.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
+                vvalues.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
+
+                db.insert(Tables.TYPES_OF_LIERATURE, null, vvalues);
+
+                version = VER_ADD_VIDEOS_TO_SHOW;
         }
     }
 

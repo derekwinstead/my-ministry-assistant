@@ -71,71 +71,36 @@ public class SettingsActivity extends PreferenceActivity {
         	}
         });
         
-        Locale locale = new Locale(PrefUtils.getLocale(getApplicationContext()));
+        final Locale locale = new Locale(PrefUtils.getLocale(getApplicationContext()));
         findPreference("change_locale").setSummary(Phrase.from(getApplicationContext(), R.string.pref_locale_selected).put("locale", locale.getDisplayName() + " - ("+ locale.toString() + ")").format());
         
         findPreference("change_locale").setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	public boolean onPreferenceClick(final Preference preference) {
-        		AlertDialog.Builder builder = new AlertDialog.Builder(preference.getContext());
-        		
-        		
-        		
-        		
-        		ArrayList<String> localesToShow = new ArrayList<String>();
-        		final Locale[] locales = new Locale[10];
-        		int counter = 0;
-        		
-        		Locale locale = new Locale("en");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_english) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("es");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_spanish) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("da");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_danish) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("fr");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_french) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("hu");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_hungarian) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("id");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_indonesian) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("it");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_italian) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("nl");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_dutch) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("pt");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_portuguese) + " - ("+ locale.toString() + ")");
-        		
-        		locale = new Locale("ru");
-        		locales[counter++] = locale;
-        		localesToShow.add(getResources().getString(R.string.language_russian) + " - ("+ locale.toString() + ")");
-        		
+                String[] codes = getResources().getStringArray(R.array.locale_codes);
+                String[] names = getResources().getStringArray(R.array.locale_names);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(preference.getContext());
+				ArrayList<String> localesToShow = new ArrayList<String>();
+        		final Locale[] locales = new Locale[codes.length];
+
+                Locale locale;
+                for(int counter = 0;counter < codes.length; counter++) {
+                    locale = new Locale(codes[counter]);
+                    locales[counter] = locale;
+                    localesToShow.add(names[counter] + " - ("+ locale.toString() + ")");
+                }
+
         		String[] items = new String[localesToShow.size()];
         		items = localesToShow.toArray(items);
         		
-        		builder.setTitle(preference.getContext().getString(R.string.menu_options));
-        		builder.setItems(items, new DialogInterface.OnClickListener() {
-        			public void onClick(DialogInterface dialog, int which) {
-        				PrefUtils.setLocale(getApplicationContext(), locales[which].toString());
-        				findPreference("change_locale").setSummary(Phrase.from(getApplicationContext(), R.string.pref_locale_selected).put("locale", locales[which].getDisplayName() + " - ("+ locales[which].toString() + ")").format());
-        			}
-        		});
-        	    builder.create().show();
+        		builder.setTitle(preference.getContext().getString(R.string.pref_locale));
+				builder.setItems(items, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						PrefUtils.setLocale(getApplicationContext(), locales[which].toString());
+						findPreference("change_locale").setSummary(Phrase.from(getApplicationContext(), R.string.pref_locale_selected).put("locale", locales[which].getDisplayName() + " - (" + locales[which].toString() + ")").format());
+					}
+				});
+				builder.create().show();
 				return true;
         	}
         });

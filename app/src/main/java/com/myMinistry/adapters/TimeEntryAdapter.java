@@ -3,6 +3,7 @@ package com.myMinistry.adapters;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.widget.ResourceCursorAdapter;
@@ -28,7 +29,6 @@ import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,8 +39,6 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
     private Calendar displayDateStart = Calendar.getInstance(Locale.getDefault());
     private Calendar displayDateEnd = Calendar.getInstance(Locale.getDefault());
     private MinistryService database;
-    private Entry entry = new Entry();
-    private ArrayList<Entry> entries;
     private int padding;
     private LayoutParams lp1, lp2, lp_v;
 
@@ -66,7 +64,6 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
     private class ViewHolder {
         LinearLayout linlay;
         TextView title;
-        TextView hours;
         TextView date;
         TextView timeStart;
         TextView timeEnd;
@@ -80,7 +77,6 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 
         holder.linlay = (LinearLayout) view.findViewById(R.id.linlay);
         holder.title = (TextView) view.findViewById(R.id.title);
-        holder.hours = (TextView) view.findViewById(R.id.hours);
         holder.date = (TextView) view.findViewById(R.id.date);
         holder.timeStart = (TextView) view.findViewById(R.id.timeStart);
         holder.timeEnd = (TextView) view.findViewById(R.id.timeEnd);
@@ -95,8 +91,8 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder holder = (ViewHolder) view.getTag();
 
-        entries = new ArrayList<Entry>();
-        entry = new Entry();
+        ArrayList<Entry> entries = new ArrayList<>();
+        Entry entry;
 
         /** Set the date for the view */
         String[] splits = cursor.getString(cursor.getColumnIndex(Time.DATE_START)).split("-");
@@ -162,12 +158,12 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         database.close();
 
         /** Set the display in the view as  Ddd, Mmm dd, H:MMTT - H:MMTT */
-        holder.date.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY | DateUtils.FORMAT_NO_YEAR));
+        holder.date.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY | DateUtils.FORMAT_SHOW_YEAR));
         holder.timeStart.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
         holder.timeEnd.setText(DateUtils.formatDateTime(context, displayDateEnd.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
 
         /** Set the display in the view as Xh Ym */
-        holder.hours.setText(TimeUtils.getTimeLength(displayDateStart, displayDateEnd, context.getString(R.string.hours_label), context.getString(R.string.minutes_label)));
+        //holder.hours.setText(TimeUtils.getTimeLength(displayDateStart, displayDateEnd, context.getString(R.string.hours_label), context.getString(R.string.minutes_label)));
 
         /** Set the display in the view for the header */
         holder.title.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE)));
@@ -183,12 +179,17 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
             holder.linlay.removeAllViews();
 
             int counter = 0;
-            for(Entry entry : entries) {
+            boolean emptyItem;
+            for(Entry entryitem : entries) {
                 counter++;
+                emptyItem = true;
                 LinearLayout ll = new LinearLayout(context);
                 ll.setLayoutParams(lp1);
                 ll.setOrientation(LinearLayout.VERTICAL);
-                ll.setPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
+                ll.setPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics())
+                            , (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (counter > 1) ? 5 : 0, context.getResources().getDisplayMetrics())
+                            , (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics())
+                            , (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
 
                 if(counter != 1) {
                     View vnew = new View(context);
@@ -198,7 +199,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                     holder.linlay.addView(vnew);
                 }
 
-                if(!TextUtils.isEmpty(entry.getHouseholder()) || !TextUtils.isEmpty(entry.getNotes()) || entry.pubs.size() > 0) {
+                if(!TextUtils.isEmpty(entryitem.getHouseholder()) || !TextUtils.isEmpty(entryitem.getNotes()) || entryitem.pubs.size() > 0) {
                     View v = new View(context);
                     LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams((Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) ? LayoutParams.MATCH_PARENT : LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
                     v.setLayoutParams(lp3);
@@ -207,7 +208,8 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                     TextView tv;
 
                     /** Show if NOT a return visit */
-                    if(!entry.isReturnVisit()) {
+                    if(!entryitem.isReturnVisit()) {
+                        emptyItem = false;
                         tv = new TextView(context);
 
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -227,34 +229,38 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                     }
 
                     /** Show Householder if exists */
-                    if(!TextUtils.isEmpty(entry.getHouseholder())) {
+                    if(!TextUtils.isEmpty(entryitem.getHouseholder())) {
+                        emptyItem = false;
                         tv = new TextView(context);
-                        tv.setText(entry.getHouseholder());
+                        tv.setText(entryitem.getHouseholder());
                         tv.setTextAppearance(context, android.R.attr.textAppearanceLarge);
                         tv.setTextColor(context.getResources().getColor(R.color.bg_card_title_text_holo_light));
+                        tv.setTypeface(null, Typeface.BOLD);
+                        tv.setPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics())
+                                , 0
+                                , (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics())
+                                , 0);
                         tv.setGravity(Gravity.CENTER_VERTICAL);
                         tv.setLayoutParams(lp1);
-                        tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_drawer_householder), null, null, null);
-                        tv.setCompoundDrawablePadding(padding);
 
                         ll.addView(tv);
                     }
 
                     /** Show Notes if exists */
-                    if(!TextUtils.isEmpty(entry.getNotes())) {
+                    if(!TextUtils.isEmpty(entryitem.getNotes())) {
                         ImageView iv = new ImageView(context);
                         iv.setPadding(0, 0, padding, 0);
-                        iv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_chat));
+                        //iv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_chat));
                         iv.setLayoutParams(lp2);
                         iv.setContentDescription(context.getResources().getString(R.string.form_notes));
 
                         tv = new TextView(context);
-                        tv.setText(entry.getNotes());
+                        tv.setText(entryitem.getNotes());
                         tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
                         tv.setTextColor(context.getResources().getColor(R.color.default_text));
                         tv.setGravity(Gravity.CENTER_VERTICAL);
                         tv.setLayoutParams(lp2);
-                        tv.setPadding(0, padding, 0, 0);
+                        tv.setPadding(0, (emptyItem) ? 0 : padding, 0, 0);
 
                         LinearLayout linlay = new LinearLayout(context);
                         linlay.setLayoutParams(lp1);
@@ -266,7 +272,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                     }
 
                     /** Load the publications for the entry */
-                    for(PublicationItem item : entry.pubs) {
+                    for(PublicationItem item : entryitem.pubs) {
                         tv = new TextView(context);
                         tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
                         tv.setTextColor(context.getResources().getColor(R.color.default_text));
@@ -297,14 +303,10 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
             litTypeID = _litTypeID;
             count = _count;
             iconRes = Helper.getIconResIDByLitTypeID(_litTypeID);
-        };
+        }
 
         public String toString() {
             return "(" + count + ") " + title;
-        }
-
-        public int getIconResID() {
-            return iconRes;
         }
     }
 
@@ -313,13 +315,12 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         public String householder;
         public String notes;
         public boolean return_visit;
-        public boolean showDivider;
 
         public Entry() {
-            pubs = new ArrayList<PublicationItem>();
+            pubs = new ArrayList<>();
             householder = "";
             notes = "";
-        };
+        }
 
         public void setHouseholder(String string) {
             householder = string;
@@ -338,10 +339,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         }
 
         public void setIsReturnVisit(int val) {
-            if(val == 0)
-                return_visit = false;
-            else
-                return_visit = true;
+            return_visit = val != 0;
         }
 
         public String getNotes() {
@@ -350,10 +348,6 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 
         public void addPublication(PublicationItem _pub) {
             pubs.add(_pub);
-        }
-
-        public ArrayList<PublicationItem> getPublications() {
-            return pubs;
         }
     }
 }

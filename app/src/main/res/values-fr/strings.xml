@@ -161,5 +161,6 @@
     <string name="pref_locale">Langue</string>
     <string name="pref_locale_selected">Courant: {locale}</string>
     <string name="custom">coutume</string>
+    <string name="default_videos">Vidéos</string>
 
 </resources>

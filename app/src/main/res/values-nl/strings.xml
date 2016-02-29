@@ -161,5 +161,6 @@
     <string name="pref_locale">Taal</string>
     <string name="pref_locale_selected">Huidige: {locale}</string>
     <string name="custom">gewoonte</string>
+    <string name="default_videos">Videos</string>
 
 </resources>

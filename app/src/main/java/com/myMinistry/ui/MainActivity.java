@@ -28,7 +28,7 @@ import com.myMinistry.fragments.EntryTypeManagerFrag;
 import com.myMinistry.fragments.HouseholdersFragment;
 import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublishersFragment;
-import com.myMinistry.fragments.SummaryFragment;
+import com.myMinistry.fragments.SummaryNavigationFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.HelpUtils;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean firstLoad = true;
 
-    private int getDefaultNavDrawerItem() { return R.id.drawer_db; }
+    private int getDefaultNavDrawerItem() { return R.id.drawer_summary; }
 
     @Override
     public void onResume() {
@@ -201,6 +201,39 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId) {
             case R.id.drawer_summary:
                 Calendar date = Calendar.getInstance(Locale.getDefault());
+
+                if(!(frag instanceof SummaryNavigationFragment)) {
+                    if(firstLoad)
+                        PrefUtils.setSummaryMonthAndYear(this, date);
+
+                    new SummaryNavigationFragment();
+                    SummaryNavigationFragment f = SummaryNavigationFragment.newInstance(PrefUtils.getPublisherId(this));
+                    // test
+                    ft.replace(R.id.primary_fragment_container, f);
+
+                    if(!firstLoad)
+                        ft.addToBackStack(null);
+
+                    ft.commit();
+                }
+                else {
+                    date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
+                    date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
+
+                    SummaryNavigationFragment f = (SummaryNavigationFragment) fm.findFragmentById(R.id.primary_fragment_container);
+                    f.setPublisherId(PrefUtils.getPublisherId(this));
+                    f.setDate(date);
+                    /*
+                    f.calculateSummaryValues();
+                    f.refresh(SummaryNavigationFragment.DIRECTION_NO_CHANGE);
+                    */
+                }
+
+
+                /*
+
+
+
                 if(!(frag instanceof SummaryFragment)) {
                     if(firstLoad)
                         PrefUtils.setSummaryMonthAndYear(this, date);
@@ -225,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
                     f.calculateSummaryValues();
                     f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
                 }
+
+                */
 
                 firstLoad = false;
                 return true;

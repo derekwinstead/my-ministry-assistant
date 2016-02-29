@@ -37,12 +37,12 @@ public class PublisherDialogFragment extends DialogFragment {
 		final MinistryService database = new MinistryService(getActivity());
 		adapter = new DialogItemAdapter(getActivity().getApplicationContext());
 		
-		adapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_with_plus), R.drawable.ic_drawer_publisher, CREATE_ID));
+		adapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_with_plus), R.drawable.ic_drawer_publisher_female, CREATE_ID));
 		
 		database.openWritable();
 		final Cursor cursor = database.fetchActivePublishers();
         while(cursor.moveToNext())
-        	adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher, cursor.getInt(cursor.getColumnIndex(Publisher._ID))));
+        	adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher_female, cursor.getInt(cursor.getColumnIndex(Publisher._ID))));
         cursor.close();
         database.close();
         

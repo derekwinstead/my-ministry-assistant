@@ -59,6 +59,7 @@
     <string name="default_magazines">Magazines</string>
     <string name="default_media">Media</string>
     <string name="default_tracts">Tracts</string>
+    <string name="default_videos">Videos</string>
     <string name="default_pioneering">Regular Pioneering</string>
     <string name="default_pioneering_aux">Auxiliary Pioneering</string>
     <string name="default_pioneering_aux_special">Special Auxiliary Pioneering</string>

@@ -298,17 +298,17 @@ public class MinistryService {
 
     public Cursor fetchPublisher(int _id) {
         return sqlDB.query(Tables.PUBLISHERS
-                ,new String[] {Publisher._ID,Publisher.NAME,Publisher.ACTIVE}
-                ,Publisher._ID + " = " + _id
-                ,null
-                ,null
-                ,null
-                ,null
-                ,"1");
+                , new String[]{Publisher._ID, Publisher.NAME, Publisher.ACTIVE}
+                , Publisher._ID + " = " + _id
+                , null
+                , null
+                , null
+                , null
+                , "1");
     }
 
     public long createPublisher(ContentValues values) {
-        return sqlDB.insert(Tables.PUBLISHERS,null,values);
+        return sqlDB.insert(Tables.PUBLISHERS, null, values);
     }
 
     public long createPublication(ContentValues values) {
@@ -316,7 +316,7 @@ public class MinistryService {
     }
 
     public Cursor fetchActiveHouseholders() {
-        return sqlDB.query(Tables.HOUSEHOLDERS, new String[] {Householder._ID, Householder.NAME}, Householder.ACTIVE + " = 1", null, null, null, Householder.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.HOUSEHOLDERS, new String[]{Householder._ID, Householder.NAME}, Householder.ACTIVE + " = 1", null, null, null, Householder.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllHouseholdersWithActivityDates() {
@@ -331,28 +331,28 @@ public class MinistryService {
 
     public Cursor fetchHouseholder(int _id) {
         return sqlDB.query(Tables.HOUSEHOLDERS
-                ,new String[] {Householder._ID,Householder.NAME,Householder.ADDR,Householder.MOBILE_PHONE,Householder.HOME_PHONE,Householder.WORK_PHONE,Householder.OTHER_PHONE,Householder.ACTIVE}
-                ,Householder._ID + " = " + _id
-                ,null
-                ,null
-                ,null
-                ,null
-                ,"1");
+                , new String[]{Householder._ID, Householder.NAME, Householder.ADDR, Householder.MOBILE_PHONE, Householder.HOME_PHONE, Householder.WORK_PHONE, Householder.OTHER_PHONE, Householder.ACTIVE}
+                , Householder._ID + " = " + _id
+                , null
+                , null
+                , null
+                , null
+                , "1");
     }
 
     public long createHouseholder(ContentValues values) {
-        return sqlDB.insert(Tables.HOUSEHOLDERS,null,values);
+        return sqlDB.insert(Tables.HOUSEHOLDERS, null, values);
     }
 
     public Cursor fetchTimeEntry(int _id) {
         return sqlDB.query(Tables.TIMES
-                ,new String[] {Time._ID,Time.PUBLISHER_ID,Time.ENTRY_TYPE_ID,Time.DATE_START,Time.DATE_END,Time.TIME_START,Time.TIME_END}
-                ,Time._ID + " = " + _id
-                ,null
-                ,null
-                ,null
-                ,null
-                ,"1");
+                , new String[]{Time._ID, Time.PUBLISHER_ID, Time.ENTRY_TYPE_ID, Time.DATE_START, Time.DATE_END, Time.TIME_START, Time.TIME_END}
+                , Time._ID + " = " + _id
+                , null
+                , null
+                , null
+                , null
+                , "1");
     }
 
     public Cursor fetchActiveEntryTypes() {
@@ -398,7 +398,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllPublicationTypes() {
-        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[] {LiteratureType._ID,LiteratureType.NAME,LiteratureType.ACTIVE}, null, null, null, null, LiteratureType.DEFAULT_SORT);
+        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE}, null, null, null, null, LiteratureType.DEFAULT_SORT);
     }
 
     public Cursor fetchAllPublicationTypes(String sort) {
@@ -420,7 +420,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllEntryTypesButID(int id) {
-        return sqlDB.query(Tables.ENTRY_TYPES, new String[] {EntryType._ID,EntryType.NAME}, EntryType._ID + " NOT IN (" + id + "," + MinistryDatabase.ID_ROLLOVER + ")", null, null, null, EntryType.DEFAULT_SORT);
+        return sqlDB.query(Tables.ENTRY_TYPES, new String[]{EntryType._ID, EntryType.NAME}, EntryType._ID + " NOT IN (" + id + "," + MinistryDatabase.ID_ROLLOVER + ")", null, null, null, EntryType.DEFAULT_SORT);
     }
 
     public Cursor fetchEntryType(int _id) {
@@ -468,6 +468,42 @@ public class MinistryService {
                 + " ORDER BY " + LiteratureType.DEFAULT_SORT;
 
         return sqlDB.rawQuery(sql, null);
+    }
+
+    public int fetchPlacementsCountForPublisher(int publisherId, String formattedDate, String timeFrame) {
+        int retVal = 0;
+        String sql =  "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+                + " FROM " + Tables.PLACED_LITERATURE
+                + Joins.LITERATURE_JOIN_PLACED_LITERATURE
+                + " WHERE " + Qualified.PLACED_LITERATURE_PUBLISHER_ID + " = " + publisherId
+                + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") >= date('" + formattedDate + "','start of month')"
+                + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "')"
+                + " AND " + Qualified.LITERATURE_TYPE_ID_LINK + " <> " + MinistryDatabase.ID_VIDEOS_TO_SHOW;
+
+        Cursor record = sqlDB.rawQuery(sql, null);
+        if(record.moveToFirst())
+            retVal = record.getInt(0);
+        if(record != null && !record.isClosed())
+            record.close();
+        return retVal;
+    }
+
+    public int fetchVideoShowingsCountForPublisher(int publisherId, String formattedDate, String timeFrame) {
+        int retVal = 0;
+        String sql =  "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+                + " FROM " + Tables.PLACED_LITERATURE
+                + Joins.LITERATURE_JOIN_PLACED_LITERATURE
+                + " WHERE " + Qualified.PLACED_LITERATURE_PUBLISHER_ID + " = " + publisherId
+                + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") >= date('" + formattedDate + "','start of month')"
+                + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "')"
+                + " AND " + Qualified.LITERATURE_TYPE_ID_LINK + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW;
+
+        Cursor record = sqlDB.rawQuery(sql, null);
+        if(record.moveToFirst())
+            retVal = record.getInt(0);
+        if(record != null && !record.isClosed())
+            record.close();
+        return retVal;
     }
 
     public Cursor fetchEntryTypeCountsForPublisher(int publisherId, String formattedDate, String timeFrame) {

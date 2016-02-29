@@ -161,5 +161,6 @@
     <string name="pref_locale">Nyelv</string>
     <string name="pref_locale_selected">Aktuális: {locale}</string>
     <string name="custom">szokás</string>
+    <string name="default_videos">Videók</string>
 
 </resources>
