@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-String VERSION_NAME = '4.09'
-int VERSION_CODE = 218
+int VERSION_CODE = 219
+String VERSION_NAME = '4.1'
 String APK_NAME = "myministryassistant"
 
 android {
@@ -11,7 +11,7 @@ android {
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId 'com.myMinistry'
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode VERSION_CODE
         versionName VERSION_NAME
