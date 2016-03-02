@@ -7,11 +7,12 @@
         android:orderInCategory="10"
         android:title="@string/menu_send_report"
         app:showAsAction="always|withText"/>
+    <!---
     <item
         android:id="@+id/summary_add_item"
         android:icon="@drawable/ic_action_new_event"
         android:orderInCategory="20"
         android:title="@string/menu_add_time"
         app:showAsAction="always|withText"/>
-
+-->
 </menu>

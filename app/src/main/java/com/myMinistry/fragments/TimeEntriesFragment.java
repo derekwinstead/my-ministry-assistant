@@ -4,14 +4,12 @@ import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -37,6 +35,8 @@ public class TimeEntriesFragment extends ListFragment {
     private boolean is_dual_pane = false;
 	
 	private FragmentManager fm;
+
+	private FloatingActionButton fab;
 	
 	private MinistryService database;
 	private Cursor entries = null;
@@ -56,12 +56,12 @@ public class TimeEntriesFragment extends ListFragment {
         f.setArguments(args);
         return f;
     }
-	
+	/*
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.time_entries, menu);
 	}
-    
+    */
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.time_entries, container, false);
@@ -81,7 +81,7 @@ public class TimeEntriesFragment extends ListFragment {
 	        if(args.containsKey(ARG_PUBLISHER_ID))
 	        	setPublisherId(args.getInt(ARG_PUBLISHER_ID));
         }
-        
+        /*
         view.findViewById(R.id.tv_add_item).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -102,21 +102,23 @@ public class TimeEntriesFragment extends ListFragment {
 		    	ft.commit();
 			}
 		});
-
+*/
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
     	setListAdapter(adapter);
     	
 
-    	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+    	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
     	spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
     	
     	for(String name : getResources().getStringArray(R.array.summary_time_span)) {
     		spinnerArrayAdapter.add(name);
     	}
     	
-    	ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<String>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
+    	ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
     	spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
+
+		fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
 		return view;
 	}
@@ -166,7 +168,14 @@ public class TimeEntriesFragment extends ListFragment {
 		
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 		
-		setHasOptionsMenu(!is_dual_pane);
+		//setHasOptionsMenu(!is_dual_pane);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
+            }
+        });
 
     	calculateValues();
     	updateList();
@@ -187,7 +196,7 @@ public class TimeEntriesFragment extends ListFragment {
 	public void refresh() {
 		updateList();
 	}
-
+/*
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -199,4 +208,5 @@ public class TimeEntriesFragment extends ListFragment {
 		
 		return super.onOptionsItemSelected(item);
 	}
+    */
 }

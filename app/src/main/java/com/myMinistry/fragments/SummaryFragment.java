@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -45,6 +46,8 @@ public class SummaryFragment extends Fragment {
     private boolean is_dual_pane = false;
     
     private String mMonth, mYear, mBSText, mRVText, mTotalHoursCount, mPlacementsCount, mVideoShowings, mRVCount, mBSCount, mRBCText, mRBCCount = "";
+
+	private FloatingActionButton fab;
     
     //private Spinner publishers, view_type;
     private TextView month, year, total_hours_count, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, rbc_text, rbc_count, placements_count, video_showings;
@@ -102,7 +105,7 @@ public class SummaryFragment extends Fragment {
 		placements_count = (TextView) root.findViewById(R.id.placements_count);
 		video_showings = (TextView) root.findViewById(R.id.video_showings);
 
-
+		fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
 		//tv_pub_text_0 = (TextView) root.findViewById(R.id.tv_pub_text_0);
 		//tv_pub_count_0 = (TextView) root.findViewById(R.id.tv_pub_count_0);
@@ -206,6 +209,18 @@ public class SummaryFragment extends Fragment {
 			view_type.setVisibility(View.GONE);
 		}
 		*/
+
+		if(is_dual_pane) {
+			fab.setVisibility(View.GONE);
+		} else {
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
+				}
+			});
+		}
+
 		calculateSummaryValues();
 		fillPublisherSummary();
 		
@@ -414,11 +429,12 @@ public class SummaryFragment extends Fragment {
 	    		startActivity(Intent.createChooser(share, getResources().getString(R.string.menu_send_report)));
 	        	
 	    		return true;
-	        	
+	        	/*
 			case R.id.summary_add_item:
 				((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
 				
 				return true;
+				*/
 		}
 		
 		return super.onOptionsItemSelected(item);

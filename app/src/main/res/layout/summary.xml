@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:divider="@drawable/separator"
             android:orientation="vertical"
             android:paddingBottom="@dimen/default_padding_half"
             android:paddingLeft="@dimen/default_padding"
-            android:paddingRight="@dimen/default_padding">
+            android:paddingRight="@dimen/default_padding"
+            android:showDividers="middle">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -37,16 +40,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:text="1"
+                    android:text="55"
                     android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navdrawer_divider" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -71,18 +70,15 @@
                     android:layout_alignParentRight="true"
                     android:text="1"
                     android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navdrawer_divider" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:paddingBottom="@dimen/default_padding_two_third"
                 android:paddingTop="@dimen/default_padding">
 
@@ -103,27 +99,25 @@
                     android:layout_alignParentRight="true"
                     android:text="1"
                     android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navdrawer_divider" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:paddingBottom="@dimen/default_padding_two_third"
                 android:paddingTop="@dimen/default_padding">
 
                 <TextView
+                    android:id="@+id/return_visits_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="Return Visits"
+                    android:text="@string/default_return_visit"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -135,27 +129,25 @@
                     android:layout_alignParentRight="true"
                     android:text="1"
                     android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navdrawer_divider" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:paddingBottom="@dimen/default_padding_two_third"
                 android:paddingTop="@dimen/default_padding">
 
                 <TextView
+                    android:id="@+id/bible_studies_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="Number of Different Bible Studies Conducted"
+                    android:text="@string/default_bible_study"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textsizeMD" />
 
@@ -167,14 +159,10 @@
                     android:layout_alignParentRight="true"
                     android:text="1"
                     android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/navdrawer_divider" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -200,10 +188,12 @@
                     android:layout_alignParentRight="true"
                     android:text="1"
                     android:textColor="@color/appbasetheme_color"
+                    android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+    <include layout="@layout/fab_add_time" />
+</RelativeLayout>
