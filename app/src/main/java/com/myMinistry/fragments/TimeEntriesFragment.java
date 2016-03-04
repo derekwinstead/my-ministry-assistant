@@ -1,8 +1,6 @@
 package com.myMinistry.fragments;
 
-import android.annotation.TargetApi;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -56,12 +54,7 @@ public class TimeEntriesFragment extends ListFragment {
         f.setArguments(args);
         return f;
     }
-	/*
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.time_entries, menu);
-	}
-    */
+
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.time_entries, container, false);
@@ -81,28 +74,7 @@ public class TimeEntriesFragment extends ListFragment {
 	        if(args.containsKey(ARG_PUBLISHER_ID))
 	        	setPublisherId(args.getInt(ARG_PUBLISHER_ID));
         }
-        /*
-        view.findViewById(R.id.tv_add_item).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-				
-				FragmentTransaction ft = fm.beginTransaction();
-		    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		    	
-		    	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-		    	TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(publisherId);
-		    	
-		    	if(frag != null)
-		    		ft.remove(frag);
-		    	
-		    	ft.add(LAYOUT_ID, f);
-		    	ft.addToBackStack(null);
-		    	
-		    	ft.commit();
-			}
-		});
-*/
+
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
     	setListAdapter(adapter);
@@ -160,15 +132,11 @@ public class TimeEntriesFragment extends ListFragment {
     	}
 	}
     
-	@TargetApi(Build.VERSION_CODES.FROYO)
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onActivityCreated(Bundle savedState) {
 		super.onActivityCreated(savedState);
 		
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-		
-		//setHasOptionsMenu(!is_dual_pane);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,17 +164,4 @@ public class TimeEntriesFragment extends ListFragment {
 	public void refresh() {
 		updateList();
 	}
-/*
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.time_entries_add_item:
-				((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
-				
-				return true;
-		}
-		
-		return super.onOptionsItemSelected(item);
-	}
-    */
 }
