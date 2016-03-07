@@ -9,7 +9,7 @@
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="alertDialogTheme">@style/AlertDialogStyle</item>
     </style>
 </resources>
