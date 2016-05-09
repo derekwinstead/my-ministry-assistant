@@ -361,4 +361,17 @@ public class SummaryNavigationFragment extends Fragment {
             }
         }
     }
+/*
+    @Override
+    public void OnDestory() {
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag = fm.findFragmentById(R.id.summary_navigation_button_content);
+
+        if(frag != null) { ft.remove(frag); }
+
+        ft.commit();
+
+        super.onDestroy();
+    }
+    */
 }

@@ -94,7 +94,7 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
                 valueTV.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(Helper.getIconResIDByLitTypeID(cursorpubs.getInt(cursorpubs.getColumnIndex(Literature.TYPE_OF_LIERATURE_ID)))), null, null, null);
                 valueTV.setCompoundDrawablePadding(padding);
                 valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
-                valueTV.setTextAppearance(context, android.R.attr.textAppearanceMedium);
+                //valueTV.setTextAppearance(context, android.R.attr.textAppearanceMedium);
                 valueTV.setTextColor(context.getResources().getColor(R.color.bg_card_title_text_holo_light));
                 valueTV.setGravity(Gravity.CENTER_VERTICAL);
 

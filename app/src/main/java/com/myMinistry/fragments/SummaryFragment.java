@@ -229,8 +229,8 @@ public class SummaryFragment extends Fragment {
 					retVal.append("\n").append(lit.getString(lit.getColumnIndex(LiteratureType.NAME))).append(": ");
 					retVal.append(String.valueOf(lit.getInt(2)));
 				}
-	    	}
-	    	lit.close();
+			}
+			lit.close();
 	    	
 	    	/** Now for the other entry types */
 	    	Cursor entryTypes = database.fetchEntryTypeCountsForPublisher(pubs.getInt(pubs.getColumnIndex(Publisher._ID)), formattedDate, "month");

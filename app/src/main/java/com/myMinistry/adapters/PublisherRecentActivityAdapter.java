@@ -1,10 +1,8 @@
 package com.myMinistry.adapters;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -45,17 +43,12 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
     private LayoutParams lp2;
 
     @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.FROYO)
     public PublisherRecentActivityAdapter(Context context, Cursor cursor) {
         super(context, LAYOUT_ID, cursor, ResourceCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         database = new MinistryService(context);
         padding = Helper.dipsToPix(context, 5);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO)
-            lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-        else
-            lp1 = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
-
+        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
         lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
     }
 
@@ -82,7 +75,6 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
     }
 
     @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder holder = (ViewHolder) view.getTag();
@@ -167,7 +159,7 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
 
         for(Entry entry : entries) {
             View v = new View(context);
-            LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams((Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) ? LayoutParams.MATCH_PARENT : LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
+            LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
             lp3.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
             v.setLayoutParams(lp3);
             v.setBackgroundColor(context.getResources().getColor(R.color.navdrawer_divider));

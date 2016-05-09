@@ -43,20 +43,13 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
     private LayoutParams lp1, lp2, lp_v;
 
     @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.FROYO)
     public TimeEntryAdapter(Context context, Cursor cursor) {
         super(context, LAYOUT_ID, cursor, ResourceCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         database = new MinistryService(context);
         padding = Helper.dipsToPix(context, 5);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-            lp_v = new LayoutParams(LayoutParams.MATCH_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
-        } else {
-            lp1 = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
-            lp_v = new LayoutParams(LayoutParams.FILL_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
-        }
-
+        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+        lp_v = new LayoutParams(LayoutParams.MATCH_PARENT,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
         lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 
     }

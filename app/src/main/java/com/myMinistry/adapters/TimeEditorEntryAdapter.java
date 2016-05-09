@@ -32,7 +32,6 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
     private LayoutParams lp2;
 
     @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.FROYO)
     public TimeEditorEntryAdapter(Context context, ArrayList<HouseholderForTime> entries) {
         super(context, LAYOUT_ID, entries);
         this.context = context;
@@ -40,11 +39,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 
         padding = Helper.dipsToPix(context, 5);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO)
-            lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-        else
-            lp1 = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
-
+        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
         lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
     }
 
