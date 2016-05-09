@@ -59,11 +59,11 @@ public class MinistryService {
     }
 
     public Cursor fetchActivePublishers() {
-        return sqlDB.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE }, Publisher.ACTIVE + "=" + ACTIVE, null, null, null, Publisher.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER }, Publisher.ACTIVE + "=" + ACTIVE, null, null, null, Publisher.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllPublishers(SQLiteDatabase db) {
-        return db.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE }, null, null, null, null, Publisher.DEFAULT_SORT, null);
+        return db.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER }, null, null, null, null, Publisher.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllPublishers() {
@@ -298,7 +298,7 @@ public class MinistryService {
 
     public Cursor fetchPublisher(int _id) {
         return sqlDB.query(Tables.PUBLISHERS
-                , new String[]{Publisher._ID, Publisher.NAME, Publisher.ACTIVE}
+                , new String[]{Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER}
                 , Publisher._ID + " = " + _id
                 , null
                 , null

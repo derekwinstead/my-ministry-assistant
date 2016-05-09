@@ -155,15 +155,18 @@ public class MinistryContract {
         String NAME = "name";
         /** Active flag. */
         String ACTIVE = "isActive";
+        /** Gender of publisher. */
+        String GENDER = "gender";
     }
 
     public static class Publisher implements PublisherColumns, BaseColumns {
         public static final String DEFAULT_SORT = PublisherColumns.ACTIVE + " DESC, " + PublisherColumns.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE};
+        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,GENDER};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.PUBLISHERS + " ("
                 + 		_ID		+ " INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "," + NAME	+ " TEXT"
-                + "," + ACTIVE	+ " INTEGER DEFAULT 1)";
+                + "," + ACTIVE	+ " INTEGER DEFAULT 1"
+                + "," + GENDER	+ " TEXT)";
     }
 
     interface LiteraturePlacedColumns {

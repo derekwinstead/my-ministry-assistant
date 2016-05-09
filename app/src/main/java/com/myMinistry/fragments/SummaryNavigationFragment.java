@@ -267,22 +267,26 @@ public class SummaryNavigationFragment extends Fragment {
     private void loadPublisherAdapter() {
         int initialSelection = 0;
         // Add new publisher item
-        pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_female, MinistryDatabase.CREATE_ID));
+        pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, MinistryDatabase.CREATE_ID));
 
         database.openWritable();
         final Cursor cursor = database.fetchActivePublishers();
         while(cursor.moveToNext()) {
             if(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID)) == publisherId)
                 initialSelection = pubsAdapter.getCount();
-            pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME)), R.drawable.ic_drawer_publisher_female, cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
+            pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME))
+                    ,getResources().getIdentifier("ic_drawer_publisher_" + cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
+                    ,cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
         }
         cursor.close();
         database.close();
 
         pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         publishers.setAdapter(pubsAdapter);
+
         if(initialSelection != 0)
             publishers.setSelection(initialSelection);
+
         publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {

@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Courant: {locale}</string>
     <string name="custom">coutume</string>
     <string name="default_videos">Vidéos</string>
+    <string name="form_gender">Le Genre</string>
+    <string name="gender_male">Mâle</string>
+    <string name="gender_female">Femelle</string>
 
 </resources>

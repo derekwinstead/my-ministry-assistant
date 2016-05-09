@@ -20,10 +20,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.myMinistry.R;
+import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEntryAdapter;
+import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -45,6 +48,12 @@ public class PublisherEditorFragment extends ListFragment {
 	private TimeEntryAdapter adapter;
 	private FragmentManager fm;
 	private FloatingActionButton fab;
+	private Spinner gender_type;
+
+    private NavDrawerMenuItemAdapter genderAdapter;
+
+    private static final int GENDER_MALE = 0;
+    private static final int GENDER_FEMALE = 1;
 	
 	public PublisherEditorFragment newInstance() {
     	return new PublisherEditorFragment();
@@ -76,10 +85,13 @@ public class PublisherEditorFragment extends ListFragment {
 		setHasOptionsMenu(true);
 		
 		fm = getActivity().getSupportFragmentManager();
+
+        genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 		
 		et_name = (EditText) root.findViewById(R.id.et_name);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
 		fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        gender_type = (Spinner) root.findViewById(R.id.gender_type);
 		
     	adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
     	setListAdapter(adapter);
@@ -108,7 +120,7 @@ public class PublisherEditorFragment extends ListFragment {
     	
     	if(!is_dual_pane)
     		getActivity().setTitle(R.string.title_publisher_edit);
-    	
+
     	fillForm();
 	}
 	
@@ -124,6 +136,7 @@ public class PublisherEditorFragment extends ListFragment {
     				ContentValues values = new ContentValues();
     				values.put(Publisher.NAME, et_name.getText().toString().trim());
 					values.put(Publisher.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
+                    values.put(Publisher.GENDER, (gender_type.getSelectedItemPosition() == GENDER_MALE) ? "male" : "female");
 					
 					database.openWritable();
 					if(publisherId > 0) {
@@ -265,7 +278,15 @@ public class PublisherEditorFragment extends ListFragment {
     }
     
     public void fillForm() {
-    	et_name.setError(null);
+        int initialSelection = 0;
+
+        genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));
+        genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_female), R.drawable.ic_drawer_publisher_female, GENDER_FEMALE));
+
+        genderAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        gender_type.setAdapter(genderAdapter);
+
+        et_name.setError(null);
     	if(publisherId == CREATE_ID) {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
@@ -284,6 +305,12 @@ public class PublisherEditorFragment extends ListFragment {
 	    	if(publisher.moveToFirst()) {
 	    		et_name.setText(publisher.getString(publisher.getColumnIndex(Publisher.NAME)));
 	    		cb_is_active.setChecked(publisher.getInt(publisher.getColumnIndex(Publisher.ACTIVE)) == 1);
+
+                int position = GENDER_MALE;
+                if(publisher.getString(publisher.getColumnIndex(Publisher.GENDER)).equals("female"))
+                    position = GENDER_FEMALE;
+
+                gender_type.setSelection(position);
 	    	}
 	    	else {
 	    		et_name.setText("");

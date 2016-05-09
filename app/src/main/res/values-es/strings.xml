@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Actual: {locale}</string>
     <string name="custom">Personalizado</string>
     <string name="default_videos">Vídeos</string>
+    <string name="form_gender">Género</string>
+    <string name="gender_male">Masculino</string>
+    <string name="gender_female">Hembra</string>
 
 </resources>

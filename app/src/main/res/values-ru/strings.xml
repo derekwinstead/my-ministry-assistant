@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Ток: {locale}</string>
     <string name="custom">обычай</string>
     <string name="default_videos">Видео</string>
+    <string name="form_gender">Пол</string>
+    <string name="gender_male">мужчина</string>
+    <string name="gender_female">женский</string>
 
 </resources>

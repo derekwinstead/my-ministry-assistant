@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Strøm: {locale}</string>
     <string name="custom">Brugerdefineret</string>
     <string name="default_videos">Videoer</string>
+    <string name="form_gender">Køn</string>
+    <string name="gender_male">Han</string>
+    <string name="gender_female">Kvinde</string>
 
 </resources>

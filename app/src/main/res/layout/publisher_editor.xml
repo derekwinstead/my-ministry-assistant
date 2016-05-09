@@ -19,6 +19,11 @@
             android:inputType="textCapSentences"
             android:paddingTop="@dimen/default_padding_half" />
 
+        <Spinner
+            android:id="@+id/gender_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <CheckBox
             android:id="@+id/cb_is_active"
             android:layout_width="wrap_content"

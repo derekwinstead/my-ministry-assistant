@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Corrente: {locale}</string>
     <string name="custom">abitudine</string>
     <string name="default_videos">Video</string>
+    <string name="form_gender">Genere</string>
+    <string name="gender_male">Maschio</string>
+    <string name="gender_female">Femmina</string>
 
 </resources>

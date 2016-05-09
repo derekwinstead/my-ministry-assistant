@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Aktuális: {locale}</string>
     <string name="custom">szokás</string>
     <string name="default_videos">Videók</string>
+    <string name="form_gender">nem</string>
+    <string name="gender_male">Férfi</string>
+    <string name="gender_female">Női</string>
 
 </resources>

@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Huidige: {locale}</string>
     <string name="custom">gewoonte</string>
     <string name="default_videos">Videos</string>
+    <string name="form_gender">Geslacht</string>
+    <string name="gender_male">Mannetje</string>
+    <string name="gender_female">Vrouw</string>
 
 </resources>

@@ -162,5 +162,8 @@
     <string name="pref_locale_selected">Saat: {locale}</string>
     <string name="custom">adat</string>
     <string name="default_videos">Video</string>
+    <string name="form_gender">Jenis kelamin</string>
+    <string name="gender_male">Pria</string>
+    <string name="gender_female">Wanita</string>
 
 </resources>

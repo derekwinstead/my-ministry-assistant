@@ -89,8 +89,9 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     private static final int VER_ADD_IS_RETURN_VISIT = 11;
     private static final int VER_ADD_HOUSEHOLDER_SORT_ORDER = 12;
     private static final int VER_ADD_VIDEOS_TO_SHOW = 13;
+    private static final int VER_ADD_PUBLISHER_GENDERS = 14;
 
-    public static final int DATABASE_VERSION = VER_ADD_HOUSEHOLDER_SORT_ORDER;
+    public static final int DATABASE_VERSION = VER_ADD_PUBLISHER_GENDERS;
 
     interface Tables {
         String ENTRY_TYPES = "entryTypes";
@@ -317,7 +318,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 Cursor cursor = db.rawQuery("SELECT * FROM " + Tables.TYPES_OF_LIERATURE + " WHERE " + LiteratureType._ID + " = " + ID_TRACTS, null);
                 ContentValues values = new ContentValues();
 
-                if(cursor.moveToFirst()) {
+                if (cursor.moveToFirst()) {
                     values.put(LiteratureType.NAME, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)));
                     values.put(LiteratureType.ACTIVE, cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)));
                     values.put(LiteratureType.SORT_ORDER, cursor.getInt(cursor.getColumnIndex(LiteratureType.SORT_ORDER)));
@@ -331,8 +332,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                     values.put(LiteratureType.SORT_ORDER, ID_TRACTS);
 
                     db.update(Tables.TYPES_OF_LIERATURE, values, BaseColumns._ID + "=" + ID_TRACTS, null);
-                }
-                else {
+                } else {
                     values.put(LiteratureType._ID, MinistryDatabase.ID_TRACTS);
                     values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_tracts));
                     values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
@@ -359,15 +359,15 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 Cursor pubs = database.fetchAllPublishers(db);
                 Cursor theDate, ro;
 
-                for(pubs.moveToFirst();!pubs.isAfterLast();pubs.moveToNext()) {
+                for (pubs.moveToFirst(); !pubs.isAfterLast(); pubs.moveToNext()) {
                     found = false;
                     pubID = pubs.getInt(pubs.getColumnIndex(Publisher._ID));
                     values.put(Rollover.PUBLISHER_ID, pubID);
 
                     /** Get first RO date for publisher */
-                    theDate = db.query(Tables.ROLLOVER, new String[] {Rollover._ID,Rollover.DATE}, Rollover.PUBLISHER_ID + " = " + pubID, null, null, null, Rollover.DATE, "1");
+                    theDate = db.query(Tables.ROLLOVER, new String[]{Rollover._ID, Rollover.DATE}, Rollover.PUBLISHER_ID + " = " + pubID, null, null, null, Rollover.DATE, "1");
 
-                    if(theDate.moveToFirst()) {
+                    if (theDate.moveToFirst()) {
                         found = true;
                         try {
                             start.setTime(TimeUtils.dbDateFormat.parse(theDate.getString(theDate.getColumnIndex(Rollover.DATE))));
@@ -377,11 +377,11 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                     }
                     theDate.close();
 
-                    if(found) {
+                    if (found) {
                         do {
                             minutes += Integer.valueOf(Helper.getMinuteDuration(database.fetchListOfHoursForMonthForPublisher(db, TimeUtils.dbDateFormat.format(start.getTime()), pubID)));
 
-                            if(minutes >= 60)
+                            if (minutes >= 60)
                                 minutes -= 60;
 
                             values.put(Rollover.DATE, TimeUtils.dbDateFormat.format(start.getTime()));
@@ -389,13 +389,13 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
                             /** Save the minutes back to the RO table */
                             ro = database.fetchRolloverRecord(db, pubID, TimeUtils.dbDateFormat.format(start.getTime()));
-                            if(ro.moveToFirst())
+                            if (ro.moveToFirst())
                                 database.saveRolloverMinutes(db, ro.getInt(ro.getColumnIndex(Rollover._ID)), values);
                             else
                                 database.createRolloverMinutes(db, values);
                             ro.close();
                             start.add(Calendar.MONTH, 1);
-                        } while(start.before(now));
+                        } while (start.before(now));
                     }
                 }
 
@@ -424,15 +424,15 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 versionBackup(version);
                 boolean shouldAlterTable = true;
                 Cursor checkCols = db.rawQuery("PRAGMA table_info(" + Tables.TIME_HOUSEHOLDERS + ")", null);
-                for(checkCols.moveToFirst();!checkCols.isAfterLast();checkCols.moveToNext()) {
-                    if(checkCols.getString(checkCols.getColumnIndex("name")).equals(TimeHouseholder.RETURN_VISIT)) {
+                for (checkCols.moveToFirst(); !checkCols.isAfterLast(); checkCols.moveToNext()) {
+                    if (checkCols.getString(checkCols.getColumnIndex("name")).equals(TimeHouseholder.RETURN_VISIT)) {
                         shouldAlterTable = false;
                         break;
                     }
                 }
                 checkCols.close();
 
-                if(shouldAlterTable)
+                if (shouldAlterTable)
                     db.execSQL("ALTER TABLE " + Tables.TIME_HOUSEHOLDERS + " ADD COLUMN " + TimeHouseholder.RETURN_VISIT + " INTEGER DEFAULT 1");
 
                 version = VER_ADD_IS_RETURN_VISIT;
@@ -454,6 +454,12 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 db.insert(Tables.TYPES_OF_LIERATURE, null, vvalues);
 
                 version = VER_ADD_VIDEOS_TO_SHOW;
+            case VER_ADD_VIDEOS_TO_SHOW:
+                versionBackup(version);
+
+                db.execSQL("ALTER TABLE " + Tables.PUBLISHERS + " ADD COLUMN " + Publisher.GENDER + " TEXT");
+
+                version = VER_ADD_PUBLISHER_GENDERS;
         }
     }
 
