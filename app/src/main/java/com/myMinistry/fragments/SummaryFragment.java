@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.myMinistry.R;
@@ -38,6 +42,7 @@ public class SummaryFragment extends Fragment {
 	private FloatingActionButton fab;
     
     private TextView total_hours_count, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, rbc_text, rbc_count, placements_count, video_showings;
+	private LinearLayout placement_list;
 	private Calendar monthPicked = Calendar.getInstance();
 	private int publisherId = 0;
 	private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
@@ -85,6 +90,7 @@ public class SummaryFragment extends Fragment {
 		rbc_text = (TextView) root.findViewById(R.id.rbc_text);
     	rbc_count = (TextView) root.findViewById(R.id.rbc_count);
     	total_hours_count = (TextView) root.findViewById(R.id.total_hours_count);
+		placement_list = (LinearLayout) root.findViewById(R.id.placement_list);
 
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
     	spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
@@ -169,6 +175,37 @@ public class SummaryFragment extends Fragment {
     		database.openWritable();
 
 		mPlacementsCount = String.valueOf(database.fetchPlacementsCountForPublisher(publisherId, dbDateFormatted, dbTimeFrame));
+
+		if(!database.isOpen())
+			database.openWritable();
+
+        placement_list.removeAllViews();
+		Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
+		for(literatureTypes.moveToFirst();!literatureTypes.isAfterLast();literatureTypes.moveToNext()) {
+			LinearLayout ll = new LinearLayout(getContext());
+			ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+			RelativeLayout rl = new RelativeLayout(getContext());
+			rl.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+			TextView tv1 = new TextView(getContext());
+			TextView tv2 = new TextView(getContext());
+			tv1.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+			tv2.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            tv1.setText(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)));
+            tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.default_text));
+			tv2.setText(String.valueOf(literatureTypes.getInt(2)));
+            tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.default_text));
+            tv2.setGravity(Gravity.RIGHT);
+
+			rl.addView(tv1);
+			rl.addView(tv2);
+
+			ll.addView(rl);
+
+			placement_list.addView(ll);
+		}
 
 		mVideoShowings = String.valueOf(database.fetchVideoShowingsCountForPublisher(publisherId, dbDateFormatted, dbTimeFrame));
 

@@ -67,7 +67,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllPublishers() {
-        return sqlDB.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE }, null, null, null, null, Publisher.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER }, null, null, null, null, Publisher.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllPublishersWithActivityDates() {

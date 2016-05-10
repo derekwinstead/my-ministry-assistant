@@ -49,6 +49,7 @@ import com.myMinistry.dialogfragments.TimePickerDialogFragment.TimePickerDialogF
 import com.myMinistry.model.HouseholderForTime;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.model.QuickLiterature;
+import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryContract.Literature;
@@ -200,8 +201,11 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 			typesAdapter.addItem(new NavDrawerMenuItem(qEntryTypes.getString(qEntryTypes.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types, qEntryTypes.getInt(qEntryTypes.getColumnIndex(EntryType._ID))));
 		
 		pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
-		while(qPublishers.moveToNext())
-			pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher_female, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+		while(qPublishers.moveToNext()) {
+			pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME))
+					,getResources().getIdentifier("ic_drawer_publisher_" + qPublishers.getString(qPublishers.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
+					,qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
+		}
 		
 		entryTypes.setAdapter(typesAdapter);
 		entryTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -45,6 +45,15 @@
                     android:textIsSelectable="false"
                     android:textSize="@dimen/textsizeMD"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/placement_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/placements_count"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/default_padding_double"
+                    android:paddingRight="1dp" />
             </RelativeLayout>
 
             <RelativeLayout
