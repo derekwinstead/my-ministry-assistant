@@ -293,42 +293,47 @@ public class ReportFragment extends Fragment {
         if(!database.isOpen())
             database.openWritable();
 
-        /** Set the date */
+        // Set the date
         retVal.append(buttonFormat.format(monthPicked.getTime())).append(" ").append(monthPicked.get(Calendar.YEAR));
 
         Cursor pubs = database.fetchActivePublishers();
-        /** Loop over all the active publishers */
+
+        // Loop over all the active publishers
         for(pubs.moveToFirst();!pubs.isAfterLast();pubs.moveToNext()) {
+            int currentPublisherId = pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID));
+            int placementCount = 0;
+            int videoCount = 0;
+
             if(pubs.getPosition() > 0)
                 retVal.append("\n");
 
-            /** Set publisher's name */
+            // Set publisher's name
             retVal.append("\n").append(pubs.getString(pubs.getColumnIndex(MinistryContract.Publisher.NAME)));
 
-            /** Set total hours */
+            // Placements
+            placementCount = database.fetchPlacementsCountForPublisher(currentPublisherId, formattedDate, "month");
+            if(placementCount > 0)
+                retVal.append("\n").append(getActivity().getApplicationContext().getString(R.string.placements)).append(": ").append(String.valueOf(placementCount));
+
+            // Video showings
+            videoCount = database.fetchVideoShowingsCountForPublisher(currentPublisherId, formattedDate, "month");
+            if(videoCount > 0)
+                retVal.append("\n").append(getActivity().getApplicationContext().getString(R.string.video_showings)).append(": ").append(String.valueOf(videoCount));
+
+            // Set total time
             retVal.append("\n").append(getResources().getString(R.string.total_time)).append(": ");
             if(PrefUtils.shouldCalculateRolloverTime(getActivity()))
-                retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(formattedDate, pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
+                retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(formattedDate, currentPublisherId, "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
             else
-                retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(formattedDate, pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
+                retVal.append(TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(formattedDate, currentPublisherId, "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
 
-            /** Fill all the publication amounts */
-            Cursor lit = database.fetchTypesOfLiteratureCountsForPublisher(pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID)), formattedDate, "month");
-            for(lit.moveToFirst();!lit.isAfterLast();lit.moveToNext()) {
-                if(lit.getInt(2) > 0) {
-                    retVal.append("\n").append(lit.getString(lit.getColumnIndex(MinistryContract.LiteratureType.NAME))).append(": ");
-                    retVal.append(String.valueOf(lit.getInt(2)));
-                }
-            }
-            lit.close();
-
-            /** Now for the other entry types */
-            Cursor entryTypes = database.fetchEntryTypeCountsForPublisher(pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID)), formattedDate, "month");
+            // Now for bible studies and return visits
+            Cursor entryTypes = database.fetchEntryTypeCountsForPublisher(currentPublisherId, formattedDate, "month");
             for(entryTypes.moveToFirst();!entryTypes.isAfterLast();entryTypes.moveToNext()) {
-                if(entryTypes.getInt(2) > 0) {
-                    retVal.append("\n").append(entryTypes.getString(lit.getColumnIndex(MinistryContract.EntryType.NAME))).append(": ");
-                    if(entryTypes.getInt(entryTypes.getColumnIndex(MinistryContract.EntryType._ID)) == MinistryDatabase.ID_RBC)
-                        retVal.append(TimeUtils.getTimeLength(database.fetchListOfRBCHoursForPublisher(formattedDate, pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID)), "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
+                if (entryTypes.getInt(2) > 0) {
+                    retVal.append("\n").append(entryTypes.getString(entryTypes.getColumnIndex(MinistryContract.EntryType.NAME))).append(": ");
+                    if (entryTypes.getInt(entryTypes.getColumnIndex(MinistryContract.EntryType._ID)) == MinistryDatabase.ID_RBC)
+                        retVal.append(TimeUtils.getTimeLength(database.fetchListOfRBCHoursForPublisher(formattedDate, currentPublisherId, "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
                     else
                         retVal.append(String.valueOf(entryTypes.getInt(2)));
                 }

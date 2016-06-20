@@ -506,7 +506,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 				
 				return true;
 			case R.id.menu_cancel:
-				getActivity().setTitle(R.string.navdrawer_item_summary);
+				getActivity().setTitle(R.string.navdrawer_item_report);
 				/*
 				if(is_dual_pane) {
 		        	// The fragment is the time entry one, just update the frag instead of doing a replacement.
@@ -553,7 +553,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 					    public void onClick(DialogInterface dialog, int which) {
 					        switch (which){
 					        case DialogInterface.BUTTON_POSITIVE:
-					        	getActivity().setTitle(R.string.navdrawer_item_summary);
+					        	getActivity().setTitle(R.string.navdrawer_item_report);
 								
 								// Delete Time Entries Deep
 								database.openWritable();

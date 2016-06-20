@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
             // Defaults to Summary on launch. Changes with navigation selection afterwards.
-            actionBar.setTitle(R.string.navdrawer_item_summary);
+            actionBar.setTitle(R.string.navdrawer_item_report);
         }
     }
 
