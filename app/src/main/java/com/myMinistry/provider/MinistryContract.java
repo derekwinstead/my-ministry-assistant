@@ -166,7 +166,7 @@ public class MinistryContract {
                 + 		_ID		+ " INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "," + NAME	+ " TEXT"
                 + "," + ACTIVE	+ " INTEGER DEFAULT 1"
-                + "," + GENDER	+ " TEXT)";
+                + "," + GENDER	+ " TEXT DEFAULT 'male')";
     }
 
     interface LiteraturePlacedColumns {
