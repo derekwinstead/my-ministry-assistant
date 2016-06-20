@@ -31,5 +31,6 @@
     <string name="language_dutch" translatable="false">Nederlands</string>
     <string name="language_portuguese" translatable="false">Português</string>
     <string name="language_russian" translatable="false">русский</string>
+    <string name="number_ten" translatable="false">10</string>
 
 </resources>

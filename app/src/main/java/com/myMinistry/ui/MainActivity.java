@@ -28,7 +28,7 @@ import com.myMinistry.fragments.EntryTypeManagerFrag;
 import com.myMinistry.fragments.HouseholdersFragment;
 import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublishersFragment;
-import com.myMinistry.fragments.SummaryNavigationFragment;
+import com.myMinistry.fragments.ReportFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.HelpUtils;
@@ -202,12 +202,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawer_summary:
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
-                if(!(frag instanceof SummaryNavigationFragment)) {
+                if(!(frag instanceof ReportFragment)) {
                     if(firstLoad)
                         PrefUtils.setSummaryMonthAndYear(this, date);
 
-                    new SummaryNavigationFragment();
-                    SummaryNavigationFragment f = SummaryNavigationFragment.newInstance(PrefUtils.getPublisherId(this));
+                    new ReportFragment();
+                    ReportFragment f = ReportFragment.newInstance(PrefUtils.getPublisherId(this));
                     // test
                     ft.replace(R.id.primary_fragment_container, f);
 
@@ -220,9 +220,11 @@ public class MainActivity extends AppCompatActivity {
                     date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
                     date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
 
-                    SummaryNavigationFragment f = (SummaryNavigationFragment) fm.findFragmentById(R.id.primary_fragment_container);
+                    ReportFragment f = (ReportFragment) fm.findFragmentById(R.id.primary_fragment_container);
+                    /*
                     f.setPublisherId(PrefUtils.getPublisherId(this));
                     f.setDate(date);
+                    */
                     /*
                     f.calculateSummaryValues();
                     f.refresh(SummaryNavigationFragment.DIRECTION_NO_CHANGE);

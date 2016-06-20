@@ -164,5 +164,9 @@
     <string name="form_gender">Gender</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
+    <string name="placements">Placements</string>
+    <string name="video_showings">Video Showings</string>
+    <string name="view_month_entries">View Month\'s Entries</string>
+    <string name="view_month_summary">View Month\'s Summary</string>
 
 </resources>

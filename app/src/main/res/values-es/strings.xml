@@ -165,5 +165,7 @@
     <string name="form_gender">Género</string>
     <string name="gender_male">Masculino</string>
     <string name="gender_female">Hembra</string>
+    <string name="video_showings">Proyecciones de video</string>
+    <string name="placements">Colocaciones</string>
 
 </resources>

@@ -10,11 +10,18 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.myMinistry.R;
+import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEntryAdapter;
+import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
+import com.myMinistry.model.NavDrawerMenuItem;
+import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -22,6 +29,7 @@ import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -29,6 +37,17 @@ public class TimeEntriesFragment extends ListFragment {
 	public static String ARG_YEAR = "year";
 	public static String ARG_MONTH = "month";
 	public static String ARG_PUBLISHER_ID = "publisher_id";
+
+	private TextView view_summary;
+	private Calendar monthPicked = Calendar.getInstance();
+	private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+
+	private String mMonth, mYear = "";
+	private Spinner publishers;
+	private TextView month, year;
+	private LinearLayout report_nav;
+
+	private NavDrawerMenuItemAdapter pubsAdapter;
     
     private boolean is_dual_pane = false;
 	
@@ -75,11 +94,19 @@ public class TimeEntriesFragment extends ListFragment {
 	        	setPublisherId(args.getInt(ARG_PUBLISHER_ID));
         }
 
+		fm = getActivity().getSupportFragmentManager();
+
+		publishers = (Spinner) view.findViewById(R.id.publishers);
+		view_summary = (TextView) view.findViewById(R.id.view_entries);
+		report_nav = (LinearLayout) view.findViewById(R.id.report_nav);
+
+		month = (TextView) view.findViewById(R.id.month);
+		year = (TextView) view.findViewById(R.id.year);
+
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
     	setListAdapter(adapter);
-    	
-
+/*
     	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
     	spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
     	
@@ -89,6 +116,49 @@ public class TimeEntriesFragment extends ListFragment {
     	
     	ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
     	spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
+*/
+		view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				adjustMonth(1);
+
+				calculateValues();
+				refresh();
+			}
+		});
+
+		view.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				adjustMonth(-1);
+
+				calculateValues();
+				refresh();
+			}
+		});
+
+		view_summary.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Calendar date = Calendar.getInstance(Locale.getDefault());
+
+				Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+				FragmentTransaction ft = fm.beginTransaction();
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+				TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+
+				if(frag != null)
+					ft.remove(frag);
+
+				ft.add(R.id.primary_fragment_container, f);
+				ft.addToBackStack(null);
+
+				ft.commit();
+			}
+		});
+
+		pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
 		fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -96,6 +166,9 @@ public class TimeEntriesFragment extends ListFragment {
 	}
 	
 	public void updateList() {
+        month.setText(mMonth);
+        year.setText(mYear);
+
     	database.openWritable();
 		if(PrefUtils.shouldCalculateRolloverTime(getActivity())) {
 			entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, dbDateFormatted, dbTimeFrame);
@@ -147,6 +220,35 @@ public class TimeEntriesFragment extends ListFragment {
 
     	calculateValues();
     	updateList();
+
+		if(is_dual_pane) {
+			report_nav.setVisibility(View.GONE);
+		} else {
+			view_summary.setText(R.string.view_month_summary);
+            mMonth = buttonFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
+            mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
+            adjustMonth(0);
+		}
+/*
+		if(is_dual_pane) {
+			fab.setVisibility(View.GONE);
+			view_summary.setVisibility(View.GONE);
+
+			TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
+			FragmentTransaction ft = fm.beginTransaction();
+			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			ft.replace(R.id.secondary_fragment_container, f);
+			ft.commit();
+		} else {
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
+				}
+			});
+		}
+*/
+		loadPublisherAdapter();
 	}
 
 	public void switchToMonthList(Calendar _date) {
@@ -160,8 +262,72 @@ public class TimeEntriesFragment extends ListFragment {
 		dbDateFormatted = TimeUtils.dbDateFormat.format(date.getTime());
 		dbTimeFrame = "month";
 	}
+
+	public void adjustMonth(int addValue) {
+		monthPicked.add(Calendar.MONTH, addValue);
+
+        mMonth = buttonFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
+        mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
+
+		//saveSharedPrefs();
+	}
+
+	private void saveSharedPrefs() {
+		if(getActivity() != null)
+			PrefUtils.setSummaryMonthAndYear(getActivity(), monthPicked);
+	}
 	
 	public void refresh() {
 		updateList();
+	}
+
+	private void loadPublisherAdapter() {
+		int initialSelection = 0;
+		// Add new publisher item
+		pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, MinistryDatabase.CREATE_ID));
+
+		database.openWritable();
+		final Cursor cursor = database.fetchActivePublishers();
+		while(cursor.moveToNext()) {
+			if(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID)) == publisherId)
+				initialSelection = pubsAdapter.getCount();
+			pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME))
+					,getResources().getIdentifier("ic_drawer_publisher_" + cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
+					,cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
+		}
+		cursor.close();
+		database.close();
+
+		pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+		publishers.setAdapter(pubsAdapter);
+
+		if(initialSelection != 0)
+			publishers.setSelection(initialSelection);
+
+		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+				if(pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
+					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
+					f.setPositiveButton(new PublisherNewDialogFragment.PublisherNewDialogFragmentListener() {
+						@Override
+						public void setPositiveButton(int _ID, String _name) {
+							pubsAdapter.addItem(new NavDrawerMenuItem(_name, R.drawable.ic_drawer_publisher_female, _ID));
+							publishers.setSelection(pubsAdapter.getCount() - 1);
+						}
+					});
+					f.show(fm, "PublisherNewDialogFragment");
+				}
+				else {
+					setPublisherId(pubsAdapter.getItem(position).getID());
+					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
+					calculateValues();
+					refresh();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) { }
+		});
 	}
 }

@@ -165,5 +165,7 @@
     <string name="form_gender">Jenis kelamin</string>
     <string name="gender_male">Pria</string>
     <string name="gender_female">Wanita</string>
+    <string name="video_showings">Pertunjukan Video</string>
+    <string name="placements">Penempatan</string>
 
 </resources>

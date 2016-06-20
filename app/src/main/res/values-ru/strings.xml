@@ -165,5 +165,7 @@
     <string name="form_gender">Пол</string>
     <string name="gender_male">мужчина</string>
     <string name="gender_female">женский</string>
+    <string name="video_showings">Видео Показы</string>
+    <string name="placements">Места размещения</string>
 
 </resources>

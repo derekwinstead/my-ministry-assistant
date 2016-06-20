@@ -165,5 +165,7 @@
     <string name="form_gender">Køn</string>
     <string name="gender_male">Han</string>
     <string name="gender_female">Kvinde</string>
+    <string name="video_showings">Video Fremvisninger</string>
+    <string name="placements">Placeringer</string>
 
 </resources>

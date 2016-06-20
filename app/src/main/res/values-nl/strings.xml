@@ -165,5 +165,7 @@
     <string name="form_gender">Geslacht</string>
     <string name="gender_male">Mannetje</string>
     <string name="gender_female">Vrouw</string>
+    <string name="video_showings">videovoorstellingen</string>
+    <string name="placements">Posities</string>
 
 </resources>
