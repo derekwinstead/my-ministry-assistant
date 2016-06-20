@@ -93,7 +93,6 @@ public class ReportFragment extends Fragment {
         database = new MinistryService(getActivity().getApplicationContext());
 
         fm = getActivity().getSupportFragmentManager();
-
         publishers = (Spinner) root.findViewById(R.id.publishers);
         view_entries = (TextView) root.findViewById(R.id.view_entries);
 
@@ -111,21 +110,7 @@ public class ReportFragment extends Fragment {
         bible_studies_count = (TextView) root.findViewById(R.id.bible_studies_count);
         total_hours_count = (TextView) root.findViewById(R.id.total_hours_count);
         placement_list = (LinearLayout) root.findViewById(R.id.placement_list);
-/*
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
 
-        for(String name : getResources().getStringArray(R.array.summary_time_span)) {
-            spinnerArrayAdapter.add(name);
-        }*/
-/*
-        ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
-        spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
-
-        for(String name : getResources().getStringArray(R.array.summary_nav_view_type)) {
-            spinnerArrayAdapterType.add(name);
-        }
-*/
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

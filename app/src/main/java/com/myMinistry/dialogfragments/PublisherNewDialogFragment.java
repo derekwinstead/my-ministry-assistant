@@ -55,6 +55,7 @@ public class PublisherNewDialogFragment extends DialogFragment {
 				ContentValues values = new ContentValues();
 				values.put(Publisher.NAME, _name.trim());
 				values.put(Publisher.ACTIVE, MinistryService.ACTIVE);
+				values.put(Publisher.GENDER, getActivity().getApplicationContext().getString(R.string.gender_male).toLowerCase());
 
 				MinistryService database = new MinistryService(getActivity());
 				database.openWritable();

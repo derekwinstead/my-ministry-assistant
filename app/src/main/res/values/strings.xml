@@ -167,6 +167,6 @@
     <string name="placements">Placements</string>
     <string name="video_showings">Video Showings</string>
     <string name="view_month_entries">View Month\'s Entries</string>
-    <string name="view_month_summary">View Month\'s Summary</string>
+    <string name="view_month_report">View Month\'s Report</string>
 
 </resources>

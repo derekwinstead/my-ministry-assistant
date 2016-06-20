@@ -38,8 +38,7 @@ public class TimeEntriesFragment extends ListFragment {
 	public static String ARG_MONTH = "month";
 	public static String ARG_PUBLISHER_ID = "publisher_id";
 
-	private TextView view_summary;
-	private Calendar monthPicked = Calendar.getInstance();
+	private TextView view_report;
 	private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
 
 	private String mMonth, mYear = "";
@@ -97,7 +96,7 @@ public class TimeEntriesFragment extends ListFragment {
 		fm = getActivity().getSupportFragmentManager();
 
 		publishers = (Spinner) view.findViewById(R.id.publishers);
-		view_summary = (TextView) view.findViewById(R.id.view_entries);
+        view_report = (TextView) view.findViewById(R.id.view_entries);
 		report_nav = (LinearLayout) view.findViewById(R.id.report_nav);
 
 		month = (TextView) view.findViewById(R.id.month);
@@ -106,17 +105,7 @@ public class TimeEntriesFragment extends ListFragment {
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
     	setListAdapter(adapter);
-/*
-    	ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
-    	spinnerArrayAdapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
-    	
-    	for(String name : getResources().getStringArray(R.array.summary_time_span)) {
-    		spinnerArrayAdapter.add(name);
-    	}
-    	
-    	ArrayAdapter<String> spinnerArrayAdapterType = new ArrayAdapter<>(this.getActivity().getApplicationContext(), R.layout.li_spinner_item);
-    	spinnerArrayAdapterType.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
-*/
+
 		view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -137,22 +126,30 @@ public class TimeEntriesFragment extends ListFragment {
 			}
 		});
 
-		view_summary.setOnClickListener(new View.OnClickListener() {
+        view_report.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Calendar date = Calendar.getInstance(Locale.getDefault());
-
-				Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+                Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 				FragmentTransaction ft = fm.beginTransaction();
 				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-				TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+                new ReportFragment();
+                ReportFragment f = ReportFragment.newInstance(publisherId);
+
 
 				if(frag != null)
 					ft.remove(frag);
 
-				ft.add(R.id.primary_fragment_container, f);
-				ft.addToBackStack(null);
+                // Clear out the back stack so back press doesn't go everywhere
+                /*
+                for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }
+                */
+                //fm.popBackStack(fm.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                //getSupportFragmentManager().popBackStack(getSupportFragmentManager().getBackStac‌​kEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                ft.add(R.id.primary_fragment_container, f);
 
 				ft.commit();
 			}
@@ -224,9 +221,8 @@ public class TimeEntriesFragment extends ListFragment {
 		if(is_dual_pane) {
 			report_nav.setVisibility(View.GONE);
 		} else {
-			view_summary.setText(R.string.view_month_summary);
-            mMonth = buttonFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
-            mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
+            view_report.setText(R.string.view_month_report);
+
             adjustMonth(0);
 		}
 /*
@@ -264,17 +260,17 @@ public class TimeEntriesFragment extends ListFragment {
 	}
 
 	public void adjustMonth(int addValue) {
-		monthPicked.add(Calendar.MONTH, addValue);
+		date.add(Calendar.MONTH, addValue);
 
-        mMonth = buttonFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
-        mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
+		mMonth = buttonFormat.format(date.getTime()).toUpperCase(Locale.getDefault());
+		mYear = String.valueOf(date.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
-		//saveSharedPrefs();
+		saveSharedPrefs();
 	}
 
 	private void saveSharedPrefs() {
 		if(getActivity() != null)
-			PrefUtils.setSummaryMonthAndYear(getActivity(), monthPicked);
+			PrefUtils.setSummaryMonthAndYear(getActivity(), date);
 	}
 	
 	public void refresh() {
