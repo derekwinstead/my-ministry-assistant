@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-int VERSION_CODE = 220
-String VERSION_NAME = '4.1.0.1'
+int VERSION_CODE = 222
+String VERSION_NAME = '4.1.0.21'
 String APK_NAME = "myministryassistant"
 
 android {

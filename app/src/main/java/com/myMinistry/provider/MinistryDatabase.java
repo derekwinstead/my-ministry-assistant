@@ -457,7 +457,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             case VER_ADD_VIDEOS_TO_SHOW:
                 versionBackup(version);
 
-                db.execSQL("ALTER TABLE " + Tables.PUBLISHERS + " ADD COLUMN " + Publisher.GENDER + " TEXT");
+                db.execSQL("ALTER TABLE " + Tables.PUBLISHERS + " ADD COLUMN " + Publisher.GENDER + " TEXT DEFAULT 'male'");
 
                 version = VER_ADD_PUBLISHER_GENDERS;
         }
