@@ -26,7 +26,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.myMinistry.R;
-import com.myMinistry.adapters.HouseholderRecentActivityAdapter;
+import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -51,7 +51,8 @@ public class HouseholderEditorFragment extends ListFragment {
 	private FragmentManager fm;
 	private FloatingActionButton fab;
 	
-	private HouseholderRecentActivityAdapter adapter;
+	//private HouseholderRecentActivityAdapter adapter;
+	private TimeEntryAdapter adapter;
 	
 	public HouseholderEditorFragment newInstance() {
 		return new HouseholderEditorFragment();
@@ -92,9 +93,12 @@ public class HouseholderEditorFragment extends ListFragment {
 		et_phone_other = (EditText) root.findViewById(R.id.et_phone_other);
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
+
+        adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
+        setListAdapter(adapter);
 		
-		adapter = new HouseholderRecentActivityAdapter(getActivity().getApplicationContext(), activity, (int)householderID);
-		setListAdapter(adapter);
+		//adapter = new HouseholderRecentActivityAdapter(getActivity().getApplicationContext(), activity, (int)householderID);
+		//setListAdapter(adapter);
     	
         database = new MinistryService(getActivity().getApplicationContext());
         
@@ -336,8 +340,10 @@ public class HouseholderEditorFragment extends ListFragment {
 	    	}
 	    	
 	    	householder.close();
+
+
 	    	activity = database.fetchActivityForHouseholder((int)householderID);
-	    	adapter.setHouseholderID((int)householderID);
+	    	//adapter.setHouseholderID((int)householderID);
 	    	adapter.changeCursor(activity);
 	    	database.close();
 

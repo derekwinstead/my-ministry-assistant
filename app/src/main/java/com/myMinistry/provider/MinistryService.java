@@ -809,6 +809,23 @@ public class MinistryService {
     }
 
     public Cursor fetchActivityForHouseholder(int householderID) {
+        String sql = 	"SELECT " + Qualified.TIME_ID
+                + "," + Qualified.TIME_DATE_START
+                + "," + Qualified.TIME_DATE_END
+                + "," + Qualified.TIME_TIME_START
+                + "," + Qualified.TIME_TIME_END
+                + "," + Qualified.ENTRY_TYPE_NAME + " || ' - ' || " + Qualified.PUBLISHER_NAME + UnionsNameAsCols.TITLE
+                + " FROM " + Tables.TIME_HOUSEHOLDERS
+                + Joins.TIME_JOIN_TIMEHOUSEHOLDER
+                + Joins.ENTRY_TYPES_ON_TIME
+                + Joins.PUBLISHERS_ON_TIME
+                + " WHERE " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + "=" + householderID
+                + " ORDER BY " + Qualified.TIME_DATE_START + " DESC, " + Qualified.TIME_TIME_START + " DESC, " + Qualified.ENTRY_TYPE_NAME;
+
+        return sqlDB.rawQuery(sql, null);
+    }
+
+    public Cursor fetchActivityForHouseholderOLDDDDDDDDDDD(int householderID) {
         String sql = 	"SELECT " + Qualified.TIME_ID + "," + Qualified.TIME_DATE_START + "," + Qualified.NOTES_NOTES
                 + ", " + Qualified.PUBLISHER_NAME + UnionsNameAsCols.PUBLISHER_NAME
                 + ", " + Qualified.ENTRY_TYPE_NAME + UnionsNameAsCols.ENTRY_TYPE_NAME
