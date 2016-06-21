@@ -465,6 +465,7 @@ public class MinistryService {
                 + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "'))"
                 + " FROM " + Tables.TYPES_OF_LIERATURE
                 + " WHERE " + LiteratureType.ACTIVE + " = " + ACTIVE
+                + " AND " + LiteratureType._ID + " <> " + MinistryDatabase.ID_VIDEOS_TO_SHOW
                 + " ORDER BY " + LiteratureType.DEFAULT_SORT;
 
         return sqlDB.rawQuery(sql, null);

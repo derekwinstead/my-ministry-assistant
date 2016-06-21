@@ -1,127 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:divider="@drawable/separator"
+    android:orientation="vertical"
+    android:showDividers="middle">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dividerHeight"
-        card_view:cardCornerRadius="@dimen/material_corner_radius"
-        card_view:contentPadding="@dimen/default_padding">
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/form_daily_backups"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/form_daily_backups"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cb_is_active_daily"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/thumb_height"
-                    android:layout_marginEnd="@dimen/default_padding"
-                    android:layout_marginLeft="@dimen/negative_default_padding_half"
-                    android:layout_marginRight="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/negative_default_padding_half"
-                    android:layout_weight="1"
-                    android:text="@string/form_is_active" />
-
-                <TextView
-                    android:id="@+id/b_daily_time"
-                    style="@style/SpinnerMaterial"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingStart="@dimen/default_padding" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/t_daily_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:clickable="true"
-                android:gravity="center"
-                android:minHeight="@dimen/thumb_height"
-                android:paddingLeft="@dimen/default_padding"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_padding_half"
-        card_view:cardCornerRadius="@dimen/material_corner_radius">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/default_padding">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/form_weekly_backups"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/cb_is_active_weekly"
-                android:layout_width="wrap_content"
+                android:id="@+id/cb_is_active_daily"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/thumb_height"
                 android:layout_marginEnd="@dimen/default_padding"
                 android:layout_marginLeft="@dimen/negative_default_padding_half"
                 android:layout_marginRight="@dimen/default_padding"
                 android:layout_marginStart="@dimen/negative_default_padding_half"
+                android:layout_weight="1"
                 android:text="@string/form_is_active" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/b_daily_time"
+                style="@style/SpinnerMaterial"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingStart="@dimen/default_padding"
+                android:text="@string/placeholder_lorem_ipsum" />
+        </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/s_weekday"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/thumb_height"
-                    android:layout_weight="1" />
+        <TextView
+            android:id="@+id/t_daily_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/default_padding_double"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/menu_save"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium" />
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/b_weekly_time"
-                    style="@style/SpinnerMaterial"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/thumb_height"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/default_padding"
-                    android:paddingStart="@dimen/default_padding" />
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/form_weekly_backups"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <CheckBox
+            android:id="@+id/cb_is_active_weekly"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/thumb_height"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:layout_marginLeft="@dimen/negative_default_padding_half"
+            android:layout_marginRight="@dimen/default_padding"
+            android:layout_marginStart="@dimen/negative_default_padding_half"
+            android:text="@string/form_is_active" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/s_weekday"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/thumb_height"
+                android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/t_weekly_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:clickable="true"
-                android:gravity="center"
-                android:minHeight="@dimen/thumb_height"
+                android:id="@+id/b_weekly_time"
+                style="@style/SpinnerMaterial"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/thumb_height"
+                android:layout_weight="1"
                 android:paddingLeft="@dimen/default_padding"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:paddingStart="@dimen/default_padding"
+                android:text="@string/placeholder_lorem_ipsum" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/t_weekly_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/default_padding_double"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/menu_save"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium" />
+    </LinearLayout>
 
 </LinearLayout>

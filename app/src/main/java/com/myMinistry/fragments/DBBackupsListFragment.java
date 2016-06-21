@@ -4,6 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -150,6 +153,23 @@ public class DBBackupsListFragment extends ListFragment {
 				
 				reloadAdapter();
 				
+				return true;
+			case R.id.view_db_schedule:
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+				FragmentTransaction ft = fm.beginTransaction();
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+				DBScheduleFragment f = new DBScheduleFragment().newInstance();
+
+				if(frag != null)
+					ft.remove(frag);
+
+				ft.add(R.id.primary_fragment_container, f);
+				ft.addToBackStack(null);
+
+				ft.commit();
+
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

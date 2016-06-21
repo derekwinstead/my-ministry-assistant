@@ -2,13 +2,16 @@ package com.myMinistry.fragments;
 
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -46,10 +49,17 @@ public class DBScheduleFragment extends Fragment {
 	public DBScheduleFragment newInstance() {
 		return new DBScheduleFragment();
     }
-	
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.db_schedule, menu);
+    }
+
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.scheduled_backups, container, false);
+
+        setHasOptionsMenu(true);
 		
 		fm = getActivity().getSupportFragmentManager();
 		
@@ -58,10 +68,11 @@ public class DBScheduleFragment extends Fragment {
 		cb_is_active_weekly = (CheckBox) root.findViewById(R.id.cb_is_active_weekly);
 		b_daily_time = (TextView) root.findViewById(R.id.b_daily_time);
 		b_weekly_time = (TextView) root.findViewById(R.id.b_weekly_time);
-		
+
+		/*
 		TextView t_daily_save = (TextView) root.findViewById(R.id.t_daily_save);
 		TextView t_weekly_save = (TextView) root.findViewById(R.id.t_weekly_save);
-		
+
 		t_daily_save.setText(getActivity().getApplicationContext().getString(R.string.menu_save).toUpperCase(Locale.getDefault()));
 		t_daily_save.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.appbasetheme_color));
 		t_daily_save.setTypeface(t_daily_save.getTypeface(), Typeface.BOLD);
@@ -69,7 +80,7 @@ public class DBScheduleFragment extends Fragment {
 		t_weekly_save.setText(getActivity().getApplicationContext().getString(R.string.menu_save).toUpperCase(Locale.getDefault()));
 		t_weekly_save.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.appbasetheme_color));
 		t_weekly_save.setTypeface(t_weekly_save.getTypeface(), Typeface.BOLD);
-		
+		*/
 		root.findViewById(R.id.t_daily_save).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -224,4 +235,29 @@ public class DBScheduleFragment extends Fragment {
 
     	pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_db_list:
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+                DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
+
+                if(frag != null)
+                    ft.remove(frag);
+
+                ft.add(R.id.primary_fragment_container, f);
+                ft.addToBackStack(null);
+
+                ft.commit();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
