@@ -857,6 +857,25 @@ public class MinistryService {
         return sqlDB.rawQuery(sql, null);
     }
 
+    public Cursor fetchActivityForLiteratureOLDDDDDDDDDDDDDDDDDDD(int literatureID) {
+        String sql = "SELECT " + Qualified.TIME_ID
+                + "," + Qualified.TIME_DATE_START
+                + "," + Qualified.TIME_DATE_END
+                + "," + Qualified.TIME_TIME_START
+                + "," + Qualified.TIME_TIME_END
+                + "," + Qualified.ENTRY_TYPE_NAME + " || ' - ' || " + Qualified.PUBLISHER_NAME + UnionsNameAsCols.TITLE
+                + " FROM " + Tables.LITERATURE
+                + Joins.PLACED_LITERATURE_ON_LITERATURE_NAMES
+                + Joins.TIME_ON_PLACED_LITERATURE
+                + Joins.ENTRY_TYPES_ON_TIME
+                + Joins.PUBLISHERS_ON_PLACED_LITERATURE
+                + LeftJoins.HOUSEHOLDERS_JOIN_PLACED_LITERATURE
+                + " WHERE " + Qualified.LITERATURE_ID + " = " + literatureID
+                + " ORDER BY " + Qualified.TIME_DATE_START + " DESC, " + Qualified.TIME_TIME_START + " DESC, " + Qualified.ENTRY_TYPE_NAME + ", " + Qualified.HOUSEHOLDER_NAME;
+
+        return sqlDB.rawQuery(sql, null);
+    }
+
     public Cursor fetchActivityForLiterature(int literatureID) {
         String sql =	"SELECT "+ Qualified.TIME_ID + UnionsNameAsCols._ID
                 + ", " + Qualified.TIME_DATE_START + UnionsNameAsCols.DATE

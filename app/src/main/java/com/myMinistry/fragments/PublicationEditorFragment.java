@@ -21,7 +21,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myMinistry.Helper;
@@ -44,7 +43,7 @@ public class PublicationEditorFragment extends ListFragment {
 	private Spinner s_publicationTypes;
 	private CheckBox cb_is_active;
 	private CheckBox cb_is_pair;
-	private TextView tv_recent_activity;
+	//private TextView tv_recent_activity;
 	
 	private FragmentManager fm;
 	
@@ -95,7 +94,7 @@ public class PublicationEditorFragment extends ListFragment {
 		s_publicationTypes = (Spinner) root.findViewById(R.id.literatureTypes);
     	cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
-    	tv_recent_activity = (TextView) root.findViewById(R.id.recent_activity_text);
+    	//tv_recent_activity = (TextView) root.findViewById(R.id.recent_activity_text);
 		
     	adapter = new PublicationRecentActivityAdapter(getActivity().getApplicationContext(), activity);
     	setListAdapter(adapter);
@@ -295,22 +294,22 @@ public class PublicationEditorFragment extends ListFragment {
     		cb_is_active.setChecked(true);
     		cb_is_pair.setChecked(false);
     		
-    		tv_recent_activity.setVisibility(View.GONE);
+    		//tv_recent_activity.setVisibility(View.GONE);
     		getListView().setVisibility(View.GONE);
     		getListView().getEmptyView().setVisibility(View.GONE);
     	}
     	else {
-    		tv_recent_activity.setVisibility(View.VISIBLE);
+    		//tv_recent_activity.setVisibility(View.VISIBLE);
     		getListView().setVisibility(View.VISIBLE);
     		getListView().getEmptyView().setVisibility(View.VISIBLE);
-    		
+
 	    	database.openWritable();
 	    	Cursor literature = database.fetchLiteratureByID((int)publicationId);
 	    	if(literature.moveToFirst()) {
 	    		et_name.setText(literature.getString(literature.getColumnIndex(Literature.NAME)));
 	    		cb_is_active.setChecked((literature.getInt(literature.getColumnIndex(Literature.ACTIVE)) == 1) ? true : false);
 	    		cb_is_pair.setChecked((literature.getInt(literature.getColumnIndex(Literature.WEIGHT)) != 1) ? true : false);
-	    		
+
 	    		if(cursor.moveToFirst()) {
 	    			int position = -1;
 	    			do {
