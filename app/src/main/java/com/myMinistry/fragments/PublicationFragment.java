@@ -2,6 +2,7 @@ package com.myMinistry.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +20,7 @@ import android.widget.Spinner;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.TitleAndDateAdapter;
+import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
@@ -34,10 +35,12 @@ public class PublicationFragment extends ListFragment {
     
 	private MinistryService database;
 	private Spinner myspinner;
-	private TitleAndDateAdapter adapter;
+	private TitleAndDateAdapterUpdated adapter;
 	private Cursor cursor;
 	private int literatureTypeId = 0;
 	private FragmentManager fm;
+
+	private FloatingActionButton fab;
 	
 	private NavDrawerMenuItemAdapter sadapter;
 	
@@ -70,6 +73,8 @@ public class PublicationFragment extends ListFragment {
 		
 		database = new MinistryService(getActivity());
 		myspinner = (Spinner) root.findViewById(R.id.myspinner);
+
+		fab = (FloatingActionButton) root.findViewById(R.id.fab);
 		
 		fm = getActivity().getSupportFragmentManager();
 		
@@ -104,13 +109,6 @@ public class PublicationFragment extends ListFragment {
 			}
 		}
 		
-		root.findViewById(R.id.tv_add_item).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				openEditor(PublicationEditorFragment.CREATE_ID);
-			}
-		});
-		
 		return root;
 	}
 	
@@ -119,16 +117,18 @@ public class PublicationFragment extends ListFragment {
     	super.onActivityCreated(savedInstanceState);
     	
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-    	
-    	getActivity().setTitle(R.string.navdrawer_item_publications);
+
+		getActivity().setTitle(R.string.navdrawer_item_publications);
     	
     	database.openWritable();
     	
-    	adapter = new TitleAndDateAdapter(getActivity().getApplicationContext(), null, R.string.last_placed_on);
+    	adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), null, R.string.last_placed_on);
     	setListAdapter(adapter);
     	database.close();
     	
     	if (is_dual_pane) {
+			fab.setVisibility(View.GONE);
+
     		Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
     		PublicationEditorFragment f = new PublicationEditorFragment().newInstance();
         	
@@ -141,7 +141,14 @@ public class PublicationFragment extends ListFragment {
         	ft.add(R.id.secondary_fragment_container, f);
         	
         	ft.commit();
-    	}
+		} else {
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					openEditor(PublicationEditorFragment.CREATE_ID);
+				}
+			});
+		}
 	}
 	
 	@Override
