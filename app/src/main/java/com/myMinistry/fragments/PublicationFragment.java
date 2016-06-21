@@ -154,9 +154,6 @@ public class PublicationFragment extends ListFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.literature_create:
-				openEditor(PublicationEditorFragment.CREATE_ID);
-				return true;
 			case R.id.sort_alpha:
 				PrefUtils.setPublicationSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
 				HelpUtils.sortPublications(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_ASC);
