@@ -69,6 +69,8 @@ public class DBBackupsListFragment extends ListFragment {
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
+
+		getActivity().setTitle(R.string.navdrawer_item_backups);
     	
     	adapter = new ListItemAdapter(getActivity().getApplicationContext());
     	loadAdapter();
@@ -189,7 +191,7 @@ public class DBBackupsListFragment extends ListFragment {
     		fileList = new String[0];
     	
 		for(String filename : fileList)
-			adapter.addItem(new ListItem(0, R.drawable.ic_drawer_db, filename, ""));
+			adapter.addItem(new ListItem(0, R.drawable.ic_action_database_themed, filename, ""));
 	}
 	
 	public void reloadAdapter() {

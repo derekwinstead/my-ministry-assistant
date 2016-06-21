@@ -60,6 +60,8 @@ public class DBScheduleFragment extends Fragment {
 		View root = inflater.inflate(R.layout.scheduled_backups, container, false);
 
         setHasOptionsMenu(true);
+
+		getActivity().setTitle(R.string.menu_schedule_backups);
 		
 		fm = getActivity().getSupportFragmentManager();
 		
