@@ -445,13 +445,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             case VER_ADD_HOUSEHOLDER_SORT_ORDER:
                 versionBackup(version);
 
-                ContentValues vvalues = new ContentValues();
-                vvalues.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
-                vvalues.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
-                vvalues.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
-                vvalues.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
-
-                db.insert(Tables.TYPES_OF_LIERATURE, null, vvalues);
+                convertUsedLiteratureUsingVideoId(db);
 
                 version = VER_ADD_VIDEOS_TO_SHOW;
             case VER_ADD_VIDEOS_TO_SHOW:
@@ -692,6 +686,37 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                         + "," + Rollover.MINUTES
                         + " FROM " + Tables.ROLLOVER + "_tmp"
         );
+    }
+
+    public void convertUsedLiteratureUsingVideoId(SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+        Cursor cursor = db.query(Tables.TYPES_OF_LIERATURE,new String[]{LiteratureType._ID,LiteratureType.NAME,LiteratureType.ACTIVE},LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW,null,null,null,null);
+        if(cursor.moveToFirst()) {
+            // Create new record
+            values.put(LiteratureType.NAME, cursor.getString(1));
+            values.put(LiteratureType.ACTIVE, cursor.getString(2));
+            long newID = db.insert(Tables.TYPES_OF_LIERATURE,null,values);
+
+            // Update all publications to use the new ID
+            db.execSQL("UPDATE " + Tables.LITERATURE
+                    + " SET " + Literature.TYPE_OF_LIERATURE_ID + " = " + newID
+                    + " WHERE " + Literature._ID + " IN (SELECT " + Literature._ID + " FROM " + Tables.LITERATURE + " WHERE " + Literature.TYPE_OF_LIERATURE_ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW + ")");
+
+            // Update the old record to use the VIDEO information
+            values = new ContentValues();
+            values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
+            values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
+            values.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
+            db.update(Tables.TYPES_OF_LIERATURE,values,LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW,null);
+        } else {
+            // Create the new record
+            values.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
+            values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
+            values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
+            values.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
+
+            db.insert(Tables.TYPES_OF_LIERATURE, null, values);
+        }
     }
 
     public static void versionBackup(int version) {

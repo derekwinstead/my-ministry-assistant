@@ -154,6 +154,20 @@ public class PublicationFragment extends ListFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+			case R.id.view_publication_manager:
+				FragmentTransaction ft = fm.beginTransaction();
+				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+				Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+				PublicationManagerFrag f = new PublicationManagerFrag().newInstance();
+
+				if(frag != null)
+					ft.remove(frag);
+
+				ft.add(R.id.primary_fragment_container, f);
+
+				ft.commit();
+
+				return true;
 			case R.id.sort_alpha:
 				PrefUtils.setPublicationSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
 				HelpUtils.sortPublications(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_ASC);

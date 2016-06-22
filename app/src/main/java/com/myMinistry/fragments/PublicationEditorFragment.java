@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.PublicationRecentActivityAdapter;
+import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
@@ -54,7 +54,8 @@ public class PublicationEditorFragment extends ListFragment {
 	private MinistryService database;
 	private Cursor cursor;
 	private Cursor activity;
-	private PublicationRecentActivityAdapter adapter;
+	//private PublicationRecentActivityAdapter adapter;
+	private TimeEntryAdapter adapter;
 	private NavDrawerMenuItemAdapter sadapter;
 	
 	public PublicationEditorFragment newInstance() {
@@ -96,7 +97,8 @@ public class PublicationEditorFragment extends ListFragment {
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
     	//tv_recent_activity = (TextView) root.findViewById(R.id.recent_activity_text);
 		
-    	adapter = new PublicationRecentActivityAdapter(getActivity().getApplicationContext(), activity);
+    	//adapter = new PublicationRecentActivityAdapter(getActivity().getApplicationContext(), activity);
+		adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
     	setListAdapter(adapter);
     	
 	    database = new MinistryService(getActivity().getApplicationContext());
