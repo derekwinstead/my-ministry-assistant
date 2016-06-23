@@ -46,7 +46,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     public static final int ID_TRACTS = 5;
     public static final int ID_VIDEOS_TO_SHOW = 6;
 
-    public static final int MAX_PUBLICATION_TYPE_ID = ID_TRACTS;
+    public static final int MAX_PUBLICATION_TYPE_ID = ID_VIDEOS_TO_SHOW;
 
     public static final int ID_ROLLOVER = 1;
     public static final int ID_BIBLE_STUDY = 2;

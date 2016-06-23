@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,9 +91,9 @@ public class PublicationManagerFrag extends ListFragment {
     	
     	database = new MinistryService(getActivity().getApplicationContext());
 		database.openWritable();
-		
+
 		adapter = new ItemAdapter(getActivity().getApplicationContext());
-		
+
 		loadCursor();
 		
 		setListAdapter(adapter);
@@ -118,8 +119,6 @@ public class PublicationManagerFrag extends ListFragment {
     @Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
     	if(adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
-    		
-    		//showTransferToDialog((int)id, cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)));
     		showTransferToDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString());
     	} else {
 			if(is_dual_pane) {
@@ -143,11 +142,11 @@ public class PublicationManagerFrag extends ListFragment {
     
 	@SuppressLint("InflateParams")
 	private void showEditTextDialog(final int id, String name, int isActive) {
-		View view = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.d_edit_text, null);
-    	Builder builder = new Builder(PublicationManagerFrag.this.getActivity());
+        View view = LayoutInflater.from(PublicationManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
     	final EditText editText = (EditText) view.findViewById(R.id.text1);
-    	
-    	editText.setText(name);
+
+        editText.setText(name);
     	
     	builder.setView(view);
     	builder.setTitle(R.string.form_rename);
@@ -199,7 +198,7 @@ public class PublicationManagerFrag extends ListFragment {
 	private void loadCursor() {
 		if(!database.isOpen())
 			database.openWritable();
-		
+
 		adapter.clear();
 		final Cursor cursor = database.fetchAllPublicationTypes();
 	    while(cursor.moveToNext())
