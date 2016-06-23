@@ -169,5 +169,6 @@
     <string name="view_month_entries">View Month\'s Entries</string>
     <string name="view_month_report">View Month\'s Report</string>
     <string name="navdrawer_item_report">Report</string>
+    <string name="menu_create">Create</string>
 
 </resources>

@@ -787,6 +787,10 @@ public class MinistryService {
         return sqlDB.update(Tables.TYPES_OF_LIERATURE, values, BaseColumns._ID + "=" + _id, null);
     }
 
+    public long createPublicationType(ContentValues values) {
+        return sqlDB.insert(Tables.TYPES_OF_LIERATURE,null,values);
+    }
+
     public int saveEntryType(long _id, ContentValues values) {
         return sqlDB.update(Tables.ENTRY_TYPES, values, BaseColumns._ID + "=" + _id, null);
     }
