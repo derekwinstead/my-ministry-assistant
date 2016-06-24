@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -35,6 +36,10 @@ import com.myMinistry.util.PrefUtils;
 
 public class PublicationManagerFrag extends ListFragment {
     private boolean is_dual_pane = false;
+
+    private final int RENAME_ID = 0;
+    private final int TRANSFER_ID = 1;
+    private final int DELETE_ID = 2;
 
     private ItemAdapter adapter;
     private ContentValues values = null;
@@ -135,13 +140,13 @@ public class PublicationManagerFrag extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
-            showTransferToDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString());
+            showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(),adapter.getItem(position).getIsActive());
         } else {
             if (is_dual_pane) {
                 PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
                 f.switchForm(adapter.getItem(position).getID());
             } else {
-                createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), MinistryService.ACTIVE);
+                createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive());
             }
         }
     }
@@ -155,11 +160,19 @@ public class PublicationManagerFrag extends ListFragment {
 
     @SuppressLint("InflateParams")
     private void showEditTextDialog(final int id, String name, int isActive) {
-        View view = LayoutInflater.from(PublicationManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text, null);
+        View view = LayoutInflater.from(PublicationManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text_with_cb, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
         final EditText editText = (EditText) view.findViewById(R.id.text1);
+        final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
+        //final TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
+
+        // A default - don't allow them to make it inactive
+        if(id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
+            cb_is_active.setVisibility(View.GONE);
+        }
 
         editText.setText(name);
+        cb_is_active.setChecked((isActive != 0) ? true : false);
 
         builder.setView(view);
         builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.form_rename);
@@ -171,7 +184,7 @@ public class PublicationManagerFrag extends ListFragment {
                     values = new ContentValues();
 
                 values.put(LiteratureType.NAME, editText.getText().toString());
-                values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
+                values.put(LiteratureType.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
                 database.openWritable();
                 if (id == MinistryDatabase.CREATE_ID)
@@ -219,8 +232,10 @@ public class PublicationManagerFrag extends ListFragment {
 
         adapter.clear();
         final Cursor cursor = database.fetchAllPublicationTypes();
+
         while (cursor.moveToNext())
-            adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+            adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)),Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))),cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)),cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE))));
+
         cursor.close();
         database.close();
     }
@@ -258,5 +273,57 @@ public class PublicationManagerFrag extends ListFragment {
         } else {
             showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE);
         }
+    }
+
+    public void showListItems(final int id, final String name, final int isActive) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
+        builder.setTitle(R.string.menu_options);
+        builder.setItems(getResources().getStringArray(R.array.entry_type_list_item_options), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case RENAME_ID:
+                        if (is_dual_pane) {
+                            //populateEditor(id);
+                        } else {
+                            showEditTextDialog(id, name, isActive);
+                            //sortList(PrefUtils.getEntryTypeSort(getActivity()));
+                        }
+                        break;
+                    case TRANSFER_ID:
+                        showTransferToDialog(id, name);
+                        break;
+                    case DELETE_ID:
+                        /*
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        database.openWritable();
+                                        database.deleteEntryTypeByID(id);
+                                        if (is_dual_pane)
+                                            populateEditor(MinistryDatabase.CREATE_ID);
+                                        sortList(PrefUtils.getEntryTypeSort(getActivity()));
+                                        database.close();
+
+                                        break;
+                                }
+                            }
+                        };
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle(R.string.confirm_deletion)
+                                .setPositiveButton(R.string.menu_delete, dialogClickListener)
+                                .setNegativeButton(R.string.menu_cancel, dialogClickListener)
+                                .show();
+
+
+*/
+                        break;
+                }
+            }
+        });
+        builder.show();
     }
 }
