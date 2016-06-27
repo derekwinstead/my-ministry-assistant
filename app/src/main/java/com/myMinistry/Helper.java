@@ -206,7 +206,7 @@ public class Helper {
             case MinistryDatabase.ID_TRACTS: return R.drawable.ic_tracts;
             case MinistryDatabase.ID_BROCHURES: return R.drawable.ic_booklets;
             case MinistryDatabase.ID_VIDEOS_TO_SHOW: return R.drawable.ic_video;
-            default : return R.drawable.ic_action_summary;
+            default : return R.drawable.ic_action_default;
         }
     }
 

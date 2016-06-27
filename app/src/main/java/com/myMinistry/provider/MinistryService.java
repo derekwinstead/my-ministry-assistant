@@ -398,7 +398,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllPublicationTypes() {
-        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE}, null, null, null, null, LiteratureType.DEFAULT_SORT);
+        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE, LiteratureType.DEFAULT}, null, null, null, null, LiteratureType.DEFAULT_SORT);
     }
 
     public Cursor fetchAllPublicationTypes(String sort) {
@@ -435,7 +435,7 @@ public class MinistryService {
     }
 
     public Cursor fetchActiveTypesOfLiterature() {
-        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[] {LiteratureType._ID,LiteratureType.NAME}, LiteratureType.ACTIVE + "=" + ACTIVE, null, null, null, LiteratureType.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[] {LiteratureType._ID,LiteratureType.NAME,LiteratureType.DEFAULT}, LiteratureType.ACTIVE + "=" + ACTIVE, null, null, null, LiteratureType.DEFAULT_SORT, null);
     }
 
     public Cursor fetchTypesOfLiteratureToManage() {
@@ -791,6 +791,11 @@ public class MinistryService {
         return sqlDB.insert(Tables.TYPES_OF_LIERATURE,null,values);
     }
 
+    public void clearPublicationTypeDefault() {
+        String sql = "UPDATE " + Tables.TYPES_OF_LIERATURE + " SET " + LiteratureType.DEFAULT + " = " + MinistryService.INACTIVE;
+        sqlDB.execSQL(sql);
+    }
+
     public int saveEntryType(long _id, ContentValues values) {
         return sqlDB.update(Tables.ENTRY_TYPES, values, BaseColumns._ID + "=" + _id, null);
     }
@@ -1023,7 +1028,7 @@ public class MinistryService {
         sqlDB.update(Tables.LITERATURE, values, Literature.TYPE_OF_LIERATURE_ID + "=" + origID, null);
     }
 
-    public void removePublication(int id) {
+    public void removePublicationType(int id) {
         sqlDB.delete(Tables.TYPES_OF_LIERATURE, LiteratureType._ID + " = " + id, null);
     }
 

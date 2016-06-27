@@ -170,5 +170,10 @@
     <string name="view_month_report">View Month\'s Report</string>
     <string name="navdrawer_item_report">Report</string>
     <string name="menu_create">Create</string>
+    <string name="edit_with_space">Edit {type}</string>
+    <string name="edit">Edit</string>
+    <string name="confirm_deletaion_message">This action cannot be undone. Are you sure you want to delete?</string>
+    <string name="confirm_deletaion_message_publication_types">This action cannot be undone. If you delete this record before transfering any publications associated with this record those publications will no longer be available to select or retrive in any way. Are you sure you want to delete?</string>
+    <string name="is_default">Is Default</string>
 
 </resources>

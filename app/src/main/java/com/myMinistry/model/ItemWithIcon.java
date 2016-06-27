@@ -1,31 +1,38 @@
 package com.myMinistry.model;
 
-public class NavDrawerMenuItem {
+public class ItemWithIcon {
     public String title;
     public int iconRes;
     public int id;
     public int is_active = 0;
     public int is_default = 0;
+    public int count = 0;
 
-    public NavDrawerMenuItem(String _title, int _iconRes) {
+    public ItemWithIcon(String _title, int _iconRes) {
         title = _title;
         iconRes = _iconRes;
     }
 
-    public NavDrawerMenuItem(String _title, int _iconRes, int _id) {
+    public ItemWithIcon(int _id, String _title, int _count) {
+        title = _title;
+        count = _count;
+        id = _id;
+    }
+
+    public ItemWithIcon(String _title, int _iconRes, int _id) {
         title = _title;
         iconRes = _iconRes;
         id = _id;
     }
 
-    public NavDrawerMenuItem(String _title, int _iconRes, int _id, int _is_active) {
+    public ItemWithIcon(String _title, int _iconRes, int _id, int _is_active) {
         title = _title;
         iconRes = _iconRes;
         id = _id;
         is_active = _is_active;
     }
 
-    public NavDrawerMenuItem(String _title, int _iconRes, int _id, int _is_active, int _is_default) {
+    public ItemWithIcon(String _title, int _iconRes, int _id, int _is_active, int _is_default) {
         title = _title;
         iconRes = _iconRes;
         id = _id;
@@ -63,5 +70,13 @@ public class NavDrawerMenuItem {
 
     public int getIsDefault() {
         return is_default;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getCount() {
+        return String.valueOf(this.count);
     }
 }

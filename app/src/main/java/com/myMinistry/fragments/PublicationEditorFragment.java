@@ -43,7 +43,6 @@ public class PublicationEditorFragment extends ListFragment {
 	private Spinner s_publicationTypes;
 	private CheckBox cb_is_active;
 	private CheckBox cb_is_pair;
-	//private TextView tv_recent_activity;
 	
 	private FragmentManager fm;
 	
@@ -54,7 +53,6 @@ public class PublicationEditorFragment extends ListFragment {
 	private MinistryService database;
 	private Cursor cursor;
 	private Cursor activity;
-	//private PublicationRecentActivityAdapter adapter;
 	private TimeEntryAdapter adapter;
 	private NavDrawerMenuItemAdapter sadapter;
 	
@@ -95,21 +93,25 @@ public class PublicationEditorFragment extends ListFragment {
 		s_publicationTypes = (Spinner) root.findViewById(R.id.literatureTypes);
     	cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
-    	//tv_recent_activity = (TextView) root.findViewById(R.id.recent_activity_text);
 		
-    	//adapter = new PublicationRecentActivityAdapter(getActivity().getApplicationContext(), activity);
-		adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
+    	adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
     	setListAdapter(adapter);
     	
 	    database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
-        cursor = database.fetchActiveTypesOfLiterature();
-        
-        while(cursor.moveToNext())
-        	sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+
+		cursor = database.fetchActiveTypesOfLiterature();
+		int default_position = 0;
+        while(cursor.moveToNext()) {
+			sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+
+			if(cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT)) == MinistryService.ACTIVE)
+				default_position = cursor.getPosition();
+		}
 		
 		sadapter.setDropDownViewResource(R.layout.li_spinner_item_dropdown);
 		s_publicationTypes.setAdapter(sadapter);
+		s_publicationTypes.setSelection(default_position);
 		s_publicationTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -296,12 +298,10 @@ public class PublicationEditorFragment extends ListFragment {
     		cb_is_active.setChecked(true);
     		cb_is_pair.setChecked(false);
     		
-    		//tv_recent_activity.setVisibility(View.GONE);
     		getListView().setVisibility(View.GONE);
     		getListView().getEmptyView().setVisibility(View.GONE);
     	}
     	else {
-    		//tv_recent_activity.setVisibility(View.VISIBLE);
     		getListView().setVisibility(View.VISIBLE);
     		getListView().getEmptyView().setVisibility(View.VISIBLE);
 
@@ -309,7 +309,7 @@ public class PublicationEditorFragment extends ListFragment {
 	    	Cursor literature = database.fetchLiteratureByID((int)publicationId);
 	    	if(literature.moveToFirst()) {
 	    		et_name.setText(literature.getString(literature.getColumnIndex(Literature.NAME)));
-	    		cb_is_active.setChecked((literature.getInt(literature.getColumnIndex(Literature.ACTIVE)) == 1) ? true : false);
+	    		cb_is_active.setChecked((literature.getInt(literature.getColumnIndex(Literature.ACTIVE)) == MinistryService.ACTIVE) ? true : false);
 	    		cb_is_pair.setChecked((literature.getInt(literature.getColumnIndex(Literature.WEIGHT)) != 1) ? true : false);
 
 	    		if(cursor.moveToFirst()) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/default_padding_double"
+    android:paddingRight="@dimen/default_padding_double">
+
+    <EditText
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/form_name"
+        android:inputType="textCapSentences" />
+
+    <CheckBox
+        android:id="@+id/cb_is_active"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/thumb_height"
+        android:text="@string/form_is_active"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <CheckBox
+        android:id="@+id/cb_is_default"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/thumb_height"
+        android:text="@string/is_default"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+</LinearLayout>

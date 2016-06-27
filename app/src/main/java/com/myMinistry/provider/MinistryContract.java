@@ -6,17 +6,17 @@ import com.myMinistry.provider.MinistryDatabase.Tables;
 
 public class MinistryContract {
     interface TimeColumns {
-        /** PublisherID to link to publishers table. */
+        // PublisherID to link to publishers table
         String PUBLISHER_ID = "publisherID";
-        /** EntryTypeID to link to entryType table. */
+        // EntryTypeID to link to entryType table
         String ENTRY_TYPE_ID = "entryType";
-        /** Start Date of the time entry. */
+        // Start Date of the time entry
         String DATE_START = "startDate";
-        /** End Date of the time entry. */
+        // End Date of the time entry
         String DATE_END = "endDate";
-        /** Start time of the entry. */
+        // Start time of the entry
         String TIME_START = "startTime";
-        /** End time of the entry. */
+        // End time of the entry
         String TIME_END = "endTime";
     }
 
@@ -33,11 +33,11 @@ public class MinistryContract {
     }
 
     interface RolloverColumns {
-        /** PublisherID to link to publishers table. */
+        // PublisherID to link to publishers table
         String PUBLISHER_ID = "publisherID";
-        /** Date of the roll over. */
+        // Date of the roll over
         String DATE = "date";
-        /** Amount of time to roll over. */
+        // Amount of time to roll over
         String MINUTES = "minutes";
     }
 
@@ -51,49 +51,54 @@ public class MinistryContract {
     }
 
     interface EntryTypeColumns {
-        /** Name of the entry type. */
+        // Name of the entry type
         String NAME = "name";
-        /** Active flag. */
+        // Active flag
         String ACTIVE = "isActive";
-        /** RBC flag. */
+        // RBC flag
         String RBC = "isRBC";
-        /** Sorting. */
+        // Sorting
         String SORT_ORDER = "sortOrder";
+        // Default flag
+        String DEFAULT = "isDefault";
     }
 
     public static class EntryType implements EntryTypeColumns, BaseColumns {
         public static final String DEFAULT_SORT = ACTIVE + " DESC," + SORT_ORDER + " ASC," + NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,RBC,SORT_ORDER};
+        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,RBC,SORT_ORDER,DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.ENTRY_TYPES + " ("
                 + 		_ID			+ " INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "," + NAME		+ " TEXT"
                 + "," + ACTIVE		+ " INTEGER"
                 + "," + RBC			+ " INTEGER"
-                + "," + SORT_ORDER	+ " INTEGER DEFAULT 0)";
+                + "," + SORT_ORDER	+ " INTEGER DEFAULT 0"
+                + "," + DEFAULT 	+ " INTEGER DEFAULT 0)";
     }
 
     interface HouseholderColumns {
-        /** Name of the householder. */
+        // Name of the householder
         String NAME = "name";
-        /** Address. */
+        // Address
         String ADDR = "address";
-        /** Phone mobile. */
+        // Phone mobile
         String MOBILE_PHONE = "phoneMobile";
-        /** Phone home. */
+        // Phone home
         String HOME_PHONE = "phoneHome";
-        /** Phone work. */
+        // Phone work
         String WORK_PHONE = "phoneWork";
-        /** Phone other. */
+        // Phone other
         String OTHER_PHONE = "phoneOther";
-        /** Active flag. */
+        // Active flag
         String ACTIVE = "isActive";
-        /** Sort order. */
+        // Sort order
         String SORT_ORDER = "sortOrder";
+        // Default flag
+        String DEFAULT = "isDefault";
     }
 
     public static class Householder implements HouseholderColumns, BaseColumns {
         public static final String DEFAULT_SORT = HouseholderColumns.ACTIVE + " DESC," + HouseholderColumns.SORT_ORDER + " ASC, " + HouseholderColumns.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ADDR,MOBILE_PHONE,HOME_PHONE,WORK_PHONE,OTHER_PHONE,ACTIVE};
+        public static final String[] All_COLS = new String[] {_ID,NAME,ADDR,MOBILE_PHONE,HOME_PHONE,WORK_PHONE,OTHER_PHONE,ACTIVE,DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.HOUSEHOLDERS + " ("
                 + 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "," + NAME			+ " TEXT"
@@ -103,19 +108,20 @@ public class MinistryContract {
                 + "," + WORK_PHONE		+ " TEXT"
                 + "," + OTHER_PHONE		+ " TEXT"
                 + "," + ACTIVE			+ " INTEGER"
-                + "," + SORT_ORDER		+ " INTEGER DEFAULT 1)";
+                + "," + SORT_ORDER		+ " INTEGER DEFAULT 1"
+                + "," + DEFAULT 	    + " INTEGER DEFAULT 0)";
     }
 
     interface LiteratureColumns {
-        /** Name of the literature. */
+        // Name of the literature
         String NAME = "name";
-        /** LiteruateTypeID to link to literatureTypes tables. */
+        // LiteruateTypeID to link to literatureTypes tables
         String TYPE_OF_LIERATURE_ID = "typeID";
-        /** Active flag. */
+        // Active flag
         String ACTIVE = "isActive";
-        /** Count weight of literature. */
+        // Count weight of literature
         String WEIGHT = "countWeight";
-        /** Sort order. */
+        // Sort order
         String SORT_ORDER = "sortOrder";
     }
 
@@ -132,55 +138,61 @@ public class MinistryContract {
     }
 
     interface LiteratureTypeColumns {
-        /** Name of the literature. */
+        // Name of the literature
         String NAME = "name";
-        /** Active flag. */
+        // Active flag
         String ACTIVE = "isActive";
-        /** Sort order. */
+        // Sort order
         String SORT_ORDER = "sortOrder";
+        // Default flag
+        String DEFAULT = "isDefault";
     }
 
     public static class LiteratureType implements LiteratureTypeColumns, BaseColumns {
         public static final String DEFAULT_SORT = LiteratureType.ACTIVE + " DESC, " + LiteratureType.SORT_ORDER + ", " + LiteratureType.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,SORT_ORDER};
+        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,SORT_ORDER,DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.TYPES_OF_LIERATURE + " ("
                 + 		_ID			+ " INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "," + NAME		+ " TEXT"
                 + "," + ACTIVE		+ " INTEGER"
-                + "," + SORT_ORDER	+ " INTEGER )";
+                + "," + SORT_ORDER	+ " INTEGER"
+                + "," + DEFAULT		+ " INTEGER DEFAULT 0)";
     }
 
     interface PublisherColumns {
-        /** Name of the publisher. */
+        // Name of the publisher
         String NAME = "name";
-        /** Active flag. */
+        // Active flag
         String ACTIVE = "isActive";
-        /** Gender of publisher. */
+        // Gender of publisher
         String GENDER = "gender";
+        // Default flag
+        String DEFAULT = "isDefault";
     }
 
     public static class Publisher implements PublisherColumns, BaseColumns {
         public static final String DEFAULT_SORT = PublisherColumns.ACTIVE + " DESC, " + PublisherColumns.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,GENDER};
+        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,GENDER,DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.PUBLISHERS + " ("
                 + 		_ID		+ " INTEGER PRIMARY KEY AUTOINCREMENT"
                 + "," + NAME	+ " TEXT"
                 + "," + ACTIVE	+ " INTEGER DEFAULT 1"
-                + "," + GENDER	+ " TEXT DEFAULT 'male')";
+                + "," + GENDER	+ " TEXT DEFAULT 'male'"
+                + "," + DEFAULT		+ " INTEGER DEFAULT 0)";
     }
 
     interface LiteraturePlacedColumns {
-        /** PublisherID to link to publishers table. */
+        // PublisherID to link to publishers table
         String PUBLISHER_ID = "publisherID";
-        /** LiteratureID to link to literatureNames table. */
+        // LiteratureID to link to literatureNames table
         String LITERATURE_ID = "litNameID";
-        /** HouseholderID to link to householders table. */
+        // HouseholderID to link to householders table
         String HOUSEHOLDER_ID = "householderID";
-        /** TimeID to link to times table. */
+        // TimeID to link to times table
         String TIME_ID = "timeID";
-        /** Number of literatures placed. */
+        // Number of literature placed
         String COUNT = "count";
-        /** Date of the literature placed. */
+        // Date of the literature placed
         String DATE = "datePlaced";
     }
 

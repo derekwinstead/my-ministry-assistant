@@ -90,8 +90,9 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     private static final int VER_ADD_HOUSEHOLDER_SORT_ORDER = 12;
     private static final int VER_ADD_VIDEOS_TO_SHOW = 13;
     private static final int VER_ADD_PUBLISHER_GENDERS = 14;
+    private static final int VER_ADD_DEFAULTS = 15;
 
-    public static final int DATABASE_VERSION = VER_ADD_PUBLISHER_GENDERS;
+    public static final int DATABASE_VERSION = VER_ADD_DEFAULTS;
 
     interface Tables {
         String ENTRY_TYPES = "entryTypes";
@@ -454,6 +455,15 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 db.execSQL("ALTER TABLE " + Tables.PUBLISHERS + " ADD COLUMN " + Publisher.GENDER + " TEXT DEFAULT 'male'");
 
                 version = VER_ADD_PUBLISHER_GENDERS;
+            case VER_ADD_PUBLISHER_GENDERS:
+                versionBackup(version);
+
+                db.execSQL("ALTER TABLE " + Tables.TYPES_OF_LIERATURE   + " ADD COLUMN " + LiteratureType.DEFAULT   + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.PUBLISHERS           + " ADD COLUMN " + Publisher.DEFAULT        + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.ENTRY_TYPES          + " ADD COLUMN " + EntryType.DEFAULT        + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.HOUSEHOLDERS         + " ADD COLUMN " + Householder.DEFAULT      + " INTEGER DEFAULT 0");
+
+                version = VER_ADD_DEFAULTS;
         }
     }
 

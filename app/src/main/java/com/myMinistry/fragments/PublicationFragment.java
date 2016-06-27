@@ -82,11 +82,16 @@ public class PublicationFragment extends ListFragment {
 		
 		database.openWritable();
 		cursor = database.fetchActiveTypesOfLiterature();
-		
-		while(cursor.moveToNext())
+		int default_position = 0;
+		while(cursor.moveToNext()) {
 			sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+
+			if(cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT)) == MinistryService.ACTIVE)
+				default_position = cursor.getPosition();
+		}
 		
 		myspinner.setAdapter(sadapter);
+		myspinner.setSelection(default_position);
 		myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {

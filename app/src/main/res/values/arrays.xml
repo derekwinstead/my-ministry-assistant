@@ -14,7 +14,7 @@
         <item>@string/menu_count_as_return_visit</item>
     </array>
     <array name="entry_type_list_item_options">
-        <item>@string/form_rename</item>
+        <item>@string/edit</item>
         <item>@string/menu_transfer_to</item>
         <item>@string/menu_delete</item>
     </array>

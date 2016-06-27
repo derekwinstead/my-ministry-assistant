@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -26,7 +25,7 @@ import android.widget.ListView;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.DialogItemAdapter;
-import com.myMinistry.adapters.ItemAdapter;
+import com.myMinistry.adapters.ItemWithIconAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
@@ -41,7 +40,7 @@ public class PublicationManagerFrag extends ListFragment {
     private final int TRANSFER_ID = 1;
     private final int DELETE_ID = 2;
 
-    private ItemAdapter adapter;
+    private ItemWithIconAdapter adapter;
     private ContentValues values = null;
     private MinistryService database;
     private FragmentManager fm;
@@ -101,11 +100,11 @@ public class PublicationManagerFrag extends ListFragment {
         database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
 
-        adapter = new ItemAdapter(getActivity().getApplicationContext());
-
-        loadCursor();
+        adapter = new ItemWithIconAdapter(getActivity().getApplicationContext());
 
         setListAdapter(adapter);
+
+        loadCursor();
 
         database.close();
 
@@ -140,31 +139,31 @@ public class PublicationManagerFrag extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
-            showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(),adapter.getItem(position).getIsActive());
+            showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(),adapter.getItem(position).getIsActive(),adapter.getItem(position).getIsDefault());
         } else {
             if (is_dual_pane) {
                 PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
                 f.switchForm(adapter.getItem(position).getID());
             } else {
-                createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive());
+                createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
             }
         }
     }
 
-    private void createDialog(final long id, String name, int isActive) {
+    private void createDialog(final long id, String name, int isActive, int isDefault) {
         if ((int) id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID)
-            showEditTextDialog((int) id, name, isActive);
+            showEditTextDialog((int) id, name, isActive, isDefault);
         else
             showTransferToDialog((int) id, name);
     }
 
     @SuppressLint("InflateParams")
-    private void showEditTextDialog(final int id, String name, int isActive) {
-        View view = LayoutInflater.from(PublicationManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text_with_cb, null);
+    private void showEditTextDialog(final int id, String name, int isActive, int isDefault) {
+        View view = LayoutInflater.from(PublicationManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text_with_two_cb, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
         final EditText editText = (EditText) view.findViewById(R.id.text1);
         final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
-        //final TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
+        final CheckBox cb_is_default = (CheckBox) view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
         if(id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
@@ -173,9 +172,10 @@ public class PublicationManagerFrag extends ListFragment {
 
         editText.setText(name);
         cb_is_active.setChecked((isActive != 0) ? true : false);
+        cb_is_default.setChecked((isDefault != 0) ? true : false);
 
         builder.setView(view);
-        builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.form_rename);
+        builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.edit);
         builder.setNegativeButton(R.string.menu_cancel, null); // Do nothing on cancel - this will dismiss the dialog :)
         builder.setPositiveButton((id == MinistryDatabase.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new OnClickListener() {
             @Override
@@ -185,8 +185,14 @@ public class PublicationManagerFrag extends ListFragment {
 
                 values.put(LiteratureType.NAME, editText.getText().toString());
                 values.put(LiteratureType.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+                values.put(LiteratureType.DEFAULT, cb_is_default.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
                 database.openWritable();
+
+                if(cb_is_default.isChecked()) {
+                    database.clearPublicationTypeDefault();
+                }
+
                 if (id == MinistryDatabase.CREATE_ID)
                     database.createPublicationType(values);
                 else
@@ -203,21 +209,21 @@ public class PublicationManagerFrag extends ListFragment {
         database.openWritable();
         final Cursor cursor = database.fetchDefaultPublicationTypes();
         final DialogItemAdapter mAdapter = new DialogItemAdapter(getActivity().getApplicationContext());
-        ;
+
         while (cursor.moveToNext())
             mAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
 
         cursor.close();
         database.close();
 
-        Builder builder = new Builder(PublicationManagerFrag.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
         builder.setTitle(getActivity().getApplicationContext().getString(R.string.menu_transfer_to));
         builder.setAdapter(mAdapter, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 database.openWritable();
                 database.reassignPublications(id, mAdapter.getItem(which).getID());
-                database.removePublication(id);
+                database.removePublicationType(id);
                 database.close();
                 reloadCursor();
             }
@@ -230,13 +236,20 @@ public class PublicationManagerFrag extends ListFragment {
         if (!database.isOpen())
             database.openWritable();
 
+        final Cursor cursor = database.fetchAllPublicationTypes();
+        //adapter.loadNewData(database.fetchLiteratureByTypeWithActivityDates(literatureTypeId));
+        /*
         adapter.clear();
         final Cursor cursor = database.fetchAllPublicationTypes();
 
         while (cursor.moveToNext())
-            adapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)),Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))),cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)),cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE))));
+            adapter.addItem(new ItemWithIcon(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)),Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))),cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)),cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)),cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT))));
 
         cursor.close();
+        */
+
+        adapter.loadNewData(cursor);
+
         database.close();
     }
 
@@ -271,11 +284,11 @@ public class PublicationManagerFrag extends ListFragment {
             }
             */
         } else {
-            showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE);
+            showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE, MinistryService.INACTIVE);
         }
     }
 
-    public void showListItems(final int id, final String name, final int isActive) {
+    public void showListItems(final int id, final String name, final int isActive, final int isDefault) {
         AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
         builder.setTitle(R.string.menu_options);
         builder.setItems(getResources().getStringArray(R.array.entry_type_list_item_options), new DialogInterface.OnClickListener() {
@@ -286,7 +299,7 @@ public class PublicationManagerFrag extends ListFragment {
                         if (is_dual_pane) {
                             //populateEditor(id);
                         } else {
-                            showEditTextDialog(id, name, isActive);
+                            showEditTextDialog(id, name, isActive, isDefault);
                             //sortList(PrefUtils.getEntryTypeSort(getActivity()));
                         }
                         break;
@@ -294,32 +307,28 @@ public class PublicationManagerFrag extends ListFragment {
                         showTransferToDialog(id, name);
                         break;
                     case DELETE_ID:
-                        /*
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case DialogInterface.BUTTON_POSITIVE:
                                         database.openWritable();
-                                        database.deleteEntryTypeByID(id);
-                                        if (is_dual_pane)
-                                            populateEditor(MinistryDatabase.CREATE_ID);
-                                        sortList(PrefUtils.getEntryTypeSort(getActivity()));
+                                        database.removePublicationType(id);
                                         database.close();
+                                        reloadCursor();
 
                                         break;
                                 }
                             }
                         };
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
                         builder.setTitle(R.string.confirm_deletion)
+                                .setMessage(R.string.confirm_deletaion_message_publication_types)
                                 .setPositiveButton(R.string.menu_delete, dialogClickListener)
                                 .setNegativeButton(R.string.menu_cancel, dialogClickListener)
                                 .show();
 
-
-*/
                         break;
                 }
             }
