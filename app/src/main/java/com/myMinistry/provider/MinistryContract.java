@@ -126,7 +126,7 @@ public class MinistryContract {
     }
 
     public static class Literature implements LiteratureColumns, BaseColumns {
-        public static final String DEFAULT_SORT = Qualified.LITERATURE_ACTIVE + " DESC," + Qualified.LITERATURE_SORT + " ASC," + Qualified.LITERATURE_NAME + " COLLATE NOCASE ASC";
+        public static final String DEFAULT_SORT = Qualified.LITERATURE_ACTIVE + " DESC," + Qualified.LITERATURE_NAME + " COLLATE NOCASE ASC";
         public static final String[] All_COLS = new String[] {_ID,NAME,TYPE_OF_LIERATURE_ID,ACTIVE,WEIGHT,SORT_ORDER};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.LITERATURE + " ("
                 + 		_ID						+ " INTEGER PRIMARY KEY AUTOINCREMENT"
@@ -149,7 +149,7 @@ public class MinistryContract {
     }
 
     public static class LiteratureType implements LiteratureTypeColumns, BaseColumns {
-        public static final String DEFAULT_SORT = LiteratureType.ACTIVE + " DESC, " + LiteratureType.SORT_ORDER + ", " + LiteratureType.NAME + " COLLATE NOCASE ASC";
+        public static final String DEFAULT_SORT = LiteratureType.ACTIVE + " DESC, " + LiteratureType.NAME + " COLLATE NOCASE ASC";
         public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,SORT_ORDER,DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.TYPES_OF_LIERATURE + " ("
                 + 		_ID			+ " INTEGER PRIMARY KEY AUTOINCREMENT"

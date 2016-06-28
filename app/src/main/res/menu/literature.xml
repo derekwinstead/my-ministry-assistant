@@ -6,6 +6,7 @@
         android:orderInCategory="20"
         android:title="@string/form_publication_types"
         app:showAsAction="ifRoom|withText" />
+    <!--
     <item
         android:id="@+id/sort_container"
         android:icon="@drawable/ic_action_sort_by_size"
@@ -30,5 +31,5 @@
                 app:showAsAction="always" />
         </menu>
     </item>
-
+-->
 </menu>

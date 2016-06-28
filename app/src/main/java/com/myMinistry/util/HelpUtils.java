@@ -22,9 +22,7 @@ import android.webkit.WebView;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryContract.Literature;
-import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
@@ -185,29 +183,6 @@ public class HelpUtils {
         PendingIntent pi = PendingIntent.getService(context, 0, new Intent(context, WeeklyBackupService.class), PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(pi);
-    }
-
-    public static void sortPublicationTypes(Context context, int how_to_sort) {
-        MinistryService database = new MinistryService(context);
-        Cursor cursor = null;
-
-        if(!database.isOpen())
-            database.openWritable();
-
-        if(how_to_sort == MinistryDatabase.SORT_BY_ASC)
-            cursor = database.fetchAllPublicationTypes("ASC");
-        else if(how_to_sort == MinistryDatabase.SORT_BY_DESC)
-            cursor = database.fetchAllPublicationTypes("DESC");
-        else if(how_to_sort == MinistryDatabase.SORT_BY_POPULAR)
-            cursor = database.fetchAllPublicationTypesByPopularity();
-
-        ContentValues values = new ContentValues();
-        for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
-            values.put(MinistryContract.LiteratureType.SORT_ORDER, cursor.getPosition());
-            database.savePublicationType(cursor.getLong(cursor.getColumnIndex(LiteratureType._ID)), values);
-        }
-        cursor.close();
-        database.close();
     }
 
     public static void sortPublications(Context context, int how_to_sort) {

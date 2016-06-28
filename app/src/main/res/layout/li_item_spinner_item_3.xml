@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingRight="@dimen/default_padding_half"
+        android:paddingRight="@dimen/default_padding"
         android:text="@string/placeholder_lorem_ipsum"
         android:textColor="@color/bg_card_default_text"
         android:textSize="@dimen/textsizeSM" />

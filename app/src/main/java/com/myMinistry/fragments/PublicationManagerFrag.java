@@ -13,9 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -30,8 +27,6 @@ import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.HelpUtils;
-import com.myMinistry.util.PrefUtils;
 
 public class PublicationManagerFrag extends ListFragment {
     private boolean is_dual_pane = false;
@@ -56,40 +51,10 @@ public class PublicationManagerFrag extends ListFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.sorting_only, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sort_alpha:
-                PrefUtils.setPublicationTypeSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
-                HelpUtils.sortPublicationTypes(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_ASC);
-                reloadCursor();
-                return true;
-            case R.id.sort_alpha_desc:
-                PrefUtils.setPublicationTypeSort(getActivity(), MinistryDatabase.SORT_BY_DESC);
-                HelpUtils.sortPublicationTypes(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_DESC);
-                reloadCursor();
-                return true;
-            case R.id.sort_most_placed:
-                PrefUtils.setPublicationTypeSort(getActivity(), MinistryDatabase.SORT_BY_POPULAR);
-                HelpUtils.sortPublicationTypes(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_POPULAR);
-                reloadCursor();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        setHasOptionsMenu(true);
 
         fm = getActivity().getSupportFragmentManager();
 
@@ -139,7 +104,7 @@ public class PublicationManagerFrag extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
-            showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(),adapter.getItem(position).getIsActive(),adapter.getItem(position).getIsDefault());
+            showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         } else {
             if (is_dual_pane) {
                 PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
@@ -166,7 +131,7 @@ public class PublicationManagerFrag extends ListFragment {
         final CheckBox cb_is_default = (CheckBox) view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
-        if(id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
+        if (id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
             cb_is_active.setVisibility(View.GONE);
         }
 
@@ -189,7 +154,7 @@ public class PublicationManagerFrag extends ListFragment {
 
                 database.openWritable();
 
-                if(cb_is_default.isChecked()) {
+                if (cb_is_default.isChecked()) {
                     database.clearPublicationTypeDefault();
                 }
 
@@ -237,19 +202,7 @@ public class PublicationManagerFrag extends ListFragment {
             database.openWritable();
 
         final Cursor cursor = database.fetchAllPublicationTypes();
-        //adapter.loadNewData(database.fetchLiteratureByTypeWithActivityDates(literatureTypeId));
-        /*
-        adapter.clear();
-        final Cursor cursor = database.fetchAllPublicationTypes();
-
-        while (cursor.moveToNext())
-            adapter.addItem(new ItemWithIcon(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)),Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))),cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)),cursor.getInt(cursor.getColumnIndex(LiteratureType.ACTIVE)),cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT))));
-
-        cursor.close();
-        */
-
         adapter.loadNewData(cursor);
-
         database.close();
     }
 
@@ -310,7 +263,7 @@ public class PublicationManagerFrag extends ListFragment {
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                switch (which){
+                                switch (which) {
                                     case DialogInterface.BUTTON_POSITIVE:
                                         database.openWritable();
                                         database.removePublicationType(id);

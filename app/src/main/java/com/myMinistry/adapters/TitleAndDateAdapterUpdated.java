@@ -66,7 +66,7 @@ public class TitleAndDateAdapterUpdated extends ArrayAdapter<ItemWithDate> {
                         firstInActivePosition = cursor.getPosition();
 
                     activeId = cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE));
-                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.form_is_inactive) : context.getResources().getString(R.string.form_is_active), cursor.getCount() - cursor.getPosition());
+                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.inactive) : context.getResources().getString(R.string.active), cursor.getCount() - cursor.getPosition());
                 }
 
 

@@ -23,10 +23,7 @@ import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.HelpUtils;
-import com.myMinistry.util.PrefUtils;
 
 public class PublicationFragment extends ListFragment {
     public static String ARG_PUBLICATION_ID = "publication_id";
@@ -55,12 +52,12 @@ public class PublicationFragment extends ListFragment {
 		f.setArguments(args);
 		return f;
     }
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.literature, menu);
 	}
-	
+
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
@@ -172,21 +169,6 @@ public class PublicationFragment extends ListFragment {
 
 				ft.commit();
 
-				return true;
-			case R.id.sort_alpha:
-				PrefUtils.setPublicationSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
-				HelpUtils.sortPublications(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_ASC);
-				updateLiteratureList(literatureTypeId);
-				return true;
-			case R.id.sort_alpha_desc:
-				PrefUtils.setPublicationSort(getActivity(), MinistryDatabase.SORT_BY_DESC);
-				HelpUtils.sortPublications(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_DESC);
-				updateLiteratureList(literatureTypeId);
-				return true;
-			case R.id.sort_most_placed:
-				PrefUtils.setPublicationSort(getActivity(), MinistryDatabase.SORT_BY_POPULAR);
-				HelpUtils.sortPublications(getActivity().getApplicationContext(), MinistryDatabase.SORT_BY_POPULAR);
-				updateLiteratureList(literatureTypeId);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

@@ -33,12 +33,6 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
         this.context = context;
     }
 
-    public ItemWithIconAdapter(Context context, Cursor cursor) {
-        super(context, 0);
-        this.context = context;
-        //loadNewData(cursor);
-    }
-
     public void addSeparatorItem(String title, int count) {
         addItem(new ItemWithIcon(separatorId, title, count));
     }
@@ -55,24 +49,6 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
     public void setTitle(String _title, int _position) {
         ItemWithIcon thisItem = this.getItem(_position);
         thisItem.setTitle(_title);
-    }
-
-    public ItemWithIcon getItemByID(int _id) {
-        for (int i = 0; i < this.getCount(); i++) {
-            ItemWithIcon item = this.getItem(i);
-            if (item.getID() == _id)
-                return item;
-        }
-        return null;
-    }
-
-    public int getPositionByID(int _id) {
-        for (int i = 0; i < this.getCount(); i++) {
-            ItemWithIcon item = this.getItem(i);
-            if (item.getID() == _id)
-                return i;
-        }
-        return -1;
     }
 
     @Override
@@ -94,13 +70,13 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
         public final TextView textHolder1;
         public final TextView textHolder2;
         public final ImageView imgHolder;
-        public final TextView menurow_count;
+        public final TextView textCount;
 
         public ViewHolder(TextView text1, TextView text2, ImageView img1, TextView count) {
             this.textHolder1 = text1;
             this.textHolder2 = text2;
             this.imgHolder = img1;
-            this.menurow_count = count;
+            this.textCount = count;
         }
     }
 
@@ -112,7 +88,6 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
         View view = convertView;
 
         if(view == null) {
-            //view = LayoutInflater.from(getContext()).inflate(LAYOUT_CONTENT_ID, parent, false);
             view = LayoutInflater.from(getContext()).inflate(type == ITEM_VIEW_TYPE_SEPARATOR ? LAYOUT_SEPARATOR_ID : LAYOUT_CONTENT_ID, parent, false);
             TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
             TextView text2 = (TextView) view.findViewById(R.id.menurow_subtitle);
@@ -129,7 +104,7 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
 
         holder.textHolder1.setText(item.title);
         if(type == ITEM_VIEW_TYPE_SEPARATOR) {
-            holder.menurow_count.setText(getItem(position).getCount());
+            holder.textCount.setText(getItem(position).getCount());
         } else {
             holder.textHolder2.setText((item.is_default == 1) ? getContext().getResources().getString(R.string.is_default) : "");
 
@@ -161,7 +136,7 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
                         firstInActivePosition = cursor.getPosition();
 
                     activeId = cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE));
-                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.form_is_inactive) : context.getResources().getString(R.string.form_is_active), cursor.getCount() - cursor.getPosition());
+                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.inactive) : context.getResources().getString(R.string.active), cursor.getCount() - cursor.getPosition());
                 }
 
                 addItem(new ItemWithIcon(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME))

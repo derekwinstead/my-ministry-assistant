@@ -435,23 +435,7 @@ public class MinistryService {
     }
 
     public Cursor fetchActiveTypesOfLiterature() {
-        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[] {LiteratureType._ID,LiteratureType.NAME,LiteratureType.DEFAULT}, LiteratureType.ACTIVE + "=" + ACTIVE, null, null, null, LiteratureType.DEFAULT_SORT, null);
-    }
-
-    public Cursor fetchTypesOfLiteratureToManage() {
-        String sql =	"SELECT " + LiteratureType._ID + "," + LiteratureType.NAME + "," + LiteratureType.ACTIVE + "," + LiteratureType.SORT_ORDER + "," + "1 as isDefault"
-                + " FROM " + Tables.TYPES_OF_LIERATURE
-                + " WHERE " + LiteratureType._ID + " <= " + MinistryDatabase.MAX_PUBLICATION_TYPE_ID
-
-                + " UNION "
-
-                + " SELECT " + LiteratureType._ID + "," + LiteratureType.NAME + "," + LiteratureType.ACTIVE + "," + LiteratureType.SORT_ORDER + "," + "0 as isDefault"
-                + " FROM " + Tables.TYPES_OF_LIERATURE
-                + " WHERE " + LiteratureType._ID + " > " + MinistryDatabase.MAX_PUBLICATION_TYPE_ID
-
-                + " ORDER BY " + LiteratureType.DEFAULT_SORT;
-
-        return sqlDB.rawQuery(sql, null);
+        return sqlDB.query(Tables.TYPES_OF_LIERATURE, LiteratureType.All_COLS, LiteratureType.ACTIVE + "=" + ACTIVE, null, null, null, LiteratureType.DEFAULT_SORT, null);
     }
 
     public Cursor fetchTypesOfLiteratureCountsForPublisher(int publisherId, String formattedDate, String timeFrame) {
