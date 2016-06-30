@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,19 +8,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
-import com.myMinistry.provider.MinistryContract.Householder;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.PrefUtils;
 
 public class HouseholdersFragment extends ListFragment {
 	private boolean is_dual_pane = false;
@@ -40,27 +33,14 @@ public class HouseholdersFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.householders, container, false);
-		/*
-		view.findViewById(R.id.btn_add_item).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				openEditor(HouseholderEditorFragment.CREATE_ID);
-			}
-		});
-		*/
 
-		fm = getActivity().getSupportFragmentManager();
+        fm = getActivity().getSupportFragmentManager();
 
 		fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
 		return view;
 	}
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.householders, menu);
-	}
-	
+
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
@@ -68,8 +48,6 @@ public class HouseholdersFragment extends ListFragment {
     	is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
     	
     	database = new MinistryService(getActivity());
-    	
-    	setHasOptionsMenu(true);
 
 		if(is_dual_pane) {
 			fab.setVisibility(View.GONE);
@@ -83,7 +61,6 @@ public class HouseholdersFragment extends ListFragment {
 		}
     	
     	loadCursor();
-		//adapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.li_bg_card_tv, cursor, new String[] {EntryType.NAME}, new int[] {android.R.id.text1});
 		
     	adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), cursor, R.string.last_visited_on);
     	setListAdapter(adapter);
@@ -108,30 +85,6 @@ public class HouseholdersFragment extends ListFragment {
     @Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
     	openEditor(id);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.sort_alpha:
-				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_ASC);
-				sortList(MinistryDatabase.SORT_BY_ASC);
-				return true;
-			case R.id.sort_alpha_desc:
-				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_DESC);
-				sortList(MinistryDatabase.SORT_BY_DESC);
-				return true;
-			case R.id.sort_last_visit:
-				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_DATE);
-				sortList(MinistryDatabase.SORT_BY_DATE);
-				return true;
-			case R.id.sort_last_visit_desc:
-				PrefUtils.setHouseholderSort(getActivity(), MinistryDatabase.SORT_BY_DATE_DESC);
-				sortList(MinistryDatabase.SORT_BY_DATE_DESC);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
 	}
 	
 	public void updateHouseholderList() {
@@ -181,38 +134,9 @@ public class HouseholdersFragment extends ListFragment {
 		}
 	}
 	
-	public void sortList(int how_to_sort) {
-		if(!database.isOpen())
-			database.openWritable();
-		
-		if(how_to_sort == MinistryDatabase.SORT_BY_ASC)
-			cursor = database.fetchAllHouseholders("ASC");
-		else if(how_to_sort == MinistryDatabase.SORT_BY_DESC)
-			cursor = database.fetchAllHouseholders("DESC");
-		else if(how_to_sort == MinistryDatabase.SORT_BY_DATE)
-			cursor = database.fetchAllHouseholdersWithActivityDates("DESC");
-		else if(how_to_sort == MinistryDatabase.SORT_BY_DATE_DESC)
-			cursor = database.fetchAllHouseholdersWithActivityDates("ASC");
-		
-		int count = 0;
-		ContentValues values = new ContentValues();
-		for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
-			count++;
-			values.put(Householder.SORT_ORDER, count);
-			database.saveHouseholder(cursor.getLong(cursor.getColumnIndex(Householder._ID)), values);
-		}
-		
-		reloadCursor();
-	}
-	
 	private void loadCursor() {
 		if(!database.isOpen())
 			database.openWritable();
 		cursor = database.fetchAllHouseholdersWithActivityDates();
-	}
-	
-	public void reloadCursor() {
-		loadCursor();
-		adapter.loadNewData(cursor);
 	}
 }

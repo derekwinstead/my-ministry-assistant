@@ -97,7 +97,7 @@ public class MinistryContract {
     }
 
     public static class Householder implements HouseholderColumns, BaseColumns {
-        public static final String DEFAULT_SORT = HouseholderColumns.ACTIVE + " DESC," + HouseholderColumns.SORT_ORDER + " ASC, " + HouseholderColumns.NAME + " COLLATE NOCASE ASC";
+        public static final String DEFAULT_SORT = HouseholderColumns.ACTIVE + " DESC," + HouseholderColumns.NAME + " COLLATE NOCASE ASC";
         public static final String[] All_COLS = new String[] {_ID,NAME,ADDR,MOBILE_PHONE,HOME_PHONE,WORK_PHONE,OTHER_PHONE,ACTIVE,DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.HOUSEHOLDERS + " ("
                 + 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"

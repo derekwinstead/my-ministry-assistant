@@ -55,7 +55,7 @@ public class PublicationFragment extends ListFragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.literature, menu);
+		inflater.inflate(R.menu.publication, menu);
 	}
 
 	@Override

@@ -13,6 +13,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -46,7 +49,13 @@ public class PublicationManagerFrag extends ListFragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.publication_manager, menu);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.publication_manager, container, false);
     }
 
@@ -287,5 +296,26 @@ public class PublicationManagerFrag extends ListFragment {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_publications:
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+                PublicationFragment f = new PublicationFragment().newInstance();
+
+                if(frag != null)
+                    ft.remove(frag);
+
+                ft.add(R.id.primary_fragment_container, f);
+                ft.commit();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
