@@ -9,7 +9,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,14 +18,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
@@ -34,7 +31,7 @@ import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.squareup.phrase.Phrase;
 
-public class PublicationEditorFragment extends ListFragment {
+public class PublicationEditorFragment extends Fragment {
 	public static String ARG_PUBLICATION_ID = "publication_id";
 	
 	private boolean is_dual_pane = false;
@@ -52,8 +49,6 @@ public class PublicationEditorFragment extends ListFragment {
 	private long publicationTypeId = 0;
 	private MinistryService database;
 	private Cursor cursor;
-	private Cursor activity;
-	private TimeEntryAdapter adapter;
 	private NavDrawerMenuItemAdapter sadapter;
 	
 	public PublicationEditorFragment newInstance() {
@@ -94,10 +89,7 @@ public class PublicationEditorFragment extends ListFragment {
     	cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
 		
-    	adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
-    	setListAdapter(adapter);
-    	
-	    database = new MinistryService(getActivity().getApplicationContext());
+    	database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
 
 		cursor = database.fetchActiveTypesOfLiterature();
@@ -124,6 +116,21 @@ public class PublicationEditorFragment extends ListFragment {
 			}
 		});
 		database.close();
+
+		root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PublicationActivityFragment newFragment = new PublicationActivityFragment().newInstance(publicationId);
+				Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+				FragmentTransaction transaction = fm.beginTransaction();
+
+				if(replaceFrag != null)
+					transaction.remove(replaceFrag);
+
+				transaction.add(R.id.primary_fragment_container, newFragment);
+				transaction.commit();
+			}
+		});
     	
     	return root;
 	}
@@ -297,14 +304,8 @@ public class PublicationEditorFragment extends ListFragment {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
     		cb_is_pair.setChecked(false);
-    		
-    		getListView().setVisibility(View.GONE);
-    		getListView().getEmptyView().setVisibility(View.GONE);
     	}
     	else {
-    		getListView().setVisibility(View.VISIBLE);
-    		getListView().getEmptyView().setVisibility(View.VISIBLE);
-
 	    	database.openWritable();
 	    	Cursor literature = database.fetchLiteratureByID((int)publicationId);
 	    	if(literature.moveToFirst()) {
@@ -331,28 +332,7 @@ public class PublicationEditorFragment extends ListFragment {
 	    	}
 	    	
 	    	literature.close();
-	    	activity = database.fetchActivityForLiterature((int) publicationId);
-	    	adapter.changeCursor(activity);
 	    	database.close();
     	}
     }
-    
-    @Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-    	int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-    	
-    	FragmentTransaction ft = fm.beginTransaction();
-    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-    	
-    	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-    	TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id);
-    	
-    	if(frag != null)
-    		ft.remove(frag);
-    	
-    	ft.add(LAYOUT_ID, f);
-    	ft.addToBackStack(null);
-    	
-    	ft.commit();
-	}
 }

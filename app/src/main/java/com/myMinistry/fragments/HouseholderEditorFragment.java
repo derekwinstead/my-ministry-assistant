@@ -91,8 +91,7 @@ public class HouseholderEditorFragment extends Fragment {
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
-
-		root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				HouseholderActivityFragment newFragment = new HouseholderActivityFragment().newInstance(householderID);
