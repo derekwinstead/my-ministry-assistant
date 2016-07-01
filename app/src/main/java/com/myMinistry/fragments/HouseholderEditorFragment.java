@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
@@ -22,11 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
@@ -34,7 +34,7 @@ import com.squareup.phrase.Phrase;
 
 import java.util.Locale;
 
-public class HouseholderEditorFragment extends ListFragment {
+public class HouseholderEditorFragment extends Fragment {
 	public static final String ARG_HOUSEHOLDER_ID = "householder_id";
 	
 	private boolean is_dual_pane = false;
@@ -50,9 +50,6 @@ public class HouseholderEditorFragment extends ListFragment {
 	
 	private FragmentManager fm;
 	private FloatingActionButton fab;
-	
-	//private HouseholderRecentActivityAdapter adapter;
-	private TimeEntryAdapter adapter;
 	
 	public HouseholderEditorFragment newInstance() {
 		return new HouseholderEditorFragment();
@@ -94,11 +91,21 @@ public class HouseholderEditorFragment extends ListFragment {
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
-        adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
-        setListAdapter(adapter);
-		
-		//adapter = new HouseholderRecentActivityAdapter(getActivity().getApplicationContext(), activity, (int)householderID);
-		//setListAdapter(adapter);
+
+		root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				HouseholderActivityFragment newFragment = new HouseholderActivityFragment().newInstance(householderID);
+				Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+				FragmentTransaction transaction = fm.beginTransaction();
+
+				if(replaceFrag != null)
+					transaction.remove(replaceFrag);
+
+				transaction.add(R.id.primary_fragment_container, newFragment);
+				transaction.commit();
+			}
+		});
     	
         database = new MinistryService(getActivity().getApplicationContext());
         
@@ -276,10 +283,100 @@ public class HouseholderEditorFragment extends ListFragment {
 				};
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                LinearLayout layout = new LinearLayout(getContext());
+                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                //layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setLayoutParams(parms);
+
+                TextView tv = new TextView(getContext());
+                tv.setText(R.string.confirm_deletaion_message_householders);
+                tv.setPadding(Helper.dipsToPix(getContext(),25),Helper.dipsToPix(getContext(),25),Helper.dipsToPix(getContext(),25),Helper.dipsToPix(getContext(),25));
+                //tv.setPadding(40, 40, 40, 40);
+                //tv.setGravity(Gravity.CENTER);
+                //tv.setTextSize(20);
+
+                LinearLayout.LayoutParams tv1Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                //tv1Params.bottomMargin = 5;
+                layout.addView(tv,tv1Params);
+
+
 				builder.setTitle(R.string.confirm_deletion)
+                    .setView(layout)
+					//.setMessage(R.string.confirm_deletaion_message_householders)
 					.setPositiveButton(R.string.menu_delete, dialogClickListener)
 					.setNegativeButton(R.string.menu_cancel, dialogClickListener)
 					.show();
+
+
+
+
+
+                /*
+
+                LinearLayout layout = new LinearLayout(this);
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(parms);
+
+        layout.setGravity(Gravity.CLIP_VERTICAL);
+        layout.setPadding(2, 2, 2, 2);
+
+        TextView tv = new TextView(this);
+        tv.setText("Text View title");
+        tv.setPadding(40, 40, 40, 40);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextSize(20);
+
+        EditText et = new EditText(this);
+        etStr = et.getText().toString();
+        TextView tv1 = new TextView(this);
+        tv1.setText("Input Student ID");
+
+        LinearLayout.LayoutParams tv1Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        tv1Params.bottomMargin = 5;
+        layout.addView(tv1,tv1Params);
+        layout.addView(et, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        alertDialogBuilder.setView(layout);
+        alertDialogBuilder.setTitle(title);
+        // alertDialogBuilder.setMessage("Input Student ID");
+        alertDialogBuilder.setCustomTitle(tv);
+
+        if (isError)
+            alertDialogBuilder.setIcon(R.drawable.icon_warning);
+        // alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setCancelable(false);
+
+        // Setting Negative "Cancel" Button
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+
+        // Setting Positive "OK" Button
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (isError)
+                    finish();
+                else {
+                      Intent intent = new Intent(ChangeDeviceActivity.this,
+                      MyPageActivity.class); startActivity(intent);
+                }
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        try {
+            alertDialog.show();
+        } catch (Exception e) {
+            // WindowManager$BadTokenException will be caught and the app would
+            // not display the 'Force Close' message
+            e.printStackTrace();
+        }
+
+                 */
 				
 				return true;
 			default:
@@ -307,17 +404,11 @@ public class HouseholderEditorFragment extends ListFragment {
     		et_phone_home.setText("");
     		et_phone_work.setText("");
     		et_phone_other.setText("");
-    		
-    		getListView().setVisibility(View.GONE);
-    		getListView().getEmptyView().setVisibility(View.GONE);
 
             if(is_dual_pane)
                 fab.setVisibility(View.GONE);
     	}
     	else {
-    		getListView().setVisibility(View.VISIBLE);
-    		getListView().getEmptyView().setVisibility(View.VISIBLE);
-    		
 	    	database.openWritable();
 	    	Cursor householder = database.fetchHouseholder((int) householderID);
 	    	if(householder.moveToFirst()) {
@@ -340,34 +431,10 @@ public class HouseholderEditorFragment extends ListFragment {
 	    	}
 	    	
 	    	householder.close();
-
-
-	    	activity = database.fetchActivityForHouseholder((int)householderID);
-	    	//adapter.setHouseholderID((int)householderID);
-	    	adapter.changeCursor(activity);
 	    	database.close();
 
             if(is_dual_pane)
                 fab.setVisibility(View.VISIBLE);
     	}
     }
-    
-    @Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-    	int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-    	
-    	FragmentTransaction ft = fm.beginTransaction();
-    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-    	
-    	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-    	TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id);
-    	
-    	if(frag != null)
-    		ft.remove(frag);
-    	
-    	ft.add(LAYOUT_ID, f);
-    	ft.addToBackStack(null);
-    	
-    	ft.commit();
-	}
 }

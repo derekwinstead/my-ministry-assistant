@@ -173,8 +173,10 @@
     <string name="edit_with_space">Edit {type}</string>
     <string name="edit">Edit</string>
     <string name="confirm_deletaion_message">This action cannot be undone. Are you sure you want to delete?</string>
-    <string name="confirm_deletaion_message_publication_types">This action cannot be undone. If you delete this record before transfering any publications associated with this record those publications will no longer be available to select or retrive in any way. Are you sure you want to delete?</string>
+    <string name="confirm_deletaion_message_publication_types">This action cannot be undone. If you delete this record before transferring any publications associated with this record those publications will no longer be available to select or retrive in any way. Are you sure you want to delete?</string>
     <string name="is_default">Is Default</string>
     <string name="active">Active</string>
+    <string name="confirm_deletaion_message_householders">This action cannot be undone. If you delete this record all time entered for this householder will be removed.\n\nAre you sure you want to delete?</string>
+    <string name="householder_activity">Householder Activity</string>
 
 </resources>
