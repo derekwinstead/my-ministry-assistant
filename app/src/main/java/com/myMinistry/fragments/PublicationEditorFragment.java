@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myMinistry.Helper;
@@ -37,6 +38,7 @@ public class PublicationEditorFragment extends Fragment {
 	private boolean is_dual_pane = false;
 	
 	private EditText et_name;
+	private TextView view_activity;
 	private Spinner s_publicationTypes;
 	private CheckBox cb_is_active;
 	private CheckBox cb_is_pair;
@@ -88,6 +90,7 @@ public class PublicationEditorFragment extends Fragment {
 		s_publicationTypes = (Spinner) root.findViewById(R.id.literatureTypes);
     	cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
+		view_activity = (TextView) root.findViewById(R.id.view_activity);
 		
     	database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
@@ -117,7 +120,7 @@ public class PublicationEditorFragment extends Fragment {
 		});
 		database.close();
 
-		root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
+		view_activity.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				PublicationActivityFragment newFragment = new PublicationActivityFragment().newInstance(publicationId);
@@ -304,6 +307,7 @@ public class PublicationEditorFragment extends Fragment {
     		et_name.setText("");
     		cb_is_active.setChecked(true);
     		cb_is_pair.setChecked(false);
+			view_activity.setVisibility(View.GONE);
     	}
     	else {
 	    	database.openWritable();

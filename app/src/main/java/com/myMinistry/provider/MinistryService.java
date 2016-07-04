@@ -54,24 +54,24 @@ public class MinistryService {
     }
 
     public void close() {
-        if(sqlDB != null && isOpen())
+        if (sqlDB != null && isOpen())
             sqlDB.close();
     }
 
     public Cursor fetchActivePublishers() {
-        return sqlDB.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER }, Publisher.ACTIVE + "=" + ACTIVE, null, null, null, Publisher.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.PUBLISHERS, new String[]{Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER}, Publisher.ACTIVE + "=" + ACTIVE, null, null, null, Publisher.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllPublishers(SQLiteDatabase db) {
-        return db.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER }, null, null, null, null, Publisher.DEFAULT_SORT, null);
+        return db.query(Tables.PUBLISHERS, new String[]{Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER}, null, null, null, null, Publisher.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllPublishers() {
-        return sqlDB.query(Tables.PUBLISHERS, new String[] {Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER }, null, null, null, null, Publisher.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.PUBLISHERS, new String[]{Publisher._ID, Publisher.NAME, Publisher.ACTIVE, Publisher.GENDER}, null, null, null, null, Publisher.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllPublishersWithActivityDates() {
-        String sql =	"SELECT " + Publisher._ID + "," + Publisher.NAME + UnionsNameAsCols.TITLE + "," + Publisher.ACTIVE + UnionsNameAsCols.ACTIVE
+        String sql = "SELECT " + Publisher._ID + "," + Publisher.NAME + UnionsNameAsCols.TITLE + "," + Publisher.ACTIVE + UnionsNameAsCols.ACTIVE
                 + ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + " WHERE " + Qualified.TIME_PUBLISHER_ID + " = " + Qualified.PUBLISHER_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1)" + UnionsNameAsCols.DATE
                 + "," + MinistryDatabase.ID_UNION_TYPE_PERSON + UnionsNameAsCols.TYPE_ID
                 + " FROM " + Tables.PUBLISHERS
@@ -82,7 +82,7 @@ public class MinistryService {
 
     public int fetchBooksPlacedCountForPublisher(String formattedDate, String timeFrame, int publisherId) {
         int retVal = 0;
-        String sql	=	"SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+        String sql = "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + Joins.TYPE_LITERATURE_JOIN_LITERATURE
@@ -92,16 +92,16 @@ public class MinistryService {
                 + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "')";
 
         Cursor record = sqlDB.rawQuery(sql, null);
-        if(record.moveToFirst())
+        if (record.moveToFirst())
             retVal = record.getInt(0);
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public int fetchBrochuresPlacedCountForPublisher(String formattedDate, String timeFrame, int publisherId) {
         int retVal = 0;
-        String sql	=	"SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+        String sql = "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + Joins.TYPE_LITERATURE_JOIN_LITERATURE
@@ -111,16 +111,16 @@ public class MinistryService {
                 + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "')";
 
         Cursor record = sqlDB.rawQuery(sql, null);
-        if(record.moveToFirst())
+        if (record.moveToFirst())
             retVal = record.getInt(0);
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public int fetchMagazinesPlacedCountForPublisher(String formattedDate, String timeFrame, int publisherId) {
         int retVal = 0;
-        String sql	=	"SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+        String sql = "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + Joins.TYPE_LITERATURE_JOIN_LITERATURE
@@ -130,16 +130,16 @@ public class MinistryService {
                 + " AND date(" + Qualified.PLACED_LITERATURE_DATE + ") < date('" + formattedDate + "','start of month','+1 " + timeFrame + "')";
 
         Cursor record = sqlDB.rawQuery(sql, null);
-        if(record.moveToFirst())
+        if (record.moveToFirst())
             retVal = record.getInt(0);
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public int fetchReturnVisitCountForPublisher(String formattedDate, String timeFrame, int publisherId) {
         int retVal = 0;
-        String sql = 	"SELECT COUNT(" + Qualified.TIMEHOUSEHOLDER_ID + ")"
+        String sql = "SELECT COUNT(" + Qualified.TIMEHOUSEHOLDER_ID + ")"
                 + " FROM " + Tables.TIME_HOUSEHOLDERS
                 + Joins.TIME_JOIN_TIMEHOUSEHOLDER
                 + " WHERE " + Time.PUBLISHER_ID + " = " + publisherId
@@ -150,17 +150,17 @@ public class MinistryService {
 
         Cursor record = sqlDB.rawQuery(sql, null);
 
-        if(record.moveToFirst())
+        if (record.moveToFirst())
             retVal = record.getInt(0);
 
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public int fetchStudyCountForPublisher(String formattedDate, String timeFrame, int publisherId) {
         int retVal = 0;
-        String sql	= 	"SELECT " + Qualified.TIMEHOUSEHOLDER_ID
+        String sql = "SELECT " + Qualified.TIMEHOUSEHOLDER_ID
                 + " , strftime('%m', date(startDate)) as month"
                 + " FROM " + Tables.TIME_HOUSEHOLDERS
                 + Joins.TIME_JOIN_TIMEHOUSEHOLDER
@@ -174,13 +174,13 @@ public class MinistryService {
 
         Cursor record = sqlDB.rawQuery(sql, null);
         retVal = record.getCount();
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public Cursor fetchListOfHoursForPublisher(String formattedDate, int publisherId, String timeFrame) {
-        String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+        String sql1 = "SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
                 + " FROM " + Tables.TIMES
                 + " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
                 + " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -199,7 +199,7 @@ public class MinistryService {
     }
 
     public Cursor fetchListOfHoursForPublisherNoRollover(String formattedDate, int publisherId, String timeFrame) {
-        String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+        String sql1 = "SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
                 + " FROM " + Tables.TIMES
                 + " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
                 + " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -219,7 +219,7 @@ public class MinistryService {
     }
 
     public Cursor fetchListOfRBCHoursForPublisher(String formattedDate, int publisherId) {
-        String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+        String sql1 = "SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
                 + " FROM " + Tables.TIMES
                 + " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
                 + " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -231,7 +231,7 @@ public class MinistryService {
     }
 
     public Cursor fetchListOfRBCHoursForPublisher(String formattedDate, int publisherId, String timeFrame) {
-        String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+        String sql1 = "SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
                 + " FROM " + Tables.TIMES
                 + " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
                 + " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -243,7 +243,7 @@ public class MinistryService {
     }
 
     public int fetchRecordCountOfRBCHoursForMonthForPublisher(String formattedDate, int publisherId) {
-        String sql =	"SELECT COUNT(" + Qualified.TIME_ID + ")"
+        String sql = "SELECT COUNT(" + Qualified.TIME_ID + ")"
                 + " FROM " + Tables.TIMES
                 + Joins.ENTRY_TYPES_ON_TIME
                 + " WHERE date(" + Qualified.TIME_DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -251,7 +251,7 @@ public class MinistryService {
                 + " AND " + Qualified.TIME_PUBLISHER_ID + " = " + publisherId
                 + " AND " + Qualified.ENTRY_TYPE_RBC + " = 1";
         Cursor cursor = sqlDB.rawQuery(sql, null);
-        if(cursor.moveToFirst())
+        if (cursor.moveToFirst())
             return cursor.getInt(0);
         else
             return 0;
@@ -259,7 +259,7 @@ public class MinistryService {
     }
 
     public Cursor fetchListOfHoursForMonthForPublisher(SQLiteDatabase db, String formattedDate, int publisherId) {
-        String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+        String sql1 = "SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
                 + " FROM " + Tables.TIMES
                 + " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
                 + " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -278,7 +278,7 @@ public class MinistryService {
     }
 
     public Cursor fetchHoursForYearForPublisher(String formattedDate, int publisherId) {
-        String sql1 =	"SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
+        String sql1 = "SELECT " + Time.DATE_START + "||\" \"||" + Time.TIME_START + UnionsNameAsCols.DATE_START + "," + Time.DATE_END + "||\" \"||" + Time.TIME_END + UnionsNameAsCols.DATE_END + "," + Qualified.TIME_ID
                 + " FROM " + Tables.TIMES
                 + " INNER JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID
                 + " WHERE date(" + Time.DATE_START + ") >= date('" + formattedDate + "','start of month')"
@@ -312,7 +312,7 @@ public class MinistryService {
     }
 
     public long createPublication(ContentValues values) {
-        return sqlDB.insert(Tables.LITERATURE,null,values);
+        return sqlDB.insert(Tables.LITERATURE, null, values);
     }
 
     public Cursor fetchActiveHouseholders() {
@@ -320,7 +320,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllHouseholdersWithActivityDates() {
-        String sql =	"SELECT " + Householder._ID + "," + Householder.NAME + UnionsNameAsCols.TITLE + "," + Householder.ACTIVE + UnionsNameAsCols.ACTIVE
+        String sql = "SELECT " + Householder._ID + "," + Householder.NAME + UnionsNameAsCols.TITLE + "," + Householder.ACTIVE + UnionsNameAsCols.ACTIVE
                 + ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + Joins.TIMEHOUSEHOLDER_JOIN_TIME + " WHERE " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " = " + Qualified.HOUSEHOLDER_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1)" + UnionsNameAsCols.DATE
                 + "," + MinistryDatabase.ID_UNION_TYPE_PERSON + UnionsNameAsCols.TYPE_ID
                 + " FROM " + Tables.HOUSEHOLDERS
@@ -356,15 +356,15 @@ public class MinistryService {
     }
 
     public Cursor fetchActiveEntryTypes() {
-        return sqlDB.query(Tables.ENTRY_TYPES, new String[] {EntryType._ID,EntryType.NAME}, EntryType.ACTIVE + "=" + ACTIVE, null, null, null, EntryType.DEFAULT_SORT, null);
+        return sqlDB.query(Tables.ENTRY_TYPES, EntryType.All_COLS, EntryType.ACTIVE + "=" + ACTIVE, null, null, null, EntryType.DEFAULT_SORT, null);
     }
 
     public Cursor fetchAllEntryTypes() {
-        return sqlDB.query(Tables.ENTRY_TYPES, new String[] {EntryType._ID,EntryType.NAME,EntryType.ACTIVE}, null, null, null, null, EntryType.DEFAULT_SORT);
+        return sqlDB.query(Tables.ENTRY_TYPES, EntryType.All_COLS, null, null, null, null, EntryType.DEFAULT_SORT);
     }
 
     public Cursor fetchAllEntryTypes(String sort) {
-        String sql =	"SELECT " + EntryType._ID + "," + EntryType.NAME + "," + EntryType.ACTIVE
+        String sql = "SELECT " + EntryType._ID + "," + EntryType.NAME + "," + EntryType.ACTIVE
                 + " FROM " + Tables.ENTRY_TYPES
                 + " ORDER BY " + EntryType.NAME + " " + sort;
 
@@ -372,7 +372,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllEntryTypesByPopularity() {
-        String sql =	"SELECT " + EntryType._ID + ", (SELECT COUNT(" + Qualified.TIME_ID + ") FROM " + Tables.TIMES + " WHERE " + Qualified.TIME_ENTRY_TYPE_ID + "=" + Qualified.ENTRY_TYPE_ID + ") AS thecount"
+        String sql = "SELECT " + EntryType._ID + ", (SELECT COUNT(" + Qualified.TIME_ID + ") FROM " + Tables.TIMES + " WHERE " + Qualified.TIME_ENTRY_TYPE_ID + "=" + Qualified.ENTRY_TYPE_ID + ") AS thecount"
                 + " FROM " + Tables.ENTRY_TYPES
                 + " ORDER BY thecount DESC";
 
@@ -380,7 +380,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllHouseholdersWithActivityDates(String sort) {
-        String sql =	"SELECT " + Householder._ID + "," + Householder.NAME + UnionsNameAsCols.TITLE + "," + Householder.ACTIVE + UnionsNameAsCols.ACTIVE
+        String sql = "SELECT " + Householder._ID + "," + Householder.NAME + UnionsNameAsCols.TITLE + "," + Householder.ACTIVE + UnionsNameAsCols.ACTIVE
                 + ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + Joins.TIMEHOUSEHOLDER_JOIN_TIME + " WHERE " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " = " + Qualified.HOUSEHOLDER_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1)" + UnionsNameAsCols.DATE
                 + "," + MinistryDatabase.ID_UNION_TYPE_PERSON + UnionsNameAsCols.TYPE_ID
                 + " FROM " + Tables.HOUSEHOLDERS
@@ -390,7 +390,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllHouseholders(String sort) {
-        String sql =	"SELECT " + Householder._ID
+        String sql = "SELECT " + Householder._ID
                 + " FROM " + Tables.HOUSEHOLDERS
                 + " ORDER BY " + Householder.NAME + " " + sort;
 
@@ -402,7 +402,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllPublicationTypes(String sort) {
-        String sql =	"SELECT " + LiteratureType._ID + "," + LiteratureType.NAME + "," + LiteratureType.ACTIVE
+        String sql = "SELECT " + LiteratureType._ID + "," + LiteratureType.NAME + "," + LiteratureType.ACTIVE
                 + " FROM " + Tables.TYPES_OF_LIERATURE
                 + " ORDER BY " + LiteratureType.NAME + " " + sort;
 
@@ -410,7 +410,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllPublicationTypesByPopularity() {
-        String sql =	"SELECT " + LiteratureType._ID + ", (SELECT COUNT(" + Qualified.PLACED_LITERATURE_ID + ") FROM " + Tables.PLACED_LITERATURE
+        String sql = "SELECT " + LiteratureType._ID + ", (SELECT COUNT(" + Qualified.PLACED_LITERATURE_ID + ") FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + " WHERE " + Qualified.LITERATURE_TYPE_ID_LINK + "=" + Qualified.TYPE_OF_LITERATURE_ID + ") AS thecount"
                 + " FROM " + Tables.TYPES_OF_LIERATURE
@@ -423,15 +423,19 @@ public class MinistryService {
         return sqlDB.query(Tables.ENTRY_TYPES, new String[]{EntryType._ID, EntryType.NAME}, EntryType._ID + " NOT IN (" + id + "," + MinistryDatabase.ID_ROLLOVER + ")", null, null, null, EntryType.DEFAULT_SORT);
     }
 
+    public Cursor fetchActiveEntryTypesButID(int id) {
+        return sqlDB.query(Tables.ENTRY_TYPES, EntryType.All_COLS, EntryType.ACTIVE + " = " + MinistryService.ACTIVE + " AND " + EntryType._ID + " NOT IN (" + id + "," + MinistryDatabase.ID_ROLLOVER + ")", null, null, null, EntryType.DEFAULT_SORT);
+    }
+
     public Cursor fetchEntryType(int _id) {
         return sqlDB.query(Tables.ENTRY_TYPES
-                ,new String[] {EntryType._ID,EntryType.NAME,EntryType.ACTIVE,EntryType.RBC,EntryType.SORT_ORDER}
-                ,EntryType._ID + " = " + _id
-                ,null
-                ,null
-                ,null
-                ,null
-                ,"1");
+                , new String[]{EntryType._ID, EntryType.NAME, EntryType.ACTIVE, EntryType.RBC, EntryType.SORT_ORDER}
+                , EntryType._ID + " = " + _id
+                , null
+                , null
+                , null
+                , null
+                , "1");
     }
 
     public Cursor fetchActiveTypesOfLiterature() {
@@ -439,7 +443,7 @@ public class MinistryService {
     }
 
     public Cursor fetchTypesOfLiteratureCountsForPublisher(int publisherId, String formattedDate, String timeFrame) {
-        String sql =  "SELECT " + Qualified.TYPE_OF_LITERATURE_ID + "," + Qualified.TYPE_OF_LITERATURE_NAME +	","
+        String sql = "SELECT " + Qualified.TYPE_OF_LITERATURE_ID + "," + Qualified.TYPE_OF_LITERATURE_NAME + ","
                 + "(SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
@@ -457,7 +461,7 @@ public class MinistryService {
 
     public int fetchPlacementsCountForPublisher(int publisherId, String formattedDate, String timeFrame) {
         int retVal = 0;
-        String sql =  "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+        String sql = "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + " WHERE " + Qualified.PLACED_LITERATURE_PUBLISHER_ID + " = " + publisherId
@@ -466,16 +470,16 @@ public class MinistryService {
                 + " AND " + Qualified.LITERATURE_TYPE_ID_LINK + " <> " + MinistryDatabase.ID_VIDEOS_TO_SHOW;
 
         Cursor record = sqlDB.rawQuery(sql, null);
-        if(record.moveToFirst())
+        if (record.moveToFirst())
             retVal = record.getInt(0);
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public int fetchVideoShowingsCountForPublisher(int publisherId, String formattedDate, String timeFrame) {
         int retVal = 0;
-        String sql =  "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
+        String sql = "SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + " * " + Qualified.LITERATURE_WEIGHT + ") AS " + LiteraturePlaced.COUNT
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + " WHERE " + Qualified.PLACED_LITERATURE_PUBLISHER_ID + " = " + publisherId
@@ -484,15 +488,15 @@ public class MinistryService {
                 + " AND " + Qualified.LITERATURE_TYPE_ID_LINK + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW;
 
         Cursor record = sqlDB.rawQuery(sql, null);
-        if(record.moveToFirst())
+        if (record.moveToFirst())
             retVal = record.getInt(0);
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public Cursor fetchEntryTypeCountsForPublisher(int publisherId, String formattedDate, String timeFrame) {
-        String sql =  "SELECT " + EntryType._ID + "," + EntryType.NAME + "," + fetchStudyCountForPublisher(formattedDate, timeFrame, publisherId)
+        String sql = "SELECT " + EntryType._ID + "," + EntryType.NAME + "," + fetchStudyCountForPublisher(formattedDate, timeFrame, publisherId)
                 + " FROM " + Tables.ENTRY_TYPES
                 + " WHERE " + EntryType._ID + "=" + MinistryDatabase.ID_BIBLE_STUDY
                 + " UNION "
@@ -509,17 +513,17 @@ public class MinistryService {
 
     public Cursor fetchTypeOfLiterature(int _id) {
         return sqlDB.query(Tables.TYPES_OF_LIERATURE
-                ,new String[] {LiteratureType._ID,LiteratureType.NAME,LiteratureType.ACTIVE}
-                ,LiteratureType._ID + " = " + _id
-                ,null
-                ,null
-                ,null
-                ,null
-                ,"1");
+                , new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE}
+                , LiteratureType._ID + " = " + _id
+                , null
+                , null
+                , null
+                , null
+                , "1");
     }
 
     public Cursor fetchLiteratureByType(int _typeID) {
-        String sql =	"SELECT " + Qualified.LITERATURE_ID + "," + Qualified.LITERATURE_NAME + "," + Qualified.LITERATURE_ACTIVE
+        String sql = "SELECT " + Qualified.LITERATURE_ID + "," + Qualified.LITERATURE_NAME + "," + Qualified.LITERATURE_ACTIVE
                 + ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + Joins.PLACED_LITERATURE_ON_TIME + " WHERE " + Qualified.PLACED_LITERATURE_LIT_ID + " = " + Qualified.LITERATURE_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1) AS " + Time.DATE_START
                 + " FROM " + Tables.LITERATURE
                 + " WHERE " + Qualified.LITERATURE_TYPE_ID_LINK + " = " + _typeID
@@ -529,7 +533,7 @@ public class MinistryService {
     }
 
     public Cursor fetchAllPublications(String sort) {
-        String sql =	"SELECT " + Qualified.LITERATURE_ID + "," + Qualified.LITERATURE_NAME
+        String sql = "SELECT " + Qualified.LITERATURE_ID + "," + Qualified.LITERATURE_NAME
                 + " FROM " + Tables.LITERATURE
                 + " ORDER BY " + Qualified.LITERATURE_NAME + " " + sort;
 
@@ -537,7 +541,7 @@ public class MinistryService {
     }
 
     public Cursor fetchPublicationsByPopularity() {
-        String sql =	"SELECT " + Literature._ID + ", (SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + "*" + Qualified.LITERATURE_WEIGHT + ") FROM " + Tables.PLACED_LITERATURE + " WHERE " + Qualified.PLACED_LITERATURE_LIT_ID + "=" + Qualified.LITERATURE_ID + ") AS thecount"
+        String sql = "SELECT " + Literature._ID + ", (SELECT SUM(" + Qualified.PLACED_LITERATURE_COUNT + "*" + Qualified.LITERATURE_WEIGHT + ") FROM " + Tables.PLACED_LITERATURE + " WHERE " + Qualified.PLACED_LITERATURE_LIT_ID + "=" + Qualified.LITERATURE_ID + ") AS thecount"
                 + " FROM " + Tables.LITERATURE
                 + " ORDER BY thecount DESC";
 
@@ -545,8 +549,8 @@ public class MinistryService {
     }
 
     public Cursor fetchLiteratureByTypeWithActivityDates(int _typeID) {
-        String sql =	"SELECT " + Qualified.LITERATURE_ID + "," + Qualified.LITERATURE_NAME + UnionsNameAsCols.TITLE + "," + Qualified.LITERATURE_ACTIVE + UnionsNameAsCols.ACTIVE
-                + ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + Joins.PLACED_LITERATURE_ON_TIME + " WHERE " + Qualified.PLACED_LITERATURE_LIT_ID + " = " + Qualified.LITERATURE_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1)" +  UnionsNameAsCols.DATE
+        String sql = "SELECT " + Qualified.LITERATURE_ID + "," + Qualified.LITERATURE_NAME + UnionsNameAsCols.TITLE + "," + Qualified.LITERATURE_ACTIVE + UnionsNameAsCols.ACTIVE
+                + ", (SELECT " + Qualified.TIME_DATE_START + " FROM " + Tables.TIMES + Joins.PLACED_LITERATURE_ON_TIME + " WHERE " + Qualified.PLACED_LITERATURE_LIT_ID + " = " + Qualified.LITERATURE_ID + " ORDER BY " + Qualified.TIME_DATE_START + " DESC LIMIT 1)" + UnionsNameAsCols.DATE
                 + "," + MinistryDatabase.ID_UNION_TYPE_PERSON + UnionsNameAsCols.TYPE_ID
                 + " FROM " + Tables.LITERATURE
                 + " WHERE " + Qualified.LITERATURE_TYPE_ID_LINK + " = " + _typeID
@@ -556,11 +560,11 @@ public class MinistryService {
     }
 
     public Cursor fetchLiteratureByID(int _id) {
-        return sqlDB.query(Tables.LITERATURE, new String[] {Literature._ID,Literature.NAME,Literature.TYPE_OF_LIERATURE_ID,Literature.ACTIVE,Literature.WEIGHT}, Literature._ID + " = " + _id, null, null, null, null, null);
+        return sqlDB.query(Tables.LITERATURE, new String[]{Literature._ID, Literature.NAME, Literature.TYPE_OF_LIERATURE_ID, Literature.ACTIVE, Literature.WEIGHT}, Literature._ID + " = " + _id, null, null, null, null, null);
     }
 
     public long createLiterature(ContentValues values) {
-        return sqlDB.insert(Tables.LITERATURE,null,values);
+        return sqlDB.insert(Tables.LITERATURE, null, values);
     }
 
     public Cursor fetchRolloverRecord(int publisherId, String date) {
@@ -569,16 +573,16 @@ public class MinistryService {
 
     public int fetchRolloverMinutes(int publisherId, String date) {
         int retVal = 0;
-        Cursor record = sqlDB.query(Tables.ROLLOVER, new String[] {Rollover.MINUTES}, Rollover.PUBLISHER_ID + " = " + publisherId + " AND " + Rollover.DATE + " = date('" + date + "','start of month')", null, null, null, null, "1");
-        if(record.moveToFirst())
+        Cursor record = sqlDB.query(Tables.ROLLOVER, new String[]{Rollover.MINUTES}, Rollover.PUBLISHER_ID + " = " + publisherId + " AND " + Rollover.DATE + " = date('" + date + "','start of month')", null, null, null, null, "1");
+        if (record.moveToFirst())
             retVal = record.getInt(0);
-        if(record != null && !record.isClosed())
+        if (record != null && !record.isClosed())
             record.close();
         return retVal;
     }
 
     public long createRolloverMinutes(ContentValues values) {
-        return sqlDB.insert(Tables.ROLLOVER,null,values);
+        return sqlDB.insert(Tables.ROLLOVER, null, values);
     }
 
     public int saveRolloverMinutes(int _id, ContentValues values) {
@@ -590,7 +594,7 @@ public class MinistryService {
     }
 
     public long createRolloverMinutes(SQLiteDatabase db, ContentValues values) {
-        return db.insert(Tables.ROLLOVER,null,values);
+        return db.insert(Tables.ROLLOVER, null, values);
     }
 
     public int saveRolloverMinutes(SQLiteDatabase db, int _id, ContentValues values) {
@@ -598,20 +602,19 @@ public class MinistryService {
     }
 
 
-
     public Cursor fetchMostRecentRolloverDate(int publisherId) {
-        return sqlDB.query(Tables.ROLLOVER, new String[] {Rollover._ID,Rollover.PUBLISHER_ID,Rollover.DATE,Rollover.MINUTES}, Rollover.PUBLISHER_ID + " = " + publisherId, null, null, null, "date(" + Rollover.DATE + ") DESC", "1");
+        return sqlDB.query(Tables.ROLLOVER, new String[]{Rollover._ID, Rollover.PUBLISHER_ID, Rollover.DATE, Rollover.MINUTES}, Rollover.PUBLISHER_ID + " = " + publisherId, null, null, null, "date(" + Rollover.DATE + ") DESC", "1");
     }
 
     public Cursor fetchRolloverTimeEntry(int publisherId, String formattedDate) {
         return sqlDB.query(Tables.TIMES
-                ,new String[] {Time._ID,Time.PUBLISHER_ID,Time.ENTRY_TYPE_ID,Time.DATE_START,Time.DATE_END,Time.TIME_START,Time.TIME_START}
-                ,Time.PUBLISHER_ID + " = " + publisherId + " AND " + Time.ENTRY_TYPE_ID + " = " + MinistryDatabase.ID_ROLLOVER + " AND " + Time.DATE_START + " = '" + formattedDate + "'"
-                ,null
-                ,null
-                ,null
-                ,null
-                ,"1");
+                , new String[]{Time._ID, Time.PUBLISHER_ID, Time.ENTRY_TYPE_ID, Time.DATE_START, Time.DATE_END, Time.TIME_START, Time.TIME_START}
+                , Time.PUBLISHER_ID + " = " + publisherId + " AND " + Time.ENTRY_TYPE_ID + " = " + MinistryDatabase.ID_ROLLOVER + " AND " + Time.DATE_START + " = '" + formattedDate + "'"
+                , null
+                , null
+                , null
+                , null
+                , "1");
     }
 
     public void removeTimeEntry(int _id) {
@@ -626,15 +629,15 @@ public class MinistryService {
     }
 
     public long createEntryType(ContentValues values) {
-        return sqlDB.insert(Tables.ENTRY_TYPES,null,values);
+        return sqlDB.insert(Tables.ENTRY_TYPES, null, values);
     }
 
     public long createLiteratureType(ContentValues values) {
-        return sqlDB.insert(Tables.TYPES_OF_LIERATURE,null,values);
+        return sqlDB.insert(Tables.TYPES_OF_LIERATURE, null, values);
     }
 
     public Cursor fetchTimeEntriesByPublisherAndMonth(int publisherId, String date, String timeFrame) {
-        String sql = 	"SELECT " + Qualified.TIME_ID
+        String sql = "SELECT " + Qualified.TIME_ID
                 + "," + Qualified.TIME_DATE_START
                 + "," + Qualified.TIME_DATE_END
                 + "," + Qualified.TIME_TIME_START
@@ -652,7 +655,7 @@ public class MinistryService {
     }
 
     public Cursor fetchTimeEntriesByPublisher(int publisherId) {
-        String sql = 	"SELECT " + Qualified.TIME_ID
+        String sql = "SELECT " + Qualified.TIME_ID
                 + "," + Qualified.TIME_DATE_START
                 + "," + Qualified.TIME_DATE_END
                 + "," + Qualified.TIME_TIME_START
@@ -667,7 +670,7 @@ public class MinistryService {
     }
 
     public Cursor fetchTimeEntriesByPublisherAndMonthNoRollover(int publisherId, String date, String timeFrame) {
-        String sql = 	"SELECT " + Qualified.TIME_ID
+        String sql = "SELECT " + Qualified.TIME_ID
                 + "," + Qualified.TIME_DATE_START
                 + "," + Qualified.TIME_DATE_END
                 + "," + Qualified.TIME_TIME_START
@@ -686,7 +689,7 @@ public class MinistryService {
     }
 
     public long createPlacedLiterature(ContentValues values) {
-        return sqlDB.insert(Tables.PLACED_LITERATURE,null,values);
+        return sqlDB.insert(Tables.PLACED_LITERATURE, null, values);
     }
 
     public void deleteTimeByID(int rowID) {
@@ -705,8 +708,7 @@ public class MinistryService {
             /** Access the copied database so SQLiteHelper will cache it and mark it as created. */
             sqlDB.close();
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -748,11 +750,11 @@ public class MinistryService {
     }
 
     public long createTimeHouseholder(ContentValues values) {
-        return sqlDB.insert(Tables.TIME_HOUSEHOLDERS,null,values);
+        return sqlDB.insert(Tables.TIME_HOUSEHOLDERS, null, values);
     }
 
     public long createTime(ContentValues values) {
-        return sqlDB.insert(Tables.TIMES,null,values);
+        return sqlDB.insert(Tables.TIMES, null, values);
     }
 
     public int saveNotes(long _id, ContentValues values) {
@@ -760,7 +762,7 @@ public class MinistryService {
     }
 
     public long createNotes(ContentValues values) {
-        return sqlDB.insert(Tables.NOTES,null,values);
+        return sqlDB.insert(Tables.NOTES, null, values);
     }
 
     public void deleteNoteByID(int _id) {
@@ -772,11 +774,16 @@ public class MinistryService {
     }
 
     public long createPublicationType(ContentValues values) {
-        return sqlDB.insert(Tables.TYPES_OF_LIERATURE,null,values);
+        return sqlDB.insert(Tables.TYPES_OF_LIERATURE, null, values);
     }
 
     public void clearPublicationTypeDefault() {
         String sql = "UPDATE " + Tables.TYPES_OF_LIERATURE + " SET " + LiteratureType.DEFAULT + " = " + MinistryService.INACTIVE;
+        sqlDB.execSQL(sql);
+    }
+
+    public void clearEntryTypeDefault() {
+        String sql = "UPDATE " + Tables.ENTRY_TYPES + " SET " + EntryType.DEFAULT + " = " + MinistryService.INACTIVE;
         sqlDB.execSQL(sql);
     }
 
@@ -789,20 +796,20 @@ public class MinistryService {
     }
 
     public Cursor fetchTimeHouseholdersForTimeByID(int timeID) {
-        String sql =	"SELECT " + Qualified.TIMEHOUSEHOLDER_ID + "," + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + "," + Qualified.HOUSEHOLDER_NAME + "," + TimeHouseholder.STUDY + "," + Qualified.NOTES_ID + UnionsNameAsCols.NOTE_ID + "," + Notes.NOTES + "," + Qualified.TIMEHOUSEHOLDER_IS_RETURN_VISIT
+        String sql = "SELECT " + Qualified.TIMEHOUSEHOLDER_ID + "," + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + "," + Qualified.HOUSEHOLDER_NAME + "," + TimeHouseholder.STUDY + "," + Qualified.NOTES_ID + UnionsNameAsCols.NOTE_ID + "," + Notes.NOTES + "," + Qualified.TIMEHOUSEHOLDER_IS_RETURN_VISIT
                 + " FROM " + Tables.TIMES
                 + " LEFT JOIN " + Tables.TIME_HOUSEHOLDERS + " ON (" + Qualified.TIMEHOUSEHOLDER_TIME_ID + " IN (0," + timeID + "))"
                 + LeftJoins.HOUSEHOLDERS_JOIN_TIMEHOUSEHOLDERS
                 + " LEFT JOIN " + Tables.NOTES + " ON (" + Qualified.NOTES_HOUSEHOLDER_ID + " = " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " AND " + Qualified.NOTES_TIME_ID + " = " + Qualified.TIME_ID + ")"
                 + " WHERE " + Qualified.TIME_ID + " = " + timeID
                 + " AND " + Qualified.TIME_ENTRY_TYPE_ID + " <> " + MinistryDatabase.ID_ROLLOVER;
-                //+ " AND " + Qualified.TIMEHOUSEHOLDER_ID + " IS NOT NULL";
+        //+ " AND " + Qualified.TIMEHOUSEHOLDER_ID + " IS NOT NULL";
 
         return sqlDB.rawQuery(sql, null);
     }
 
     public Cursor fetchActivityForHouseholder(int householderID) {
-        String sql = 	"SELECT " + Qualified.TIME_ID
+        String sql = "SELECT " + Qualified.TIME_ID
                 + "," + Qualified.TIME_DATE_START
                 + "," + Qualified.TIME_DATE_END
                 + "," + Qualified.TIME_TIME_START
@@ -819,7 +826,7 @@ public class MinistryService {
     }
 
     public Cursor fetchActivityForHouseholderOLDDDDDDDDDDD(int householderID) {
-        String sql = 	"SELECT " + Qualified.TIME_ID + "," + Qualified.TIME_DATE_START + "," + Qualified.NOTES_NOTES
+        String sql = "SELECT " + Qualified.TIME_ID + "," + Qualified.TIME_DATE_START + "," + Qualified.NOTES_NOTES
                 + ", " + Qualified.PUBLISHER_NAME + UnionsNameAsCols.PUBLISHER_NAME
                 + ", " + Qualified.ENTRY_TYPE_NAME + UnionsNameAsCols.ENTRY_TYPE_NAME
                 + ", (SELECT COUNT(" + Qualified.PLACED_LITERATURE_ID + ") FROM " + Tables.PLACED_LITERATURE + " WHERE " + Qualified.PLACED_LITERATURE_TIME_ID + " = " + Qualified.TIME_ID + " AND " + Qualified.PLACED_LITERATURE_HOUSEHOLDER_ID + " = " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + ")" + UnionsNameAsCols.COUNT
@@ -835,7 +842,7 @@ public class MinistryService {
     }
 
     public Cursor fetchActivityForPublisher(int publisherId) {
-        String sql = 	"SELECT " + Qualified.TIME_ID
+        String sql = "SELECT " + Qualified.TIME_ID
                 + "," + Qualified.TIME_DATE_START
                 + "," + Qualified.TIME_DATE_END
                 + "," + Qualified.TIME_TIME_START
@@ -868,7 +875,7 @@ public class MinistryService {
     }
 
     public Cursor fetchActivityForLiteratureASDZfasdfasdfasdfasdf(int literatureID) {
-        String sql =	"SELECT "+ Qualified.TIME_ID + UnionsNameAsCols._ID
+        String sql = "SELECT " + Qualified.TIME_ID + UnionsNameAsCols._ID
                 + ", " + Qualified.TIME_DATE_START + UnionsNameAsCols.DATE
                 + ", " + Qualified.PUBLISHER_NAME + UnionsNameAsCols.PUBLISHER_NAME
                 + ", " + Qualified.PLACED_LITERATURE_COUNT
@@ -889,12 +896,12 @@ public class MinistryService {
 
     public int fetchTimeHouseholderID(int timeID, int householderID) {
         int retVal = 0;
-        String sql = 	"SELECT " + TimeHouseholder._ID
+        String sql = "SELECT " + TimeHouseholder._ID
                 + " FROM " + Tables.TIME_HOUSEHOLDERS
                 + " WHERE " + TimeHouseholder.TIME_ID + "=" + timeID
                 + " AND " + TimeHouseholder.HOUSEHOLDER_ID + "=" + householderID;
         Cursor cursor = sqlDB.rawQuery(sql, null);
-        if(cursor.moveToFirst())
+        if (cursor.moveToFirst())
             retVal = cursor.getInt(cursor.getColumnIndex(TimeHouseholder._ID));
         cursor.close();
         return retVal;
@@ -903,7 +910,7 @@ public class MinistryService {
     public void deleteTimeHouseholderOrphans(int timeID, long[] householderIDs) {
         StringBuilder builder = new StringBuilder();
         builder.append("0");
-        for(long i : householderIDs) {
+        for (long i : householderIDs) {
             builder.append(",");
             builder.append(i);
         }
@@ -913,7 +920,7 @@ public class MinistryService {
     public void deleteTimeHouseholderLiteraturePlacedOrphans(int timeID, int[] householderIDs) {
         StringBuilder builder = new StringBuilder();
         builder.append(MinistryDatabase.CREATE_ID);
-        for(int i : householderIDs) {
+        for (int i : householderIDs) {
             builder.append(",");
             builder.append(i);
         }
@@ -923,7 +930,7 @@ public class MinistryService {
     public void deleteTimeHouseholderNotesOrphans(int timeID, int[] householderIDs) {
         StringBuilder builder = new StringBuilder();
         builder.append(MinistryDatabase.CREATE_ID);
-        for(int i : householderIDs) {
+        for (int i : householderIDs) {
             builder.append(",");
             builder.append(i);
         }
@@ -932,20 +939,20 @@ public class MinistryService {
 
     public int fetchPlacedLitByTimeAndHouseholderAndLitID(int timeID, int householderID, int litID) {
         int retVal = 0;
-        String sql = 	"SELECT " + LiteraturePlaced._ID
+        String sql = "SELECT " + LiteraturePlaced._ID
                 + " FROM " + Tables.PLACED_LITERATURE
                 + " WHERE " + LiteraturePlaced.TIME_ID + "=" + timeID
                 + " AND " + LiteraturePlaced.HOUSEHOLDER_ID + "=" + householderID
                 + " AND " + LiteraturePlaced.LITERATURE_ID + "=" + litID;
         Cursor cursor = sqlDB.rawQuery(sql, null);
-        if(cursor.moveToFirst())
+        if (cursor.moveToFirst())
             retVal = cursor.getInt(cursor.getColumnIndex(LiteraturePlaced._ID));
         cursor.close();
         return retVal;
     }
 
     public Cursor fetchPlacedLitByTimeAndHouseholderID(int timeID, int householderID) {
-        String sql = 	"SELECT " + Qualified.PLACED_LITERATURE_ID + "," + Qualified.PLACED_LITERATURE_LIT_ID + "," + Qualified.PLACED_LITERATURE_COUNT + "," + Qualified.LITERATURE_NAME + "," + Qualified.LITERATURE_TYPE_ID_LINK
+        String sql = "SELECT " + Qualified.PLACED_LITERATURE_ID + "," + Qualified.PLACED_LITERATURE_LIT_ID + "," + Qualified.PLACED_LITERATURE_COUNT + "," + Qualified.LITERATURE_NAME + "," + Qualified.LITERATURE_TYPE_ID_LINK
                 + " FROM " + Tables.PLACED_LITERATURE
                 + Joins.LITERATURE_JOIN_PLACED_LITERATURE
                 + " WHERE " + LiteraturePlaced.TIME_ID + "=" + timeID
@@ -957,13 +964,13 @@ public class MinistryService {
     public void deletePlacedLiteratureOrphans(int timeID, int householderID, long[] placedIDs) {
         StringBuilder builder = new StringBuilder();
         builder.append("0");
-        if(placedIDs != null) {
-            for(long i : placedIDs) {
+        if (placedIDs != null) {
+            for (long i : placedIDs) {
                 builder.append(",");
                 builder.append(i);
             }
         }
-        String sql = 	"DELETE FROM " + Tables.PLACED_LITERATURE
+        String sql = "DELETE FROM " + Tables.PLACED_LITERATURE
                 + " WHERE " + LiteraturePlaced.TIME_ID + "=" + timeID
                 + " AND " + LiteraturePlaced.HOUSEHOLDER_ID + "=" + householderID
                 + " AND " + LiteraturePlaced._ID + " NOT IN (" + builder.toString() + ")";
@@ -992,7 +999,7 @@ public class MinistryService {
     }
 
     public Cursor fetchNotesByTimeAndHousehodlerID(int timeID, int householderID) {
-        String sql =	"SELECT " + Notes._ID + "," + Notes.NOTES
+        String sql = "SELECT " + Notes._ID + "," + Notes.NOTES
                 + " FROM " + Tables.NOTES
                 + " WHERE " + Notes.TIME_ID + " = " + timeID
                 + " AND " + Notes.HOUSEHOLDER_ID + " = " + householderID;
@@ -1000,7 +1007,7 @@ public class MinistryService {
     }
 
     public Cursor fetchPublicationTypeByID(long _id) {
-        String sql =	"SELECT " + LiteratureType._ID + "," + LiteratureType.NAME + "," + LiteratureType.ACTIVE
+        String sql = "SELECT " + LiteratureType._ID + "," + LiteratureType.NAME + "," + LiteratureType.ACTIVE
                 + " FROM " + Tables.TYPES_OF_LIERATURE
                 + " WHERE " + LiteratureType._ID + " = " + _id;
         return sqlDB.rawQuery(sql, null);
@@ -1023,10 +1030,27 @@ public class MinistryService {
     }
 
     public Cursor fetchDefaultPublicationTypes() {
-        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[] {LiteratureType._ID,LiteratureType.NAME}, LiteratureType._ID + "<=" + MinistryDatabase.MAX_PUBLICATION_TYPE_ID, null, null, null, LiteratureType.DEFAULT_SORT);
+        return sqlDB.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME}, LiteratureType._ID + "<=" + MinistryDatabase.MAX_PUBLICATION_TYPE_ID, null, null, null, LiteratureType.DEFAULT_SORT);
     }
 
     public void deleteEntryTypeByID(int _id) {
+        // Get time ID's for the entry type
+        String sql = "SELECT " + Time._ID + " FROM " + Tables.TIMES + " WHERE " + Time.ENTRY_TYPE_ID + " = " + _id;
+        Cursor cursor = sqlDB.rawQuery(sql, null);
+        StringBuilder timeIDs = new StringBuilder();
+        timeIDs.append("0");
+
+        while (cursor.moveToNext()) {
+            timeIDs.append(",").append(cursor.getInt(cursor.getColumnIndex(Time._ID)));
+        }
+
+        // Delete Time Householders
+        sqlDB.delete(Tables.TIME_HOUSEHOLDERS, TimeHouseholder.TIME_ID + " IN (" + timeIDs.toString() + ")", null);
+        // Delete Placed Publications
+        sqlDB.delete(Tables.PLACED_LITERATURE, LiteraturePlaced.TIME_ID + " IN (" + timeIDs.toString() + ")", null);
+        // Delete Time Entries
+        sqlDB.delete(Tables.TIMES, Time._ID + " IN (" + timeIDs.toString() + ")", null);
+        // Delete Entry Type
         sqlDB.delete(Tables.ENTRY_TYPES, EntryType._ID + " = " + _id, null);
     }
 
@@ -1058,14 +1082,13 @@ public class MinistryService {
         do {
             /** Let's get our minutes and rollover._id from the db for the publisher and date. */
             ro = fetchRolloverRecord(publisherId, TimeUtils.dbDateFormat.format(start.getTime()));
-            if(ro.moveToFirst()) {
+            if (ro.moveToFirst()) {
                 roID = ro.getInt(ro.getColumnIndex(Rollover._ID));
-                if(isFirstLoop) {
+                if (isFirstLoop) {
                     minutesRO = ro.getInt(ro.getColumnIndex(Rollover.MINUTES));
                     isFirstLoop = false;
                 }
-            }
-            else {
+            } else {
                 roID = MinistryDatabase.CREATE_ID;
             }
 
@@ -1077,7 +1100,7 @@ public class MinistryService {
             time = fetchRolloverTimeEntry(publisherId, TimeUtils.dbDateFormat.format(start.getTime()));
 
             /** The sum of both minutes is over an hour */
-            if(minutesTime + minutesRO >= oneHour) {
+            if (minutesTime + minutesRO >= oneHour) {
                 /** The time entry should be for the needed minutes to put the total time to the next hour. */
                 timeValues.put(Time.TIME_END, "00:" + String.valueOf(oneHour - minutesTime));
 
@@ -1086,12 +1109,11 @@ public class MinistryService {
                 timeValues.put(Time.DATE_START, TimeUtils.dbDateFormat.format(start.getTime()));
                 timeValues.put(Time.DATE_END, TimeUtils.dbDateFormat.format(start.getTime()));
 
-                if(time.moveToFirst())
+                if (time.moveToFirst())
                     saveTime(time.getLong(time.getColumnIndex(Time._ID)), timeValues);
                 else
                     createTime(timeValues);
-            }
-            else {
+            } else {
                 minutesRO += minutesTime;
                 if (time.moveToFirst()) {
                     /** We have a time record that needs to be deleted since there won't be a time entry for this month. */
@@ -1105,13 +1127,13 @@ public class MinistryService {
             roValues.put(Rollover.DATE, TimeUtils.dbDateFormat.format(start.getTime()));
             roValues.put(Rollover.MINUTES, minutesRO);
 
-            if(roID != MinistryDatabase.CREATE_ID)
+            if (roID != MinistryDatabase.CREATE_ID)
                 saveRolloverMinutes(roID, roValues);
             else
                 createRolloverMinutes(roValues);
 
             start.add(Calendar.MONTH, 1);
-        } while(start.before(nextMonth));
+        } while (start.before(nextMonth));
     }
 
     public long createPioneeringType(ContentValues values) {
@@ -1131,6 +1153,6 @@ public class MinistryService {
     }
 
     public Cursor fetchPublisherFirstTimeEntry(int publisherId) {
-        return sqlDB.query(Tables.TIMES, new String[] {Time.DATE_START}, Time.PUBLISHER_ID + "=" + publisherId, null, null, null, Time.DATE_START, "1");
+        return sqlDB.query(Tables.TIMES, new String[]{Time.DATE_START}, Time.PUBLISHER_ID + "=" + publisherId, null, null, null, Time.DATE_START, "1");
     }
 }

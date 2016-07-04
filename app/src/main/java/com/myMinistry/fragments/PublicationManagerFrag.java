@@ -74,7 +74,7 @@ public class PublicationManagerFrag extends ListFragment {
         database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
 
-        adapter = new ItemWithIconAdapter(getActivity().getApplicationContext());
+        adapter = new ItemWithIconAdapter(getActivity().getApplicationContext(), ItemWithIconAdapter.TYPE_PUBLICATION);
 
         setListAdapter(adapter);
 
@@ -286,7 +286,7 @@ public class PublicationManagerFrag extends ListFragment {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
                         builder.setTitle(R.string.confirm_deletion)
-                                .setMessage(R.string.confirm_deletaion_message_publication_types)
+                                .setMessage(R.string.confirm_deletion_message_publication_types)
                                 .setPositiveButton(R.string.menu_delete, dialogClickListener)
                                 .setNegativeButton(R.string.menu_cancel, dialogClickListener)
                                 .show();
@@ -307,7 +307,7 @@ public class PublicationManagerFrag extends ListFragment {
                 Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
                 PublicationFragment f = new PublicationFragment().newInstance();
 
-                if(frag != null)
+                if (frag != null)
                     ft.remove(frag);
 
                 ft.add(R.id.primary_fragment_container, f);

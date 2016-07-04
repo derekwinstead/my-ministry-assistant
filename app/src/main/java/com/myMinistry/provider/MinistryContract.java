@@ -21,15 +21,15 @@ public class MinistryContract {
     }
 
     public static class Time implements TimeColumns, BaseColumns {
-        public static final String[] All_COLS = new String[] {_ID,PUBLISHER_ID,ENTRY_TYPE_ID,DATE_START,DATE_END,TIME_START,TIME_END};
+        public static final String[] All_COLS = new String[]{_ID, PUBLISHER_ID, ENTRY_TYPE_ID, DATE_START, DATE_END, TIME_START, TIME_END};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.TIMES + " ("
-                +		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + PUBLISHER_ID	+ " INTEGER"
-                + "," + ENTRY_TYPE_ID	+ " INTEGER"
-                + "," + DATE_START		+ " TEXT"
-                + "," + DATE_END		+ " TEXT"
-                + "," + TIME_START		+ " TEXT"
-                + "," + TIME_END		+ " TEXT )";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + PUBLISHER_ID + " INTEGER"
+                + "," + ENTRY_TYPE_ID + " INTEGER"
+                + "," + DATE_START + " TEXT"
+                + "," + DATE_END + " TEXT"
+                + "," + TIME_START + " TEXT"
+                + "," + TIME_END + " TEXT )";
     }
 
     interface RolloverColumns {
@@ -42,12 +42,12 @@ public class MinistryContract {
     }
 
     public static class Rollover implements RolloverColumns, BaseColumns {
-        public static final String[] All_COLS = new String[] {_ID,PUBLISHER_ID,DATE,MINUTES};
+        public static final String[] All_COLS = new String[]{_ID, PUBLISHER_ID, DATE, MINUTES};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.ROLLOVER + " ("
-                + 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + PUBLISHER_ID	+ " INTEGER"
-                + "," + DATE			+ " TEXT"
-                + "," + MINUTES			+ " INTEGER )";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + PUBLISHER_ID + " INTEGER"
+                + "," + DATE + " TEXT"
+                + "," + MINUTES + " INTEGER )";
     }
 
     interface EntryTypeColumns {
@@ -64,15 +64,15 @@ public class MinistryContract {
     }
 
     public static class EntryType implements EntryTypeColumns, BaseColumns {
-        public static final String DEFAULT_SORT = ACTIVE + " DESC," + SORT_ORDER + " ASC," + NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,RBC,SORT_ORDER,DEFAULT};
+        public static final String DEFAULT_SORT = ACTIVE + " DESC," + NAME + " COLLATE NOCASE ASC";
+        public static final String[] All_COLS = new String[]{_ID, NAME, ACTIVE, RBC, SORT_ORDER, DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.ENTRY_TYPES + " ("
-                + 		_ID			+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + NAME		+ " TEXT"
-                + "," + ACTIVE		+ " INTEGER"
-                + "," + RBC			+ " INTEGER"
-                + "," + SORT_ORDER	+ " INTEGER DEFAULT 0"
-                + "," + DEFAULT 	+ " INTEGER DEFAULT 0)";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + NAME + " TEXT"
+                + "," + ACTIVE + " INTEGER"
+                + "," + RBC + " INTEGER"
+                + "," + SORT_ORDER + " INTEGER DEFAULT 0"
+                + "," + DEFAULT + " INTEGER DEFAULT 0)";
     }
 
     interface HouseholderColumns {
@@ -98,18 +98,18 @@ public class MinistryContract {
 
     public static class Householder implements HouseholderColumns, BaseColumns {
         public static final String DEFAULT_SORT = HouseholderColumns.ACTIVE + " DESC," + HouseholderColumns.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ADDR,MOBILE_PHONE,HOME_PHONE,WORK_PHONE,OTHER_PHONE,ACTIVE,DEFAULT};
+        public static final String[] All_COLS = new String[]{_ID, NAME, ADDR, MOBILE_PHONE, HOME_PHONE, WORK_PHONE, OTHER_PHONE, ACTIVE, DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.HOUSEHOLDERS + " ("
-                + 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + NAME			+ " TEXT"
-                + "," + ADDR			+ " TEXT"
-                + "," + MOBILE_PHONE	+ " TEXT"
-                + "," + HOME_PHONE		+ " TEXT"
-                + "," + WORK_PHONE		+ " TEXT"
-                + "," + OTHER_PHONE		+ " TEXT"
-                + "," + ACTIVE			+ " INTEGER"
-                + "," + SORT_ORDER		+ " INTEGER DEFAULT 1"
-                + "," + DEFAULT 	    + " INTEGER DEFAULT 0)";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + NAME + " TEXT"
+                + "," + ADDR + " TEXT"
+                + "," + MOBILE_PHONE + " TEXT"
+                + "," + HOME_PHONE + " TEXT"
+                + "," + WORK_PHONE + " TEXT"
+                + "," + OTHER_PHONE + " TEXT"
+                + "," + ACTIVE + " INTEGER"
+                + "," + SORT_ORDER + " INTEGER DEFAULT 1"
+                + "," + DEFAULT + " INTEGER DEFAULT 0)";
     }
 
     interface LiteratureColumns {
@@ -127,14 +127,14 @@ public class MinistryContract {
 
     public static class Literature implements LiteratureColumns, BaseColumns {
         public static final String DEFAULT_SORT = Qualified.LITERATURE_ACTIVE + " DESC," + Qualified.LITERATURE_NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,TYPE_OF_LIERATURE_ID,ACTIVE,WEIGHT,SORT_ORDER};
+        public static final String[] All_COLS = new String[]{_ID, NAME, TYPE_OF_LIERATURE_ID, ACTIVE, WEIGHT, SORT_ORDER};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.LITERATURE + " ("
-                + 		_ID						+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + NAME					+ " TEXT"
-                + "," + TYPE_OF_LIERATURE_ID	+ " INTEGER"
-                + "," + ACTIVE					+ " INTEGER"
-                + "," + WEIGHT					+ " INTEGER DEFAULT 1"
-                + "," + SORT_ORDER				+ " INTEGER )";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + NAME + " TEXT"
+                + "," + TYPE_OF_LIERATURE_ID + " INTEGER"
+                + "," + ACTIVE + " INTEGER"
+                + "," + WEIGHT + " INTEGER DEFAULT 1"
+                + "," + SORT_ORDER + " INTEGER )";
     }
 
     interface LiteratureTypeColumns {
@@ -150,13 +150,13 @@ public class MinistryContract {
 
     public static class LiteratureType implements LiteratureTypeColumns, BaseColumns {
         public static final String DEFAULT_SORT = LiteratureType.ACTIVE + " DESC, " + LiteratureType.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,SORT_ORDER,DEFAULT};
+        public static final String[] All_COLS = new String[]{_ID, NAME, ACTIVE, SORT_ORDER, DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.TYPES_OF_LIERATURE + " ("
-                + 		_ID			+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + NAME		+ " TEXT"
-                + "," + ACTIVE		+ " INTEGER"
-                + "," + SORT_ORDER	+ " INTEGER"
-                + "," + DEFAULT		+ " INTEGER DEFAULT 0)";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + NAME + " TEXT"
+                + "," + ACTIVE + " INTEGER"
+                + "," + SORT_ORDER + " INTEGER"
+                + "," + DEFAULT + " INTEGER DEFAULT 0)";
     }
 
     interface PublisherColumns {
@@ -172,13 +172,13 @@ public class MinistryContract {
 
     public static class Publisher implements PublisherColumns, BaseColumns {
         public static final String DEFAULT_SORT = PublisherColumns.ACTIVE + " DESC, " + PublisherColumns.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME,ACTIVE,GENDER,DEFAULT};
+        public static final String[] All_COLS = new String[]{_ID, NAME, ACTIVE, GENDER, DEFAULT};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.PUBLISHERS + " ("
-                + 		_ID		+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + NAME	+ " TEXT"
-                + "," + ACTIVE	+ " INTEGER DEFAULT 1"
-                + "," + GENDER	+ " TEXT DEFAULT 'male'"
-                + "," + DEFAULT		+ " INTEGER DEFAULT 0)";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + NAME + " TEXT"
+                + "," + ACTIVE + " INTEGER DEFAULT 1"
+                + "," + GENDER + " TEXT DEFAULT 'male'"
+                + "," + DEFAULT + " INTEGER DEFAULT 0)";
     }
 
     interface LiteraturePlacedColumns {
@@ -197,19 +197,21 @@ public class MinistryContract {
     }
 
     public static class LiteraturePlaced implements LiteraturePlacedColumns, BaseColumns {
-        public static final String[] All_COLS = new String[] {_ID,PUBLISHER_ID,LITERATURE_ID,HOUSEHOLDER_ID,TIME_ID,COUNT,DATE};
+        public static final String[] All_COLS = new String[]{_ID, PUBLISHER_ID, LITERATURE_ID, HOUSEHOLDER_ID, TIME_ID, COUNT, DATE};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.PLACED_LITERATURE + " ("
-                + 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + PUBLISHER_ID	+ " INTEGER"
-                + "," + LITERATURE_ID	+ " INTEGER"
-                + "," + HOUSEHOLDER_ID	+ " INTEGER"
-                + "," + TIME_ID			+ " INTEGER"
-                + "," + COUNT			+ " INTEGER"
-                + "," + DATE			+ " TEXT )";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + PUBLISHER_ID + " INTEGER"
+                + "," + LITERATURE_ID + " INTEGER"
+                + "," + HOUSEHOLDER_ID + " INTEGER"
+                + "," + TIME_ID + " INTEGER"
+                + "," + COUNT + " INTEGER"
+                + "," + DATE + " TEXT )";
     }
 
     interface PioneeringColumns {
-        /** PublisherID to link to publishers table. */
+        /**
+         * PublisherID to link to publishers table.
+         */
         String PUBLISHER_ID = "publisherID";
         String PIONEERING_TYPE_ID = "pioneeringTypeID";
         String YEAR_START = "yearStart";
@@ -221,16 +223,16 @@ public class MinistryContract {
 
     public static class Pioneering implements PioneeringColumns, BaseColumns {
         public static final String DEFAULT_SORT = null;
-        public static final String[] All_COLS = new String[] {_ID,PUBLISHER_ID,PIONEERING_TYPE_ID,YEAR_START,MONTH_START,YEAR_END,MONTH_END,MONTHLY_HOURS};
+        public static final String[] All_COLS = new String[]{_ID, PUBLISHER_ID, PIONEERING_TYPE_ID, YEAR_START, MONTH_START, YEAR_END, MONTH_END, MONTHLY_HOURS};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.PIONEERING + " ("
-                + 		_ID					+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + PUBLISHER_ID		+ " INTEGER"
-                + "," + PIONEERING_TYPE_ID	+ " INTEGER"
-                + "," + YEAR_START			+ " INTEGER"
-                + "," + MONTH_START			+ " INTEGER"
-                + "," + YEAR_END			+ " INTEGER"
-                + "," + MONTH_END			+ " INTEGER"
-                + "," + MONTHLY_HOURS		+ " INTEGER )";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + PUBLISHER_ID + " INTEGER"
+                + "," + PIONEERING_TYPE_ID + " INTEGER"
+                + "," + YEAR_START + " INTEGER"
+                + "," + MONTH_START + " INTEGER"
+                + "," + YEAR_END + " INTEGER"
+                + "," + MONTH_END + " INTEGER"
+                + "," + MONTHLY_HOURS + " INTEGER )";
     }
 
     interface PioneeringTypeColumns {
@@ -239,14 +241,16 @@ public class MinistryContract {
 
     public static class PioneeringType implements PioneeringTypeColumns, BaseColumns {
         public static final String DEFAULT_SORT = PioneeringType.NAME + " COLLATE NOCASE ASC";
-        public static final String[] All_COLS = new String[] {_ID,NAME};
+        public static final String[] All_COLS = new String[]{_ID, NAME};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.TYPES_OF_PIONEERING + " ("
-                + 		_ID		+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + NAME	+ " TEXT )";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + NAME + " TEXT )";
     }
 
     interface TimeHouseholderColumns {
-        /** PublisherID to link to publishers table. */
+        /**
+         * PublisherID to link to publishers table.
+         */
         String TIME_ID = "timeID";
         String HOUSEHOLDER_ID = "householderID";
         String STUDY = "isStudy";
@@ -255,11 +259,11 @@ public class MinistryContract {
 
     public static class TimeHouseholder implements TimeHouseholderColumns, BaseColumns {
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.TIME_HOUSEHOLDERS + " ("
-                +		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + TIME_ID			+ " INTEGER DEFAULT 0"
-                + "," + HOUSEHOLDER_ID	+ " INTEGER DEFAULT 0"
-                + "," + STUDY			+ " INTEGER DEFAULT 0"
-                + "," + RETURN_VISIT	+ " INTEGER DEFAULT 1)";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + TIME_ID + " INTEGER DEFAULT 0"
+                + "," + HOUSEHOLDER_ID + " INTEGER DEFAULT 0"
+                + "," + STUDY + " INTEGER DEFAULT 0"
+                + "," + RETURN_VISIT + " INTEGER DEFAULT 1)";
     }
 
     interface NotesColumns {
@@ -269,12 +273,12 @@ public class MinistryContract {
     }
 
     public static class Notes implements NotesColumns, BaseColumns {
-        public static final String[] All_COLS = new String[] {_ID,TIME_ID,HOUSEHOLDER_ID,NOTES};
+        public static final String[] All_COLS = new String[]{_ID, TIME_ID, HOUSEHOLDER_ID, NOTES};
         public static final String SCRIPT_CREATE = "CREATE TABLE " + Tables.NOTES + " ("
-                + 		_ID				+ " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + "," + TIME_ID			+ " INTEGER"
-                + "," + HOUSEHOLDER_ID	+ " INTEGER"
-                + "," + NOTES			+ " TEXT)";
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                + "," + TIME_ID + " INTEGER"
+                + "," + HOUSEHOLDER_ID + " INTEGER"
+                + "," + NOTES + " TEXT)";
     }
 
     public interface UnionsNameAsRef {
@@ -384,5 +388,6 @@ public class MinistryContract {
         String NOTES_ON_TIMEHOUSEHOLDER_AND_TIME = " LEFT JOIN " + Tables.NOTES + " ON (" + Qualified.NOTES_HOUSEHOLDER_ID + " = " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " AND " + Qualified.NOTES_TIME_ID + " = " + Qualified.TIME_ID + ")";
     }
 
-    private MinistryContract() { }
+    private MinistryContract() {
+    }
 }

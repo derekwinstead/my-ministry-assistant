@@ -28,8 +28,19 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
     private static final int ITEM_VIEW_TYPE_SEPARATOR = 1;
     private static final int ITEM_VIEW_TYPE_COUNT = 2;
 
+    public static final int TYPE_PUBLICATION = 1;
+    public static final int TYPE_ENTRY_TYPE = 2;
+
+    private int ADAPTER_TYPE = TYPE_PUBLICATION;
+
     public ItemWithIconAdapter(Context context) {
         super(context, 0);
+        this.context = context;
+    }
+
+    public ItemWithIconAdapter(Context context, int type) {
+        super(context, 0);
+        ADAPTER_TYPE = type;
         this.context = context;
     }
 
@@ -140,7 +151,7 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
                 }
 
                 addItem(new ItemWithIcon(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME))
-                        ,Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID)))
+                        ,(ADAPTER_TYPE == TYPE_PUBLICATION) ? Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))) : R.drawable.ic_drawer_entry_types_new
                         ,cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))
                         ,cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE))
                         ,cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT)))

@@ -22,7 +22,6 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.PrefUtils;
 import com.squareup.phrase.Phrase;
 
 public class EntryTypeManagerEditorFrag extends Fragment {
@@ -145,7 +144,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 					
 					if(is_dual_pane) {
 						EntryTypeManagerFrag f = (EntryTypeManagerFrag) fm.findFragmentById(R.id.primary_fragment_container);
-						f.sortList(PrefUtils.getEntryTypeSort(getActivity()));
+						//f.sortList(PrefUtils.getEntryTypeSort(getActivity()));
 						f.reloadCursor();
 					}
 					else {

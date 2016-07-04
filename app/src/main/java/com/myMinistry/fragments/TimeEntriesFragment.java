@@ -47,64 +47,64 @@ public class TimeEntriesFragment extends ListFragment {
 	private LinearLayout report_nav;
 
 	private NavDrawerMenuItemAdapter pubsAdapter;
-    
-    private boolean is_dual_pane = false;
-	
+
+	private boolean is_dual_pane = false;
+
 	private FragmentManager fm;
 
 	private FloatingActionButton fab;
-	
+
 	private MinistryService database;
 	private Cursor entries = null;
 	private TimeEntryAdapter adapter = null;
 	private int publisherId = 0;
 	private Calendar date = Calendar.getInstance(Locale.getDefault());
-	
+
 	private String dbDateFormatted = "";
 	private String dbTimeFrame = "";
-	
-	public TimeEntriesFragment newInstance(int month, int year, int _publisherID) {
-    	TimeEntriesFragment f = new TimeEntriesFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_YEAR, year);
-        args.putInt(ARG_MONTH, month);
-        args.putInt(ARG_PUBLISHER_ID, _publisherID);
-        f.setArguments(args);
-        return f;
-    }
 
-    @Override
+	public TimeEntriesFragment newInstance(int month, int year, int _publisherID) {
+		TimeEntriesFragment f = new TimeEntriesFragment();
+		Bundle args = new Bundle();
+		args.putInt(ARG_YEAR, year);
+		args.putInt(ARG_MONTH, month);
+		args.putInt(ARG_PUBLISHER_ID, _publisherID);
+		f.setArguments(args);
+		return f;
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.time_entries, container, false);
-        Bundle args = getArguments();
-        
-        fm = getActivity().getSupportFragmentManager();
-        
-        date.set(Calendar.DAY_OF_MONTH, 1);
-        
-        if(args != null) {
-			if(args.containsKey(ARG_YEAR)) {
+		Bundle args = getArguments();
+
+		fm = getActivity().getSupportFragmentManager();
+
+		date.set(Calendar.DAY_OF_MONTH, 1);
+
+		if (args != null) {
+			if (args.containsKey(ARG_YEAR)) {
 				date.set(Calendar.YEAR, args.getInt(ARG_YEAR));
 			}
-			if(args.containsKey(ARG_MONTH)) {
+			if (args.containsKey(ARG_MONTH)) {
 				date.set(Calendar.MONTH, args.getInt(ARG_MONTH));
 			}
-	        if(args.containsKey(ARG_PUBLISHER_ID))
-	        	setPublisherId(args.getInt(ARG_PUBLISHER_ID));
-        }
+			if (args.containsKey(ARG_PUBLISHER_ID))
+				setPublisherId(args.getInt(ARG_PUBLISHER_ID));
+		}
 
 		fm = getActivity().getSupportFragmentManager();
 
 		publishers = (Spinner) view.findViewById(R.id.publishers);
-        view_report = (TextView) view.findViewById(R.id.view_entries);
+		view_report = (TextView) view.findViewById(R.id.view_entries);
 		report_nav = (LinearLayout) view.findViewById(R.id.report_nav);
 
 		month = (TextView) view.findViewById(R.id.month);
 		year = (TextView) view.findViewById(R.id.year);
 
-        database = new MinistryService(getActivity().getApplicationContext());
-        adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
-    	setListAdapter(adapter);
+		database = new MinistryService(getActivity().getApplicationContext());
+		adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
+		setListAdapter(adapter);
 
 		view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -126,30 +126,30 @@ public class TimeEntriesFragment extends ListFragment {
 			}
 		});
 
-        view_report.setOnClickListener(new View.OnClickListener() {
+		view_report.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-                Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+				Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
 				FragmentTransaction ft = fm.beginTransaction();
 				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-                new ReportFragment();
-                ReportFragment f = ReportFragment.newInstance(publisherId);
+				new ReportFragment();
+				ReportFragment f = ReportFragment.newInstance(publisherId);
 
 
-				if(frag != null)
+				if (frag != null)
 					ft.remove(frag);
 
-                // Clear out the back stack so back press doesn't go everywhere
+				// Clear out the back stack so back press doesn't go everywhere
                 /*
                 for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                     fm.popBackStack();
                 }
                 */
-                //fm.popBackStack(fm.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                //getSupportFragmentManager().popBackStack(getSupportFragmentManager().getBackStac‌​kEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+				//fm.popBackStack(fm.getBackStackEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+				//getSupportFragmentManager().popBackStack(getSupportFragmentManager().getBackStac‌​kEntryAt(0).getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-                ft.add(R.id.primary_fragment_container, f);
+				ft.add(R.id.primary_fragment_container, f);
 
 				ft.commit();
 			}
@@ -161,13 +161,13 @@ public class TimeEntriesFragment extends ListFragment {
 
 		return view;
 	}
-	
-	public void updateList() {
-        month.setText(mMonth);
-        year.setText(mYear);
 
-    	database.openWritable();
-		if(PrefUtils.shouldCalculateRolloverTime(getActivity())) {
+	public void updateList() {
+		month.setText(mMonth);
+		year.setText(mYear);
+
+		database.openWritable();
+		if (PrefUtils.shouldCalculateRolloverTime(getActivity())) {
 			entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, dbDateFormatted, dbTimeFrame);
 		} else {
 			entries = database.fetchTimeEntriesByPublisherAndMonthNoRollover(publisherId, dbDateFormatted, dbTimeFrame);
@@ -179,51 +179,51 @@ public class TimeEntriesFragment extends ListFragment {
 	public void setPublisherId(int _id) {
 		publisherId = _id;
 	}
-    
-    @Override
+
+	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-    	entries.moveToPosition(position);
-    	if(entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
-    		int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-    		
-    		FragmentTransaction ft = fm.beginTransaction();
-        	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-    		
-        	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-        	TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
-        	
-        	if(frag != null)
-        		ft.remove(frag);
-        	
-        	ft.add(LAYOUT_ID, f);
-        	ft.addToBackStack(null);
-        	
-        	ft.commit();
-    	}
+		entries.moveToPosition(position);
+		if (entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
+			int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
+
+			FragmentTransaction ft = fm.beginTransaction();
+			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+			Fragment frag = fm.findFragmentById(LAYOUT_ID);
+			TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
+
+			if (frag != null)
+				ft.remove(frag);
+
+			ft.add(LAYOUT_ID, f);
+			ft.addToBackStack(null);
+
+			ft.commit();
+		}
 	}
-    
+
 	@Override
 	public void onActivityCreated(Bundle savedState) {
 		super.onActivityCreated(savedState);
-		
+
 		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
-            }
-        });
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
+			}
+		});
 
-    	calculateValues();
-    	updateList();
+		calculateValues();
+		updateList();
 
-		if(is_dual_pane) {
+		if (is_dual_pane) {
 			report_nav.setVisibility(View.GONE);
 		} else {
-            view_report.setText(R.string.view_month_report);
+			view_report.setText(R.string.view_month_report);
 
-            adjustMonth(0);
+			adjustMonth(0);
 		}
 /*
 		if(is_dual_pane) {
@@ -249,7 +249,7 @@ public class TimeEntriesFragment extends ListFragment {
 
 	public void switchToMonthList(Calendar _date) {
 		date = _date;
-		
+
 		calculateValues();
 		refresh();
 	}
@@ -269,10 +269,10 @@ public class TimeEntriesFragment extends ListFragment {
 	}
 
 	private void saveSharedPrefs() {
-		if(getActivity() != null)
+		if (getActivity() != null)
 			PrefUtils.setSummaryMonthAndYear(getActivity(), date);
 	}
-	
+
 	public void refresh() {
 		updateList();
 	}
@@ -284,12 +284,12 @@ public class TimeEntriesFragment extends ListFragment {
 
 		database.openWritable();
 		final Cursor cursor = database.fetchActivePublishers();
-		while(cursor.moveToNext()) {
-			if(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID)) == publisherId)
+		while (cursor.moveToNext()) {
+			if (cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID)) == publisherId)
 				initialSelection = pubsAdapter.getCount();
 			pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME))
-					,getResources().getIdentifier("ic_drawer_publisher_" + cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
-					,cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
+					, getResources().getIdentifier("ic_drawer_publisher_" + cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
+					, cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
 		}
 		cursor.close();
 		database.close();
@@ -297,13 +297,13 @@ public class TimeEntriesFragment extends ListFragment {
 		pubsAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 		publishers.setAdapter(pubsAdapter);
 
-		if(initialSelection != 0)
+		if (initialSelection != 0)
 			publishers.setSelection(initialSelection);
 
 		publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				if(pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
+				if (pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
 					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
 					f.setPositiveButton(new PublisherNewDialogFragment.PublisherNewDialogFragmentListener() {
 						@Override
@@ -313,8 +313,7 @@ public class TimeEntriesFragment extends ListFragment {
 						}
 					});
 					f.show(fm, "PublisherNewDialogFragment");
-				}
-				else {
+				} else {
 					setPublisherId(pubsAdapter.getItem(position).getID());
 					PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
 					calculateValues();
@@ -323,7 +322,8 @@ public class TimeEntriesFragment extends ListFragment {
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> parent) { }
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
 		});
 	}
 }
