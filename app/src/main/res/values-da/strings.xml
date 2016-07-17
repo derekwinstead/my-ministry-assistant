@@ -66,7 +66,6 @@
     <string name="form_name">Navn</string>
     <string name="form_rename">Omdøb</string>
     <string name="form_publisher">Forkynder</string>
-    <string name="form_type">Type</string>
     <string name="form_publication_type">Publikationstype</string>
     <string name="form_publication_types">Publikationstyper</string>
     <string name="form_entry_type">Indtastningstype</string>
@@ -91,7 +90,6 @@
     <string name="menu_done">Færdig</string>
     <string name="menu_save">Gem</string>
     <string name="menu_share">Del</string>
-    <string name="menu_entries">Entries</string>
     <string name="menu_no_householder">Ingen beboer</string>
     <string name="menu_no_publications">Ingen publikationer</string>
     <string name="menu_rv_publications_notes">Genbesøg, publikationer og noter</string>
@@ -102,15 +100,7 @@
     <string name="menu_more">Mere</string>
     <string name="menu_count_as_return_visit">Tæl som et genbesøg</string>
     <string name="menu_do_not_count_as_return_visit">Tæl ikke som et genbesøg</string>
-    <string name="menu_sort">Sortering</string>
-    <string name="menu_sort_alpha_asc">Sorter efter navn</string>
-    <string name="menu_sort_alpha_desc">Sorter efter navn (modsat)</string>
-    <string name="menu_sort_most_used">Sorter efter mest anvendt</string>
-    <string name="menu_sort_most_placed">Sorter efter mest afsat</string>
-    <string name="menu_sort_last_visit">Sorter efter sidst besøgt</string>
-    <string name="menu_sort_last_visit_reversed">Sorter efter sidst besøgt (modsat)</string>
     <string name="menu_send_report">Send rapport</string>
-    <string name="menu_add_time">Tilføj tid</string>
     <string name="pref_update_title">Check for opdatering</string>
     <string name="pref_update_summary">Check hjemmesiden for at se om der er en opdatering tilgængelig. Dette anvendes til telefoner der ikke har market installeret.</string>
     <string name="pref_backup_title">Backup database</string>
@@ -160,7 +150,6 @@
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>
     <string name="pref_locale">Idioma</string>
     <string name="pref_locale_selected">Strøm: {locale}</string>
-    <string name="custom">Brugerdefineret</string>
     <string name="default_videos">Videoer</string>
     <string name="form_gender">Køn</string>
     <string name="gender_male">Han</string>

@@ -1,108 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/default_padding">
-
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/form_name"
-            android:inputType="textCapSentences"
-            android:paddingTop="@dimen/default_padding_half" />
-
-        <EditText
-            android:id="@+id/et_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/form_address"
-            android:inputType="textCapSentences"
-            android:paddingTop="@dimen/default_padding_half" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/default_padding_half">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_phone_mobile"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_padding_half"
-                android:layout_marginRight="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:hint="@string/form_phone_mobile"
-                android:inputType="phone" />
+                android:orientation="vertical"
+                android:padding="@dimen/default_padding">
 
-            <EditText
-                android:id="@+id/et_phone_home"
-                android:layout_width="0dp"
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/form_name"
+                    android:inputType="textCapSentences"
+                    android:paddingTop="@dimen/default_padding_half" />
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/form_address"
+                    android:inputType="textCapSentences"
+                    android:paddingTop="@dimen/default_padding_half" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/default_padding_half">
+
+                    <EditText
+                        android:id="@+id/et_phone_mobile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding_half"
+                        android:layout_marginRight="@dimen/default_padding_half"
+                        android:layout_weight="1"
+                        android:hint="@string/form_phone_mobile"
+                        android:inputType="phone" />
+
+                    <EditText
+                        android:id="@+id/et_phone_home"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_padding_half"
+                        android:layout_marginStart="@dimen/default_padding_half"
+                        android:layout_weight="1"
+                        android:hint="@string/form_phone_home"
+                        android:inputType="phone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/default_padding_half">
+
+                    <EditText
+                        android:id="@+id/et_phone_work"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding_half"
+                        android:layout_marginRight="@dimen/default_padding_half"
+                        android:layout_weight="1"
+                        android:hint="@string/form_phone_work"
+                        android:inputType="phone" />
+
+                    <EditText
+                        android:id="@+id/et_phone_other"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_padding_half"
+                        android:layout_marginStart="@dimen/default_padding_half"
+                        android:layout_weight="1"
+                        android:hint="@string/form_phone_other"
+                        android:inputType="phone" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cb_is_active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingBottom="@dimen/default_padding"
+                    android:paddingTop="@dimen/default_padding"
+                    android:text="@string/form_is_active"
+                    android:textColor="@color/holo_grey_light" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/view_activity"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_padding_half"
-                android:layout_marginStart="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:hint="@string/form_phone_home"
-                android:inputType="phone" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_padding_double"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="@dimen/default_padding"
+                android:text="@string/recent_activity"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/default_padding_half">
-
-            <EditText
-                android:id="@+id/et_phone_work"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_padding_half"
-                android:layout_marginRight="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:hint="@string/form_phone_work"
-                android:inputType="phone" />
-
-            <EditText
-                android:id="@+id/et_phone_other"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_padding_half"
-                android:layout_marginStart="@dimen/default_padding_half"
-                android:layout_weight="1"
-                android:hint="@string/form_phone_other"
-                android:inputType="phone" />
-        </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/cb_is_active"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/default_padding"
-            android:paddingTop="@dimen/default_padding"
-            android:text="@string/form_is_active"
-            android:textColor="@color/holo_grey_light" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/view_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/default_padding_double"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="@dimen/default_padding"
-        android:text="@string/recent_activity"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium" />
+    </ScrollView>
 
     <include layout="@layout/fab_user_add" />
-</LinearLayout>
+</RelativeLayout>

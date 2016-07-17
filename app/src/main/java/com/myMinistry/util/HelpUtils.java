@@ -79,7 +79,6 @@ public class HelpUtils {
         try {
             currentVersionNumber = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
         } catch (Exception e) {}
-
         return currentVersionNumber > PrefUtils.getVersionNumber(context) ? true : false;
     }
 

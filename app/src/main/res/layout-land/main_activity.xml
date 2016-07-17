@@ -31,6 +31,7 @@
                 app:layout_widthPercent="40%" />
 
             <View
+                android:id="@+id/divider_fragment_container"
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/primary_fragment_container"

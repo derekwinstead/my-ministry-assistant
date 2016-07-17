@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.percent.PercentLayoutHelper;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.myMinistry.R;
-import com.myMinistry.fragments.DBBackupsFragment;
 import com.myMinistry.fragments.DBBackupsListFragment;
 import com.myMinistry.fragments.EntryTypeManagerFrag;
 import com.myMinistry.fragments.HouseholdersFragment;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
 
+    private boolean layout_changed = false;
+
     private FragmentManager fm;
 
     private DrawerLayout mDrawerLayout;
@@ -53,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean firstLoad = true;
 
-    private int getDefaultNavDrawerItem() { return R.id.drawer_summary; }
+    private int getDefaultNavDrawerItem() {
+        return R.id.drawer_summary;
+    }
 
     @Override
     public void onResume() {
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         // Default item selected
         goToNavDrawerItem(getDefaultNavDrawerItem());
 
-        if(HelpUtils.isApplicationUpdated(this)) {
+        if (HelpUtils.isApplicationUpdated(this)) {
             MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
             final ProgressDialog ringProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.updating_app), getResources().getString(R.string.please_be_patient), true);
             ringProgressDialog.setCancelable(true);
@@ -102,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
         view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
                 // Handle menu item clicks here.
                 menuItem.setChecked(true);
                 setTitle(menuItem.getTitle());
@@ -112,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
@@ -156,8 +162,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void setTitle(CharSequence title)
-    {
+    public void setTitle(CharSequence title) {
         getSupportActionBar().setTitle(title);
     }
 
@@ -168,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
             View mainContent = findViewById(R.id.primary_fragment_container);
             if (mainContent != null) {
                 mainContent.setAlpha(0);
@@ -182,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(mDrawerToggle != null)
+        if (mDrawerToggle != null)
             mDrawerToggle.onConfigurationChanged(newConfig); // Pass any configuration change to the drawer toggles
     }
 
@@ -200,10 +205,13 @@ public class MainActivity extends AppCompatActivity {
 
         switch (itemId) {
             case R.id.drawer_summary:
+                if (is_dual_pane)
+                    showDefaultLayout();
+
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
-                if(!(frag instanceof ReportFragment)) {
-                    if(firstLoad)
+                if (!(frag instanceof ReportFragment)) {
+                    if (firstLoad)
                         PrefUtils.setSummaryMonthAndYear(this, date);
 
                     new ReportFragment();
@@ -211,12 +219,11 @@ public class MainActivity extends AppCompatActivity {
                     // test
                     ft.replace(R.id.primary_fragment_container, f);
 
-                    if(!firstLoad)
+                    if (!firstLoad)
                         ft.addToBackStack(null);
 
                     ft.commit();
-                }
-                else {
+                } else {
                     date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
                     date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
 
@@ -266,15 +273,13 @@ public class MainActivity extends AppCompatActivity {
                 firstLoad = false;
                 return true;
             case R.id.drawer_publications:
-                //getSupportActionBar().removeAllTabs();
+                if (is_dual_pane)
+                    showDefaultLayout();
 
-                //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publications).setTabListener(this));
-                //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publication_types).setTabListener(this));
-
-                if(!(frag instanceof PublicationFragment)) {
+                if (!(frag instanceof PublicationFragment)) {
                     PublicationFragment f = new PublicationFragment().newInstance();
 
-                    if(frag != null)
+                    if (frag != null)
                         ft.remove(frag);
 
                     ft.add(R.id.primary_fragment_container, f);
@@ -285,16 +290,13 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_householders:
-                //getSupportActionBar().removeAllTabs();
-/*
-                if(!is_dual_pane) {
-                    //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_householders).setTabListener(this));
-                }
-*/
-                if(!(frag instanceof HouseholdersFragment)) {
+                if (is_dual_pane)
+                    showDefaultLayout();
+
+                if (!(frag instanceof HouseholdersFragment)) {
                     HouseholdersFragment f = new HouseholdersFragment().newInstance();
 
-                    if(frag != null)
+                    if (frag != null)
                         ft.remove(frag);
 
                     ft.add(R.id.primary_fragment_container, f);
@@ -305,16 +307,13 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_publishers:
-                //getSupportActionBar().removeAllTabs();
-/*
-                if(!is_dual_pane) {
-                    //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_publishers).setTabListener(this));
-                }
-*/
-                if(!(frag instanceof PublishersFragment)) {
+                if (is_dual_pane)
+                    showDefaultLayout();
+
+                if (!(frag instanceof PublishersFragment)) {
                     PublishersFragment f = new PublishersFragment().newInstance();
 
-                    if(frag != null)
+                    if (frag != null)
                         ft.remove(frag);
 
                     ft.add(R.id.primary_fragment_container, f);
@@ -325,16 +324,13 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_entry_types:
-                //getSupportActionBar().removeAllTabs();
-/*
-                if(!is_dual_pane) {
-                    //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_entry_types).setTabListener(this));
-                }
-*/
-                if(!(frag instanceof EntryTypeManagerFrag)) {
+                if (is_dual_pane)
+                    showDefaultLayout();
+
+                if (!(frag instanceof EntryTypeManagerFrag)) {
                     EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
 
-                    if(frag != null)
+                    if (frag != null)
                         ft.remove(frag);
 
                     ft.add(R.id.primary_fragment_container, f);
@@ -345,37 +341,19 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_db:
-                //getSupportActionBar().removeAllTabs();
+                if (!(frag instanceof DBBackupsListFragment)) {
+                    if (is_dual_pane)
+                        showChangeLayout();
 
-                //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_backups).setTabListener(this));
-                //getSupportActionBar().addTab(getSupportActionBar().newTab().setText(R.string.tab_item_schedule_backups).setTabListener(this));
+                    DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
 
-                if(is_dual_pane)
-                    findViewById(R.id.primary_fragment_container).setVisibility(View.GONE);
+                    if (frag != null)
+                        ft.remove(frag);
 
-                if(!(frag instanceof DBBackupsFragment)) {
-                    if(is_dual_pane) {
-                        DBBackupsFragment f = new DBBackupsFragment().newInstance();
+                    ft.add(R.id.primary_fragment_container, f);
+                    ft.addToBackStack(null);
 
-                        if(frag != null)
-                            ft.remove(frag);
-
-                        ft.add(R.id.primary_fragment_container, f);
-                        ft.addToBackStack(null);
-
-                        ft.commit();
-                    }
-                    else {
-                        DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
-
-                        if(frag != null)
-                            ft.remove(frag);
-
-                        ft.add(R.id.primary_fragment_container, f);
-                        ft.addToBackStack(null);
-
-                        ft.commit();
-                    }
+                    ft.commit();
                 }
 
                 return true;
@@ -407,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void setPublisherId(int _ID,String _name) {
+    public void setPublisherId(int _ID, String _name) {
         goToNavDrawerItem(getDefaultNavDrawerItem());
     }
 
@@ -419,5 +397,49 @@ public class MainActivity extends AppCompatActivity {
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    private void showDefaultLayout() {
+        if (layout_changed) {
+            View primary_view = findViewById(R.id.primary_fragment_container);
+            View secondary_view = findViewById(R.id.secondary_fragment_container);
+
+            PercentRelativeLayout.LayoutParams primary_params = (PercentRelativeLayout.LayoutParams) primary_view.getLayoutParams();
+            PercentRelativeLayout.LayoutParams secondary_params = (PercentRelativeLayout.LayoutParams) secondary_view.getLayoutParams();
+
+            PercentLayoutHelper.PercentLayoutInfo primary_info = primary_params.getPercentLayoutInfo();
+            PercentLayoutHelper.PercentLayoutInfo secondary_info = secondary_params.getPercentLayoutInfo();
+
+            primary_info.widthPercent = 0.40f;
+            secondary_info.widthPercent = 0.60f;
+
+            primary_view.requestLayout();
+            secondary_view.requestLayout();
+
+            findViewById(R.id.divider_fragment_container).setVisibility(View.VISIBLE);
+        }
+        layout_changed = false;
+    }
+
+    private void showChangeLayout() {
+        if (!layout_changed) {
+            View primary_view = findViewById(R.id.primary_fragment_container);
+            View secondary_view = findViewById(R.id.secondary_fragment_container);
+
+            PercentRelativeLayout.LayoutParams primary_params = (PercentRelativeLayout.LayoutParams) primary_view.getLayoutParams();
+            PercentRelativeLayout.LayoutParams secondary_params = (PercentRelativeLayout.LayoutParams) secondary_view.getLayoutParams();
+
+            PercentLayoutHelper.PercentLayoutInfo primary_info = primary_params.getPercentLayoutInfo();
+            PercentLayoutHelper.PercentLayoutInfo secondary_info = secondary_params.getPercentLayoutInfo();
+
+            primary_info.widthPercent = 1.00f;
+            secondary_info.widthPercent = 0.00f;
+
+            primary_view.requestLayout();
+            secondary_view.requestLayout();
+
+            findViewById(R.id.divider_fragment_container).setVisibility(View.GONE);
+        }
+        layout_changed = true;
     }
 }

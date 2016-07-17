@@ -95,14 +95,16 @@ public class HouseholderEditorFragment extends Fragment {
         view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int LAYOUT_ID = is_dual_pane ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
+
                 HouseholderActivityFragment newFragment = new HouseholderActivityFragment().newInstance(householderID);
-                Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+                Fragment replaceFrag = fm.findFragmentById(LAYOUT_ID);
                 FragmentTransaction transaction = fm.beginTransaction();
 
                 if (replaceFrag != null)
                     transaction.remove(replaceFrag);
 
-                transaction.add(R.id.primary_fragment_container, newFragment);
+                transaction.add(LAYOUT_ID, newFragment);
                 transaction.commit();
             }
         });
@@ -156,7 +158,7 @@ public class HouseholderEditorFragment extends Fragment {
 
                     ContentValues values = new ContentValues();
                     values.put(Householder.NAME, et_name.getText().toString().trim());
-                    values.put(Householder.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
+                    values.put(Householder.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
                     values.put(Householder.ADDR, et_address.getText().toString().trim());
                     values.put(Householder.MOBILE_PHONE, et_phone_mobile.getText().toString().trim());
                     values.put(Householder.HOME_PHONE, et_phone_home.getText().toString().trim());
@@ -218,25 +220,6 @@ public class HouseholderEditorFragment extends Fragment {
                 }
 
                 return true;
-			/*
-			case R.id.menu_cancel:
-				if(is_dual_pane)
-					switchForm(CREATE_ID);
-				else {
-					HouseholdersFragment newFragment = new HouseholdersFragment().newInstance();
-		        	Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
-		        	FragmentTransaction transaction = fm.beginTransaction();
-		        	
-		        	if(replaceFrag != null) {
-		        		transaction.remove(replaceFrag);
-		        		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		        	}
-		        	
-		        	transaction.add(R.id.primary_fragment_container, newFragment);
-		        	transaction.commit();
-				}
-				return true;
-			*/
             case R.id.menu_discard:
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -279,18 +262,13 @@ public class HouseholderEditorFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 LinearLayout layout = new LinearLayout(getContext());
                 LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                //layout.setOrientation(LinearLayout.VERTICAL);
                 layout.setLayoutParams(parms);
 
                 TextView tv = new TextView(getContext());
                 tv.setText(R.string.confirm_deletion_message_householders);
                 tv.setPadding(Helper.dipsToPix(getContext(), 25), Helper.dipsToPix(getContext(), 25), Helper.dipsToPix(getContext(), 25), Helper.dipsToPix(getContext(), 25));
-                //tv.setPadding(40, 40, 40, 40);
-                //tv.setGravity(Gravity.CENTER);
-                //tv.setTextSize(20);
 
                 LinearLayout.LayoutParams tv1Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                //tv1Params.bottomMargin = 5;
                 layout.addView(tv, tv1Params);
 
 
@@ -300,78 +278,6 @@ public class HouseholderEditorFragment extends Fragment {
                         .setPositiveButton(R.string.menu_delete, dialogClickListener)
                         .setNegativeButton(R.string.menu_cancel, dialogClickListener)
                         .show();
-
-
-
-
-
-                /*
-
-                LinearLayout layout = new LinearLayout(this);
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(parms);
-
-        layout.setGravity(Gravity.CLIP_VERTICAL);
-        layout.setPadding(2, 2, 2, 2);
-
-        TextView tv = new TextView(this);
-        tv.setText("Text View title");
-        tv.setPadding(40, 40, 40, 40);
-        tv.setGravity(Gravity.CENTER);
-        tv.setTextSize(20);
-
-        EditText et = new EditText(this);
-        etStr = et.getText().toString();
-        TextView tv1 = new TextView(this);
-        tv1.setText("Input Student ID");
-
-        LinearLayout.LayoutParams tv1Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        tv1Params.bottomMargin = 5;
-        layout.addView(tv1,tv1Params);
-        layout.addView(et, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        alertDialogBuilder.setView(layout);
-        alertDialogBuilder.setTitle(title);
-        // alertDialogBuilder.setMessage("Input Student ID");
-        alertDialogBuilder.setCustomTitle(tv);
-
-        if (isError)
-            alertDialogBuilder.setIcon(R.drawable.icon_warning);
-        // alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setCancelable(false);
-
-        // Setting Negative "Cancel" Button
-        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
-
-        // Setting Positive "OK" Button
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (isError)
-                    finish();
-                else {
-                      Intent intent = new Intent(ChangeDeviceActivity.this,
-                      MyPageActivity.class); startActivity(intent);
-                }
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        try {
-            alertDialog.show();
-        } catch (Exception e) {
-            // WindowManager$BadTokenException will be caught and the app would
-            // not display the 'Force Close' message
-            e.printStackTrace();
-        }
-
-                 */
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -403,11 +309,13 @@ public class HouseholderEditorFragment extends Fragment {
             if (is_dual_pane)
                 fab.setVisibility(View.GONE);
         } else {
+            view_activity.setVisibility(View.VISIBLE);
+
             database.openWritable();
             Cursor householder = database.fetchHouseholder((int) householderID);
             if (householder.moveToFirst()) {
                 et_name.setText(householder.getString(householder.getColumnIndex(Householder.NAME)));
-                cb_is_active.setChecked(householder.getInt(householder.getColumnIndex(Householder.ACTIVE)) == 1);
+                cb_is_active.setChecked(householder.getInt(householder.getColumnIndex(Householder.ACTIVE)) == MinistryService.ACTIVE);
                 et_address.setText(householder.getString(householder.getColumnIndex(Householder.ADDR)));
                 et_phone_mobile.setText(householder.getString(householder.getColumnIndex(Householder.MOBILE_PHONE)));
                 et_phone_home.setText(householder.getString(householder.getColumnIndex(Householder.HOME_PHONE)));

@@ -19,7 +19,10 @@
         android:id="@id/android:empty"
         style="@style/EmptyListTextSettings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:drawablePadding="@dimen/default_padding"
+        android:drawableTop="@drawable/ic_no_publications"
         android:gravity="center"
         android:text="@string/no_backups" />
 

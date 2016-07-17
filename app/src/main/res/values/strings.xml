@@ -108,7 +108,6 @@
     <string name="menu_sort_most_used">Sort by most used</string>
     <string name="menu_sort_most_placed">Sort by most placed</string>
     <string name="menu_sort_last_visit">Sort by last visit date</string>
-    <string name="menu_sort_last_visit_reversed">Sort by last visit date reversed</string>
     <string name="menu_send_report">Send Report</string>
     <string name="menu_add_time">Add Time</string>
     <string name="pref_update_title">Check for an Update</string>
@@ -173,7 +172,7 @@
     <string name="edit_with_space">Edit {type}</string>
     <string name="edit">Edit</string>
     <string name="confirm_deletion_message">This action cannot be undone. Are you sure you want to delete?</string>
-    <string name="confirm_deletion_message_publication_types">This action cannot be undone. If you delete this record before transferring any publications associated with this record those publications will no longer be available to select or retrive in any way. Are you sure you want to delete?</string>
+    <string name="confirm_deletion_message_publication_types">This action cannot be undone. If you delete this record before transferring any publications associated with this record those publications will no longer be available to select or retrive in any way.\n\nAre you sure you want to delete?</string>
     <string name="is_default">Is Default</string>
     <string name="active">Active</string>
     <string name="confirm_deletion_message_householders">This action cannot be undone. If you delete this record all time entered for this householder will be removed.\n\nAre you sure you want to delete?</string>
