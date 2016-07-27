@@ -1,6 +1,5 @@
 package com.myMinistry.fragments;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,8 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doomonafireball.betterpickers.numberpicker.NumberPickerBuilder;
-import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment.NumberPickerDialogHandler;
+import com.codetroopers.betterpickers.numberpicker.NumberPickerBuilder;
+import com.codetroopers.betterpickers.numberpicker.NumberPickerDialogFragment;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
@@ -65,12 +65,14 @@ import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeEditorFragment extends ListFragment implements NumberPickerDialogHandler {
+public class TimeEditorFragment extends ListFragment implements NumberPickerDialogFragment.NumberPickerDialogHandlerV2 {
     public static final String ARG_TIME_ID = "time_id";
     public static final String ARG_PUBLISHER_ID = "publisher_id";
 
@@ -881,8 +883,8 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 .setFragmentManager(fm)
                 .setStyleResId(R.style.BetterPickersDialogFragment_Light)
                 .setPlusMinusVisibility(View.GONE)
-                .setMinNumber(1)
-                .setMaxNumber(99)
+                .setMinNumber(BigDecimal.ONE)
+                .setMaxNumber(BigDecimal.valueOf(99))
                 .setDecimalVisibility(View.GONE)
                 .setTargetFragment(TimeEditorFragment.this);
         npb.show();
@@ -955,10 +957,18 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         AlertDialog alert = builder.create();
         alert.show();
     }
-
+/*
     @Override
     public void onDialogNumberSet(int reference, int number, double decimal, boolean isNegative, double fullNumber) {
         householderList.get(selectedHHLoc).getLit().get(reference).setCount(number);
+        if (showFlow)
+            showNotesDialog(householderList.get(selectedHHLoc).getNotes());
+        adapter.notifyDataSetChanged();
+    }
+*/
+    @Override
+    public void onDialogNumberSet(int reference, BigInteger number, double decimal, boolean isNegative, BigDecimal fullNumber) {
+        householderList.get(selectedHHLoc).getLit().get(reference).setCount(number.intValue());
         if (showFlow)
             showNotesDialog(householderList.get(selectedHHLoc).getNotes());
         adapter.notifyDataSetChanged();

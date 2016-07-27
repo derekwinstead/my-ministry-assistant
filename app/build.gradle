@@ -8,7 +8,7 @@ android {
     signingConfigs {
     }
     compileSdkVersion 23
-    buildToolsVersion '24.0.0'
+    buildToolsVersion '24.0.1'
     defaultConfig {
         applicationId 'com.myMinistry'
         minSdkVersion 15
@@ -46,7 +46,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:+'
     compile 'com.android.support:design:+'
     compile 'com.android.support:percent:+'
-    compile 'com.doomonafireball.betterpickers:library:1.6.0'
+    compile 'com.code-troopers.betterpickers:library:3.0.0'
     compile 'com.squareup.phrase:phrase:1.1.0'
     compile files('libs/joda-time-2.8.2.jar')
 }
