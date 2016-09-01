@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,11 +37,11 @@ public class PublicationEditorFragment extends Fragment {
 	
 	private boolean is_dual_pane = false;
 	
-	private EditText et_name;
 	private TextView view_activity;
 	private Spinner s_publicationTypes;
 	private CheckBox cb_is_active;
 	private CheckBox cb_is_pair;
+	private TextInputLayout nameWrapper;
 	
 	private FragmentManager fm;
 	
@@ -85,8 +85,10 @@ public class PublicationEditorFragment extends Fragment {
 		fm = getActivity().getSupportFragmentManager();
 		
 		sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
-		
-		et_name = (EditText) root.findViewById(R.id.et_name);
+
+		nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+		nameWrapper.setHint(getActivity().getString(R.string.form_name));
+
 		s_publicationTypes = (Spinner) root.findViewById(R.id.literatureTypes);
     	cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
     	cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
@@ -157,9 +159,11 @@ public class PublicationEditorFragment extends Fragment {
 		
 		switch (item.getItemId()) {
 			case R.id.menu_save:
-				if(et_name.getText().toString().trim().length() > 0) {
+				if(nameWrapper.getEditText().getText().toString().trim().length() > 0) {
+                    nameWrapper.setErrorEnabled(false);
+
 	    			ContentValues values = new ContentValues();
-					values.put(Literature.NAME, et_name.getText().toString().trim());
+					values.put(Literature.NAME, nameWrapper.getEditText().getText().toString().trim());
 					values.put(Literature.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
 					values.put(Literature.TYPE_OF_LIERATURE_ID, publicationTypeId);
 					values.put(Literature.WEIGHT, (cb_is_pair.isChecked()) ? 2 : 1);
@@ -169,14 +173,14 @@ public class PublicationEditorFragment extends Fragment {
 						if(database.saveLiterature(publicationId, values) > 0) {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
 						else {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
@@ -185,14 +189,14 @@ public class PublicationEditorFragment extends Fragment {
     					if(database.createLiterature(values) > 0) {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
     					else {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
@@ -217,9 +221,7 @@ public class PublicationEditorFragment extends Fragment {
 					}
     			}
     			else {
-    				et_name.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
-    				et_name.setFocusable(true);
-    				et_name.requestFocus();
+                    nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
     			}
 				
 				return true;
@@ -251,7 +253,7 @@ public class PublicationEditorFragment extends Fragment {
 							
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 							
@@ -302,9 +304,9 @@ public class PublicationEditorFragment extends Fragment {
     }
     
     public void fillForm() {
-    	et_name.setError(null);
+        nameWrapper.setError(null);
     	if(publicationId == CREATE_ID) {
-    		et_name.setText("");
+            nameWrapper.getEditText().setText("");
     		cb_is_active.setChecked(true);
     		cb_is_pair.setChecked(false);
 			view_activity.setVisibility(View.GONE);
@@ -313,7 +315,7 @@ public class PublicationEditorFragment extends Fragment {
 	    	database.openWritable();
 	    	Cursor literature = database.fetchLiteratureByID((int)publicationId);
 	    	if(literature.moveToFirst()) {
-	    		et_name.setText(literature.getString(literature.getColumnIndex(Literature.NAME)));
+                nameWrapper.getEditText().setText(literature.getString(literature.getColumnIndex(Literature.NAME)));
 	    		cb_is_active.setChecked((literature.getInt(literature.getColumnIndex(Literature.ACTIVE)) == MinistryService.ACTIVE) ? true : false);
 	    		cb_is_pair.setChecked((literature.getInt(literature.getColumnIndex(Literature.WEIGHT)) != 1) ? true : false);
 
@@ -329,7 +331,7 @@ public class PublicationEditorFragment extends Fragment {
 	    		}
 	    	}
 	    	else {
-	    		et_name.setText("");
+                nameWrapper.getEditText().setText("");
 	    		s_publicationTypes.setSelection(0);
 	    		cb_is_active.setChecked(true);
 	    		cb_is_pair.setChecked(false);

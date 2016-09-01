@@ -7,7 +7,7 @@
             android:title="@string/navdrawer_item_report" />
         <item
             android:id="@+id/drawer_publications"
-            android:icon="@drawable/ic_drawer_publications_new"
+            android:icon="@drawable/ic_drawer_publication"
             android:title="@string/navdrawer_item_publications" />
         <item
             android:id="@+id/drawer_householders"

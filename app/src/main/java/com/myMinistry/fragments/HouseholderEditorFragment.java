@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,9 +39,9 @@ public class HouseholderEditorFragment extends Fragment {
 
     private boolean is_dual_pane = false;
 
-    private EditText et_name, et_address, et_phone_mobile, et_phone_home, et_phone_work, et_phone_other;
     private CheckBox cb_is_active;
     private TextView view_activity;
+    private TextInputLayout nameWrapper, addressWrapper, mobileWrapper, homeWrapper, workWrapper, otherWrapper;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long householderID = CREATE_ID;
@@ -82,12 +82,24 @@ public class HouseholderEditorFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        et_name = (EditText) root.findViewById(R.id.et_name);
-        et_address = (EditText) root.findViewById(R.id.et_address);
-        et_phone_mobile = (EditText) root.findViewById(R.id.et_phone_mobile);
-        et_phone_home = (EditText) root.findViewById(R.id.et_phone_home);
-        et_phone_work = (EditText) root.findViewById(R.id.et_phone_work);
-        et_phone_other = (EditText) root.findViewById(R.id.et_phone_other);
+        nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+        nameWrapper.setHint(getActivity().getString(R.string.form_name));
+
+        addressWrapper = (TextInputLayout) root.findViewById(R.id.addressWrapper);
+        addressWrapper.setHint(getActivity().getString(R.string.form_address));
+
+        mobileWrapper = (TextInputLayout) root.findViewById(R.id.mobileWrapper);
+        mobileWrapper.setHint(getActivity().getString(R.string.form_phone_mobile));
+
+        homeWrapper = (TextInputLayout) root.findViewById(R.id.homeWrapper);
+        homeWrapper.setHint(getActivity().getString(R.string.form_phone_home));
+
+        workWrapper = (TextInputLayout) root.findViewById(R.id.workWrapper);
+        workWrapper.setHint(getActivity().getString(R.string.form_phone_work));
+
+        otherWrapper = (TextInputLayout) root.findViewById(R.id.otherWrapper);
+        otherWrapper.setHint(getActivity().getString(R.string.form_phone_other));
+
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         view_activity = (TextView) root.findViewById(R.id.view_activity);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
@@ -143,40 +155,42 @@ public class HouseholderEditorFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_save:
-                if (et_name.getText().toString().trim().length() > 0) {
+                if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
+                    nameWrapper.setErrorEnabled(false);
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        et_phone_mobile.setText(PhoneNumberUtils.formatNumber(et_phone_mobile.getText().toString(), Locale.getDefault().getISO3Country()));
-                        et_phone_home.setText(PhoneNumberUtils.formatNumber(et_phone_home.getText().toString(), Locale.getDefault().getISO3Country()));
-                        et_phone_work.setText(PhoneNumberUtils.formatNumber(et_phone_work.getText().toString(), Locale.getDefault().getISO3Country()));
-                        et_phone_other.setText(PhoneNumberUtils.formatNumber(et_phone_other.getText().toString(), Locale.getDefault().getISO3Country()));
+                        mobileWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(mobileWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
+                        homeWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(homeWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
+                        workWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(workWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
+                        otherWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(otherWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
                     } else {
-                        et_phone_mobile.setText(PhoneNumberUtils.formatNumber(et_phone_mobile.getText().toString()));
-                        et_phone_home.setText(PhoneNumberUtils.formatNumber(et_phone_home.getText().toString()));
-                        et_phone_work.setText(PhoneNumberUtils.formatNumber(et_phone_work.getText().toString()));
-                        et_phone_other.setText(PhoneNumberUtils.formatNumber(et_phone_other.getText().toString()));
+                        mobileWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(mobileWrapper.getEditText().getText().toString()));
+                        homeWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(homeWrapper.getEditText().getText().toString()));
+                        workWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(workWrapper.getEditText().getText().toString()));
+                        otherWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(otherWrapper.getEditText().getText().toString()));
                     }
 
                     ContentValues values = new ContentValues();
-                    values.put(Householder.NAME, et_name.getText().toString().trim());
+                    values.put(Householder.NAME, nameWrapper.getEditText().getText().toString().trim());
                     values.put(Householder.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-                    values.put(Householder.ADDR, et_address.getText().toString().trim());
-                    values.put(Householder.MOBILE_PHONE, et_phone_mobile.getText().toString().trim());
-                    values.put(Householder.HOME_PHONE, et_phone_home.getText().toString().trim());
-                    values.put(Householder.WORK_PHONE, et_phone_work.getText().toString().trim());
-                    values.put(Householder.OTHER_PHONE, et_phone_other.getText().toString().trim());
+                    values.put(Householder.ADDR, addressWrapper.getEditText().getText().toString().trim());
+                    values.put(Householder.MOBILE_PHONE, mobileWrapper.getEditText().getText().toString().trim());
+                    values.put(Householder.HOME_PHONE, homeWrapper.getEditText().getText().toString().trim());
+                    values.put(Householder.WORK_PHONE, workWrapper.getEditText().getText().toString().trim());
+                    values.put(Householder.OTHER_PHONE, otherWrapper.getEditText().getText().toString().trim());
 
                     database.openWritable();
                     if (householderID > 0) {
                         if (database.saveHouseholder(householderID, values) > 0) {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_with_space)
-                                            .put("name", et_name.getText().toString().trim())
+                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
                                             .format()
                                     , Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
-                                            .put("name", et_name.getText().toString().trim())
+                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
                                             .format()
                                     , Toast.LENGTH_SHORT).show();
                         }
@@ -184,13 +198,13 @@ public class HouseholderEditorFragment extends Fragment {
                         if (database.createHouseholder(values) > 0) {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_with_space)
-                                            .put("name", et_name.getText().toString().trim())
+                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
                                             .format()
                                     , Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
-                                            .put("name", et_name.getText().toString().trim())
+                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
                                             .format()
                                     , Toast.LENGTH_SHORT).show();
                         }
@@ -214,9 +228,7 @@ public class HouseholderEditorFragment extends Fragment {
                         transaction.commit();
                     }
                 } else {
-                    et_name.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
-                    et_name.setFocusable(true);
-                    et_name.requestFocus();
+                    nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
                 }
 
                 return true;
@@ -232,7 +244,7 @@ public class HouseholderEditorFragment extends Fragment {
 
                                 Toast.makeText(getActivity()
                                         , Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-                                                .put("name", et_name.getText().toString().trim())
+                                                .put("name", nameWrapper.getEditText().getText().toString().trim())
                                                 .format()
                                         , Toast.LENGTH_SHORT).show();
 
@@ -295,15 +307,15 @@ public class HouseholderEditorFragment extends Fragment {
     }
 
     public void fillForm() {
-        et_name.setError(null);
+        nameWrapper.getEditText().setError(null);
         if (householderID == CREATE_ID) {
-            et_name.setText("");
+            nameWrapper.getEditText().setText("");
             cb_is_active.setChecked(true);
-            et_address.setText("");
-            et_phone_mobile.setText("");
-            et_phone_home.setText("");
-            et_phone_work.setText("");
-            et_phone_other.setText("");
+            addressWrapper.getEditText().setText("");
+            mobileWrapper.getEditText().setText("");
+            homeWrapper.getEditText().setText("");
+            workWrapper.getEditText().setText("");
+            otherWrapper.getEditText().setText("");
             view_activity.setVisibility(View.GONE);
 
             if (is_dual_pane)
@@ -314,21 +326,21 @@ public class HouseholderEditorFragment extends Fragment {
             database.openWritable();
             Cursor householder = database.fetchHouseholder((int) householderID);
             if (householder.moveToFirst()) {
-                et_name.setText(householder.getString(householder.getColumnIndex(Householder.NAME)));
+                nameWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.NAME)));
                 cb_is_active.setChecked(householder.getInt(householder.getColumnIndex(Householder.ACTIVE)) == MinistryService.ACTIVE);
-                et_address.setText(householder.getString(householder.getColumnIndex(Householder.ADDR)));
-                et_phone_mobile.setText(householder.getString(householder.getColumnIndex(Householder.MOBILE_PHONE)));
-                et_phone_home.setText(householder.getString(householder.getColumnIndex(Householder.HOME_PHONE)));
-                et_phone_work.setText(householder.getString(householder.getColumnIndex(Householder.WORK_PHONE)));
-                et_phone_other.setText(householder.getString(householder.getColumnIndex(Householder.OTHER_PHONE)));
+                addressWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.ADDR)));
+                mobileWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.MOBILE_PHONE)));
+                homeWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.HOME_PHONE)));
+                workWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.WORK_PHONE)));
+                otherWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.OTHER_PHONE)));
             } else {
-                et_name.setText("");
+                nameWrapper.getEditText().setText("");
                 cb_is_active.setChecked(true);
-                et_address.setText("");
-                et_phone_mobile.setText("");
-                et_phone_home.setText("");
-                et_phone_work.setText("");
-                et_phone_other.setText("");
+                addressWrapper.getEditText().setText("");
+                mobileWrapper.getEditText().setText("");
+                homeWrapper.getEditText().setText("");
+                workWrapper.getEditText().setText("");
+                otherWrapper.getEditText().setText("");
             }
 
             householder.close();

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,8 +37,8 @@ public class PublisherEditorFragment extends ListFragment {
 	
 	private boolean is_dual_pane = false;
 	
-	private EditText et_name;
 	private CheckBox cb_is_active;
+	private TextInputLayout nameWrapper;
 	
 	static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
 	private long publisherId = CREATE_ID;
@@ -87,8 +87,10 @@ public class PublisherEditorFragment extends ListFragment {
 		fm = getActivity().getSupportFragmentManager();
 
         genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
-		
-		et_name = (EditText) root.findViewById(R.id.et_name);
+
+		nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+		nameWrapper.setHint(getActivity().getString(R.string.form_name));
+
 		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
 		fab = (FloatingActionButton) root.findViewById(R.id.fab);
         gender_type = (Spinner) root.findViewById(R.id.gender_type);
@@ -132,9 +134,11 @@ public class PublisherEditorFragment extends ListFragment {
 		
 		switch (item.getItemId()) {
 			case R.id.menu_save:
-				if(et_name.getText().toString().trim().length() > 0) {
+				if(nameWrapper.getEditText().getText().toString().trim().length() > 0) {
+                    nameWrapper.setErrorEnabled(false);
+
     				ContentValues values = new ContentValues();
-    				values.put(Publisher.NAME, et_name.getText().toString().trim());
+    				values.put(Publisher.NAME, nameWrapper.getEditText().getText().toString().trim());
 					values.put(Publisher.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
                     values.put(Publisher.GENDER, (gender_type.getSelectedItemPosition() == GENDER_MALE) ? "male" : "female");
 					
@@ -143,14 +147,14 @@ public class PublisherEditorFragment extends ListFragment {
 						if(database.savePublisher(publisherId, values) > 0) {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
 						else {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
@@ -159,14 +163,14 @@ public class PublisherEditorFragment extends ListFragment {
     					if(database.createPublisher(values) > 0) {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
     					else {
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 						}
@@ -191,9 +195,7 @@ public class PublisherEditorFragment extends ListFragment {
 					}
     			}
     			else {
-    				et_name.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
-    				et_name.setFocusable(true);
-    				et_name.requestFocus();
+					nameWrapper.getEditText().setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
     			}
 				
 				return true;
@@ -228,7 +230,7 @@ public class PublisherEditorFragment extends ListFragment {
 							
 							Toast.makeText(getActivity()
 									,Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-						    				.put("name", et_name.getText().toString().trim())
+						    				.put("name", nameWrapper.getEditText().getText().toString().trim())
 						    				.format()
 									, Toast.LENGTH_SHORT).show();
 							
@@ -278,17 +280,15 @@ public class PublisherEditorFragment extends ListFragment {
     }
     
     public void fillForm() {
-        int initialSelection = 0;
-
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_female), R.drawable.ic_drawer_publisher_female, GENDER_FEMALE));
 
         genderAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         gender_type.setAdapter(genderAdapter);
 
-        et_name.setError(null);
+		nameWrapper.getEditText().setError(null);
     	if(publisherId == CREATE_ID) {
-    		et_name.setText("");
+			nameWrapper.getEditText().setText("");
     		cb_is_active.setChecked(true);
     		
     		getListView().setVisibility(View.GONE);
@@ -303,7 +303,7 @@ public class PublisherEditorFragment extends ListFragment {
 	    	database.openWritable();
 	    	Cursor publisher = database.fetchPublisher((int)publisherId);
 	    	if(publisher.moveToFirst()) {
-	    		et_name.setText(publisher.getString(publisher.getColumnIndex(Publisher.NAME)));
+				nameWrapper.getEditText().setText(publisher.getString(publisher.getColumnIndex(Publisher.NAME)));
 	    		cb_is_active.setChecked(publisher.getInt(publisher.getColumnIndex(Publisher.ACTIVE)) == 1);
 
                 int position = GENDER_MALE;
@@ -313,7 +313,7 @@ public class PublisherEditorFragment extends ListFragment {
                 gender_type.setSelection(position);
 	    	}
 	    	else {
-	    		et_name.setText("");
+				nameWrapper.getEditText().setText("");
 	    		cb_is_active.setChecked(true);
 	    	}
 	    	publisher.close();
