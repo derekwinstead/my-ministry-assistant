@@ -16,15 +16,10 @@ public class PrefUtils  {
     private static final String PREF_PUBLISHER_NAME			= "publisher_name";
     private static final String PREF_VERSION_NUMBER			= "version_number";
     private static final String PREF_HAS_OPENED_BEFORE		= "has_opened_before";
-    private static final String PREF_BACKUP_DAILY			= "db_backup_daily";
+    private static final String PREF_AUTO_BACKUPS           = "db_do_auto_backups";
     private static final String PREF_BACKUP_DAILY_TIME		= "db_backup_daily_time";
-    private static final String PREF_BACKUP_WEEKLY			= "db_backup_weekly";
     private static final String PREF_BACKUP_WEEKLY_TIME		= "db_backup_weekly_time";
     private static final String PREF_BACKUP_WEEKLY_WEEKDAY	= "db_backup_weekly_weekday";
-    private static final String PREF_ENTRY_TYPE_SORT		= "entry_type_sort";
-    private static final String PREF_PUBLICATION_TYPE_SORT	= "publication_type_sort";
-    private static final String PREF_PUBLICATION_SORT		= "publication_sort";
-    private static final String PREF_HOUSEHOLDER_SORT		= "householder_sort";
     private static final String PREF_PUBLISHER_ID			= "publisher_id";
     private static final String PREF_SUMMARY_MONTH			= "saved_month";
     private static final String PREF_SUMMARY_YEAR			= "saved_year";
@@ -131,6 +126,16 @@ public class PrefUtils  {
         sp.edit().putInt(PREF_VERSION_NUMBER, versionNumber).commit();
     }
 
+    public static boolean shouldDBAutoBackup(final Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean(PREF_AUTO_BACKUPS, false);
+    }
+
+    public static void setDBAutoBackup(final Context context, boolean shouldBackUp) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putBoolean(PREF_AUTO_BACKUPS, shouldBackUp).commit();
+    }
+/*
     public static boolean shouldDBBackupDaily(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean(PREF_BACKUP_DAILY, false);
@@ -140,7 +145,7 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putBoolean(PREF_BACKUP_DAILY, shouldBackUp).commit();
     }
-
+*/
     public static String getDBBackupDailyTime(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString(PREF_BACKUP_DAILY_TIME, "");
@@ -150,7 +155,7 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putString(PREF_BACKUP_DAILY_TIME, backupTime).commit();
     }
-
+/*
     public static boolean shouldDBBackupWeekly(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean(PREF_BACKUP_WEEKLY, false);
@@ -160,7 +165,7 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putBoolean(PREF_BACKUP_WEEKLY, shouldBackUp).commit();
     }
-
+*/
     public static String getDBBackupWeeklyTime(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getString(PREF_BACKUP_WEEKLY_TIME, "");
@@ -180,7 +185,7 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putInt(PREF_BACKUP_WEEKLY_WEEKDAY, weekday).commit();
     }
-
+/*
     public static int getEntryTypeSort(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getInt(PREF_ENTRY_TYPE_SORT, 0);
@@ -190,7 +195,8 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putInt(PREF_ENTRY_TYPE_SORT, sortId).commit();
     }
-
+*/
+    /*
     public static int getPublicationTypeSort(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getInt(PREF_PUBLICATION_TYPE_SORT, 0);
@@ -200,7 +206,8 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putInt(PREF_PUBLICATION_TYPE_SORT, sortId).commit();
     }
-
+*/
+    /*
     public static int getPublicationSort(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getInt(PREF_PUBLICATION_SORT, 0);
@@ -210,7 +217,8 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putInt(PREF_PUBLICATION_SORT, sortId).commit();
     }
-
+*/
+    /*
     public static int getHouseholderSort(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getInt(PREF_HOUSEHOLDER_SORT, 0);
@@ -220,7 +228,7 @@ public class PrefUtils  {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putInt(PREF_HOUSEHOLDER_SORT, sortId).commit();
     }
-
+*/
     public static boolean shouldCalculateRolloverTime(final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         //return sp.getBoolean(context.getString(R.string.pref_key_rollover), true);

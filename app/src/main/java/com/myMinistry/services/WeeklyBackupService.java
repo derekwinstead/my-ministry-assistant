@@ -25,7 +25,7 @@ public class WeeklyBackupService extends Service {
                 FileUtils.copyFile(intDB, extDB);
             }
         } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "Error during weekly backup", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Error during daily backup", Toast.LENGTH_LONG).show();
         }
 
         return Service.START_NOT_STICKY;

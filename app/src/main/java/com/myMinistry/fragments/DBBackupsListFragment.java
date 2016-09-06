@@ -25,7 +25,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
@@ -114,12 +113,12 @@ public class DBBackupsListFragment extends ListFragment {
 
                     try {
                         if (database.importDatabase(file, getActivity().getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME))) {
-                            Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_import_text), Toast.LENGTH_SHORT).show();
+                            Snackbar.make(coordinatorLayout, R.string.toast_import_text, Snackbar.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_import_text_error), Toast.LENGTH_SHORT).show();
+                            Snackbar.make(coordinatorLayout, R.string.toast_import_text_error, Snackbar.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
                 } else if (item == REF_EMAIL) {
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -153,11 +152,10 @@ public class DBBackupsListFragment extends ListFragment {
 
                 reloadAdapter();
 
-                Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_export_text), Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, R.string.toast_export_text, Snackbar.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
-            //getActivity().getApplicationContext().getString(R.string.toast_export_text_error)
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -167,11 +165,11 @@ public class DBBackupsListFragment extends ListFragment {
             case R.id.cleanup_bu:
                 int FLAG = Helper.clearBackups(getActivity().getApplicationContext());
                 if (FLAG == 1)
-                    Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_cleaned_backups), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(coordinatorLayout, R.string.toast_cleaned_backups, Snackbar.LENGTH_SHORT).show();
                 else if (FLAG == 2)
-                    Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_cleaned_backups_only_one), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(coordinatorLayout, R.string.toast_cleaned_backups_only_one, Snackbar.LENGTH_SHORT).show();
                 else if (FLAG == 0)
-                    Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_cleaned_backups_error), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(coordinatorLayout, R.string.toast_cleaned_backups_error, Snackbar.LENGTH_SHORT).show();
 
                 reloadAdapter();
 
@@ -251,7 +249,7 @@ public class DBBackupsListFragment extends ListFragment {
         });
 
         s_weekday.setSelection(weekly.get(Calendar.DAY_OF_WEEK));
-        cb_is_active.setChecked(PrefUtils.shouldDBBackupDaily(getActivity()));
+        cb_is_active.setChecked(PrefUtils.shouldDBAutoBackup(getActivity()));
 
         b_daily_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,10 +293,10 @@ public class DBBackupsListFragment extends ListFragment {
             public void onClick(DialogInterface dialog, int which) {
                 ContentValues values = new ContentValues();
 
-                PrefUtils.setDBBackupDaily(getActivity(), cb_is_active.isChecked());
+                PrefUtils.setDBAutoBackup(getActivity(), cb_is_active.isChecked());
+                // Daily
                 PrefUtils.setDBBackupDailyTime(getActivity(), DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()).toString());
-
-                PrefUtils.setDBBackupWeekly(getActivity(), cb_is_active.isChecked());
+                // Weekly
                 PrefUtils.setDBBackupWeeklyTime(getActivity(), DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()));
                 PrefUtils.setDBBackupWeeklyWeekday(getActivity(), weekly.get(Calendar.DAY_OF_WEEK));
 
@@ -307,20 +305,7 @@ public class DBBackupsListFragment extends ListFragment {
                     HelpUtils.setWeeklyAlarm(getActivity().getApplicationContext());
 
                     Snackbar.make(coordinatorLayout, R.string.snackbar_backups_scheduled, Snackbar.LENGTH_LONG).show();
-                    /*
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            Phrase.from(getActivity().getApplicationContext(), R.string.toast_daily_backup_scheduled)
-                                    .put("time", DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()))
-                                    .format()
-                            , Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            Phrase.from(getActivity().getApplicationContext(), R.string.toast_weekly_backup_scheduled)
-                                    .put("weekday", DateUtils.formatDateTime(getActivity().getApplicationContext(), weekly.getTimeInMillis(), DateUtils.FORMAT_SHOW_WEEKDAY))
-                                    .put("time", DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()))
-                                    .format()
-                            , Toast.LENGTH_LONG).show();
-                    */
                     enableBootReceiver();
                 }
                 else {
@@ -328,10 +313,7 @@ public class DBBackupsListFragment extends ListFragment {
                     HelpUtils.disableWeeklyAlarm(getActivity().getApplicationContext());
 
                     Snackbar.make(coordinatorLayout, R.string.snackbar_backups_disabled, Snackbar.LENGTH_LONG).show();
-                    /*
-                    Toast.makeText(getActivity().getApplicationContext(), getActivity().getResources().getString(R.string.toast_daily_backup_cancelled), Toast.LENGTH_LONG).show();
-                    Toast.makeText(getActivity().getApplicationContext(), getActivity().getResources().getString(R.string.toast_weekly_backup_cancelled), Toast.LENGTH_LONG).show();
-                    */
+
                     disableBootReceiver();
                 }
             }

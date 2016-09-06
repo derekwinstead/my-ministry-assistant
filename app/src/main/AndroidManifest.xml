@@ -31,11 +31,7 @@
         </activity>
 
         <service
-            android:name="com.myMinistry.services.DailyBackupService"
-            android:enabled="true" >
-        </service>
-        <service
-            android:name="com.myMinistry.services.WeeklyBackupService"
+            android:name="com.myMinistry.services.BackupService"
             android:enabled="true" >
         </service>
 

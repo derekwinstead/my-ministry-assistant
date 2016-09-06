@@ -11,17 +11,12 @@ public class BootReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-			// We need to see if either schedules are active (daily or weekly)
-			
-			// daily
-			if(PrefUtils.shouldDBBackupDaily(context)) {
+			if (PrefUtils.shouldDBAutoBackup(context)) {
+				// Daily
 				HelpUtils.setDailyAlarm(context);
-			}
-			
-			// weekly
-			if(PrefUtils.shouldDBBackupWeekly(context)) {
+				// Weekly
 				HelpUtils.setWeeklyAlarm(context);
-		    }
+			}
 		}
 	}
 }
