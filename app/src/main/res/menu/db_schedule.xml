@@ -1,9 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/view_db_list"
-        android:icon="@drawable/ic_action_database"
-        android:orderInCategory="10"
-        android:title="@string/navdrawer_item_backups"
-        app:showAsAction="ifRoom|withText" />
-</menu>

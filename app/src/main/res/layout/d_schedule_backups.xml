@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/default_padding_double"
+    android:paddingRight="@dimen/default_padding_double">
+
+    <Switch
+        android:id="@+id/cb_is_active"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thumb_height"
+        android:text="@string/form_schedule_automated_backups"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        android:background="@drawable/separator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/thumb_height"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/form_daily_backups"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/b_daily_time"
+            style="@style/SpinnerMaterial"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/thumb_height"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingStart="@dimen/default_padding"
+            android:text="@string/placeholder_lorem_ipsum" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        android:background="@drawable/separator" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thumb_height"
+        android:gravity="center_vertical"
+        android:text="@string/form_weekly_backups"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/s_weekday"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/thumb_height"
+            android:layout_marginLeft="@dimen/negative_default_padding_half"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/b_weekly_time"
+            style="@style/SpinnerMaterial"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/thumb_height"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingStart="@dimen/default_padding"
+            android:text="@string/placeholder_lorem_ipsum" />
+    </LinearLayout>
+</LinearLayout>

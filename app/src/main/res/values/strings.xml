@@ -81,8 +81,8 @@
     <string name="form_phone_home">Home Phone</string>
     <string name="form_phone_work">Work Phone</string>
     <string name="form_phone_other">Other Phone</string>
-    <string name="form_daily_backups">Daily Backups</string>
-    <string name="form_weekly_backups">Weekly Backups</string>
+    <string name="form_daily_backups">Daily</string>
+    <string name="form_weekly_backups">Weekly</string>
     <string name="menu_add_new">Add New</string>
     <string name="menu_add_new_with_plus">+ Add new</string>
     <string name="menu_add_new_publisher">+ Add new publisher</string>
@@ -178,5 +178,9 @@
     <string name="confirm_deletion_message_householders">This action cannot be undone. If you delete this record all time entered for this householder will be removed.\n\nAre you sure you want to delete?</string>
     <string name="householder_activity">Householder Activity</string>
     <string name="confirm_deletion_message_entry_type">This action cannot be undone. If you delete this record before transferring any time entries associated with this record those time entries will be deleted and will no longer be available in any way.\n\nAre you sure you want to delete?</string>
+    <string name="form_select_a_day">Select a day</string>
+    <string name="snackbar_backups_scheduled">Automatic backups have been scheduled</string>
+    <string name="snackbar_backups_disabled">Automatic backups have been disabled</string>
+    <string name="form_schedule_automated_backups">Schedule automated backups</string>
 
 </resources>
