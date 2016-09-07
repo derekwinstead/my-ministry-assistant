@@ -25,7 +25,7 @@ public class EntryTypeNewDialogFrag extends DialogFragment {
     }
 
     public interface EntryTypeNewDialogFragListener {
-        public void setPositiveButton(boolean created);
+        void setPositiveButton(boolean created);
     }
 
     public void setPositiveButton(EntryTypeNewDialogFragListener listener) {

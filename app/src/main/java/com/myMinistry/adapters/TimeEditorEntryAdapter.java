@@ -160,8 +160,6 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             iconRes = Helper.getIconResIDByLitTypeID(_litTypeID);
         }
 
-        ;
-
         public String toString() {
             return "(" + count + ") " + title;
         }
@@ -181,8 +179,6 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             householder = "";
             notes = "";
         }
-
-        ;
 
         public void setHouseholder(String string) {
             householder = string;

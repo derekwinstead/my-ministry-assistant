@@ -21,7 +21,7 @@ public class PublisherNewDialogFragment extends DialogFragment {
 	private View view;
 	
 	public interface PublisherNewDialogFragmentListener {
-	    public void setPositiveButton(int _ID, String _name);
+	    void setPositiveButton(int _ID, String _name);
 	}
 	
 	public static PublisherNewDialogFragment newInstance() {

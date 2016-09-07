@@ -195,7 +195,7 @@ public class PublisherEditorFragment extends ListFragment {
 					}
     			}
     			else {
-					nameWrapper.getEditText().setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
+					nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
     			}
 				
 				return true;

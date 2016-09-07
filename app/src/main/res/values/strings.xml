@@ -152,7 +152,6 @@
     <string name="toast_deleted_with_space">Deleted {name}.</string>
     <string name="toast_daily_backup_scheduled">Daily backups scheduled for {time}.</string>
     <string name="toast_daily_backup_cancelled">Daily backups cancelled.</string>
-    <string name="toast_weekly_backup_scheduled">Weekly backups scheduled for {weekday} at {time}.</string>
     <string name="toast_weekly_backup_cancelled">Weekly backups cancelled.</string>
     <string name="toast_db_updated_successfully">Database updated successfully</string>
     <string name="toast_update_done">Update done.</string>
@@ -169,7 +168,6 @@
     <string name="view_month_report">View Month\'s Report</string>
     <string name="navdrawer_item_report">Report</string>
     <string name="menu_create">Create</string>
-    <string name="edit_with_space">Edit {type}</string>
     <string name="edit">Edit</string>
     <string name="confirm_deletion_message">This action cannot be undone. Are you sure you want to delete?</string>
     <string name="confirm_deletion_message_publication_types">This action cannot be undone. If you delete this record before transferring any publications associated with this record those publications will no longer be available to select or retrive in any way.\n\nAre you sure you want to delete?</string>

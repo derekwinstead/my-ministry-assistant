@@ -32,7 +32,7 @@ public class PublicationTypeDialogFragment extends DialogFragment {
     }
 	
 	public interface LiteratureTypeDialogFragmentListener {
-	    public void LiteratureTypeDialogFragmentListenerSet(int _ID, String _name);
+	    void LiteratureTypeDialogFragmentListenerSet(int _ID, String _name);
 	}
 	
 	public void setLiteratureTypeDialogFragmentListener(LiteratureTypeDialogFragmentListener listener){

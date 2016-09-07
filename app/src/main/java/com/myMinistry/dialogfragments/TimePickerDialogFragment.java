@@ -24,7 +24,7 @@ public class TimePickerDialogFragment extends DialogFragment {
     }
 	
 	public interface TimePickerDialogFragmentListener {
-	    public void TimePickerDialogFragmentListenerSet(int hourOfDay, int minute);
+	    void TimePickerDialogFragmentListenerSet(int hourOfDay, int minute);
 	}
 	
 	public void setTimePickerDialogFragmentListener(TimePickerDialogFragmentListener listener){

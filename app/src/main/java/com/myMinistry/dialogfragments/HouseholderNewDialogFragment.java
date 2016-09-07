@@ -23,7 +23,7 @@ public class HouseholderNewDialogFragment extends DialogFragment {
 	private MinistryService database;
 	
 	public interface HouseholderNewDialogFragmentListener {
-	    public void setPositiveButton(int _ID, String _name, Boolean _isReturnVisit);
+	    void setPositiveButton(int _ID, String _name, Boolean _isReturnVisit);
 	}
 	
 	public static HouseholderNewDialogFragment newInstance() {

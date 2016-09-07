@@ -153,7 +153,6 @@
     <string name="toast_deleted_with_space">{name} telah dihapus.</string>
     <string name="toast_daily_backup_scheduled">Backup harian dijadwalkan jam {time}.</string>
     <string name="toast_daily_backup_cancelled">Backup harian dibatalkan.</string>
-    <string name="toast_weekly_backup_scheduled">Backup mingguan dijadwalkan hari {weekday} jam {time}.</string>
     <string name="toast_weekly_backup_cancelled">Backup mingguan dibatalkan.</string>
     <string name="toast_db_updated_successfully">Database berhasil diperbarui.</string>
     <string name="toast_update_done">Pembaruan dilakukan.</string>

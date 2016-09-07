@@ -153,7 +153,6 @@
     <string name="toast_deleted_with_space">Törölt {name}.</string>
     <string name="toast_daily_backup_scheduled">Napi mentések tervezett {time}.</string>
     <string name="toast_daily_backup_cancelled">Napi mentések törölve.</string>
-    <string name="toast_weekly_backup_scheduled">Heti mentések tervezett {weekday} {time}.</string>
     <string name="toast_weekly_backup_cancelled">Heti mentések törölve.</string>
     <string name="toast_db_updated_successfully">Adatbázis sikeresen frissítve.</string>
     <string name="toast_update_done">Frissítés kész.</string>

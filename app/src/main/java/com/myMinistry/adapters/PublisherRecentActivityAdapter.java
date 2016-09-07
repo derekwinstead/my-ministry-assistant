@@ -234,8 +234,6 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
             iconRes = Helper.getIconResIDByLitTypeID(_litTypeID);
         }
 
-        ;
-
         public String toString() {
             return "(" + count + ") " + title;
         }
@@ -255,8 +253,6 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
             householder = "";
             notes = "";
         }
-
-        ;
 
         public void setHouseholder(String string) {
             householder = string;

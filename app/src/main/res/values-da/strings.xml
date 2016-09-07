@@ -143,7 +143,6 @@
     <string name="toast_deleted_with_space">Slettede {name}.</string>
     <string name="toast_daily_backup_scheduled">Daglige backups planlagt til {time}.</string>
     <string name="toast_daily_backup_cancelled">Daglige backups annulleret.</string>
-    <string name="toast_weekly_backup_scheduled">Ugentlige backups planlagt til {weekday} {time}.</string>
     <string name="toast_weekly_backup_cancelled">Ugentlige backups annulleret.</string>
     <string name="toast_db_updated_successfully">Database opdateret korrekt.</string>
     <string name="toast_update_done">Opdatering gennemført.</string>

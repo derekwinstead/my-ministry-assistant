@@ -25,7 +25,7 @@ public class PublisherDialogFragment extends DialogFragment {
     }
 	
 	public interface PublisherDialogFragmentListener {
-	    public void publisherDialogFragmentSet(int _ID, String _name);
+	    void publisherDialogFragmentSet(int _ID, String _name);
 	}
 	
 	public void setPublisherDialogFragmentListener(PublisherDialogFragmentListener listener) {

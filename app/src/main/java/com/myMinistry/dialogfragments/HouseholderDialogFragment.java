@@ -27,7 +27,7 @@ public class HouseholderDialogFragment extends DialogFragment {
     }
 	
 	public interface HouseholderDialogFragmentListener {
-	    public void householderDialogFragmentSet(int _ID, String _name);
+	    void householderDialogFragmentSet(int _ID, String _name);
 	}
 	
 	public void setHouseholderFragmentListener(HouseholderDialogFragmentListener listener) {

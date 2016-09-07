@@ -26,7 +26,7 @@ public class PublicationNewDialogFragment extends DialogFragment {
 	private int litTypeID = 0;
 	
 	public interface LiteratureNewDialogFragmentListener {
-	    public void setPositiveButton(int _ID, String _name, int _litTypeID);
+	    void setPositiveButton(int _ID, String _name, int _litTypeID);
 	}
 	
 	public static PublicationNewDialogFragment newInstance(int _litTypeID) {

@@ -36,7 +36,7 @@ public class PublicationDialogFragment extends DialogFragment {
     }
 	
 	public interface LiteratureDialogFragmentListener {
-	    public void literatureDialogFragmentSet(int _ID, String _name, int _typeID);
+	    void literatureDialogFragmentSet(int _ID, String _name, int _typeID);
 	}
 	
 	public void setLiteratureFragmentListener(LiteratureDialogFragmentListener listener){

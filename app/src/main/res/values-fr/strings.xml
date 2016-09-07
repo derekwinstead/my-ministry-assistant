@@ -153,7 +153,6 @@
     <string name="toast_deleted_with_space">Supprimé {name}.</string>
     <string name="toast_daily_backup_scheduled">Les sauvegardes quotidiennes prévues pour {time}.</string>
     <string name="toast_daily_backup_cancelled">Les sauvegardes quotidiennes annulées.</string>
-    <string name="toast_weekly_backup_scheduled">Sauvegardes hebdomadaires prévues pour {weekday} à {time}.</string>
     <string name="toast_weekly_backup_cancelled">Sauvegardes hebdomadaires annulées.</string>
     <string name="toast_db_updated_successfully">Base de données mise à jour.</string>
     <string name="toast_update_done">Mise à jour effectuée.</string>

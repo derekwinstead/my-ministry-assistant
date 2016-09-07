@@ -33,7 +33,7 @@ public class EntryTypeDialogFrag extends DialogFragment {
     }
 
     public interface EntryTypeDialogFragListener {
-        public void setPositiveButton(String name, int isActive);
+        void setPositiveButton(String name, int isActive);
     }
 
     public void setPositiveButton(EntryTypeDialogFragListener listener) {

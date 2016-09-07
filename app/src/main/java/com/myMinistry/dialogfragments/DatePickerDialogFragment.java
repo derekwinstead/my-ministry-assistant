@@ -26,7 +26,7 @@ public class DatePickerDialogFragment extends DialogFragment {
     }
 
     public interface DatePickerDialogFragmentListener {
-        public void DatePickerDialogFragmentListenerSet(int selectedYear, int selectedMonth, int selectedDay);
+        void DatePickerDialogFragmentListenerSet(int selectedYear, int selectedMonth, int selectedDay);
     }
 
     public void setDatePickerDialogFragmentListener(DatePickerDialogFragmentListener listener){

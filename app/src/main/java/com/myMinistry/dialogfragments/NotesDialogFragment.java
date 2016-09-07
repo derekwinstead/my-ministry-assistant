@@ -19,7 +19,7 @@ public class NotesDialogFragment extends DialogFragment {
 	private View view;
 	
 	public interface NotesDialogFragmentListener {
-	    public void setPositiveButton(String _notes);
+	    void setPositiveButton(String _notes);
 	}
 	
 	public static NotesDialogFragment newInstance() {
