@@ -39,6 +39,19 @@
             android:textColor="@color/holo_grey_light" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/view_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/default_padding_double"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="@dimen/default_padding"
+        android:text="@string/recent_activity"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_medium" />
+    <!--
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
@@ -57,6 +70,6 @@
         android:paddingLeft="@dimen/default_padding"
         android:paddingRight="@dimen/default_padding"
         android:text="@string/no_activity" />
-
+-->
     <include layout="@layout/fab_user_add" />
 </LinearLayout>
