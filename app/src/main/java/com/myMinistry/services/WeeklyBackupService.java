@@ -15,7 +15,7 @@ public class WeeklyBackupService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         File intDB = getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME);
-        File extDB = FileUtils.getExternalDBFile(getApplicationContext(), "auto-weekly.db");
+        File extDB = FileUtils.getExternalDBFile(getApplicationContext(), "auto-backup-weekly.db");
 
         try {
             if(extDB != null) {

@@ -12,7 +12,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -75,12 +74,8 @@ public class HelpUtils {
 
     public static boolean isApplicationUpdated(Context context) {
         int currentVersionNumber = 0;
-        PackageInfo info;
-        int asdf = PrefUtils.getVersionNumber(context);
         try {
-            info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             currentVersionNumber = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-
         } catch (Exception e) {
         }
         return currentVersionNumber > PrefUtils.getVersionNumber(context) ? true : false;
@@ -95,7 +90,7 @@ public class HelpUtils {
         } catch (Exception e) {
         }
 
-        if (savedVersionNumber <= 161 && savedVersionNumber != 0) {
+        if (savedVersionNumber <= 161) {
             Helper.renameDB(mContext);
             Helper.renameAndMoveBackups(mContext);
 
@@ -167,7 +162,6 @@ public class HelpUtils {
 
         int alarmType = AlarmManager.RTC;
         long interval = AlarmManager.INTERVAL_DAY * 7;
-        //long start = time.getTimeInMillis() + interval;
         long start = time.getTimeInMillis();
 
         PendingIntent pi = PendingIntent.getService(context, 0, new Intent(context, WeeklyBackupService.class), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -193,7 +187,7 @@ public class HelpUtils {
         Calendar start = Calendar.getInstance(Locale.getDefault());
         int pubID = 0;
 
-        /** Loop over each publisher for each available month to convert */
+        // Loop over each publisher for each available month to convert
         if (!database.isOpen())
             database.openWritable();
 
@@ -202,13 +196,12 @@ public class HelpUtils {
         try {
             Thread.sleep(500);
         } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         for (pubs.moveToFirst(); !pubs.isAfterLast(); pubs.moveToNext()) {
             pubID = pubs.getInt(pubs.getColumnIndex(Publisher._ID));
 
-            /** Get first time entry date for publisher */
+            // Get first time entry date for publisher
             theDate = database.fetchPublisherFirstTimeEntry(pubID);
 
             if (theDate.moveToFirst()) {

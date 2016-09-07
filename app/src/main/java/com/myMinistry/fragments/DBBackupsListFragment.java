@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -292,8 +291,6 @@ public class DBBackupsListFragment extends ListFragment {
         builder.setPositiveButton(R.string.menu_save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ContentValues values = new ContentValues();
-
                 PrefUtils.setDBAutoBackup(getActivity(), cb_is_active.isChecked());
                 // Daily
                 PrefUtils.setDBBackupDailyTime(getActivity(), DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()).toString());

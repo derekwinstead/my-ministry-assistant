@@ -15,7 +15,7 @@ public class DailyBackupService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         File intDB = getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME);
-        File extDB = FileUtils.getExternalDBFile(getApplicationContext(), "auto-daily.db");
+        File extDB = FileUtils.getExternalDBFile(getApplicationContext(), "auto-backup-daily.db");
 
         try {
             if(extDB != null) {
