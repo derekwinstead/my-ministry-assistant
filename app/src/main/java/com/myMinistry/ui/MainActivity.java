@@ -13,6 +13,7 @@ import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean firstLoad = true;
 
     private int getDefaultNavDrawerItem() {
-        return R.id.drawer_db;
+        return R.id.drawer_summary;
     }
 
     @Override
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
         setSupportActionBar(toolbar);
 
         final ActionBar actionBar = getSupportActionBar();

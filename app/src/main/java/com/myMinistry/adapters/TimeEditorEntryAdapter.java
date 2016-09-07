@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,8 +40,8 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 
         padding = Helper.dipsToPix(context, 5);
 
-        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-        lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 
     private class ViewHolder {
@@ -54,17 +55,16 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
         View row = convertView;
         ViewHolder holder = null;
 
-        if(row == null) {
+        if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(LAYOUT_ID, parent, false);
 
             holder = new ViewHolder();
-            holder.linlay = (LinearLayout)row.findViewById(R.id.linlay);
+            holder.linlay = (LinearLayout) row.findViewById(R.id.linlay);
 
             row.setTag(holder);
-        }
-        else {
-            holder = (ViewHolder)row.getTag();
+        } else {
+            holder = (ViewHolder) row.getTag();
             holder.linlay.removeAllViews();
         }
 
@@ -73,49 +73,49 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
         TextView tv;
 
         /** Show if NOT a return visit */
-        if(!entry.isCountedForReturnVisit()) {
+        if (!entry.isCountedForReturnVisit()) {
             tv = new TextView(context);
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                tv.setBackground(context.getResources().getDrawable(R.drawable.alert_bg));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                tv.setBackground(ContextCompat.getDrawable(context, R.drawable.alert_bg));
             else
-                tv.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.alert_bg));
+                tv.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.alert_bg));
 
             tv.setText(R.string.menu_do_not_count_as_return_visit);
             tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-            tv.setTextColor(context.getResources().getColor(R.color.white));
+            tv.setTextColor(ContextCompat.getColor(context, R.color.white));
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLayoutParams(lp1);
-            tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_action_warning), null, null, null);
+            tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.ic_action_warning), null, null, null);
             tv.setCompoundDrawablePadding(padding);
             holder.linlay.addView(tv);
         }
 
         /** Show Householder if exists */
-        if(!TextUtils.isEmpty(entry.toString())) {
+        if (!TextUtils.isEmpty(entry.toString())) {
             tv = new TextView(context);
             tv.setText(entry.toString());
             tv.setTextAppearance(context, android.R.attr.textAppearanceLarge);
-            tv.setTextColor(context.getResources().getColor(R.color.bg_card_title_text_holo_light));
+            tv.setTextColor(ContextCompat.getColor(context, R.color.bg_card_title_text_holo_light));
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLayoutParams(lp1);
-            tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_drawer_householder), null, null, null);
+            tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.ic_drawer_householder), null, null, null);
             tv.setCompoundDrawablePadding(padding);
             holder.linlay.addView(tv);
         }
 
         /** Show Notes if exists */
-        if(!TextUtils.isEmpty(entry.getNotes())) {
+        if (!TextUtils.isEmpty(entry.getNotes())) {
             ImageView iv = new ImageView(context);
             iv.setPadding(0, 0, padding, 0);
-            iv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_chat));
+            iv.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_action_chat));
             iv.setLayoutParams(lp2);
             iv.setContentDescription(context.getResources().getString(R.string.form_notes));
 
             tv = new TextView(context);
             tv.setText(entry.getNotes());
             tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-            tv.setTextColor(context.getResources().getColor(R.color.default_text));
+            tv.setTextColor(ContextCompat.getColor(context, R.color.default_text));
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLayoutParams(lp2);
             tv.setPadding(0, padding, 0, 0);
@@ -130,13 +130,13 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
         }
 
         /** Load the publications for the entry */
-        for(QuickLiterature item : entry.getLit()) {
+        for (QuickLiterature item : entry.getLit()) {
             tv = new TextView(context);
             tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-            tv.setTextColor(context.getResources().getColor(R.color.default_text));
+            tv.setTextColor(ContextCompat.getColor(context, R.color.default_text));
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setText("(" + item.getCount() + ") " + item.toString());
-            tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(Helper.getIconResIDByLitTypeID(item.getTypeID())), null, null, null);
+            tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, Helper.getIconResIDByLitTypeID(item.getTypeID())), null, null, null);
             tv.setCompoundDrawablePadding(padding);
             tv.setLayoutParams(lp1);
 
@@ -158,7 +158,9 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             litTypeID = _litTypeID;
             count = _count;
             iconRes = Helper.getIconResIDByLitTypeID(_litTypeID);
-        };
+        }
+
+        ;
 
         public String toString() {
             return "(" + count + ") " + title;
@@ -178,7 +180,9 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             pubs = new ArrayList<PublicationItem>();
             householder = "";
             notes = "";
-        };
+        }
+
+        ;
 
         public void setHouseholder(String string) {
             householder = string;

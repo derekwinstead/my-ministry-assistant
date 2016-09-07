@@ -2,6 +2,7 @@ package com.myMinistry.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,21 +64,21 @@ public class DialogItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
         ViewHolder holder = null;
         View view = convertView;
 
-        if(view == null) {
+        if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
 
             TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
             view.setTag(new ViewHolder(text1));
         }
 
-        if(holder == null && view != null) {
+        if (holder == null && view != null) {
             Object tag = view.getTag();
             if (tag instanceof ViewHolder)
                 holder = (ViewHolder) tag;
         }
 
-        Drawable img = getContext().getResources().getDrawable( item.iconRes );
-        holder.textHolder.setCompoundDrawablesWithIntrinsicBounds( img, null, null, null);
+        Drawable img = ContextCompat.getDrawable(getContext(), item.iconRes);
+        holder.textHolder.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
         holder.textHolder.setText(item.title);
 
         return view;

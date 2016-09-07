@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class EntryTypeDialogFrag extends DialogFragment {
         CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
         TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
 
-        if(args != null) {
+        if (args != null) {
             id = args.getInt(ARG_ID);
             et_text1.setText(args.getString(ARG_NAME));
             cb_is_active.setChecked(args.getInt(ARG_IS_ACTIVE) != 0 ? true : false);
@@ -58,9 +59,9 @@ public class EntryTypeDialogFrag extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(id == MinistryDatabase.ID_ROLLOVER) {
+        if (id == MinistryDatabase.ID_ROLLOVER) {
             cb_is_active.setEnabled(false);
-            cb_is_active.setTextColor(getActivity().getApplicationContext().getResources().getColor(R.color.holo_grey_light));
+            cb_is_active.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.holo_grey_light));
             tv_note.setVisibility(View.VISIBLE);
         }
 

@@ -3,6 +3,7 @@ package com.myMinistry.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -48,8 +49,8 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
         database = new MinistryService(context);
         padding = Helper.dipsToPix(context, 5);
 
-        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-        lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        lp2 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 
     private class ViewHolder {
@@ -88,23 +89,21 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
         /** We have the three numbers to make the date. */
         displayDateStart.set(Calendar.YEAR, Integer.valueOf(splits[0]));
         /** Subtract 1 for zero based months. */
-        displayDateStart.set(Calendar.MONTH, Integer.valueOf(splits[1])-1);
+        displayDateStart.set(Calendar.MONTH, Integer.valueOf(splits[1]) - 1);
         displayDateStart.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splits[2]));
 
         try {
             splits = cursor.getString(cursor.getColumnIndex(Time.DATE_END)).split("-");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             splits = null;
         }
-        if(splits != null && splits.length == 3) {
+        if (splits != null && splits.length == 3) {
             /** We have the three numbers to make the date. */
             displayDateEnd.set(Calendar.YEAR, Integer.valueOf(splits[0]));
             /** Subtract 1 for zero based months. */
-            displayDateEnd.set(Calendar.MONTH, Integer.valueOf(splits[1])-1);
+            displayDateEnd.set(Calendar.MONTH, Integer.valueOf(splits[1]) - 1);
             displayDateEnd.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splits[2]));
-        }
-        else {
+        } else {
             displayDateEnd.set(Calendar.YEAR, displayDateStart.get(Calendar.YEAR));
             displayDateEnd.set(Calendar.MONTH, displayDateStart.get(Calendar.MONTH));
             displayDateEnd.set(Calendar.DAY_OF_MONTH, displayDateStart.get(Calendar.DAY_OF_MONTH));
@@ -130,20 +129,20 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
         /** Set the display in the view for the header */
         holder.title.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.ENTRY_TYPE_NAME)));
 
-        if(!database.isOpen())
+        if (!database.isOpen())
             database.openWritable();
 
         Cursor timeHouseholders = database.fetchTimeHouseholdersForTimeByID(cursor.getInt(cursor.getColumnIndex(Time._ID)));
         Cursor publications;
 
         /** Loop over the householders */
-        for(timeHouseholders.moveToFirst();!timeHouseholders.isAfterLast();timeHouseholders.moveToNext()) {
+        for (timeHouseholders.moveToFirst(); !timeHouseholders.isAfterLast(); timeHouseholders.moveToNext()) {
             entry = new Entry();
             entry.setHouseholder(timeHouseholders.getString(timeHouseholders.getColumnIndex(Householder.NAME)));
             entry.setNotes(timeHouseholders.getString(timeHouseholders.getColumnIndex(Notes.NOTES)));
 
             publications = database.fetchPlacedLitByTimeAndHouseholderID(cursor.getInt(cursor.getColumnIndex(Time._ID)), timeHouseholders.getInt(timeHouseholders.getColumnIndex(TimeHouseholder.HOUSEHOLDER_ID)));
-            for(publications.moveToFirst();!publications.isAfterLast();publications.moveToNext()) {
+            for (publications.moveToFirst(); !publications.isAfterLast(); publications.moveToNext()) {
                 entry.addPublication(new PublicationItem(publications.getString(publications.getColumnIndex(Literature.NAME)), publications.getInt(publications.getColumnIndex(Literature.TYPE_OF_LIERATURE_ID)), publications.getInt(publications.getColumnIndex(LiteraturePlaced.COUNT))));
             }
             publications.close();
@@ -157,41 +156,41 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
 
         holder.linlay.removeAllViews();
 
-        for(Entry entry : entries) {
+        for (Entry entry : entries) {
             View v = new View(context);
             LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
             lp3.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
             v.setLayoutParams(lp3);
-            v.setBackgroundColor(context.getResources().getColor(R.color.navdrawer_divider));
+            v.setBackgroundColor(ContextCompat.getColor(context, R.color.navdrawer_divider));
             holder.linlay.addView(v);
 
             TextView tv;
 
             /** Show Householder if exists */
-            if(!TextUtils.isEmpty(entry.getHouseholder())) {
+            if (!TextUtils.isEmpty(entry.getHouseholder())) {
                 tv = new TextView(context);
                 tv.setText(entry.getHouseholder());
                 tv.setTextAppearance(context, android.R.attr.textAppearanceLarge);
-                tv.setTextColor(context.getResources().getColor(R.color.bg_card_title_text_holo_light));
+                tv.setTextColor(ContextCompat.getColor(context, R.color.bg_card_title_text_holo_light));
                 tv.setGravity(Gravity.CENTER_VERTICAL);
                 tv.setLayoutParams(lp1);
-                tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.drawable.ic_drawer_householder), null, null, null);
+                tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.ic_drawer_householder), null, null, null);
                 tv.setCompoundDrawablePadding(padding);
                 holder.linlay.addView(tv);
             }
 
             /** Show Notes if exists */
-            if(!TextUtils.isEmpty(entry.getNotes())) {
+            if (!TextUtils.isEmpty(entry.getNotes())) {
                 ImageView iv = new ImageView(context);
                 iv.setPadding(0, 0, padding, 0);
-                iv.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_chat));
+                iv.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_action_chat));
                 iv.setLayoutParams(lp2);
                 iv.setContentDescription(context.getResources().getString(R.string.form_notes));
 
                 tv = new TextView(context);
                 tv.setText(entry.getNotes());
                 tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-                tv.setTextColor(context.getResources().getColor(R.color.default_text));
+                tv.setTextColor(ContextCompat.getColor(context, R.color.default_text));
                 tv.setGravity(Gravity.CENTER_VERTICAL);
                 tv.setLayoutParams(lp2);
                 tv.setPadding(0, padding, 0, 0);
@@ -206,13 +205,13 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
             }
 
             /** Load the publications for the entry */
-            for(PublicationItem item : entry.pubs) {
+            for (PublicationItem item : entry.pubs) {
                 tv = new TextView(context);
                 tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-                tv.setTextColor(context.getResources().getColor(R.color.default_text));
+                tv.setTextColor(ContextCompat.getColor(context, R.color.default_text));
                 tv.setGravity(Gravity.CENTER_VERTICAL);
                 tv.setText(item.toString());
-                tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(item.iconRes), null, null, null);
+                tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, item.iconRes), null, null, null);
                 tv.setCompoundDrawablePadding(padding);
                 tv.setLayoutParams(lp1);
 
@@ -233,7 +232,9 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
             litTypeID = _litTypeID;
             count = _count;
             iconRes = Helper.getIconResIDByLitTypeID(_litTypeID);
-        };
+        }
+
+        ;
 
         public String toString() {
             return "(" + count + ") " + title;
@@ -253,7 +254,9 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
             pubs = new ArrayList<PublicationItem>();
             householder = "";
             notes = "";
-        };
+        }
+
+        ;
 
         public void setHouseholder(String string) {
             householder = string;

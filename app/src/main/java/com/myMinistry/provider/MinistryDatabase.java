@@ -742,7 +742,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 Toast.makeText(mContext, mContext.getString(R.string.toast_db_updated_successfully), Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
-            Toast.makeText(mContext, mContext.getString(R.string.toast_export_text_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.snackbar_export_text_error), Toast.LENGTH_SHORT).show();
         }
     }
 }

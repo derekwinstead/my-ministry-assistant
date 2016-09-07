@@ -3,6 +3,7 @@ package com.myMinistry.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +99,7 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
         ViewHolder holder = null;
         View view = convertView;
 
-        if(view == null) {
+        if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(type == ITEM_VIEW_TYPE_SEPARATOR ? LAYOUT_SEPARATOR_ID : LAYOUT_CONTENT_ID, parent, false);
             TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
             TextView text2 = (TextView) view.findViewById(R.id.menurow_subtitle);
@@ -107,19 +108,19 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
             view.setTag(new ViewHolder(text1, text2, img1, tvCount));
         }
 
-        if(holder == null && view != null) {
+        if (holder == null && view != null) {
             Object tag = view.getTag();
             if (tag instanceof ViewHolder)
                 holder = (ViewHolder) tag;
         }
 
         holder.textHolder1.setText(item.title);
-        if(type == ITEM_VIEW_TYPE_SEPARATOR) {
+        if (type == ITEM_VIEW_TYPE_SEPARATOR) {
             holder.textCount.setText(getItem(position).getCount());
         } else {
             holder.textHolder2.setText((item.is_default == 1) ? getContext().getResources().getString(R.string.is_default) : "");
 
-            Drawable img = getContext().getResources().getDrawable(item.iconRes);
+            Drawable img = ContextCompat.getDrawable(getContext(), item.iconRes);
             holder.imgHolder.setImageDrawable(img);
         }
 
@@ -133,15 +134,15 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
         int firstInActivePosition = -1;
         int activeCount = 0;
         int inactiveCount = 0;
-        if(cursor != null) {
-            for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
-                if(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == MinistryService.ACTIVE)
+        if (cursor != null) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == MinistryService.ACTIVE)
                     activeCount++;
                 else
                     inactiveCount++;
 
-                if(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) != activeId) {
-                    if(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == MinistryService.ACTIVE)
+                if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) != activeId) {
+                    if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == MinistryService.ACTIVE)
                         firstActivePosition = cursor.getPosition();
                     else
                         firstInActivePosition = cursor.getPosition();
@@ -151,18 +152,18 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
                 }
 
                 addItem(new ItemWithIcon(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME))
-                        ,(ADAPTER_TYPE == TYPE_PUBLICATION) ? Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))) : R.drawable.ic_drawer_entry_types_new
-                        ,cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))
-                        ,cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE))
-                        ,cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT)))
+                        , (ADAPTER_TYPE == TYPE_PUBLICATION) ? Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))) : R.drawable.ic_drawer_entry_types_new
+                        , cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))
+                        , cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE))
+                        , cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT)))
                 );
             }
 
-            if(firstActivePosition != -1) {
+            if (firstActivePosition != -1) {
                 getItem(firstActivePosition).setCount(activeCount);
             }
 
-            if(firstInActivePosition != -1) {
+            if (firstInActivePosition != -1) {
                 getItem(firstInActivePosition).setCount(inactiveCount);
             }
         }

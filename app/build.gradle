@@ -12,6 +12,7 @@ android {
         applicationId 'com.myMinistry'
         minSdkVersion 15
         targetSdkVersion 24
+        versionCode VERSION_CODE
         versionName VERSION_NAME
     }
 

@@ -113,9 +113,9 @@ public class DBBackupsListFragment extends ListFragment {
 
                     try {
                         if (database.importDatabase(file, getActivity().getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME))) {
-                            Snackbar.make(coordinatorLayout, R.string.toast_import_text, Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(coordinatorLayout, R.string.snackbar_import_text, Snackbar.LENGTH_SHORT).show();
                         } else {
-                            Snackbar.make(coordinatorLayout, R.string.toast_import_text_error, Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(coordinatorLayout, R.string.snackbar_import_text_error, Snackbar.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
                         Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
@@ -128,6 +128,7 @@ public class DBBackupsListFragment extends ListFragment {
                     startActivity(Intent.createChooser(emailIntent, getResources().getString(R.string.menu_share)));
                 } else if (item == REF_DELETE) {
                     file.delete();
+                    Snackbar.make(coordinatorLayout, R.string.toast_deleted, Snackbar.LENGTH_SHORT).show();
                     reloadAdapter();
                 }
             }
@@ -152,7 +153,7 @@ public class DBBackupsListFragment extends ListFragment {
 
                 reloadAdapter();
 
-                Snackbar.make(coordinatorLayout, R.string.toast_export_text, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, R.string.snackbar_export_text, Snackbar.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
@@ -165,11 +166,11 @@ public class DBBackupsListFragment extends ListFragment {
             case R.id.cleanup_bu:
                 int FLAG = Helper.clearBackups(getActivity().getApplicationContext());
                 if (FLAG == 1)
-                    Snackbar.make(coordinatorLayout, R.string.toast_cleaned_backups, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(coordinatorLayout, R.string.snackbar_cleaned_backups, Snackbar.LENGTH_SHORT).show();
                 else if (FLAG == 2)
-                    Snackbar.make(coordinatorLayout, R.string.toast_cleaned_backups_only_one, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(coordinatorLayout, R.string.snackbar_cleaned_backups_only_one, Snackbar.LENGTH_SHORT).show();
                 else if (FLAG == 0)
-                    Snackbar.make(coordinatorLayout, R.string.toast_cleaned_backups_error, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(coordinatorLayout, R.string.snackbar_cleaned_backups_error, Snackbar.LENGTH_SHORT).show();
 
                 reloadAdapter();
 

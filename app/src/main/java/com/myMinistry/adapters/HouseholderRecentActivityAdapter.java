@@ -2,6 +2,7 @@ package com.myMinistry.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -80,7 +81,7 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
                 .format().toString());
 
         /** Publications */
-        if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.COUNT)) > 0) {
+        if (cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.COUNT)) > 0) {
             holder.activity_publications.setVisibility(View.VISIBLE);
             holder.activity_publications.removeAllViews();
 
@@ -88,14 +89,14 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
 
             cursorpubs = database.fetchPlacedLitByTimeAndHouseholderID(cursor.getInt(cursor.getColumnIndex(Time._ID)), householderID);
 
-            for(cursorpubs.moveToFirst();!cursorpubs.isAfterLast();cursorpubs.moveToNext()) {
+            for (cursorpubs.moveToFirst(); !cursorpubs.isAfterLast(); cursorpubs.moveToNext()) {
                 TextView valueTV = new TextView(context);
                 valueTV.setText("(" + cursorpubs.getString(cursorpubs.getColumnIndex(LiteraturePlaced.COUNT)) + ") " + cursorpubs.getString(cursorpubs.getColumnIndex(LiteratureType.NAME)));
-                valueTV.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(Helper.getIconResIDByLitTypeID(cursorpubs.getInt(cursorpubs.getColumnIndex(Literature.TYPE_OF_LIERATURE_ID)))), null, null, null);
+                valueTV.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, Helper.getIconResIDByLitTypeID(cursorpubs.getInt(cursorpubs.getColumnIndex(Literature.TYPE_OF_LIERATURE_ID)))), null, null, null);
                 valueTV.setCompoundDrawablePadding(padding);
-                valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
+                valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
                 //valueTV.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-                valueTV.setTextColor(context.getResources().getColor(R.color.bg_card_title_text_holo_light));
+                valueTV.setTextColor(ContextCompat.getColor(context, R.color.bg_card_title_text_holo_light));
                 valueTV.setGravity(Gravity.CENTER_VERTICAL);
 
                 holder.activity_publications.addView(valueTV);
@@ -103,37 +104,33 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
 
             cursorpubs.close();
             database.close();
-        }
-        else {
+        } else {
             holder.activity_publications.setVisibility(View.GONE);
         }
 
         /** Notes */
-        if(TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex(Notes.NOTES)))) {
+        if (TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex(Notes.NOTES)))) {
             holder.activity_notes_layout.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             holder.activity_notes_layout.setVisibility(View.VISIBLE);
             holder.activity_notes.setText(cursor.getString(cursor.getColumnIndex(Notes.NOTES)));
         }
 
         /** Date */
-        if(cursor.getString(cursor.getColumnIndex(Time.DATE_START)) != null && cursor.getString(cursor.getColumnIndex(Time.DATE_START)).length() > 0) {
+        if (cursor.getString(cursor.getColumnIndex(Time.DATE_START)) != null && cursor.getString(cursor.getColumnIndex(Time.DATE_START)).length() > 0) {
             String[] thedate = cursor.getString(cursor.getColumnIndex(Time.DATE_START)).split("-");
-            if(thedate.length == 3) {
+            if (thedate.length == 3) {
                 /** We have the three numbers to make the date. Subtract 1 for zero based months. */
-                displayDate.set(Integer.valueOf(thedate[0]),Integer.valueOf(thedate[1])-1,Integer.valueOf(thedate[2]));
+                displayDate.set(Integer.valueOf(thedate[0]), Integer.valueOf(thedate[1]) - 1, Integer.valueOf(thedate[2]));
                 String date = DateUtils.formatDateTime(context, displayDate.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY);
 
                 holder.activity_date.setText(Phrase.from(context, R.string.activity_date_by_publisher)
                         .put("date", date)
                         .put("publisher", cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.PUBLISHER_NAME)))
                         .format().toString());
-            }
-            else
+            } else
                 holder.activity_date.setText(R.string.no_activity);
-        }
-        else
+        } else
             holder.activity_date.setText(R.string.no_activity);
     }
 }

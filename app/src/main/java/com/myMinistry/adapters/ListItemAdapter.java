@@ -2,6 +2,7 @@ package com.myMinistry.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         ViewHolder holder = null;
         View view = convertView;
 
-        if(view == null) {
+        if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
             TextView title = (TextView) view.findViewById(R.id.menurow_title);
             TextView subtitle = (TextView) view.findViewById(R.id.menurow_subtitle);
@@ -75,17 +76,17 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
             view.setTag(new ViewHolder(title, subtitle, img));
         }
 
-        if(holder == null && view != null) {
+        if (holder == null && view != null) {
             Object tag = view.getTag();
             if (tag instanceof ViewHolder)
                 holder = (ViewHolder) tag;
         }
 
-        Drawable img = getContext().getResources().getDrawable( item.iconRes );
+        Drawable img = ContextCompat.getDrawable(getContext(), item.iconRes);
         holder.menurow_img.setImageDrawable(img);
         holder.menurow_title.setText(item.title);
 
-        if(item.subtitle.length() == 0) {
+        if (item.subtitle.length() == 0) {
             holder.menurow_subtitle.setVisibility(View.GONE);
         } else {
             holder.menurow_subtitle.setVisibility(View.VISIBLE);
