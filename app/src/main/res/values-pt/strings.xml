@@ -41,10 +41,6 @@
     <string name="title_householder_edit">Chefe de família Edite</string>
     <string name="title_publisher_edit">Modificar Proclaimer</string>
     <string name="title_publication_edit">Modificar Publicação</string>
-    <string name="tab_item_monthly">Mensal</string>
-    <string name="tab_item_yearly">anualmente</string>
-    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
-    <string name="tab_item_publication_types">@string/form_publication_types</string>
     <string name="tab_item_householders">@string/navdrawer_item_householders</string>
     <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
     <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
@@ -151,9 +147,6 @@
     <string name="toast_cannot_modify_rollover_time">Não é possível modificar entradas transferidas.</string>
     <string name="toast_deleted">Deletado.</string>
     <string name="toast_deleted_with_space">Deletado {name}.</string>
-    <string name="toast_daily_backup_scheduled">Os backups diários agendada para {time}.</string>
-    <string name="toast_daily_backup_cancelled">Os backups diários cancelada.</string>
-    <string name="toast_weekly_backup_cancelled">Backups semanais cancelada.</string>
     <string name="toast_db_updated_successfully">Banco de dados atualizado com sucesso.</string>
     <string name="toast_update_done">Atualização feito.</string>
     <string name="note_rollover_edit">****************\nNota: Este é um tipo de entrada única para gerir o tempo de sobreposição. Você não pode torná-la ativa. Não crie manualmente um tipo de entrada rollover como isso vai ser usado para fazer todos os cálculos automáticos.\n****************</string>

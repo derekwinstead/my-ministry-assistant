@@ -3,7 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="navdrawer_width">260dp</dimen>
     <dimen name="corner_radius">1dp</dimen>
     <dimen name="material_corner_radius">2dp</dimen>
     <dimen name="inner_padding">3dp</dimen>

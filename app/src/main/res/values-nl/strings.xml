@@ -41,10 +41,6 @@
     <string name="title_householder_edit">Huishouder Bewerken</string>
     <string name="title_publisher_edit">Wijzig Proclaimer</string>
     <string name="title_publication_edit">Publicatie Wijzigen</string>
-    <string name="tab_item_monthly">Maandelijkse</string>
-    <string name="tab_item_yearly">jaarlijkse</string>
-    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
-    <string name="tab_item_publication_types">@string/form_publication_types</string>
     <string name="tab_item_householders">@string/navdrawer_item_householders</string>
     <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
     <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
@@ -151,9 +147,6 @@
     <string name="toast_cannot_modify_rollover_time">Kan de overlap entries niet aanpassen.</string>
     <string name="toast_deleted">Verwijderd.</string>
     <string name="toast_deleted_with_space">{name} is verwijderd.</string>
-    <string name="toast_daily_backup_scheduled">Dagelijkse backups ingepland om {time}.</string>
-    <string name="toast_daily_backup_cancelled">Dagelijkse backups geannuleerd.</string>
-    <string name="toast_weekly_backup_cancelled">Wekelijkse backups geannuleerd.</string>
     <string name="toast_db_updated_successfully">Database bijgewerkt.</string>
     <string name="toast_update_done">Update gedaan.</string>
     <string name="note_rollover_edit">****************\nOpmerking: Dit is een uniek item type om rollover tijd te beheren. Je kan het niet actief te maken. Niet handmatig een soort rollover item als dit zal worden gebruikt om een automatische berekeningen te doen.\n****************</string>

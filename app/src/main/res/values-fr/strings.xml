@@ -41,10 +41,6 @@
     <string name="title_householder_edit">Maître de Maison Modifier</string>
     <string name="title_publisher_edit">Proclamateurs Modifier</string>
     <string name="title_publication_edit">Modifier Publication</string>
-    <string name="tab_item_monthly">Mensuel</string>
-    <string name="tab_item_yearly">annuel</string>
-    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
-    <string name="tab_item_publication_types">@string/form_publication_types</string>
     <string name="tab_item_householders">@string/navdrawer_item_householders</string>
     <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
     <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
@@ -151,9 +147,6 @@
     <string name="toast_cannot_modify_rollover_time">Vous ne pouvez pas modifier les entrées de roulement.</string>
     <string name="toast_deleted">Supprimé.</string>
     <string name="toast_deleted_with_space">Supprimé {name}.</string>
-    <string name="toast_daily_backup_scheduled">Les sauvegardes quotidiennes prévues pour {time}.</string>
-    <string name="toast_daily_backup_cancelled">Les sauvegardes quotidiennes annulées.</string>
-    <string name="toast_weekly_backup_cancelled">Sauvegardes hebdomadaires annulées.</string>
     <string name="toast_db_updated_successfully">Base de données mise à jour.</string>
     <string name="toast_update_done">Mise à jour effectuée.</string>
     <string name="note_rollover_edit">****************\nRemarque: Ce est un type d\'entrée unique pour gérer le temps de renversement. Vous ne pouvez pas le rendre actif. Ne pas créer manuellement un type d\'entrée de roulement comme il sera utilisé pour faire des calculs automatiques.\n****************</string>

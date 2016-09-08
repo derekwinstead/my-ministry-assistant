@@ -41,10 +41,6 @@
     <string name="title_householder_edit">Cabeza de Familia Modificar</string>
     <string name="title_publisher_edit">Publicador Modificar</string>
     <string name="title_publication_edit">Modificar Publicación</string>
-    <string name="tab_item_monthly">Mensual</string>
-    <string name="tab_item_yearly">anual</string>
-    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
-    <string name="tab_item_publication_types">@string/form_publication_types</string>
     <string name="tab_item_householders">@string/navdrawer_item_householders</string>
     <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
     <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
@@ -151,9 +147,6 @@
     <string name="toast_cannot_modify_rollover_time">No se puede modiciar la entrada de ajuste de tiempo.</string>
     <string name="toast_deleted">Borrado.</string>
     <string name="toast_deleted_with_space">{name} Borrado.</string>
-    <string name="toast_daily_backup_scheduled">Copias de seguridad diarias programadas para {time}.</string>
-    <string name="toast_daily_backup_cancelled">Copias de seguridad diarias canceladas.</string>
-    <string name="toast_weekly_backup_cancelled">Las copias de seguridad semanales canceladas.</string>
     <string name="toast_db_updated_successfully">Base de datos actualizada correctamente.</string>
     <string name="toast_update_done">Actualización de hecho.</string>
     <string name="note_rollover_edit">****************\nNota: Este es un tipo de entrada única para administrar el tiempo de vuelco. No puedes activarla. No crear manualmente un tipo de entrada de vuelco, ya que se utilizará para hacer los cálculos automáticos.\n****************</string>

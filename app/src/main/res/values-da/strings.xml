@@ -41,10 +41,6 @@
     <string name="title_householder_edit">Editér beboer</string>
     <string name="title_publisher_edit">Editér forkynder</string>
     <string name="title_publication_edit">Editér publikation</string>
-    <string name="tab_item_monthly">Månedligt</string>
-    <string name="tab_item_yearly">Årligt</string>
-    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
-    <string name="tab_item_publication_types">@string/form_publication_types</string>
     <string name="tab_item_householders">@string/navdrawer_item_householders</string>
     <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
     <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
@@ -141,9 +137,6 @@
     <string name="toast_cannot_modify_rollover_time">Kan ikke ændre rollover entries.</string>
     <string name="toast_deleted">Slettet.</string>
     <string name="toast_deleted_with_space">Slettede {name}.</string>
-    <string name="toast_daily_backup_scheduled">Daglige backups planlagt til {time}.</string>
-    <string name="toast_daily_backup_cancelled">Daglige backups annulleret.</string>
-    <string name="toast_weekly_backup_cancelled">Ugentlige backups annulleret.</string>
     <string name="toast_db_updated_successfully">Database opdateret korrekt.</string>
     <string name="toast_update_done">Opdatering gennemført.</string>
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>

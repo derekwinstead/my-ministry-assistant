@@ -41,10 +41,6 @@
     <string name="title_householder_edit">Householder Sunting</string>
     <string name="title_publisher_edit">Memodifikasi Proklamator</string>
     <string name="title_publication_edit">Modifikasi Publikasi</string>
-    <string name="tab_item_monthly">Bulanan</string>
-    <string name="tab_item_yearly">tahunan</string>
-    <string name="tab_item_publications">@string/navdrawer_item_publications</string>
-    <string name="tab_item_publication_types">@string/form_publication_types</string>
     <string name="tab_item_householders">@string/navdrawer_item_householders</string>
     <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
     <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
@@ -151,9 +147,6 @@
     <string name="toast_cannot_modify_rollover_time">Tidak bisa mengubah waktu bergulir.</string>
     <string name="toast_deleted">Telah dihapus.</string>
     <string name="toast_deleted_with_space">{name} telah dihapus.</string>
-    <string name="toast_daily_backup_scheduled">Backup harian dijadwalkan jam {time}.</string>
-    <string name="toast_daily_backup_cancelled">Backup harian dibatalkan.</string>
-    <string name="toast_weekly_backup_cancelled">Backup mingguan dibatalkan.</string>
     <string name="toast_db_updated_successfully">Database berhasil diperbarui.</string>
     <string name="toast_update_done">Pembaruan dilakukan.</string>
     <string name="note_rollover_edit">****************\nCatatan: Ini adalah jenis entri yang unik untuk mengatur waktu rollover. Anda tidak bisa membuatnya aktif. Jangan manual membuat jenis entri rollover karena hal ini akan digunakan untuk melakukan perhitungan otomatis.\n****************</string>
