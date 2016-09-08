@@ -20,24 +20,18 @@
     <color name="default_text">#59646e</color>
     <color name="alert_bg">#db4437</color>
     <color name="text_hint">#7d7d7d</color>
-    <color name="text_main">@android:color/black</color>
     <color name="text_secondary">#7d7d7d</color>
 
     <!-- Nav Drawer -->
-    <color name="navdrawer_background">#ffffffff</color>
     <color name="navdrawer_divider">#dddddd</color>
 
     <!-- Action Bar -->
-    <color name="actionbar_background">#4684f0</color>
+    <color name="actionbar_background">#2196f3</color>
     <color name="actionbar_background_darker">#033b9c</color>
     <color name="actionbar_text">#ffffff</color>
     <color name="actionbar_subtitle_text">#dedede</color>
-    <color name="body_text_1">#de000000</color>
-    <color name="theme_primary">#3f51b5</color>
-    <color name="navdrawer_text_color">@color/body_text_1</color>
-    <color name="navdrawer_text_color_selected">@color/theme_primary</color>
 
-    <color name="colorPrimary">#4684f0</color>
+    <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#033b9c</color>
 
 </resources>

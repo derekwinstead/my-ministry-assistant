@@ -15,26 +15,10 @@
     <dimen name="textsizeSM">12sp</dimen>
     <dimen name="textsizeMD">16sp</dimen>
     <dimen name="flet_hint_text_size">11sp</dimen>
-    <dimen name="flet_hint_text_padding_horizontal">13dp</dimen>
     <dimen name="dividerHeight">@dimen/inner_padding</dimen>
 
     <!-- body content -->
-    <dimen name="element_spacing_normal">8dp</dimen>
-    <dimen name="content_padding_normal">16dp</dimen>
-    <dimen name="text_size_xsmall">11sp</dimen>
-    <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_medium">14sp</dimen>
-    <dimen name="text_size_large">18sp</dimen>
-    <dimen name="text_size_xlarge">20sp</dimen>
-    <dimen name="text_size_diff_large_small">6sp</dimen>
-
-    <dimen name="keyline_1">16dp</dimen>
-    <dimen name="keyline_1_minus_8dp">8dp</dimen>
-    <dimen name="keyline_2">72dp</dimen>
-    <dimen name="keyline_2_minus_16dp">56dp</dimen>
-    <dimen name="keyline_2_session_detail">@dimen/keyline_2</dimen>
-    <dimen name="navdrawer_chosen_account_height">57dp</dimen>
-    <dimen name="navdrawer_profile_image_size">40dp</dimen>
 
     <dimen name="fab_margin_right">0dp</dimen>
     <dimen name="fab_margin_bottom">0dp</dimen>

@@ -27,7 +27,6 @@
     <string name="updating_app">Opdaterer applikation\nVent venligst&#8230;</string>
     <string name="confirm_deletion">Bekræft sletning</string>
     <string name="please_be_patient">Ven venligst&#8230;</string>
-    <string name="service_year">Tjenesteår</string>
     <string name="navdrawer_item_publications">Publikationer</string>
     <string name="navdrawer_item_householders">Beboere</string>
     <string name="navdrawer_item_publishers">Forkyndere</string>
@@ -93,12 +92,9 @@
     <string name="pref_update_title">Check for opdatering</string>
     <string name="pref_update_summary">Check hjemmesiden for at se om der er en opdatering tilgængelig. Dette anvendes til telefoner der ikke har market installeret.</string>
     <string name="pref_backup_title">Backup database</string>
-    <string name="pref_backup_summary">Tryk for at oprette backup af databasen på ekstern lagring..</string>
     <string name="pref_restore_title">Genopret database</string>
     <string name="pref_restore_dialog">Databasegenoprettelse</string>
     <string name="pref_clear_title">Slet gamle backups</string>
-    <string name="pref_clear_summary">Slet alle backupdatabaser på nær den sidst oprettede.</string>
-    <string name="pref_schedule_summary">Planlæg daglig eller ugentlig backup.</string>
     <string name="pref_donate_title">Donér</string>
     <string name="pref_feedback_cat">Kontakt udvikleren</string>
     <string name="pref_bugs_title">Indsend fejl</string>

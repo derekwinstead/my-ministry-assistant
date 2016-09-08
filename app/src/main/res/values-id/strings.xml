@@ -27,7 +27,6 @@
     <string name="updating_app">memperbarui Aplikasi\nHarap bersabar&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Harap bersabar&#8230;</string>
-    <string name="service_year">layanan Tahun</string>
     <string name="navdrawer_item_publications">Publikasi</string>
     <string name="navdrawer_item_householders">Penghuni Rumah</string>
     <string name="navdrawer_item_publishers">Penyiar</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Nama</string>
     <string name="form_rename">Ganti Nama</string>
     <string name="form_publisher">Penyiar</string>
-    <string name="form_type">Jenis</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Jenis Publikasi</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Selesai</string>
     <string name="menu_save">Simpan</string>
     <string name="menu_share">Berbagi</string>
-    <string name="menu_entries">Judul</string>
     <string name="menu_no_householder">Tidak Ada Penghuni Rumah</string>
     <string name="menu_no_publications">Tidak Ada Publikasi</string>
     <string name="menu_rv_publications_notes">Kunjungan Kembali, Publikasi, dan Catatan</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Cek Update</string>
     <string name="pref_update_summary">Cek situs web apakah update sudah tersedia. Ini dipakai untuk telepon atau tablet yang tidak bisa mendapatkan update di pasar.</string>
     <string name="pref_backup_title">Backup basis data</string>
-    <string name="pref_backup_summary">Ketuk untuk membuat backup basis data pada media penyimpan eksternal.</string>
     <string name="pref_restore_title">Pulihkan basis data</string>
     <string name="pref_restore_dialog">Basis data untuk dipulihkan</string>
     <string name="pref_clear_title">Hapus backup lama</string>
-    <string name="pref_clear_summary">Buang semua basis data yang di-backup kecuali yang terbaru.</string>
-    <string name="pref_schedule_summary">Jadwalkan backup otomatis harian atau mingguan.</string>
     <string name="pref_donate_title">Silahkan sumbang</string>
     <string name="pref_feedback_cat">Hubungi Pembuat Aplikasi</string>
     <string name="pref_bugs_title">Pelaporan Bug</string>

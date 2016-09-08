@@ -33,10 +33,6 @@
         <item>@string/email_address_features</item>
         <item>@string/email_address_translations</item>
     </array>
-    <array name="summary_nav_view_type">
-        <item>@string/navdrawer_item_report</item>
-        <item>@string/menu_entries</item>
-    </array>
     <array name="locale_codes">
         <item>"en"</item>
         <item>"es"</item>

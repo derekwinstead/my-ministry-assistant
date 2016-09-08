@@ -27,7 +27,6 @@
     <string name="updating_app">Mise à jour de l\'application\nS\'il vous plaît être patient&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">S\'il vous plaît être patient&#8230;</string>
-    <string name="service_year">Année service</string>
     <string name="navdrawer_item_publications">Publications</string>
     <string name="navdrawer_item_householders">ménages</string>
     <string name="navdrawer_item_publishers">Proclamateurs</string>
@@ -55,7 +54,6 @@
     <string name="form_name">nom</string>
     <string name="form_rename">rebaptiser</string>
     <string name="form_publisher">éditeur</string>
-    <string name="form_type">type</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Types de publication</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Terminé</string>
     <string name="menu_save">sauver</string>
     <string name="menu_share">partager</string>
-    <string name="menu_entries">entrées</string>
     <string name="menu_no_householder">Pas de ménage</string>
     <string name="menu_no_publications">Pas Publications</string>
     <string name="menu_rv_publications_notes">Visites de retour, publications et notes</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Vérifier une mise à jour</string>
     <string name="pref_update_summary">Consultez le site Web pour voir si il ya une mise à jour disponible. Il est utilisé pour les téléphones ou tablettes qui n\'ont pas marché disponible.</string>
     <string name="pref_backup_title">base de données de sauvegarde</string>
-    <string name="pref_backup_summary">Tapez pour créer une sauvegarde de la base de données sur le stockage externe.</string>
     <string name="pref_restore_title">restaurer la base de données</string>
     <string name="pref_restore_dialog">Base de données de restauration</string>
     <string name="pref_clear_title">Les anciennes sauvegardes claires</string>
-    <string name="pref_clear_summary">Supprimer toutes les bases de données de sauvegarde à l\'exception de la plus récemment créée.</string>
-    <string name="pref_schedule_summary">Planifier des sauvegardes automatiques quotidiennes, hebdomadaires ou.</string>
     <string name="pref_donate_title">donner</string>
     <string name="pref_feedback_cat">Contactez le développeur</string>
     <string name="pref_bugs_title">bug Soumission</string>

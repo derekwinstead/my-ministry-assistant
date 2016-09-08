@@ -97,6 +97,22 @@ public class PublisherEditorFragment extends Fragment {
 
         database = new MinistryService(getActivity().getApplicationContext());
 
+        root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                PublisherActivityFragment newFragment = new PublisherActivityFragment().newInstance(publisherId);
+                Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+                FragmentTransaction transaction = fm.beginTransaction();
+
+                if (replaceFrag != null)
+                    transaction.remove(replaceFrag);
+
+                transaction.add(R.id.primary_fragment_container, newFragment);
+                transaction.commit();
+            }
+        });
+
         return root;
     }
 

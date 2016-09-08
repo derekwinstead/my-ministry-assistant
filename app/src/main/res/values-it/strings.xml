@@ -27,7 +27,6 @@
     <string name="updating_app">Aggiornamento di applicazioni\nSi prega di essere pazienti&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Si prega di essere pazienti&#8230;</string>
-    <string name="service_year">Servizio Anno</string>
     <string name="navdrawer_item_publications">Pubblicazioni</string>
     <string name="navdrawer_item_householders">Padroni di Casa</string>
     <string name="navdrawer_item_publishers">Proclamatori</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Nome</string>
     <string name="form_rename">Rinomina</string>
     <string name="form_publisher">Proclamatore</string>
-    <string name="form_type">Tipo</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Tipo di Pubblicazione</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Fatto</string>
     <string name="menu_save">Salva</string>
     <string name="menu_share">Condividi</string>
-    <string name="menu_entries">Voci</string>
     <string name="menu_no_householder">Nessun Padrone di Casa</string>
     <string name="menu_no_publications">Nessuna Pubblicazione</string>
     <string name="menu_rv_publications_notes">Visite Ulteriori, Pubblicazioni e Note</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Cerca Aggiornamenti</string>
     <string name="pref_update_summary">Cerca aggiornamenti sul sito. Questa opzione consente gli aggiornamenti a telefoni e tablet che non hanno il market di Google.</string>
     <string name="pref_backup_title">Backup database</string>
-    <string name="pref_backup_summary">Tocca per creare un backup sulla memoria rimuovibile.</string>
     <string name="pref_restore_title">Ripristina database</string>
     <string name="pref_restore_dialog">Database Ripristinato</string>
     <string name="pref_clear_title">Cancella vecchi backup</string>
-    <string name="pref_clear_summary">Cancella tutti i backup eccetto quelli piú recenti.</string>
-    <string name="pref_schedule_summary">Procedure di backup automatico giornaliero o settimanale.</string>
     <string name="pref_donate_title">Donazioni</string>
     <string name="pref_feedback_cat">Contatta lo sviluppatore</string>
     <string name="pref_bugs_title">Invia Bug</string>

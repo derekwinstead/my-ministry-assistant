@@ -27,7 +27,6 @@
     <string name="updating_app">Updaten Application\nEen ogenblik aub&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Een ogenblik aub&#8230;</string>
-    <string name="service_year">dienst Jaar</string>
     <string name="navdrawer_item_publications">Publicaties</string>
     <string name="navdrawer_item_householders">Huisbewoners</string>
     <string name="navdrawer_item_publishers">Verkondigers</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Naam</string>
     <string name="form_rename">Hernoem</string>
     <string name="form_publisher">Verkondiger</string>
-    <string name="form_type">Type</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Publicaties</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Klaar</string>
     <string name="menu_save">Opslaan</string>
     <string name="menu_share">Deel</string>
-    <string name="menu_entries">Ingaven</string>
     <string name="menu_no_householder">Geen Huisbewoner</string>
     <string name="menu_no_publications">Geen Publicaties</string>
     <string name="menu_rv_publications_notes">Nabezoeken, Publicaties en Notities</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Check voor een update</string>
     <string name="pref_update_summary">Check de website om te zien of er een update is. Dit wordt gebruikt voor smartphone of tablet die niet aan de market kan.</string>
     <string name="pref_backup_title">Maak een backup van de database</string>
-    <string name="pref_backup_summary">Tik om een backup te maken op externe opslag.</string>
     <string name="pref_restore_title">Herstel database</string>
     <string name="pref_restore_dialog">Database herstel</string>
     <string name="pref_clear_title">Verwijder oude backups</string>
-    <string name="pref_clear_summary">Verwijder alle backups met uitzondering van de meest recente.</string>
-    <string name="pref_schedule_summary">Plan dagelijkse of wekelijkse automatische backups.</string>
     <string name="pref_donate_title">Doneer</string>
     <string name="pref_feedback_cat">Neem contact op met de ontwikkelaar</string>
     <string name="pref_bugs_title">Bug Rapporteren</string>

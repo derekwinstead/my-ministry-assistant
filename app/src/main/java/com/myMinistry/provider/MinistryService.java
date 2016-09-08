@@ -826,4 +826,20 @@ public class MinistryService {
     public Cursor fetchPublisherFirstTimeEntry(int publisherId) {
         return sqlDB.query(Tables.TIMES, new String[]{Time.DATE_START}, Time.PUBLISHER_ID + "=" + publisherId, null, null, null, Time.DATE_START, "1");
     }
+
+    public Cursor fetchActivityForPublisher(int publisherId) {
+        String sql = "SELECT " + Qualified.TIME_ID
+                + "," + Qualified.TIME_DATE_START
+                + "," + Qualified.TIME_DATE_END
+                + "," + Qualified.TIME_TIME_START
+                + "," + Qualified.TIME_TIME_END
+                + "," + Qualified.ENTRY_TYPE_NAME + UnionsNameAsCols.TITLE
+                + " FROM " + Tables.TIMES
+                + Joins.ENTRY_TYPES_ON_TIME
+                + " WHERE " + Qualified.TIME_PUBLISHER_ID + "=" + publisherId
+                + " AND " + Qualified.TIME_ENTRY_TYPE_ID + " <> " + MinistryDatabase.ID_ROLLOVER
+                + " ORDER BY " + Qualified.TIME_DATE_START + " DESC," + Qualified.TIME_TIME_START + " DESC";
+
+        return sqlDB.rawQuery(sql, null);
+    }
 }

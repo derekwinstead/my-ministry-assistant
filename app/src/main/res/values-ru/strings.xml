@@ -27,7 +27,6 @@
     <string name="updating_app">Обновление приложений \ nПожалуйста будьте терпеливы&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Пожалуйста будьте терпеливы&#8230;</string>
-    <string name="service_year">Сервис Год</string>
     <string name="navdrawer_item_publications">Публикации</string>
     <string name="navdrawer_item_householders">Домовладельцы</string>
     <string name="navdrawer_item_publishers">Партнеры</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Имя</string>
     <string name="form_rename">Переименовать</string>
     <string name="form_publisher">Издательство</string>
-    <string name="form_type">Тип</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Типы публикаций</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Готово</string>
     <string name="menu_save">Сохранить</string>
     <string name="menu_share">Поделиться</string>
-    <string name="menu_entries">Записи</string>
     <string name="menu_no_householder">Нет Арендодатель</string>
     <string name="menu_no_publications">Нет Публикации</string>
     <string name="menu_rv_publications_notes">Повторные посещения, Публикации и примечания</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Проверить наличие обновлений</string>
     <string name="pref_update_summary">Проверьте веб-сайт, чтобы увидеть, если есть доступное обновление. Это используется для телефонов или планшетов, которые не имеют на рынке доступны.</string>
     <string name="pref_backup_title">Резервное копирование базы данных</string>
-    <string name="pref_backup_summary">Нажмите, чтобы создать резервную копию базы данных на внешние устройства хранения.</string>
     <string name="pref_restore_title">Восстановление базы данных</string>
     <string name="pref_restore_dialog">База данных восстановить</string>
     <string name="pref_clear_title">Очистить старых резервных копий</string>
-    <string name="pref_clear_summary">Удалить все резервные базы данных, за исключением совсем недавно была создана.</string>
-    <string name="pref_schedule_summary">График ежедневных или еженедельных автоматическое резервное копирование.</string>
     <string name="pref_donate_title">Пожертвовать</string>
     <string name="pref_feedback_cat">Связаться с разработчиком</string>
     <string name="pref_bugs_title">ошибка Представление</string>

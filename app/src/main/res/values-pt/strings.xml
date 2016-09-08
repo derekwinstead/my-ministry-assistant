@@ -27,7 +27,6 @@
     <string name="updating_app">Atualizando aplicativos\nPor favor, seja paciente&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor, seja paciente&#8230;</string>
-    <string name="service_year">Serviço de Ano</string>
     <string name="navdrawer_item_publications">Publicações</string>
     <string name="navdrawer_item_householders">Interessados</string>
     <string name="navdrawer_item_publishers">Publicadores</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Nome</string>
     <string name="form_rename">Renomear</string>
     <string name="form_publisher">Publicador</string>
-    <string name="form_type">Tipo</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Tipos de publicação</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Feito</string>
     <string name="menu_save">Salvar</string>
     <string name="menu_share">Compartilhar</string>
-    <string name="menu_entries">Entradas</string>
     <string name="menu_no_householder">Não há Interessados</string>
     <string name="menu_no_publications">Não há Publicações</string>
     <string name="menu_rv_publications_notes">Revisitas, Publicações, e Anotações</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Verifique se há atualizações</string>
     <string name="pref_update_summary">Confira o site para ver se há uma atualização disponível. Isto é usado para telefones ou tablets que não têm o Market disponível.</string>
     <string name="pref_backup_title">Cópia de segurança dos dados</string>
-    <string name="pref_backup_summary">Toque para criar uma cópia de segurança dos dados.</string>
     <string name="pref_restore_title">Restaurar Dados</string>
     <string name="pref_restore_dialog">Restaurar dados</string>
     <string name="pref_clear_title">Apagar cópias de segurança antigas</string>
-    <string name="pref_clear_summary">Remove todas as cópias de segurança, exceto a criada mais recentemente.</string>
-    <string name="pref_schedule_summary">Programação diária ou backups automáticos semanais.</string>
     <string name="pref_donate_title">Doações</string>
     <string name="pref_feedback_cat">Contate o Desenvolvedor</string>
     <string name="pref_bugs_title">Submissão Erro</string>

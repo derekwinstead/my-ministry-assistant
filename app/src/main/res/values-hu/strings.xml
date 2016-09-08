@@ -27,7 +27,6 @@
     <string name="updating_app">frissítése alkalmazás\nKérjük, legyen türelemmel&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Kérjük, legyen türelemmel&#8230;</string>
-    <string name="service_year">szolgáltatás év</string>
     <string name="navdrawer_item_publications">Kiadványok</string>
     <string name="navdrawer_item_householders">A tulaj</string>
     <string name="navdrawer_item_publishers">Kiadók</string>
@@ -55,7 +54,6 @@
     <string name="form_name">neve</string>
     <string name="form_rename">Átnevezés</string>
     <string name="form_publisher">Kiadó</string>
-    <string name="form_type">Típus</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Kiadványtípusok</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Csinált</string>
     <string name="menu_save">Kivéve</string>
     <string name="menu_share">Részvény</string>
-    <string name="menu_entries">Bejegyzés</string>
     <string name="menu_no_householder">No Householder</string>
     <string name="menu_no_publications">No Kiadványok</string>
     <string name="menu_rv_publications_notes">Visszatérő látogatók, kiadványok, és a Megjegyzések</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Frissítések ellenőrzése</string>
     <string name="pref_update_summary">Ellenőrizze, hogy a honlapján, hogy ha van elérhető frissítés. Ezt használják a telefonok, vagy tabletták, amelyek nem rendelkeznek a piacon elérhető.</string>
     <string name="pref_backup_title">Biztonsági mentés adatbázist</string>
-    <string name="pref_backup_summary">Érintse meg, hogy hozzon létre egy biztonsági másolatot az adatbázis külső tároló.</string>
     <string name="pref_restore_title">Állítsa vissza az adatbázis</string>
     <string name="pref_restore_dialog">Adatbázis visszaállítása</string>
     <string name="pref_clear_title">Tiszta régi mentések</string>
-    <string name="pref_clear_summary">Vegye ki az összes mentési adatbázisok, kivéve a legutóbb létrehozott.</string>
-    <string name="pref_schedule_summary">Menetrend napi vagy heti automatikus mentést.</string>
     <string name="pref_donate_title">Adományoz</string>
     <string name="pref_feedback_cat">Lépjen kapcsolatba a fejlesztő</string>
     <string name="pref_bugs_title">Hiba Benyújtása</string>

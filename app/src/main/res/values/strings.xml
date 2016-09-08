@@ -26,7 +26,6 @@
     <string name="updating_app">Updating Application</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Please be patient&#8230;</string>
-    <string name="service_year">Service Year</string>
     <string name="navdrawer_item_publications">Publications</string>
     <string name="navdrawer_item_householders">Householders</string>
     <string name="navdrawer_item_publishers">Publishers</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Name</string>
     <string name="form_rename">Rename</string>
     <string name="form_publisher">Publisher</string>
-    <string name="form_type">Type</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Publication Types</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Done</string>
     <string name="menu_save">Save</string>
     <string name="menu_share">Share</string>
-    <string name="menu_entries">Entries</string>
     <string name="menu_no_householder">No Householder</string>
     <string name="menu_no_publications">No Publications</string>
     <string name="menu_rv_publications_notes">Return Visits, Publications, and Notes</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Check for an Update</string>
     <string name="pref_update_summary">Check the website to see if there is an update available. This is used for phones or tablets that do not have the market available.</string>
     <string name="pref_backup_title">Backup database</string>
-    <string name="pref_backup_summary">Tap to create a backup of the database on external storage.</string>
     <string name="pref_restore_title">Restore database</string>
     <string name="pref_restore_dialog">Database restore</string>
     <string name="pref_clear_title">Clear old backups</string>
-    <string name="pref_clear_summary">Remove all backup databases except the most recently created.</string>
-    <string name="pref_schedule_summary">Schedule daily or weekly automatic backups.</string>
     <string name="pref_donate_title">Donate</string>
     <string name="pref_feedback_cat">Contact the Developer</string>
     <string name="pref_bugs_title">Bug Submission</string>
@@ -146,7 +140,6 @@
     <string name="navdrawer_item_report">Report</string>
     <string name="menu_create">Create</string>
     <string name="edit">Edit</string>
-    <string name="confirm_deletion_message">This action cannot be undone. Are you sure you want to delete?</string>
     <string name="confirm_deletion_message_publication_types">This action cannot be undone. If you delete this record before transferring any publications associated with this record those publications will no longer be available to select or retrive in any way.\n\nAre you sure you want to delete?</string>
     <string name="is_default">Is Default</string>
     <string name="active">Active</string>

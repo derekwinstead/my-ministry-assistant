@@ -27,7 +27,6 @@
     <string name="updating_app">Actualización de Aplicación\nPor favor sea paciente&#8230;</string>
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor sea paciente&#8230;</string>
-    <string name="service_year">Servicio de Año</string>
     <string name="navdrawer_item_publications">Publicaciones</string>
     <string name="navdrawer_item_householders">Amos de Casa</string>
     <string name="navdrawer_item_publishers">Publicadores</string>
@@ -55,7 +54,6 @@
     <string name="form_name">Nombre</string>
     <string name="form_rename">Renombrar</string>
     <string name="form_publisher">Publicador</string>
-    <string name="form_type">Tipo</string>
     <string name="form_publication_type">Publication Type</string>
     <string name="form_publication_types">Tipos de Publicación</string>
     <string name="form_entry_type">Entry Type</string>
@@ -80,7 +78,6 @@
     <string name="menu_done">Hecho</string>
     <string name="menu_save">Guardar</string>
     <string name="menu_share">Compartir</string>
-    <string name="menu_entries">Entradas</string>
     <string name="menu_no_householder">Sin Amo de Casa</string>
     <string name="menu_no_publications">Sin Publicaciones</string>
     <string name="menu_rv_publications_notes">Revisitas, Publicaciones y Notas</string>
@@ -95,12 +92,9 @@
     <string name="pref_update_title">Comprobar actualizaciones</string>
     <string name="pref_update_summary">Comprobar el sitio web para ver si hay actualizaciones. Esto es útil para dispositivos que no tienen el mercado de aplicaciones disponible.</string>
     <string name="pref_backup_title">Copia de seguridad</string>
-    <string name="pref_backup_summary">Pulse para crear una copia de seguridad en el almacenamiento externo.</string>
     <string name="pref_restore_title">Restaurar copia de seguridad</string>
     <string name="pref_restore_dialog">Restaurar copia de seguridad</string>
     <string name="pref_clear_title">Borrar copias de seguridad antiguas</string>
-    <string name="pref_clear_summary">Borrar todas las copias de seguridad excepto la útlima creada.</string>
-    <string name="pref_schedule_summary">Programe copias de seguridad automáticas diarias o semanales.</string>
     <string name="pref_donate_title">Donar</string>
     <string name="pref_feedback_cat">Comentarios</string>
     <string name="pref_bugs_title">Informar Error</string>
