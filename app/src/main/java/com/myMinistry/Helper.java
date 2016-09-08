@@ -19,7 +19,6 @@ import org.joda.time.format.PeriodFormatterBuilder;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -43,16 +42,11 @@ public class Helper {
         return time;
     }
 
-    public static String numberFormat(Double number) {
-        DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
-        return format.format(number);
-    }
-
     public static boolean renameDB(Context context) {
         /** Create the file */
         File oldDB = context.getDatabasePath(MinistryDatabase.DATABASE_NAME_OLD);
         /** If the file exists we want to rename it to our new DB name :) */
-        if(oldDB.exists())
+        if (oldDB.exists())
             oldDB.renameTo(context.getDatabasePath(MinistryDatabase.DATABASE_NAME));
 
         return true;
@@ -63,17 +57,17 @@ public class Helper {
         boolean deleteDir = true;
 
         File filePath = FileUtils.getExternalDBFile(context, "");
-        File dbPath = new File(FileUtils.getExternalDBFile(context, "").getParent(),"databases");
+        File dbPath = new File(FileUtils.getExternalDBFile(context, "").getParent(), "databases");
         File dbPathOLD = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + context.getPackageName() + ".backup/databases");
 
-        if(!filePath.exists())
+        if (!filePath.exists())
             filePath.mkdirs();
 
         /** Check for old incorrect package name folder structure. */
-        if(dbPathOLD.exists()) {
-            if(dbPathOLD.exists() && dbPathOLD.canWrite()) {
-                if(dbPathOLD.listFiles() != null) {
-                    for(File file : dbPathOLD.listFiles()) {
+        if (dbPathOLD.exists()) {
+            if (dbPathOLD.exists() && dbPathOLD.canWrite()) {
+                if (dbPathOLD.listFiles() != null) {
+                    for (File file : dbPathOLD.listFiles()) {
                         deleteFile = true;
                         try {
                             FileUtils.copyFile(file, new File(filePath, file.getName()));
@@ -82,11 +76,11 @@ public class Helper {
                             deleteDir = false;
                             e.printStackTrace();
                         }
-                        if(deleteFile)
+                        if (deleteFile)
                             file.delete();
                     }
                 }
-                if(deleteDir) {
+                if (deleteDir) {
                     dbPathOLD.delete();
                     new File(dbPathOLD.getParent()).delete();
                 }
@@ -94,10 +88,10 @@ public class Helper {
         }
 
         /** Check for correct package name but using "databases" folder instead of Android default "files". */
-        if(dbPath.exists() && dbPath.canWrite()) {
+        if (dbPath.exists() && dbPath.canWrite()) {
             deleteDir = true;
-            if(dbPath.listFiles() != null) {
-                for(File file : dbPath.listFiles()) {
+            if (dbPath.listFiles() != null) {
+                for (File file : dbPath.listFiles()) {
                     deleteFile = true;
                     try {
                         FileUtils.copyFile(file, new File(filePath, file.getName()));
@@ -106,11 +100,11 @@ public class Helper {
                         deleteDir = false;
                         e.printStackTrace();
                     }
-                    if(deleteFile)
+                    if (deleteFile)
                         file.delete();
                 }
             }
-            if(deleteDir)
+            if (deleteDir)
                 dbPath.delete();
         }
     }
@@ -118,7 +112,7 @@ public class Helper {
     public static double getDifference(Calendar start, Calendar end) {
         Duration dur = new Duration(new DateTime(start), new DateTime(end));
         Period per = dur.toPeriod();
-        return (double)per.getHours() + ((double)per.getMinutes() / 60.0);
+        return (double) per.getHours() + ((double) per.getMinutes() / 60.0);
     }
 
     public static String getMinuteDuration(Cursor cursor) {
@@ -129,7 +123,7 @@ public class Helper {
         Duration dur = new Duration(new DateTime(start), new DateTime(start));
         Duration durchange = new Duration(new DateTime(start), new DateTime(start));
 
-        for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             try {
                 start.setTime(saveDateFormat.parse(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE_START))));
             } catch (Exception e) {
@@ -163,12 +157,12 @@ public class Helper {
             }
         };
 
-        if(extDBDir != null && extDBDir.exists()) {
+        if (extDBDir != null && extDBDir.exists()) {
             File[] files = extDBDir.listFiles(filter);
-            if(files.length > 1) {
+            if (files.length > 1) {
                 File lastModifiedFile = files[0];
-                for(int i = 1; i < files.length; i++) {
-                    if(lastModifiedFile.lastModified() < files[i].lastModified()) {
+                for (int i = 1; i < files.length; i++) {
+                    if (lastModifiedFile.lastModified() < files[i].lastModified()) {
                         lastModifiedFile = files[i];
                     }
                 }
@@ -182,15 +176,13 @@ public class Helper {
 
                 files = extDBDir.listFiles(filter);
 
-                for(int i = 0; i < files.length; i++)
+                for (int i = 0; i < files.length; i++)
                     files[i].delete();
 
                 return 1;
-            }
-            else
+            } else
                 return 2;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -199,22 +191,30 @@ public class Helper {
     }
 
     public static int getIconResIDByLitTypeID(int litTypeID) {
-        switch(litTypeID) {
-            case MinistryDatabase.ID_BOOKS: return R.drawable.ic_action_book;
-            case MinistryDatabase.ID_MAGAZINES: return R.drawable.ic_mag;
-            case MinistryDatabase.ID_MEDIA: return R.drawable.ic_media;
-            case MinistryDatabase.ID_TRACTS: return R.drawable.ic_tracts;
-            case MinistryDatabase.ID_BROCHURES: return R.drawable.ic_booklets;
-            case MinistryDatabase.ID_VIDEOS_TO_SHOW: return R.drawable.ic_video;
-            default : return R.drawable.ic_action_default;
+        switch (litTypeID) {
+            case MinistryDatabase.ID_BOOKS:
+                return R.drawable.ic_action_book;
+            case MinistryDatabase.ID_MAGAZINES:
+                return R.drawable.ic_mag;
+            case MinistryDatabase.ID_MEDIA:
+                return R.drawable.ic_media;
+            case MinistryDatabase.ID_TRACTS:
+                return R.drawable.ic_tracts;
+            case MinistryDatabase.ID_BROCHURES:
+                return R.drawable.ic_booklets;
+            case MinistryDatabase.ID_VIDEOS_TO_SHOW:
+                return R.drawable.ic_video;
+            default:
+                return R.drawable.ic_action_default;
         }
     }
 
     /**
      * Returns a String formatted in the default locale of the device. Looks like "Ddd, Mmm dd, H:MMTT - H:MMTT
+     *
      * @param context the {@link android.content.Context} that this is running within.
-     * @param start the starting date and time of this entry.
-     * @param end the ending date and time of this entry.
+     * @param start   the starting date and time of this entry.
+     * @param end     the ending date and time of this entry.
      */
     public static String buildTimeEntryDateAndTime(Context context, Calendar start, Calendar end) {
         return DateUtils.formatDateRange(context, start.getTimeInMillis(), end.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY | DateUtils.FORMAT_NO_YEAR);

@@ -91,15 +91,7 @@
     <string name="menu_more">еще</string>
     <string name="menu_count_as_return_visit">Считать как с ответным визитом</string>
     <string name="menu_do_not_count_as_return_visit">Не рассчитывайте, как с ответным визитом</string>
-    <string name="menu_sort">Сортировка</string>
-    <string name="menu_sort_alpha_asc">Сортировать по имени</string>
-    <string name="menu_sort_alpha_desc">Сортировать по имени вспять</string>
-    <string name="menu_sort_most_used">Сортировать по используется</string>
-    <string name="menu_sort_most_placed">Сортировать по помещены</string>
-    <string name="menu_sort_last_visit">Сортировать по дате последнего визита</string>
-    <string name="menu_sort_last_visit_reversed">Сортировать по дате последнего визита вспять</string>
     <string name="menu_send_report">Отправить отчет</string>
-    <string name="menu_add_time">Добавить время</string>
     <string name="pref_update_title">Проверить наличие обновлений</string>
     <string name="pref_update_summary">Проверьте веб-сайт, чтобы увидеть, если есть доступное обновление. Это используется для телефонов или планшетов, которые не имеют на рынке доступны.</string>
     <string name="pref_backup_title">Резервное копирование базы данных</string>
@@ -115,7 +107,6 @@
     <string name="pref_features_title">Запрос о возможностях</string>
     <string name="pref_translations_title">Перевод Запрос</string>
     <string name="pref_about_licenses">Лицензии открытого ПО</string>
-    <string name="pref_version">Версия</string>
     <string name="pref_version_summary">Спасибо за загрузку. Наслаждайтесь!</string>
     <string name="pref_rollover_summary">Рассчитать время опрокидывания.</string>
     <string name="pref_show_minutes_title">Минуты Основная</string>

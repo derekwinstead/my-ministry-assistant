@@ -91,15 +91,7 @@
     <string name="menu_more">több</string>
     <string name="menu_count_as_return_visit">Számít a visszatérő látogatás</string>
     <string name="menu_do_not_count_as_return_visit">Nem számít a visszatérő látogatás</string>
-    <string name="menu_sort">Rendezés</string>
-    <string name="menu_sort_alpha_asc">Rendezés név szerint</string>
-    <string name="menu_sort_alpha_desc">Rendezés név szerint fordított</string>
-    <string name="menu_sort_most_used">Rendezés leggyakrabban használt</string>
-    <string name="menu_sort_most_placed">Rendezés legtöbb elhelyezett</string>
-    <string name="menu_sort_last_visit">Rendezés utolsó látogatás dátuma</string>
-    <string name="menu_sort_last_visit_reversed">Rendezés utolsó látogatás dátuma fordított</string>
     <string name="menu_send_report">Send Report</string>
-    <string name="menu_add_time">Add idő</string>
     <string name="pref_update_title">Frissítések ellenőrzése</string>
     <string name="pref_update_summary">Ellenőrizze, hogy a honlapján, hogy ha van elérhető frissítés. Ezt használják a telefonok, vagy tabletták, amelyek nem rendelkeznek a piacon elérhető.</string>
     <string name="pref_backup_title">Biztonsági mentés adatbázist</string>
@@ -115,7 +107,6 @@
     <string name="pref_features_title">Funkció Kérése</string>
     <string name="pref_translations_title">Fordítás kérelem</string>
     <string name="pref_about_licenses">Nyílt forráskódú licencek</string>
-    <string name="pref_version">Változat</string>
     <string name="pref_version_summary">Köszönjük a letöltést. Jó szórakozást!</string>
     <string name="pref_rollover_summary">Számolja ki a hátralévő időt.</string>
     <string name="pref_show_minutes_title">Percig Összegzés</string>

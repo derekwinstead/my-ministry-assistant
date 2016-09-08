@@ -91,15 +91,7 @@
     <string name="menu_more">más</string>
     <string name="menu_count_as_return_visit">Se cuenta como una nueva visita</string>
     <string name="menu_do_not_count_as_return_visit">No contará como una nueva visita</string>
-    <string name="menu_sort">Ordenar</string>
-    <string name="menu_sort_alpha_asc">Ordenar por nombre</string>
-    <string name="menu_sort_alpha_desc">Ordenar por nombre invirtió</string>
-    <string name="menu_sort_most_used">Ordenar por más utilizado</string>
-    <string name="menu_sort_most_placed">Ordenar por puesto</string>
-    <string name="menu_sort_last_visit">Ordenar por fecha de la última visita</string>
-    <string name="menu_sort_last_visit_reversed">Ordenar por fecha de la última visita revirtió</string>
     <string name="menu_send_report">Enviar informe</string>
-    <string name="menu_add_time">Añadir Tiempo</string>
     <string name="pref_update_title">Comprobar actualizaciones</string>
     <string name="pref_update_summary">Comprobar el sitio web para ver si hay actualizaciones. Esto es útil para dispositivos que no tienen el mercado de aplicaciones disponible.</string>
     <string name="pref_backup_title">Copia de seguridad</string>
@@ -115,7 +107,6 @@
     <string name="pref_features_title">Solicitar Nuevas Funciones</string>
     <string name="pref_translations_title">Solicitar Traducción</string>
     <string name="pref_about_licenses">Licencias de código abierto</string>
-    <string name="pref_version">Versión</string>
     <string name="pref_version_summary">Gracias por descargarla. Disfrútala!</string>
     <string name="pref_rollover_summary">Calcular el tiempo de transferencia.</string>
     <string name="pref_show_minutes_title">Minutos en el Sumario</string>

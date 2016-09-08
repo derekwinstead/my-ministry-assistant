@@ -10,13 +10,8 @@ import com.myMinistry.provider.MinistryDatabase;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Utilities and constants related to app preferences.
- */
 public class PrefUtils {
-    private static final String PREF_PUBLISHER_NAME = "publisher_name";
     private static final String PREF_VERSION_NUMBER = "version_number";
-    private static final String PREF_HAS_OPENED_BEFORE = "has_opened_before";
     private static final String PREF_AUTO_BACKUPS = "db_do_auto_backups";
     private static final String PREF_BACKUP_DAILY_TIME = "db_backup_daily_time";
     private static final String PREF_BACKUP_WEEKLY_TIME = "db_backup_weekly_time";
@@ -26,34 +21,14 @@ public class PrefUtils {
     private static final String PREF_SUMMARY_YEAR = "saved_year";
     private static final String PREF_LOCALE = "locale";
 
-    public static boolean hasOpenedBefore(final Context context) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        return sp.getBoolean(PREF_HAS_OPENED_BEFORE, false);
-    }
-
-    public static void markOpenedBefore(final Context context) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putBoolean(PREF_HAS_OPENED_BEFORE, true).commit();
-    }
-
     public static int getSummaryMonth(final Context context, Calendar date) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getInt(PREF_SUMMARY_MONTH, date.get(Calendar.MONTH));
     }
 
-    public static void setSummaryMonth(final Context context, Calendar date) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putInt(PREF_SUMMARY_MONTH, date.get(Calendar.MONTH)).commit();
-    }
-
     public static int getSummaryYear(final Context context, Calendar date) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getInt(PREF_SUMMARY_YEAR, date.get(Calendar.YEAR));
-    }
-
-    public static void setSummaryYear(final Context context, Calendar date) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putInt(PREF_SUMMARY_YEAR, date.get(Calendar.YEAR)).commit();
     }
 
     public static void setSummaryMonthAndYear(final Context context, Calendar date) {

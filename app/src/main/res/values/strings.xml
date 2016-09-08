@@ -91,14 +91,7 @@
     <string name="menu_more">More</string>
     <string name="menu_count_as_return_visit">Count as a return visit</string>
     <string name="menu_do_not_count_as_return_visit">Do not count as a return visit</string>
-    <string name="menu_sort">Sorting</string>
-    <string name="menu_sort_alpha_asc">Sort by name</string>
-    <string name="menu_sort_alpha_desc">Sort by name reversed</string>
-    <string name="menu_sort_most_used">Sort by most used</string>
-    <string name="menu_sort_most_placed">Sort by most placed</string>
-    <string name="menu_sort_last_visit">Sort by last visit date</string>
     <string name="menu_send_report">Send Report</string>
-    <string name="menu_add_time">Add Time</string>
     <string name="pref_update_title">Check for an Update</string>
     <string name="pref_update_summary">Check the website to see if there is an update available. This is used for phones or tablets that do not have the market available.</string>
     <string name="pref_backup_title">Backup database</string>
@@ -114,7 +107,6 @@
     <string name="pref_features_title">Feature Request</string>
     <string name="pref_translations_title">Translation Request</string>
     <string name="pref_about_licenses">Open source licenses</string>
-    <string name="pref_version">Version</string>
     <string name="pref_version_summary">Thank you for downloading. Enjoy!</string>
     <string name="pref_rollover_summary">Calculate rollover time.</string>
     <string name="pref_show_minutes_title">Minutes in Summary</string>

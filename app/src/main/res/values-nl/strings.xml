@@ -91,15 +91,7 @@
     <string name="menu_more">meer</string>
     <string name="menu_count_as_return_visit">Tellen als een tegenbezoek</string>
     <string name="menu_do_not_count_as_return_visit">Niet als een tegenbezoek</string>
-    <string name="menu_sort">Rangschikken</string>
-    <string name="menu_sort_alpha_asc">Sorteren op naam</string>
-    <string name="menu_sort_alpha_desc">Sorteren op naam teruggedraaid</string>
-    <string name="menu_sort_most_used">Sorteer op gebruikte</string>
-    <string name="menu_sort_most_placed">Sorteer op geplaatst</string>
-    <string name="menu_sort_last_visit">Sorteren op laatste bezoek datum</string>
-    <string name="menu_sort_last_visit_reversed">Sorteren op laatste bezoek datum teruggedraaid</string>
     <string name="menu_send_report">Rapport verzenden</string>
-    <string name="menu_add_time">Voeg Tijd</string>
     <string name="pref_update_title">Check voor een update</string>
     <string name="pref_update_summary">Check de website om te zien of er een update is. Dit wordt gebruikt voor smartphone of tablet die niet aan de market kan.</string>
     <string name="pref_backup_title">Maak een backup van de database</string>
@@ -115,7 +107,6 @@
     <string name="pref_features_title">Feature Aanvragen</string>
     <string name="pref_translations_title">Vertaling Aanvragen</string>
     <string name="pref_about_licenses">Open source licentie</string>
-    <string name="pref_version">Versie</string>
     <string name="pref_version_summary">Bedankt om te downloaden! Veel plezier ermee!</string>
     <string name="pref_rollover_summary">Bereken overlap tijd.</string>
     <string name="pref_show_minutes_title">Minuten in de Samenvatting</string>

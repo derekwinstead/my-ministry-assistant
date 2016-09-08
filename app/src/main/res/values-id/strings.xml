@@ -91,15 +91,7 @@
     <string name="menu_more">lebih</string>
     <string name="menu_count_as_return_visit">Dihitung sebagai kunjungan kembali</string>
     <string name="menu_do_not_count_as_return_visit">Tidak dihitung sebagai sebuah kunjungan kembali</string>
-    <string name="menu_sort">Menyortir</string>
-    <string name="menu_sort_alpha_asc">Urutkan berdasarkan nama</string>
-    <string name="menu_sort_alpha_desc">Urutkan berdasarkan nama terbalik</string>
-    <string name="menu_sort_most_used">Urutkan berdasarkan paling banyak digunakan</string>
-    <string name="menu_sort_most_placed">Urutkan oleh kebanyakan ditempatkan</string>
-    <string name="menu_sort_last_visit">Urut berdasarkan Tanggal kunjungan terakhir</string>
-    <string name="menu_sort_last_visit_reversed">Urut berdasarkan Tanggal kunjungan terakhir terbalik</string>
     <string name="menu_send_report">Kirim Laporan</string>
-    <string name="menu_add_time">Tambahkan Waktu</string>
     <string name="pref_update_title">Cek Update</string>
     <string name="pref_update_summary">Cek situs web apakah update sudah tersedia. Ini dipakai untuk telepon atau tablet yang tidak bisa mendapatkan update di pasar.</string>
     <string name="pref_backup_title">Backup basis data</string>
@@ -115,7 +107,6 @@
     <string name="pref_features_title">Permintaan Fitur</string>
     <string name="pref_translations_title">Permintaan Terjemahan</string>
     <string name="pref_about_licenses">Buka izin sumber</string>
-    <string name="pref_version">Versi</string>
     <string name="pref_version_summary">Terima kasih telah mengunduh. Selamat menikmati!</string>
     <string name="pref_rollover_summary">Hitung waktu bergulir.</string>
     <string name="pref_show_minutes_title">Menit Rangkuman</string>

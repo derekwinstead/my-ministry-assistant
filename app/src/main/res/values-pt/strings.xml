@@ -91,15 +91,7 @@
     <string name="menu_more">mais</string>
     <string name="menu_count_as_return_visit">Conte como uma visita de retorno</string>
     <string name="menu_do_not_count_as_return_visit">Não conte como uma visita de retorno</string>
-    <string name="menu_sort">Ordenar</string>
-    <string name="menu_sort_alpha_asc">Ordenar por nome</string>
-    <string name="menu_sort_alpha_desc">Ordenar por nome invertido</string>
-    <string name="menu_sort_most_used">Ordenar por mais utilizada</string>
-    <string name="menu_sort_most_placed">Ordenar por mais colocado</string>
-    <string name="menu_sort_last_visit">Ordenar por data da última visita</string>
-    <string name="menu_sort_last_visit_reversed">Ordenar por data da última visita revertida</string>
     <string name="menu_send_report">Enviar relatório</string>
-    <string name="menu_add_time">Adicionar Tempo</string>
     <string name="pref_update_title">Verifique se há atualizações</string>
     <string name="pref_update_summary">Confira o site para ver se há uma atualização disponível. Isto é usado para telefones ou tablets que não têm o Market disponível.</string>
     <string name="pref_backup_title">Cópia de segurança dos dados</string>
@@ -115,7 +107,6 @@
     <string name="pref_features_title">Solicitação de recurso</string>
     <string name="pref_translations_title">Pedido de Tradução</string>
     <string name="pref_about_licenses">Licenças de código aberto</string>
-    <string name="pref_version">Versão</string>
     <string name="pref_version_summary">Obrigado por baixar. Divirta-se!</string>
     <string name="pref_rollover_summary">Calcule o tempo de transferência.</string>
     <string name="pref_show_minutes_title">Minutos Em Síntese</string>
