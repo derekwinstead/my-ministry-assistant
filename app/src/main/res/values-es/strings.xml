@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor sea paciente&#8230;</string>
     <string name="service_year">Servicio de Año</string>
-    <string name="navdrawer_item_select_publisher">Seleccionar un publicador</string>
-    <string name="navdrawer_item_summary">Sumario</string>
     <string name="navdrawer_item_publications">Publicaciones</string>
     <string name="navdrawer_item_householders">Amos de Casa</string>
     <string name="navdrawer_item_publishers">Publicadores</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Cabeza de Familia Modificar</string>
     <string name="title_publisher_edit">Publicador Modificar</string>
     <string name="title_publication_edit">Modificar Publicación</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Sobrante Mes Anterior</string>
     <string name="default_bible_study">Estudio de la Biblia</string>
     <string name="default_return_visit">Revisitas</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nNota: Este es un tipo de entrada única para administrar el tiempo de vuelco. No puedes activarla. No crear manualmente un tipo de entrada de vuelco, ya que se utilizará para hacer los cálculos automáticos.\n****************</string>
     <string name="pref_locale">Idioma</string>
     <string name="pref_locale_selected">Actual: {locale}</string>
-    <string name="custom">Personalizado</string>
     <string name="default_videos">Vídeos</string>
     <string name="form_gender">Género</string>
     <string name="gender_male">Masculino</string>

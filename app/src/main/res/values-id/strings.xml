@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Harap bersabar&#8230;</string>
     <string name="service_year">layanan Tahun</string>
-    <string name="navdrawer_item_select_publisher">Válassza ki a Publisher</string>
-    <string name="navdrawer_item_summary">Ringkasan</string>
     <string name="navdrawer_item_publications">Publikasi</string>
     <string name="navdrawer_item_householders">Penghuni Rumah</string>
     <string name="navdrawer_item_publishers">Penyiar</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Householder Sunting</string>
     <string name="title_publisher_edit">Memodifikasi Proklamator</string>
     <string name="title_publication_edit">Modifikasi Publikasi</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Waktu Bergulir</string>
     <string name="default_bible_study">Pelajaran Alkitab</string>
     <string name="default_return_visit">Kunjungan Kembali</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nCatatan: Ini adalah jenis entri yang unik untuk mengatur waktu rollover. Anda tidak bisa membuatnya aktif. Jangan manual membuat jenis entri rollover karena hal ini akan digunakan untuk melakukan perhitungan otomatis.\n****************</string>
     <string name="pref_locale">Bahasa</string>
     <string name="pref_locale_selected">Saat: {locale}</string>
-    <string name="custom">adat</string>
     <string name="default_videos">Video</string>
     <string name="form_gender">Jenis kelamin</string>
     <string name="gender_male">Pria</string>

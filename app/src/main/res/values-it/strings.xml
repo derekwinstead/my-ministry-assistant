@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Si prega di essere pazienti&#8230;</string>
     <string name="service_year">Servizio Anno</string>
-    <string name="navdrawer_item_select_publisher">Pilih Penyiar</string>
-    <string name="navdrawer_item_summary">Sommario</string>
     <string name="navdrawer_item_publications">Pubblicazioni</string>
     <string name="navdrawer_item_householders">Padroni di Casa</string>
     <string name="navdrawer_item_publishers">Proclamatori</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Padrone di casa Edit</string>
     <string name="title_publisher_edit">Modificare Proclamatori</string>
     <string name="title_publication_edit">Modificare Pubblicazione</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Tempo avanzato</string>
     <string name="default_bible_study">Studio Biblico</string>
     <string name="default_return_visit">Visita Ulteriore</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nNota: Questo è un tipo di voce unica per gestire il tempo rollover. Non è possibile renderlo attivo. Non creare manualmente un tipo di voce rollover come questo sarà usato per fare calcoli automatici.\n****************</string>
     <string name="pref_locale">Lingua</string>
     <string name="pref_locale_selected">Corrente: {locale}</string>
-    <string name="custom">abitudine</string>
     <string name="default_videos">Video</string>
     <string name="form_gender">Genere</string>
     <string name="gender_male">Maschio</string>

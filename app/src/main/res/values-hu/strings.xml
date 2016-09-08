@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Kérjük, legyen türelemmel&#8230;</string>
     <string name="service_year">szolgáltatás év</string>
-    <string name="navdrawer_item_select_publisher">Sélectionnez un éditeur</string>
-    <string name="navdrawer_item_summary">Összefoglalás</string>
     <string name="navdrawer_item_publications">Kiadványok</string>
     <string name="navdrawer_item_householders">A tulaj</string>
     <string name="navdrawer_item_publishers">Kiadók</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Házigazdához Szerkesztés</string>
     <string name="title_publisher_edit">Módosítása Kikiáltó</string>
     <string name="title_publication_edit">Módosítása Közzététele</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Fennmaradó idő</string>
     <string name="default_bible_study">Bibliatanulmányozás</string>
     <string name="default_return_visit">Újralátogatás</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nMegjegyzés: Ez egy egyedülálló bejegyzés típusát kezelni borulás időt. Nem lehet, hogy ez aktív. Ne manuálisan létrehozni egy borulás bejegyzés típusát, mert ez lesz használva, hogy nem minden automatikus számítást.\n****************</string>
     <string name="pref_locale">Nyelv</string>
     <string name="pref_locale_selected">Aktuális: {locale}</string>
-    <string name="custom">szokás</string>
     <string name="default_videos">Videók</string>
     <string name="form_gender">nem</string>
     <string name="gender_male">Férfi</string>

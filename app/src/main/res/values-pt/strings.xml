@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Por favor, seja paciente&#8230;</string>
     <string name="service_year">Serviço de Ano</string>
-    <string name="navdrawer_item_select_publisher">Kies een Verkondiger</string>
-    <string name="navdrawer_item_summary">Relatório</string>
     <string name="navdrawer_item_publications">Publicações</string>
     <string name="navdrawer_item_householders">Interessados</string>
     <string name="navdrawer_item_publishers">Publicadores</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Chefe de família Edite</string>
     <string name="title_publisher_edit">Modificar Proclaimer</string>
     <string name="title_publication_edit">Modificar Publicação</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Tempo Transferido</string>
     <string name="default_bible_study">Estudos Bíblicos</string>
     <string name="default_return_visit">Revisitas</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nNota: Este é um tipo de entrada única para gerir o tempo de sobreposição. Você não pode torná-la ativa. Não crie manualmente um tipo de entrada rollover como isso vai ser usado para fazer todos os cálculos automáticos.\n****************</string>
     <string name="pref_locale">Língua</string>
     <string name="pref_locale_selected">Atual: {locale}</string>
-    <string name="custom">Personalizadas</string>
     <string name="default_videos">Vídeos</string>
     <string name="form_gender">Gênero</string>
     <string name="gender_male">Masculino</string>

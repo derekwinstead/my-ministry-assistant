@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Bekræft sletning</string>
     <string name="please_be_patient">Ven venligst&#8230;</string>
     <string name="service_year">Tjenesteår</string>
-    <string name="navdrawer_item_select_publisher">Vælg forkynder</string>
-    <string name="navdrawer_item_summary">Opsummering</string>
     <string name="navdrawer_item_publications">Publikationer</string>
     <string name="navdrawer_item_householders">Beboere</string>
     <string name="navdrawer_item_publishers">Forkyndere</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Editér beboer</string>
     <string name="title_publisher_edit">Editér forkynder</string>
     <string name="title_publication_edit">Editér publikation</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Rollover Time</string>
     <string name="default_bible_study">Bibelstudie</string>
     <string name="default_return_visit">Genbesøg</string>

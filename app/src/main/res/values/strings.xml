@@ -27,8 +27,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Please be patient&#8230;</string>
     <string name="service_year">Service Year</string>
-    <string name="navdrawer_item_select_publisher">Select a Publisher</string>
-    <string name="navdrawer_item_summary">Summary</string>
     <string name="navdrawer_item_publications">Publications</string>
     <string name="navdrawer_item_householders">Householders</string>
     <string name="navdrawer_item_publishers">Publishers</string>
@@ -40,11 +38,6 @@
     <string name="title_householder_edit">Householder Edit</string>
     <string name="title_publisher_edit">Publisher Edit</string>
     <string name="title_publication_edit">Publication Edit</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Rollover Time</string>
     <string name="default_bible_study">Bible Study</string>
     <string name="default_return_visit">Return Visit</string>
@@ -151,7 +144,6 @@
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>
     <string name="pref_locale">Language</string>
     <string name="pref_locale_selected">Currently: {locale}</string>
-    <string name="custom">Custom</string>
     <string name="form_gender">Gender</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>

@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Een ogenblik aub&#8230;</string>
     <string name="service_year">dienst Jaar</string>
-    <string name="navdrawer_item_select_publisher">Seleziona Proclamatore</string>
-    <string name="navdrawer_item_summary">Overzicht</string>
     <string name="navdrawer_item_publications">Publicaties</string>
     <string name="navdrawer_item_householders">Huisbewoners</string>
     <string name="navdrawer_item_publishers">Verkondigers</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Huishouder Bewerken</string>
     <string name="title_publisher_edit">Wijzig Proclaimer</string>
     <string name="title_publication_edit">Publicatie Wijzigen</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Overlap Tijd</string>
     <string name="default_bible_study">Bijbelstudie</string>
     <string name="default_return_visit">Nabezoek</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nOpmerking: Dit is een uniek item type om rollover tijd te beheren. Je kan het niet actief te maken. Niet handmatig een soort rollover item als dit zal worden gebruikt om een automatische berekeningen te doen.\n****************</string>
     <string name="pref_locale">Taal</string>
     <string name="pref_locale_selected">Huidige: {locale}</string>
-    <string name="custom">gewoonte</string>
     <string name="default_videos">Videos</string>
     <string name="form_gender">Geslacht</string>
     <string name="gender_male">Mannetje</string>

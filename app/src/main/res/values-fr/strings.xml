@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">S\'il vous plaît être patient&#8230;</string>
     <string name="service_year">Année service</string>
-    <string name="navdrawer_item_select_publisher">Seleccionar Publicador</string>
-    <string name="navdrawer_item_summary">Sommaire</string>
     <string name="navdrawer_item_publications">Publications</string>
     <string name="navdrawer_item_householders">ménages</string>
     <string name="navdrawer_item_publishers">Proclamateurs</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Maître de Maison Modifier</string>
     <string name="title_publisher_edit">Proclamateurs Modifier</string>
     <string name="title_publication_edit">Modifier Publication</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Survolez Temps</string>
     <string name="default_bible_study">étude de la Bible</string>
     <string name="default_return_visit">Retour visite</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nRemarque: Ce est un type d\'entrée unique pour gérer le temps de renversement. Vous ne pouvez pas le rendre actif. Ne pas créer manuellement un type d\'entrée de roulement comme il sera utilisé pour faire des calculs automatiques.\n****************</string>
     <string name="pref_locale">Langue</string>
     <string name="pref_locale_selected">Courant: {locale}</string>
-    <string name="custom">coutume</string>
     <string name="default_videos">Vidéos</string>
     <string name="form_gender">Le Genre</string>
     <string name="gender_male">Mâle</string>

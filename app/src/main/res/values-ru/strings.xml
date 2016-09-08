@@ -28,8 +28,6 @@
     <string name="confirm_deletion">Confirm Deletion</string>
     <string name="please_be_patient">Пожалуйста будьте терпеливы&#8230;</string>
     <string name="service_year">Сервис Год</string>
-    <string name="navdrawer_item_select_publisher">Выберите Издатель</string>
-    <string name="navdrawer_item_summary">Основная</string>
     <string name="navdrawer_item_publications">Публикации</string>
     <string name="navdrawer_item_householders">Домовладельцы</string>
     <string name="navdrawer_item_publishers">Партнеры</string>
@@ -41,11 +39,6 @@
     <string name="title_householder_edit">Арендодатель Редактировать</string>
     <string name="title_publisher_edit">Изменить проповедует</string>
     <string name="title_publication_edit">Изменить Публикация</string>
-    <string name="tab_item_householders">@string/navdrawer_item_householders</string>
-    <string name="tab_item_publishers">@string/navdrawer_item_publishers</string>
-    <string name="tab_item_entry_types">@string/navdrawer_item_entry_types</string>
-    <string name="tab_item_backups">@string/navdrawer_item_backups</string>
-    <string name="tab_item_schedule_backups">@string/menu_schedule_backups</string>
     <string name="default_rollover_time">Перевернулся Время</string>
     <string name="default_bible_study">Изучение Библии</string>
     <string name="default_return_visit">Вернуться посещение</string>
@@ -152,7 +145,6 @@
     <string name="note_rollover_edit">****************\nПримечание: Это уникальный тип записи управлять временем опрокидывания. Вы не можете сделать его активным. Не вручную создать тип записи опрокидывания, как это будет использоваться, чтобы сделать какие-либо автоматизированные расчеты.\n****************</string>
     <string name="pref_locale">язык</string>
     <string name="pref_locale_selected">Ток: {locale}</string>
-    <string name="custom">обычай</string>
     <string name="default_videos">Видео</string>
     <string name="form_gender">Пол</string>
     <string name="gender_male">мужчина</string>
