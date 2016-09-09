@@ -56,17 +56,13 @@
             android:src="@drawable/ic_action_next_item" />
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/view_entries"
+        style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="@dimen/default_padding"
-        android:text="@string/placeholder_lorem_ipsum"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium" />
+        android:text="@string/placeholder_lorem_ipsum" />
 
     <Spinner
         android:id="@+id/publishers"

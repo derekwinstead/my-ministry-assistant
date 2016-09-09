@@ -53,7 +53,7 @@ public class Helper {
     }
 
     public static void renameAndMoveBackups(Context context) {
-        boolean deleteFile = true;
+        boolean deleteFile;
         boolean deleteDir = true;
 
         File filePath = FileUtils.getExternalDBFile(context, "");
@@ -121,7 +121,6 @@ public class Helper {
         Calendar end = Calendar.getInstance(Locale.getDefault());
 
         Duration dur = new Duration(new DateTime(start), new DateTime(start));
-        Duration durchange = new Duration(new DateTime(start), new DateTime(start));
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             try {
@@ -135,7 +134,7 @@ public class Helper {
                 end = Calendar.getInstance(Locale.getDefault());
             }
 
-            durchange = new Duration(new DateTime(start), new DateTime(end));
+            Duration durchange = new Duration(new DateTime(start), new DateTime(end));
             dur = dur.withDurationAdded(durchange, 1);
         }
 
@@ -176,8 +175,9 @@ public class Helper {
 
                 files = extDBDir.listFiles(filter);
 
-                for (int i = 0; i < files.length; i++)
-                    files[i].delete();
+                for (File file : files) {
+                    file.delete();
+                }
 
                 return 1;
             } else

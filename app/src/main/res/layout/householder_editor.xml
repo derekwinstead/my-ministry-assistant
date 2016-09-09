@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <EditText
+                    <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/form_address"
@@ -60,7 +60,7 @@
                         android:layout_marginRight="@dimen/default_padding_half"
                         android:layout_weight="1">
 
-                        <EditText
+                        <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/form_phone_mobile"
@@ -76,7 +76,7 @@
                         android:layout_marginStart="@dimen/default_padding_half"
                         android:layout_weight="1">
 
-                        <EditText
+                        <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/form_phone_home"
@@ -99,7 +99,7 @@
                         android:layout_marginRight="@dimen/default_padding_half"
                         android:layout_weight="1">
 
-                        <EditText
+                        <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/form_phone_work"
@@ -115,7 +115,7 @@
                         android:layout_marginStart="@dimen/default_padding_half"
                         android:layout_weight="1">
 
-                        <EditText
+                        <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/form_phone_other"
@@ -135,18 +135,13 @@
                     android:textColor="@color/holo_grey_light" />
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/view_activity"
+                style="@style/buttonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/default_padding_double"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:padding="@dimen/default_padding"
-                android:text="@string/recent_activity"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_medium" />
+                android:text="@string/recent_activity" />
         </LinearLayout>
     </ScrollView>
 

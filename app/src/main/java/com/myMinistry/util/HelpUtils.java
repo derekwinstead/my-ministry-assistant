@@ -77,8 +77,9 @@ public class HelpUtils {
         try {
             currentVersionNumber = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        return currentVersionNumber > PrefUtils.getVersionNumber(context) ? true : false;
+        return currentVersionNumber > PrefUtils.getVersionNumber(context);
     }
 
     public static void doApplicationUpdatedWork(Context mContext) {
@@ -88,6 +89,7 @@ public class HelpUtils {
         try {
             currentVersionNumber = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionCode;
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (savedVersionNumber <= 161) {
@@ -106,6 +108,7 @@ public class HelpUtils {
                     FileUtils.copyFile(intDB, extDB);
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             }
 
             // This is to recalculate everyone's roll over time entries.
@@ -185,7 +188,7 @@ public class HelpUtils {
         MinistryService database = new MinistryService(mContext);
         database.openWritable();
         Calendar start = Calendar.getInstance(Locale.getDefault());
-        int pubID = 0;
+        int pubID;
 
         // Loop over each publisher for each available month to convert
         if (!database.isOpen())

@@ -39,9 +39,8 @@ public class TimeUtils {
         Calendar end = Calendar.getInstance(Locale.getDefault());
 
         Duration dur = new Duration(null, null);
-        Duration durchange = new Duration(null, null);
 
-        for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             try {
                 start.setTime(saveDateFormat.parse(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE_START))));
             } catch (Exception e) {
@@ -53,7 +52,7 @@ public class TimeUtils {
                 end = Calendar.getInstance(Locale.getDefault());
             }
 
-            durchange = new Duration(new DateTime(start), new DateTime(end));
+            Duration durchange = new Duration(new DateTime(start), new DateTime(end));
             dur = dur.withDurationAdded(durchange, 1);
         }
 
@@ -61,7 +60,7 @@ public class TimeUtils {
 
         PeriodFormatter retVal;
 
-        if(showMinutes) {
+        if (showMinutes) {
             retVal = new PeriodFormatterBuilder()
                     .printZeroRarelyFirst()
                     .appendHours()
@@ -70,8 +69,7 @@ public class TimeUtils {
                     .appendMinutes()
                     .appendSuffix(m)
                     .toFormatter();
-        }
-        else {
+        } else {
             retVal = new PeriodFormatterBuilder()
                     .printZeroAlways()
                     .appendHours()

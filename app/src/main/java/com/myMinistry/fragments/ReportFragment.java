@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -46,7 +47,8 @@ public class ReportFragment extends Fragment {
 
     private FloatingActionButton fab;
 
-    private TextView total_hours_count, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, placements_count, video_showings, view_entries;
+    private TextView total_hours_count, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, placements_count, video_showings;
+    private Button view_entries;
     private LinearLayout placement_list;
     private Calendar monthPicked = Calendar.getInstance();
     private int publisherId = 0;
@@ -94,7 +96,7 @@ public class ReportFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
         publishers = (Spinner) root.findViewById(R.id.publishers);
-        view_entries = (TextView) root.findViewById(R.id.view_entries);
+        view_entries = (Button) root.findViewById(R.id.view_entries);
 
         month = (TextView) root.findViewById(R.id.month);
         year = (TextView) root.findViewById(R.id.year);

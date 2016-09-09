@@ -150,5 +150,6 @@
     <string name="snackbar_backups_scheduled">Automatic backups have been scheduled</string>
     <string name="snackbar_backups_disabled">Automatic backups have been disabled</string>
     <string name="form_schedule_automated_backups">Schedule automated backups</string>
+    <string name="publication_activity">Publication Activity</string>
 
 </resources>

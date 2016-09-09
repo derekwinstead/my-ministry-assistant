@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -38,7 +39,7 @@ public class TimeEntriesFragment extends ListFragment {
 	public static String ARG_MONTH = "month";
 	public static String ARG_PUBLISHER_ID = "publisher_id";
 
-	private TextView view_report;
+	private Button view_report;
 	private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
 
 	private String mMonth, mYear = "";
@@ -96,7 +97,7 @@ public class TimeEntriesFragment extends ListFragment {
 		fm = getActivity().getSupportFragmentManager();
 
 		publishers = (Spinner) view.findViewById(R.id.publishers);
-		view_report = (TextView) view.findViewById(R.id.view_entries);
+		view_report = (Button) view.findViewById(R.id.view_entries);
 		report_nav = (LinearLayout) view.findViewById(R.id.report_nav);
 
 		month = (TextView) view.findViewById(R.id.month);

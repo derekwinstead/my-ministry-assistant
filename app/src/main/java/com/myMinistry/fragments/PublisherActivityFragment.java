@@ -95,7 +95,7 @@ public class PublisherActivityFragment extends ListFragment {
         if (frag != null)
             ft.remove(frag);
 
-        ft.add(LAYOUT_ID, frag);
+        ft.add(LAYOUT_ID, f);
         ft.addToBackStack(null);
 
         ft.commit();

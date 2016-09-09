@@ -100,9 +100,9 @@ public class DBBackupsListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, final int position, long id) {
-        final File file = FileUtils.getExternalDBFile(getActivity(), fileList[position].toString());
+        final File file = FileUtils.getExternalDBFile(getActivity(), fileList[position]);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(fileList[position].toString());
+        builder.setTitle(fileList[position]);
 
         builder.setItems(getResources().getStringArray(R.array.db_backups_list_item_options), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
@@ -123,7 +123,7 @@ public class DBBackupsListFragment extends ListFragment {
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
                     emailIntent.setType("application/image");
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, getActivity().getApplicationContext().getResources().getString(R.string.app_name) + ": " + getActivity().getApplicationContext().getResources().getString(R.string.pref_backup_title));
-                    emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getAbsolutePath().toString()));
+                    emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getAbsolutePath()));
                     startActivity(Intent.createChooser(emailIntent, getResources().getString(R.string.menu_share)));
                 } else if (item == REF_DELETE) {
                     file.delete();
@@ -229,8 +229,8 @@ public class DBBackupsListFragment extends ListFragment {
         final TextView b_daily_time = (TextView) view.findViewById(R.id.b_daily_time);
         final TextView b_weekly_time = (TextView) view.findViewById(R.id.b_weekly_time);
 
-        b_daily_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()).toString());
-        b_weekly_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()).toString());
+        b_daily_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()));
+        b_weekly_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()));
 
         String[] weekdays = new DateFormatSymbols(Locale.getDefault()).getWeekdays();
         weekdays[0] = getActivity().getApplicationContext().getString(R.string.form_select_a_day);
@@ -240,7 +240,7 @@ public class DBBackupsListFragment extends ListFragment {
         s_weekday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                weekly.set(Calendar.DAY_OF_WEEK, (int)id);
+                weekly.set(Calendar.DAY_OF_WEEK, (int) id);
             }
 
             @Override
@@ -260,8 +260,8 @@ public class DBBackupsListFragment extends ListFragment {
                     public void TimePickerDialogFragmentListenerSet(int hourOfDay, int minute) {
                         daily.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         daily.set(Calendar.MINUTE, minute);
-                        daily.set(Calendar.SECOND,0);
-                        b_daily_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()).toString());
+                        daily.set(Calendar.SECOND, 0);
+                        b_daily_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()));
                     }
                 });
                 frag.show(fm, "TimePickerDialogFragment");
@@ -277,8 +277,8 @@ public class DBBackupsListFragment extends ListFragment {
                     public void TimePickerDialogFragmentListenerSet(int hourOfDay, int minute) {
                         weekly.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         weekly.set(Calendar.MINUTE, minute);
-                        weekly.set(Calendar.SECOND,0);
-                        b_weekly_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()).toString());
+                        weekly.set(Calendar.SECOND, 0);
+                        b_weekly_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()));
                     }
                 });
                 frag.show(fm, "TimePickerDialogFragment");
@@ -293,20 +293,19 @@ public class DBBackupsListFragment extends ListFragment {
             public void onClick(DialogInterface dialog, int which) {
                 PrefUtils.setDBAutoBackup(getActivity(), cb_is_active.isChecked());
                 // Daily
-                PrefUtils.setDBBackupDailyTime(getActivity(), DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()).toString());
+                PrefUtils.setDBBackupDailyTime(getActivity(), DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()));
                 // Weekly
                 PrefUtils.setDBBackupWeeklyTime(getActivity(), DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()));
                 PrefUtils.setDBBackupWeeklyWeekday(getActivity(), weekly.get(Calendar.DAY_OF_WEEK));
 
-                if(cb_is_active.isChecked()) {
+                if (cb_is_active.isChecked()) {
                     HelpUtils.setDailyAlarm(getActivity().getApplicationContext());
                     HelpUtils.setWeeklyAlarm(getActivity().getApplicationContext());
 
                     Snackbar.make(coordinatorLayout, R.string.snackbar_backups_scheduled, Snackbar.LENGTH_LONG).show();
 
                     enableBootReceiver();
-                }
-                else {
+                } else {
                     HelpUtils.disableDailyAlarm(getActivity().getApplicationContext());
                     HelpUtils.disableWeeklyAlarm(getActivity().getApplicationContext());
 

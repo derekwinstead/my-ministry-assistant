@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ public class HouseholderEditorFragment extends Fragment {
     private boolean is_dual_pane = false;
 
     private CheckBox cb_is_active;
-    private TextView view_activity;
+    private Button view_activity;
     private TextInputLayout nameWrapper, addressWrapper, mobileWrapper, homeWrapper, workWrapper, otherWrapper;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
@@ -101,7 +102,7 @@ public class HouseholderEditorFragment extends Fragment {
         otherWrapper.setHint(getActivity().getString(R.string.form_phone_other));
 
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-        view_activity = (TextView) root.findViewById(R.id.view_activity);
+        view_activity = (Button) root.findViewById(R.id.view_activity);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
         view_activity.setOnClickListener(new View.OnClickListener() {

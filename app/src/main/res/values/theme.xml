@@ -37,7 +37,7 @@
     </style>
 
     <style name="buttonStyle">
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@drawable/button</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:minHeight">@dimen/thumb_height</item>
         <item name="android:minWidth">88dp</item>

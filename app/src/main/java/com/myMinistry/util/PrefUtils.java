@@ -33,8 +33,8 @@ public class PrefUtils {
 
     public static void setSummaryMonthAndYear(final Context context, Calendar date) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putInt(PREF_SUMMARY_MONTH, date.get(Calendar.MONTH)).commit();
-        sp.edit().putInt(PREF_SUMMARY_YEAR, date.get(Calendar.YEAR)).commit();
+        sp.edit().putInt(PREF_SUMMARY_MONTH, date.get(Calendar.MONTH)).apply();
+        sp.edit().putInt(PREF_SUMMARY_YEAR, date.get(Calendar.YEAR)).apply();
     }
 
     public static int getPublisherId(final Context context) {
@@ -44,7 +44,7 @@ public class PrefUtils {
 
     public static void setPublisherId(final Context context, int publisherId) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putInt(PREF_PUBLISHER_ID, publisherId).commit();
+        sp.edit().putInt(PREF_PUBLISHER_ID, publisherId).apply();
     }
 
     public static int getVersionNumber(final Context context) {
@@ -54,7 +54,7 @@ public class PrefUtils {
 
     public static void setVersionNumber(final Context context, int versionNumber) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putInt(PREF_VERSION_NUMBER, versionNumber).commit();
+        sp.edit().putInt(PREF_VERSION_NUMBER, versionNumber).apply();
     }
 
     public static boolean shouldDBAutoBackup(final Context context) {
@@ -64,7 +64,7 @@ public class PrefUtils {
 
     public static void setDBAutoBackup(final Context context, boolean shouldBackUp) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putBoolean(PREF_AUTO_BACKUPS, shouldBackUp).commit();
+        sp.edit().putBoolean(PREF_AUTO_BACKUPS, shouldBackUp).apply();
     }
 
     public static String getDBBackupDailyTime(final Context context) {
@@ -74,7 +74,7 @@ public class PrefUtils {
 
     public static void setDBBackupDailyTime(final Context context, String backupTime) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putString(PREF_BACKUP_DAILY_TIME, backupTime).commit();
+        sp.edit().putString(PREF_BACKUP_DAILY_TIME, backupTime).apply();
     }
 
     public static String getDBBackupWeeklyTime(final Context context) {
@@ -84,7 +84,7 @@ public class PrefUtils {
 
     public static void setDBBackupWeeklyTime(final Context context, String backupTime) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putString(PREF_BACKUP_WEEKLY_TIME, backupTime).commit();
+        sp.edit().putString(PREF_BACKUP_WEEKLY_TIME, backupTime).apply();
     }
 
     public static int getDBBackupWeeklyWeekday(final Context context) {
@@ -94,7 +94,7 @@ public class PrefUtils {
 
     public static void setDBBackupWeeklyWeekday(final Context context, int weekday) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putInt(PREF_BACKUP_WEEKLY_WEEKDAY, weekday).commit();
+        sp.edit().putInt(PREF_BACKUP_WEEKLY_WEEKDAY, weekday).apply();
     }
 
     public static boolean shouldCalculateRolloverTime(final Context context) {
@@ -114,6 +114,6 @@ public class PrefUtils {
 
     public static void setLocale(final Context context, String locale) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putString(PREF_LOCALE, locale).commit();
+        sp.edit().putString(PREF_LOCALE, locale).apply();
     }
 }

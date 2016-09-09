@@ -34,4 +34,7 @@
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#033b9c</color>
 
+    <color name="colorPrimaryPressed">#1976d2</color>
+    <color name="colorPrimaryFocused">#1a77c9</color>
+
 </resources>
