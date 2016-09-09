@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Backup Settimanale</string>
     <string name="menu_add_new">Aggiungi Nuovo</string>
     <string name="menu_add_new_with_plus">+ Aggiungi Nuovo</string>
-    <string name="menu_add_new_publisher"></string>
+    <string name="menu_add_new_publisher">+ Aggiungere nuovo editore</string>
     <string name="menu_cancel">Cancella</string>
     <string name="menu_delete">Elimina</string>
     <string name="menu_done">Fatto</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Femmina</string>
     <string name="video_showings">Proiezioni video</string>
     <string name="placements">Posizionamenti</string>
+    <string name="active">Attivo</string>
+    <string name="confirm_deletion_message_entry_type">Questa azione non può essere annullata. Se si elimina il record prima di trasferire le voci temporali associati a questo record di quelle voci di tempo saranno cancellati e non saranno più disponibili in nessun modo.\n\nSei sicuro di voler eliminare?</string>
+    <string name="confirm_deletion_message_householders">Questa azione non può essere annullata. Se si elimina il record di tutti i tempi è entrato per questo padrone di casa sarà rimosso.\n\nSei sicuro di voler eliminare?</string>
+    <string name="confirm_deletion_message_publication_types">Questa azione non può essere annullata. Se si elimina il record prima di trasferire eventuali pubblicazioni associate a questo record di quelle pubblicazioni non saranno più disponibili per selezionare o retrive in alcun modo.\n\nSei sicuro di voler eliminare?</string>
+    <string name="edit">Modifica</string>
+    <string name="form_schedule_automated_backups">Pianificare i backup automatizzato</string>
+    <string name="form_select_a_day">Selezionare un giorno</string>
+    <string name="householder_activity">Padrone di casa Attività</string>
+    <string name="is_default">è predefinito</string>
+    <string name="menu_create">Creare</string>
+    <string name="navdrawer_item_report">Rapporto</string>
+    <string name="publication_activity">Attività di pubblicazione</string>
+    <string name="snackbar_backups_disabled">Backup automatici sono stati disabilitati</string>
+    <string name="snackbar_backups_scheduled">Backup automatici sono stati programmati</string>
+    <string name="view_month_entries">Le voci mese</string>
+    <string name="view_month_report">mese Rapporto</string>
 
 </resources>

@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Backups Semanais</string>
     <string name="menu_add_new">Adicionar</string>
     <string name="menu_add_new_with_plus">+ Adicionar</string>
-    <string name="menu_add_new_publisher"></string>
+    <string name="menu_add_new_publisher">+ Adicionar novo editor</string>
     <string name="menu_cancel">Cancelar</string>
     <string name="menu_delete">Apagar</string>
     <string name="menu_done">Feito</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Fêmea</string>
     <string name="video_showings">Revelação de vídeo</string>
     <string name="placements">Posicionamentos</string>
+    <string name="active">Ativo</string>
+    <string name="confirm_deletion_message_entry_type">Essa ação não pode ser desfeita. Se você excluir este registro antes de transferir quaisquer entradas de tempo associado a este registro dessas entradas de tempo serão eliminados e deixarão de estar disponíveis de forma alguma.\n\nTem certeza de que deseja excluir?</string>
+    <string name="confirm_deletion_message_householders">Essa ação não pode ser desfeita. Se você excluir este registro de todos os tempos entrou para este morador será removido.\n\nTem certeza de que deseja excluir?</string>
+    <string name="confirm_deletion_message_publication_types">Essa ação não pode ser desfeita. Se você excluir este registro antes de transferir quaisquer publicações associadas a este registo dessas publicações não será mais disponível para selecionar ou retrive de qualquer forma.\n\nTem certeza de que deseja excluir?</string>
+    <string name="edit">Editar</string>
+    <string name="form_schedule_automated_backups">Programe backups automatizados</string>
+    <string name="form_select_a_day">Escolha um dia</string>
+    <string name="householder_activity">Householder Atividade</string>
+    <string name="is_default">é Default</string>
+    <string name="menu_create">Crio</string>
+    <string name="navdrawer_item_report">Relatório</string>
+    <string name="publication_activity">Atividade publicação</string>
+    <string name="snackbar_backups_disabled">backups automáticos foram desativados</string>
+    <string name="snackbar_backups_scheduled">backups automáticos foram programados</string>
+    <string name="view_month_entries">entradas mês</string>
+    <string name="view_month_report">Relatório mês</string>
 
 </resources>

@@ -71,8 +71,8 @@
     <string name="form_daily_backups">Backup Harian</string>
     <string name="form_weekly_backups">Backup Mingguan</string>
     <string name="menu_add_new">Tambahkan Yang Baru</string>
-    <string name="menu_add_new_with_plus">+ Tambahkan yang baru</string>
-    <string name="menu_add_new_publisher"></string>
+    <string name="menu_add_new_with_plus">+ Tambahkan Yang Baru</string>
+    <string name="menu_add_new_publisher">+ Tambahkan penerbit baru</string>
     <string name="menu_cancel">Batal</string>
     <string name="menu_delete">Hapus</string>
     <string name="menu_done">Selesai</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Wanita</string>
     <string name="video_showings">Pertunjukan Video</string>
     <string name="placements">Penempatan</string>
+    <string name="active">Aktif</string>
+    <string name="confirm_deletion_message_entry_type">Tindakan ini tidak bisa dibatalkan. Jika Anda menghapus catatan ini sebelum mentransfer pesan di waktu yang terkait dengan catatan ini entri-entri waktu akan dihapus dan tidak akan lagi tersedia dengan cara apapun.\n\nApakah Anda yakin ingin menghapus?</string>
+    <string name="confirm_deletion_message_householders">Tindakan ini tidak bisa dibatalkan. Jika Anda menghapus catatan ini sepanjang waktu masuk untuk rumah tangga ini akan dihapus.\n\nApakah Anda yakin ingin menghapus?</string>
+    <string name="confirm_deletion_message_publication_types">Tindakan ini tidak bisa dibatalkan. Jika Anda menghapus catatan ini sebelum mentransfer publikasi terkait dengan catatan ini mereka publikasi tidak akan lagi tersedia untuk memilih atau retrive dengan cara apapun.\n\nApakah Anda yakin ingin menghapus?</string>
+    <string name="edit">Mengedit</string>
+    <string name="form_schedule_automated_backups">Jadwal otomatis backup</string>
+    <string name="form_select_a_day">Pilih hari</string>
+    <string name="householder_activity">Householder Kegiatan</string>
+    <string name="is_default">adalah default</string>
+    <string name="menu_create">Membuat</string>
+    <string name="navdrawer_item_report">Melaporkan</string>
+    <string name="publication_activity">Kegiatan Publikasi</string>
+    <string name="snackbar_backups_disabled">backup otomatis telah dinonaktifkan</string>
+    <string name="snackbar_backups_scheduled">backup otomatis telah dijadwalkan</string>
+    <string name="view_month_entries">Entries bulan</string>
+    <string name="view_month_report">bulan Laporan</string>
 
 </resources>

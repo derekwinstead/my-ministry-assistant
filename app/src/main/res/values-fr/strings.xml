@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Les sauvegardes hebdomadaires</string>
     <string name="menu_add_new">Ajouter un nouveau</string>
     <string name="menu_add_new_with_plus">+ Ajouter un nouveau</string>
-    <string name="menu_add_new_publisher">+ Ajouter nouvel éditeur</string>
+    <string name="menu_add_new_publisher">+ Ajouter un éditeur</string>
     <string name="menu_cancel">annuler</string>
     <string name="menu_delete">effacer</string>
     <string name="menu_done">Terminé</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Femelle</string>
     <string name="video_showings">Projections vidéo</string>
     <string name="placements">Placements</string>
+    <string name="active">Actif</string>
+    <string name="confirm_deletion_message_entry_type">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer toutes les entrées de temps associées à cette fiche les entrées de temps seront supprimés et ne seront plus disponibles en aucune façon.\n\nEtes-vous sûr que vous voulez supprimer?</string>
+    <string name="confirm_deletion_message_householders">Cette action ne peut pas être annulée. Si vous supprimez ce dossier tous les temps entré pour ce bulletin sera supprimé.\n\nEtes-vous sûr que vous voulez supprimer?</string>
+    <string name="confirm_deletion_message_publication_types">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer toutes les publications associées à ce dossier ces publications ne seront plus disponibles pour sélectionner ou retrive en aucune façon.\n\nEtes-vous sûr que vous voulez supprimer?</string>
+    <string name="edit">éditer</string>
+    <string name="form_schedule_automated_backups">Programmez des sauvegardes automatisées</string>
+    <string name="form_select_a_day">Sélectionnez un jour</string>
+    <string name="householder_activity">Householder Activité</string>
+    <string name="is_default">Est-défaut</string>
+    <string name="menu_create">Créer</string>
+    <string name="navdrawer_item_report">Rapport</string>
+    <string name="publication_activity">Activité de publication</string>
+    <string name="snackbar_backups_disabled">Les sauvegardes automatiques ont été désactivées</string>
+    <string name="snackbar_backups_scheduled">Les sauvegardes automatiques ont été programmées</string>
+    <string name="view_month_entries">Entrées Mois</string>
+    <string name="view_month_report">Mois Rapport</string>
 
 </resources>

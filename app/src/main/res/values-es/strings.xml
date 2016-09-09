@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Las copias de seguridad semanales</string>
     <string name="menu_add_new">Añadir Nuevo</string>
     <string name="menu_add_new_with_plus">+ Añadir Nuevo</string>
-    <string name="menu_add_new_publisher"></string>
+    <string name="menu_add_new_publisher">+ Añadir nuevo editor</string>
     <string name="menu_cancel">Cancelar</string>
     <string name="menu_delete">Borrar</string>
     <string name="menu_done">Hecho</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Hembra</string>
     <string name="video_showings">Proyecciones de video</string>
     <string name="placements">Colocaciones</string>
+    <string name="active">Activo</string>
+    <string name="confirm_deletion_message_entry_type">Esta acción no se puede deshacer. Si se elimina este registro antes de transferir las entradas de tiempo asociados con este registro aquellas entradas de tiempo se eliminarán y dejarán de estar disponibles en cualquier forma.\n\n¿Estas seguro que quieres borrarlo?</string>
+    <string name="confirm_deletion_message_householders">Esta acción no se puede deshacer. Si se elimina este récord de tiempo introducido para esta familia será eliminada.\n\n¿Estas seguro que quieres borrarlo?</string>
+    <string name="confirm_deletion_message_publication_types">Esta acción no se puede deshacer. Si se elimina este registro antes de transferir cualquier publicación asociados con este registro esas publicaciones ya no estarán disponibles para seleccionar o retrive de ninguna manera.\n\n¿Estas seguro que quieres borrarlo?</string>
+    <string name="edit">Editar</string>
+    <string name="form_schedule_automated_backups">programar copias de seguridad automatizadas</string>
+    <string name="form_select_a_day">Seleccione un día</string>
+    <string name="householder_activity">Actividad cabeza de familia</string>
+    <string name="is_default">es Default</string>
+    <string name="menu_create">Crear</string>
+    <string name="navdrawer_item_report">Informe</string>
+    <string name="publication_activity">Actividad de publicación</string>
+    <string name="snackbar_backups_disabled">Copias de seguridad automáticas se han desactivado</string>
+    <string name="snackbar_backups_scheduled">Copias de seguridad automáticas se han programado</string>
+    <string name="view_month_entries">Entradas mes</string>
+    <string name="view_month_report">Informe mes</string>
 
 </resources>

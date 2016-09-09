@@ -71,7 +71,7 @@
     <string name="form_daily_backups">ежедневное резервное копирование</string>
     <string name="form_weekly_backups">еженедельных резервных копий</string>
     <string name="menu_add_new">Добавить новый</string>
-    <string name="menu_add_new_with_plus">+ Добавить</string>
+    <string name="menu_add_new_with_plus">+ Добавить новый</string>
     <string name="menu_add_new_publisher">+ Добавить новый издатель</string>
     <string name="menu_cancel">Отменить</string>
     <string name="menu_delete">Удалить</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">женский</string>
     <string name="video_showings">Видео Показы</string>
     <string name="placements">Места размещения</string>
+    <string name="active">активный</string>
+    <string name="confirm_deletion_message_entry_type">Это действие не может быть отменено. Если удалить эту запись перед передачей каких-либо время записи, связанные с этой записью эти записи времени будут удалены и больше не будут доступны в любом случае.\n\nВы уверены, что хотите удалить?</string>
+    <string name="confirm_deletion_message_householders">Это действие не может быть отменено. Если вы удалите эту запись все время, введенное для этого домохозяина будут удалены.\n\nВы уверены, что хотите удалить?</string>
+    <string name="confirm_deletion_message_publication_types">Это действие не может быть отменено. Если удалить эту запись перед передачей каких-либо публикаций, связанных с этой записью эти публикации больше не будут доступны для выбора или retrive каким-либо образом.\n\nВы уверены, что хотите удалить?</string>
+    <string name="edit">редактировать</string>
+    <string name="form_schedule_automated_backups">Расписание автоматического резервного копирования</string>
+    <string name="form_select_a_day">Выберите день</string>
+    <string name="householder_activity">Арендодатель активность</string>
+    <string name="is_default">Является ли по умолчанию</string>
+    <string name="menu_create">Создайте</string>
+    <string name="navdrawer_item_report">доклад</string>
+    <string name="publication_activity">Издательская деятельность</string>
+    <string name="snackbar_backups_disabled">Автоматическое резервное копирование отключены</string>
+    <string name="snackbar_backups_scheduled">Автоматическое резервное копирование было запланировано</string>
+    <string name="view_month_entries">месяц Записи</string>
+    <string name="view_month_report">месяц Отчет</string>
 
 </resources>

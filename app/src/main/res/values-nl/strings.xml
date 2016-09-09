@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Wekelijkse Backups</string>
     <string name="menu_add_new">Voeg Toe</string>
     <string name="menu_add_new_with_plus">+ Voeg Toe</string>
-    <string name="menu_add_new_publisher">+ Voeg nieuwe uitgever</string>
+    <string name="menu_add_new_publisher">+ Voeg een nieuwe uitgever</string>
     <string name="menu_cancel">Annuleer</string>
     <string name="menu_delete">Verwijder</string>
     <string name="menu_done">Klaar</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Vrouw</string>
     <string name="video_showings">videovoorstellingen</string>
     <string name="placements">Posities</string>
+    <string name="active">Actief</string>
+    <string name="confirm_deletion_message_entry_type">Deze actie kan niet ongedaan gemaakt worden. Als u dit record te verwijderen alvorens het te allen tijde vermeldingen in verband met deze plaat die tijd inzendingen zullen worden verwijderd en zal niet meer beschikbaar zijn in any way.\n\nWeet je zeker dat je wilt verwijderen?</string>
+    <string name="confirm_deletion_message_householders">Deze actie kan niet ongedaan gemaakt worden. Als u dit record te verwijderen alle tijd aangegaan voor deze huizes zullen worden verwijderd.\n\nWeet je zeker dat je wilt verwijderen?</string>
+    <string name="confirm_deletion_message_publication_types">Deze actie kan niet ongedaan gemaakt worden. Als u dit record voor de overdracht van eventuele publicaties in verband met dit record te verwijderen die publicaties niet meer beschikbaar te selecteren of retrive op welke manier.\n\nWeet je zeker dat je wilt verwijderen?</string>
+    <string name="edit">Bewerk</string>
+    <string name="form_schedule_automated_backups">Schema geautomatiseerde back-ups</string>
+    <string name="form_select_a_day">Selecteer een dag</string>
+    <string name="householder_activity">Householder Activity</string>
+    <string name="is_default">is Default</string>
+    <string name="menu_create">creëren</string>
+    <string name="navdrawer_item_report">Rapport</string>
+    <string name="publication_activity">publicatie Activity</string>
+    <string name="snackbar_backups_disabled">Automatische back-ups zijn uitgeschakeld</string>
+    <string name="snackbar_backups_scheduled">Automatische back-ups zijn gepland</string>
+    <string name="view_month_entries">Bekijk Maand Entries</string>
+    <string name="view_month_report">maand Report</string>
 
 </resources>

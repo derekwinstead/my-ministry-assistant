@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Ugentlig backup</string>
     <string name="menu_add_new">Tilføj ny</string>
     <string name="menu_add_new_with_plus">+ Tilføj ny</string>
-    <string name="menu_add_new_publisher">+ Tilføj ny forkynder</string>
+    <string name="menu_add_new_publisher">+ Tilføj ny udgiver</string>
     <string name="menu_cancel">Annuller</string>
     <string name="menu_delete">Slet</string>
     <string name="menu_done">Færdig</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Kvinde</string>
     <string name="video_showings">Video Fremvisninger</string>
     <string name="placements">Placeringer</string>
+    <string name="active">Aktiv</string>
+    <string name="confirm_deletion_message_entry_type">Denne handling kan ikke fortrydes. Hvis du sletter denne post inden overførsel af eventuelle tidsregistreringer forbundet med denne rekord disse tidsregistreringer vil blive slettet og vil ikke længere være tilgængelig på nogen måde.\n\nEr du sikker på at du vil slette?</string>
+    <string name="confirm_deletion_message_householders">Denne handling kan ikke fortrydes. Hvis du sletter denne rekord hele tiden indtastet for denne husejer vil blive fjernet.\n\nEr du sikker på at du vil slette?</string>
+    <string name="confirm_deletion_message_publication_types">Denne handling kan ikke fortrydes. Hvis du sletter denne post inden overførsel af eventuelle udgivelser forbundet med denne rekord disse publikationer vil ikke længere være til rådighed til at vælge eller retrive på nogen måde.\n\nEr du sikker på at du vil slette?</string>
+    <string name="edit">Redigere</string>
+    <string name="form_schedule_automated_backups">Planlæg automatiserede backups</string>
+    <string name="form_select_a_day">Vælg en dag</string>
+    <string name="householder_activity">Householder Activity</string>
+    <string name="is_default">er Standard</string>
+    <string name="menu_create">Skabe</string>
+    <string name="navdrawer_item_report">Rapport</string>
+    <string name="publication_activity">offentliggørelse Aktivitet</string>
+    <string name="snackbar_backups_disabled">Automatisk sikkerhedskopiering er blevet deaktiveret</string>
+    <string name="snackbar_backups_scheduled">Automatisk sikkerhedskopiering er planlagt</string>
+    <string name="view_month_entries">Måned Entries</string>
+    <string name="view_month_report">måned rapport</string>
 
 </resources>

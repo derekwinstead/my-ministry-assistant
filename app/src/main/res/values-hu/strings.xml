@@ -72,7 +72,7 @@
     <string name="form_weekly_backups">Heti Mentések</string>
     <string name="menu_add_new">Új</string>
     <string name="menu_add_new_with_plus">+ Új</string>
-    <string name="menu_add_new_publisher"></string>
+    <string name="menu_add_new_publisher">+ Új megjelenítő</string>
     <string name="menu_cancel">Mégsem</string>
     <string name="menu_delete">Töröl</string>
     <string name="menu_done">Csinált</string>
@@ -136,5 +136,21 @@
     <string name="gender_female">Női</string>
     <string name="video_showings">Videó Showings</string>
     <string name="placements">Elhelyezések</string>
+    <string name="active">Aktív</string>
+    <string name="confirm_deletion_message_entry_type">Ez a művelet nem vonható vissza. Ha törli ezt a rekordot, mielőtt át bármikor társított bejegyzéseket e rekord azokat időben bejegyzés törlésre kerül, és már nem lesz elérhető semmilyen módon.\n\nBiztos vagy benne, hogy törölni akarod?</string>
+    <string name="confirm_deletion_message_householders">Ez a művelet nem vonható vissza. Ha törli ezt a rekordot minden alkalommal beírni erre a családfő eltávolításra kerül.\n\nBiztos vagy benne, hogy törölni akarod?</string>
+    <string name="confirm_deletion_message_publication_types">Ez a művelet nem vonható vissza. Ha törli ezt a rekordot, mielőtt át kiadványokat társított rekord ezek a publikációk nem lesz elérhető, hogy kiválassza vagy retrive semmilyen módon.\n\nBiztos vagy benne, hogy törölni akarod?</string>
+    <string name="edit">Szerkesztése</string>
+    <string name="form_schedule_automated_backups">Automatikus biztonsági mentések készítése</string>
+    <string name="form_select_a_day">Válasszon ki egy napot</string>
+    <string name="householder_activity">Householder Activity</string>
+    <string name="is_default">Default</string>
+    <string name="menu_create">Teremt</string>
+    <string name="navdrawer_item_report">Jelentés</string>
+    <string name="publication_activity">publikációs tevékenység</string>
+    <string name="snackbar_backups_disabled">Automatikus mentések vannak tiltva</string>
+    <string name="snackbar_backups_scheduled">Automatikus mentések ütemezése megtörtént</string>
+    <string name="view_month_entries">hónap bejegyzések</string>
+    <string name="view_month_report">hónap jelentés</string>
 
 </resources>
