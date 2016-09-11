@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">Der skete en fejl i forbindelse med sletning af backups.</string>
     <string name="toast_saved">Gemt.</string>
     <string name="toast_saved_problem">Problem i forbindelse med at gemme.</string>
-    <string name="toast_saved_with_space">Gemte {name}.</string>
     <string name="toast_saved_problem_with_space">Problem med at gemme {name}.</string>
     <string name="toast_created">Oprettet.</string>
     <string name="toast_created_problem">Problem i forbindelse med at oprette.</string>
-    <string name="toast_created_with_space">Problem i forbindelse med at oprette {name}.</string>
     <string name="toast_created_problem_with_space">Problem i forbindelse med at oprette {name}.</string>
     <string name="toast_provide_name">Angiv venligst navn.</string>
     <string name="toast_cannot_modify_rollover_time">Kan ikke ændre rollover entries.</string>
     <string name="toast_deleted">Slettet.</string>
-    <string name="toast_deleted_with_space">Slettede {name}.</string>
     <string name="toast_db_updated_successfully">Database opdateret korrekt.</string>
     <string name="toast_update_done">Opdatering gennemført.</string>
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>

@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">Ocurrió un error tratando de limpiar tus copias de seguridad.</string>
     <string name="toast_saved">Guardado.</string>
     <string name="toast_saved_problem">Problemas guardando.</string>
-    <string name="toast_saved_with_space">Guardado {name}.</string>
     <string name="toast_saved_problem_with_space">Problema al guardar {name}.</string>
     <string name="toast_created">Creado.</string>
     <string name="toast_created_problem">Problemas creando.</string>
-    <string name="toast_created_with_space">Creado {name}.</string>
     <string name="toast_created_problem_with_space">Problema al crear {name}.</string>
     <string name="toast_provide_name">Por favor, indique un nombre.</string>
     <string name="toast_cannot_modify_rollover_time">No se puede modiciar la entrada de ajuste de tiempo.</string>
     <string name="toast_deleted">Borrado.</string>
-    <string name="toast_deleted_with_space">{name} Borrado.</string>
     <string name="toast_db_updated_successfully">Base de datos actualizada correctamente.</string>
     <string name="toast_update_done">Actualización de hecho.</string>
     <string name="note_rollover_edit">****************\nNota: Este es un tipo de entrada única para administrar el tiempo de vuelco. No puedes activarla. No crear manualmente un tipo de entrada de vuelco, ya que se utilizará para hacer los cálculos automáticos.\n****************</string>

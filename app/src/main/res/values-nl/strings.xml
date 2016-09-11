@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">Fout opgetreden tijdens het verwijderen van backups.</string>
     <string name="toast_saved">Opgeslagen.</string>
     <string name="toast_saved_problem">Probleem tijdens opslaan.</string>
-    <string name="toast_saved_with_space">{name} is opgeslagen.</string>
     <string name="toast_saved_problem_with_space">Probleem met opslaan van {name}.</string>
     <string name="toast_created">Aangemaakt.</string>
     <string name="toast_created_problem">Probleem bij aanmaak.</string>
-    <string name="toast_created_with_space">{name} is aangemaakt.</string>
     <string name="toast_created_problem_with_space">Probleem met aanmaken van {name}.</string>
     <string name="toast_provide_name">Geef aub. een naam in.</string>
     <string name="toast_cannot_modify_rollover_time">Kan de overlap entries niet aanpassen.</string>
     <string name="toast_deleted">Verwijderd.</string>
-    <string name="toast_deleted_with_space">{name} is verwijderd.</string>
     <string name="toast_db_updated_successfully">Database bijgewerkt.</string>
     <string name="toast_update_done">Update gedaan.</string>
     <string name="note_rollover_edit">****************\nOpmerking: Dit is een uniek item type om rollover tijd te beheren. Je kan het niet actief te maken. Niet handmatig een soort rollover item als dit zal worden gebruikt om een automatische berekeningen te doen.\n****************</string>

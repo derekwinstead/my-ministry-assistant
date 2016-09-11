@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">Si  verificato un errore durante il tentativo di cancellazione del Backup.</string>
     <string name="toast_saved">Salvato.</string>
     <string name="toast_saved_problem">Problema durante il salvataggio.</string>
-    <string name="toast_saved_with_space">{name} Salvato.</string>
     <string name="toast_saved_problem_with_space">Salvare {name} problema.</string>
     <string name="toast_created">Creato.</string>
     <string name="toast_created_problem">Problema durante la creazione.</string>
-    <string name="toast_created_with_space">{name} Creato.</string>
     <string name="toast_created_problem_with_space">Problema creazione di {name}.</string>
     <string name="toast_provide_name">Inserisci un nome.</string>
     <string name="toast_cannot_modify_rollover_time">Impossibile modificare le voci di avanzo.</string>
     <string name="toast_deleted">Cancellato.</string>
-    <string name="toast_deleted_with_space">{name} Cancellato.</string>
     <string name="toast_db_updated_successfully">Database aggiornato con successo.</string>
     <string name="toast_update_done">Aggiornamento fatto.</string>
     <string name="note_rollover_edit">****************\nNota: Questo è un tipo di voce unica per gestire il tempo rollover. Non è possibile renderlo attivo. Non creare manualmente un tipo di voce rollover come questo sarà usato per fare calcoli automatici.\n****************</string>

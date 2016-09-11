@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">Terjadi kesalahan sewaktu mencoba membersihkan backup.</string>
     <string name="toast_saved">Berhasil disimpan.</string>
     <string name="toast_saved_problem">Problem sewaktu menyimpan.</string>
-    <string name="toast_saved_with_space">{name} telah disimpan.</string>
     <string name="toast_saved_problem_with_space">Problem sewaktu menyimpan {name}.</string>
     <string name="toast_created">Berhasil dibuat.</string>
     <string name="toast_created_problem">Problem sewaktu membuat.</string>
-    <string name="toast_created_with_space">{name} berhasil dibuat.</string>
     <string name="toast_created_problem_with_space">Problem sewaktu membuat {name}.</string>
     <string name="toast_provide_name">Silahkan berikan nama.</string>
     <string name="toast_cannot_modify_rollover_time">Tidak bisa mengubah waktu bergulir.</string>
     <string name="toast_deleted">Telah dihapus.</string>
-    <string name="toast_deleted_with_space">{name} telah dihapus.</string>
     <string name="toast_db_updated_successfully">Database berhasil diperbarui.</string>
     <string name="toast_update_done">Pembaruan dilakukan.</string>
     <string name="note_rollover_edit">****************\nCatatan: Ini adalah jenis entri yang unik untuk mengatur waktu rollover. Anda tidak bisa membuatnya aktif. Jangan manual membuat jenis entri rollover karena hal ini akan digunakan untuk melakukan perhitungan otomatis.\n****************</string>

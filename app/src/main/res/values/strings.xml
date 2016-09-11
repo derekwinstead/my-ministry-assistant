@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">There was an error trying to clean up your backups</string>
     <string name="toast_saved">Saved.</string>
     <string name="toast_saved_problem">Problem during save.</string>
-    <string name="toast_saved_with_space">Saved {name}.</string>
     <string name="toast_saved_problem_with_space">Problem saving {name}.</string>
     <string name="toast_created">Created.</string>
     <string name="toast_created_problem">Problem during create.</string>
-    <string name="toast_created_with_space">Created {name}.</string>
     <string name="toast_created_problem_with_space">Problem creating {name}.</string>
     <string name="toast_provide_name">Please provide a name.</string>
     <string name="toast_cannot_modify_rollover_time">Cannot modify rollover entries.</string>
     <string name="toast_deleted">Deleted</string>
-    <string name="toast_deleted_with_space">Deleted {name}.</string>
     <string name="toast_db_updated_successfully">Database updated successfully</string>
     <string name="toast_update_done">Update done.</string>
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>

@@ -115,16 +115,13 @@
     <string name="snackbar_cleaned_backups_error">Hiba megpróbálja megtisztítani a biztonsági mentéseket.</string>
     <string name="toast_saved">Mentett.</string>
     <string name="toast_saved_problem">Probléma közben menteni.</string>
-    <string name="toast_saved_with_space">Mentett {name}.</string>
     <string name="toast_saved_problem_with_space">Probléma megtakarítás {name}.</string>
     <string name="toast_created">Létrehozott.</string>
     <string name="toast_created_problem">Probléma során létre.</string>
-    <string name="toast_created_with_space">Létrehozott {name}.</string>
     <string name="toast_created_problem_with_space">Probléma létrehozása {name}.</string>
     <string name="toast_provide_name">Kérjük, adja meg a nevét.</string>
     <string name="toast_cannot_modify_rollover_time">Nem lehet módosítani rollover bejegyzéseket.</string>
     <string name="toast_deleted">Törölt</string>
-    <string name="toast_deleted_with_space">Törölt {name}.</string>
     <string name="toast_db_updated_successfully">Adatbázis sikeresen frissítve.</string>
     <string name="toast_update_done">Frissítés kész.</string>
     <string name="note_rollover_edit">****************\nMegjegyzés: Ez egy egyedülálló bejegyzés típusát kezelni borulás időt. Nem lehet, hogy ez aktív. Ne manuálisan létrehozni egy borulás bejegyzés típusát, mert ez lesz használva, hogy nem minden automatikus számítást.\n****************</string>
