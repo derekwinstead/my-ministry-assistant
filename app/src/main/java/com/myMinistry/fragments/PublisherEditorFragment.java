@@ -123,13 +123,7 @@ public class PublisherEditorFragment extends Fragment {
 
                     database.openWritable();
                     if (publisherId > 0) {
-                        if (database.savePublisher(publisherId, values) > 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        } else {
+                        if (database.savePublisher(publisherId, values) == 0) {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
                                             .put("name", nameWrapper.getEditText().getText().toString().trim())
@@ -137,13 +131,7 @@ public class PublisherEditorFragment extends Fragment {
                                     , Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        if (database.createPublisher(values) > 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        } else {
+                        if (database.createPublisher(values) == -1) {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
                                             .put("name", nameWrapper.getEditText().getText().toString().trim())
@@ -221,12 +209,6 @@ public class PublisherEditorFragment extends Fragment {
                                 database.openWritable();
                                 database.deletePublisherByID((int) publisherId);
                                 database.close();
-
-                                Toast.makeText(getActivity()
-                                        , Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-                                                .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                                .format()
-                                        , Toast.LENGTH_SHORT).show();
 
                                 if (is_dual_pane) {
                                     PublishersFragment f = (PublishersFragment) fm1.findFragmentById(R.id.primary_fragment_container);

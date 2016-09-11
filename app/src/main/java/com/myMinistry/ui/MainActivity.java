@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         HelpUtils.doApplicationUpdatedWork(getApplicationContext());
                     } catch (Exception e) {
-e.printStackTrace();
+                        e.printStackTrace();
                     }
                     ringProgressDialog.dismiss();
                 }

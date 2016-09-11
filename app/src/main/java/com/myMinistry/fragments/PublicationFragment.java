@@ -62,7 +62,7 @@ public class PublicationFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
 
-		View root = inflater.inflate(R.layout.literature, container, false);
+		View root = inflater.inflate(R.layout.publications, container, false);
 		Bundle args = getArguments();
 
 		if (args != null && args.containsKey(ARG_PUBLICATION_ID))

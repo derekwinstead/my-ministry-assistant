@@ -13,15 +13,27 @@ public class ListItem {
         subtitle = _subtitle;
     }
 
-    public void setTitle(String _title) { title = _title; }
+    public void setTitle(String _title) {
+        title = _title;
+    }
 
-    public void setSubTitle(String _title) { title = _title; }
+    public void setSubTitle(String _title) {
+        title = _title;
+    }
 
-    public void setIconRes(int _iconRes) { iconRes = _iconRes; }
+    public void setIconRes(int _iconRes) {
+        iconRes = _iconRes;
+    }
 
-    public String toString() { return title; }
+    public String toString() {
+        return title;
+    }
 
-    public String getSubTitle() { return subtitle; }
+    public String getSubTitle() {
+        return subtitle;
+    }
 
-    public int getID() { return id; }
+    public int getID() {
+        return id;
+    }
 }

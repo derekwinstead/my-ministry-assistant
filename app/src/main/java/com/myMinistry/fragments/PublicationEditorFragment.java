@@ -73,7 +73,7 @@ public class PublicationEditorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.literature_editor, container, false);
+        View root = inflater.inflate(R.layout.publication_editor, container, false);
         Bundle args = getArguments();
         if (args != null && args.containsKey(ARG_PUBLICATION_ID))
             setLiterature(args.getLong(ARG_PUBLICATION_ID));
@@ -151,13 +151,7 @@ public class PublicationEditorFragment extends Fragment {
 
                     database.openWritable();
                     if (publicationId > 0) {
-                        if (database.saveLiterature(publicationId, values) > 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        } else {
+                        if (database.saveLiterature(publicationId, values) == 0) {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
                                             .put("name", nameWrapper.getEditText().getText().toString().trim())
@@ -165,13 +159,7 @@ public class PublicationEditorFragment extends Fragment {
                                     , Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        if (database.createLiterature(values) > 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        } else {
+                        if (database.createLiterature(values) == -1) {
                             Toast.makeText(getActivity()
                                     , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
                                             .put("name", nameWrapper.getEditText().getText().toString().trim())
@@ -236,12 +224,6 @@ public class PublicationEditorFragment extends Fragment {
                                 database.openWritable();
                                 database.deleteLiteratureByID((int) publicationId);
                                 database.close();
-
-                                Toast.makeText(getActivity()
-                                        , Phrase.from(getActivity().getApplicationContext(), R.string.toast_deleted_with_space)
-                                                .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                                .format()
-                                        , Toast.LENGTH_SHORT).show();
 
                                 if (is_dual_pane) {
                                     PublicationFragment f = (PublicationFragment) fm.findFragmentById(R.id.primary_fragment_container);

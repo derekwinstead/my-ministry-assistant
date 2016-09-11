@@ -957,15 +957,16 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         AlertDialog alert = builder.create();
         alert.show();
     }
-/*
-    @Override
-    public void onDialogNumberSet(int reference, int number, double decimal, boolean isNegative, double fullNumber) {
-        householderList.get(selectedHHLoc).getLit().get(reference).setCount(number);
-        if (showFlow)
-            showNotesDialog(householderList.get(selectedHHLoc).getNotes());
-        adapter.notifyDataSetChanged();
-    }
-*/
+
+    /*
+        @Override
+        public void onDialogNumberSet(int reference, int number, double decimal, boolean isNegative, double fullNumber) {
+            householderList.get(selectedHHLoc).getLit().get(reference).setCount(number);
+            if (showFlow)
+                showNotesDialog(householderList.get(selectedHHLoc).getNotes());
+            adapter.notifyDataSetChanged();
+        }
+    */
     @Override
     public void onDialogNumberSet(int reference, BigInteger number, double decimal, boolean isNegative, BigDecimal fullNumber) {
         householderList.get(selectedHHLoc).getLit().get(reference).setCount(number.intValue());

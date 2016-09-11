@@ -18,8 +18,8 @@ public class WeeklyBackupService extends Service {
         File extDB = FileUtils.getExternalDBFile(getApplicationContext(), "auto-backup-weekly.db");
 
         try {
-            if(extDB != null) {
-                if(!extDB.exists())
+            if (extDB != null) {
+                if (!extDB.exists())
                     extDB.createNewFile();
 
                 FileUtils.copyFile(intDB, extDB);

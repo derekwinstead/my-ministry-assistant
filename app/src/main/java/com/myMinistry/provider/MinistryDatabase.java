@@ -75,7 +75,9 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     public static final int SORT_BY_DATE = 4;
     public static final int SORT_BY_DATE_DESC = 5;
 
-    /** NOTE: carefully update onUpgrade() when bumping database versions to make sure user data is saved. */
+    /**
+     * NOTE: carefully update onUpgrade() when bumping database versions to make sure user data is saved.
+     */
     private static final int VER_LAUNCH = 1;
     private static final int VER_ADD_RETURN_VISITS = 2;
     private static final int VER_DB_RESTRUCTURE = 3;
@@ -458,10 +460,10 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             case VER_ADD_PUBLISHER_GENDERS:
                 versionBackup(version);
 
-                db.execSQL("ALTER TABLE " + Tables.TYPES_OF_LIERATURE   + " ADD COLUMN " + LiteratureType.DEFAULT   + " INTEGER DEFAULT 0");
-                db.execSQL("ALTER TABLE " + Tables.PUBLISHERS           + " ADD COLUMN " + Publisher.DEFAULT        + " INTEGER DEFAULT 0");
-                db.execSQL("ALTER TABLE " + Tables.ENTRY_TYPES          + " ADD COLUMN " + EntryType.DEFAULT        + " INTEGER DEFAULT 0");
-                db.execSQL("ALTER TABLE " + Tables.HOUSEHOLDERS         + " ADD COLUMN " + Householder.DEFAULT      + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.TYPES_OF_LIERATURE + " ADD COLUMN " + LiteratureType.DEFAULT + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.PUBLISHERS + " ADD COLUMN " + Publisher.DEFAULT + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.ENTRY_TYPES + " ADD COLUMN " + EntryType.DEFAULT + " INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + Tables.HOUSEHOLDERS + " ADD COLUMN " + Householder.DEFAULT + " INTEGER DEFAULT 0");
 
                 version = VER_ADD_DEFAULTS;
         }
@@ -469,115 +471,115 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
     public void updateEntryTypes(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.ENTRY_TYPES + " ("
-                        + EntryType._ID
-                        + "," + EntryType.NAME
-                        + "," + EntryType.ACTIVE
-                        + "," + EntryType.RBC
-                        + "," + EntryType.SORT_ORDER
-                        + ")"
-                        + " SELECT "
-                        + EntryType._ID
-                        + "," + EntryType.NAME
-                        + "," + EntryType.ACTIVE
-                        + "," + EntryType.RBC
-                        + "," + EntryType.SORT_ORDER
-                        + " FROM " + Tables.ENTRY_TYPES + "_tmp"
+                + EntryType._ID
+                + "," + EntryType.NAME
+                + "," + EntryType.ACTIVE
+                + "," + EntryType.RBC
+                + "," + EntryType.SORT_ORDER
+                + ")"
+                + " SELECT "
+                + EntryType._ID
+                + "," + EntryType.NAME
+                + "," + EntryType.ACTIVE
+                + "," + EntryType.RBC
+                + "," + EntryType.SORT_ORDER
+                + " FROM " + Tables.ENTRY_TYPES + "_tmp"
         );
     }
 
     public void updateHouseholders(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.HOUSEHOLDERS + " ("
-                        + Householder._ID
-                        + "," + Householder.NAME
-                        + "," + Householder.ADDR
-                        + "," + Householder.MOBILE_PHONE
-                        + "," + Householder.HOME_PHONE
-                        + "," + Householder.WORK_PHONE
-                        + "," + Householder.OTHER_PHONE
-                        + "," + Householder.ACTIVE
-                        + ")"
-                        + " SELECT "
-                        + Householder._ID
-                        + "," + Householder.NAME
-                        + "," + Householder.ADDR
-                        + "," + Householder.MOBILE_PHONE
-                        + "," + Householder.HOME_PHONE
-                        + "," + Householder.WORK_PHONE
-                        + "," + Householder.OTHER_PHONE
-                        + "," + Householder.ACTIVE
-                        + " FROM " + Tables.HOUSEHOLDERS + "_tmp"
+                + Householder._ID
+                + "," + Householder.NAME
+                + "," + Householder.ADDR
+                + "," + Householder.MOBILE_PHONE
+                + "," + Householder.HOME_PHONE
+                + "," + Householder.WORK_PHONE
+                + "," + Householder.OTHER_PHONE
+                + "," + Householder.ACTIVE
+                + ")"
+                + " SELECT "
+                + Householder._ID
+                + "," + Householder.NAME
+                + "," + Householder.ADDR
+                + "," + Householder.MOBILE_PHONE
+                + "," + Householder.HOME_PHONE
+                + "," + Householder.WORK_PHONE
+                + "," + Householder.OTHER_PHONE
+                + "," + Householder.ACTIVE
+                + " FROM " + Tables.HOUSEHOLDERS + "_tmp"
         );
     }
 
     public void updateLiterature(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.LITERATURE + " ("
-                        + Literature._ID
-                        + "," + Literature.NAME
-                        + "," + Literature.TYPE_OF_LIERATURE_ID
-                        + "," + Literature.ACTIVE
-                        + "," + Literature.WEIGHT
-                        + "," + Literature.SORT_ORDER
-                        + ")"
-                        + " SELECT "
-                        + Literature._ID
-                        + "," + Literature.NAME
-                        + "," + Literature.TYPE_OF_LIERATURE_ID
-                        + "," + Literature.ACTIVE
-                        + "," + Literature.WEIGHT
-                        + "," + Literature.SORT_ORDER
-                        + " FROM " + Tables.LITERATURE + "_tmp"
+                + Literature._ID
+                + "," + Literature.NAME
+                + "," + Literature.TYPE_OF_LIERATURE_ID
+                + "," + Literature.ACTIVE
+                + "," + Literature.WEIGHT
+                + "," + Literature.SORT_ORDER
+                + ")"
+                + " SELECT "
+                + Literature._ID
+                + "," + Literature.NAME
+                + "," + Literature.TYPE_OF_LIERATURE_ID
+                + "," + Literature.ACTIVE
+                + "," + Literature.WEIGHT
+                + "," + Literature.SORT_ORDER
+                + " FROM " + Tables.LITERATURE + "_tmp"
         );
     }
 
     public void updateLiteratureTypes(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.TYPES_OF_LIERATURE + " ("
-                        + LiteratureType._ID
-                        + "," + LiteratureType.NAME
-                        + "," + LiteratureType.ACTIVE
-                        + "," + LiteratureType.SORT_ORDER
-                        + ")"
-                        + " SELECT "
-                        + LiteratureType._ID
-                        + "," + LiteratureType.NAME
-                        + "," + LiteratureType.ACTIVE
-                        + "," + LiteratureType.SORT_ORDER
-                        + " FROM " + Tables.TYPES_OF_LIERATURE + "_tmp"
+                + LiteratureType._ID
+                + "," + LiteratureType.NAME
+                + "," + LiteratureType.ACTIVE
+                + "," + LiteratureType.SORT_ORDER
+                + ")"
+                + " SELECT "
+                + LiteratureType._ID
+                + "," + LiteratureType.NAME
+                + "," + LiteratureType.ACTIVE
+                + "," + LiteratureType.SORT_ORDER
+                + " FROM " + Tables.TYPES_OF_LIERATURE + "_tmp"
         );
     }
 
     public void updateLiteraturePlaced(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.PLACED_LITERATURE + " ("
-                        + LiteraturePlaced._ID
-                        + "," + LiteraturePlaced.PUBLISHER_ID
-                        + "," + LiteraturePlaced.LITERATURE_ID
-                        + "," + LiteraturePlaced.HOUSEHOLDER_ID
-                        + "," + LiteraturePlaced.TIME_ID
-                        + "," + LiteraturePlaced.COUNT
-                        + "," + LiteraturePlaced.DATE
-                        + ")"
-                        + " SELECT "
-                        + LiteraturePlaced._ID
-                        + "," + LiteraturePlaced.PUBLISHER_ID
-                        + "," + LiteraturePlaced.LITERATURE_ID
-                        + "," + LiteraturePlaced.HOUSEHOLDER_ID
-                        + "," + LiteraturePlaced.TIME_ID
-                        + "," + LiteraturePlaced.COUNT
-                        + "," + LiteraturePlaced.DATE
-                        + " FROM " + Tables.PLACED_LITERATURE + "_tmp"
+                + LiteraturePlaced._ID
+                + "," + LiteraturePlaced.PUBLISHER_ID
+                + "," + LiteraturePlaced.LITERATURE_ID
+                + "," + LiteraturePlaced.HOUSEHOLDER_ID
+                + "," + LiteraturePlaced.TIME_ID
+                + "," + LiteraturePlaced.COUNT
+                + "," + LiteraturePlaced.DATE
+                + ")"
+                + " SELECT "
+                + LiteraturePlaced._ID
+                + "," + LiteraturePlaced.PUBLISHER_ID
+                + "," + LiteraturePlaced.LITERATURE_ID
+                + "," + LiteraturePlaced.HOUSEHOLDER_ID
+                + "," + LiteraturePlaced.TIME_ID
+                + "," + LiteraturePlaced.COUNT
+                + "," + LiteraturePlaced.DATE
+                + " FROM " + Tables.PLACED_LITERATURE + "_tmp"
         );
     }
 
     public void updatePublishers(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.PUBLISHERS + " ("
-                        + Publisher._ID
-                        + "," + Publisher.NAME
-                        + "," + Publisher.ACTIVE
-                        + ")"
-                        + " SELECT "
-                        + Publisher._ID
-                        + "," + Publisher.NAME
-                        + "," + Publisher.ACTIVE
-                        + " FROM " + Tables.PUBLISHERS + "_tmp"
+                + Publisher._ID
+                + "," + Publisher.NAME
+                + "," + Publisher.ACTIVE
+                + ")"
+                + " SELECT "
+                + Publisher._ID
+                + "," + Publisher.NAME
+                + "," + Publisher.ACTIVE
+                + " FROM " + Tables.PUBLISHERS + "_tmp"
         );
     }
 
@@ -585,127 +587,125 @@ public class MinistryDatabase extends SQLiteOpenHelper {
         /** Let's get ALL the time entries and insert them into the new table timeHouseholders */
         Cursor times = db.rawQuery("SELECT * FROM " + Tables.TIMES + "_tmp", null);
 
-        if(times.moveToFirst()) {
+        if (times.moveToFirst()) {
             int rvs, entryType = 0;
             ContentValues values = new ContentValues();
             do {
                 entryType = times.getInt(times.getColumnIndex(Time.ENTRY_TYPE_ID));
-                if(entryType == ID_BIBLE_STUDY) {
+                if (entryType == ID_BIBLE_STUDY) {
                     values.put(TimeHouseholder.TIME_ID, times.getInt(times.getColumnIndex(Time._ID)));
                     values.put(TimeHouseholder.HOUSEHOLDER_ID, times.getInt(times.getColumnIndex("householderID")));
                     values.put(TimeHouseholder.STUDY, 1);
-                    db.insert(Tables.TIME_HOUSEHOLDERS,null,values);
-                }
-                else if(entryType == ID_RETURN_VISIT) {
+                    db.insert(Tables.TIME_HOUSEHOLDERS, null, values);
+                } else if (entryType == ID_RETURN_VISIT) {
                     values.put(TimeHouseholder.TIME_ID, times.getInt(times.getColumnIndex(Time._ID)));
                     values.put(TimeHouseholder.HOUSEHOLDER_ID, times.getInt(times.getColumnIndex("householderID")));
                     values.put(TimeHouseholder.STUDY, 0);
-                    db.insert(Tables.TIME_HOUSEHOLDERS,null,values);
+                    db.insert(Tables.TIME_HOUSEHOLDERS, null, values);
                     /** Change the type for the insert into the new table. */
                     ContentValues timeValues = new ContentValues();
                     timeValues.put(Time.ENTRY_TYPE_ID, 4);
                     db.update(Tables.TIMES + "_tmp", timeValues, Time._ID + "=" + times.getInt(times.getColumnIndex(Time._ID)), null);
 
-                }
-                else {
+                } else {
                     rvs = times.getInt(times.getColumnIndex("returnVisits"));
-                    for(int i = 0; i < rvs; i++) {
+                    for (int i = 0; i < rvs; i++) {
                         values.put(TimeHouseholder.TIME_ID, times.getInt(times.getColumnIndex(Time._ID)));
                         values.put(TimeHouseholder.HOUSEHOLDER_ID, 0);
                         values.put(TimeHouseholder.STUDY, 0);
-                        db.insert(Tables.TIME_HOUSEHOLDERS,null,values);
+                        db.insert(Tables.TIME_HOUSEHOLDERS, null, values);
                     }
                 }
-            } while(times.moveToNext());
+            } while (times.moveToNext());
         }
 
         db.execSQL("INSERT INTO " + Tables.TIMES + " ("
-                        + Time._ID
-                        + "," + Time.PUBLISHER_ID
-                        + "," + Time.ENTRY_TYPE_ID
-                        + "," + Time.DATE_START
-                        + "," + Time.TIME_START
-                        + "," + Time.TIME_END
-                        + ")"
-                        + " SELECT "
-                        + Time._ID
-                        + "," + Time.PUBLISHER_ID
-                        + "," + Time.ENTRY_TYPE_ID
-                        + ",entryDate"
-                        + "," + Time.TIME_START
-                        + "," + Time.TIME_END
-                        + " FROM " + Tables.TIMES + "_tmp"
+                + Time._ID
+                + "," + Time.PUBLISHER_ID
+                + "," + Time.ENTRY_TYPE_ID
+                + "," + Time.DATE_START
+                + "," + Time.TIME_START
+                + "," + Time.TIME_END
+                + ")"
+                + " SELECT "
+                + Time._ID
+                + "," + Time.PUBLISHER_ID
+                + "," + Time.ENTRY_TYPE_ID
+                + ",entryDate"
+                + "," + Time.TIME_START
+                + "," + Time.TIME_END
+                + " FROM " + Tables.TIMES + "_tmp"
         );
     }
 
     public void updateTimeV2(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.TIMES + " ("
-                        + Time._ID
-                        + "," + Time.PUBLISHER_ID
-                        + "," + Time.ENTRY_TYPE_ID
-                        + "," + Time.DATE_START
-                        + "," + Time.DATE_END
-                        + "," + Time.TIME_START
-                        + "," + Time.TIME_END
-                        + ")"
-                        + " SELECT "
-                        + Time._ID
-                        + "," + Time.PUBLISHER_ID
-                        + "," + Time.ENTRY_TYPE_ID
-                        + "," + Time.DATE_START
-                        + "," + Time.DATE_START
-                        + "," + Time.TIME_START
-                        + "," + Time.TIME_END
-                        + " FROM " + Tables.TIMES + "_tmp"
+                + Time._ID
+                + "," + Time.PUBLISHER_ID
+                + "," + Time.ENTRY_TYPE_ID
+                + "," + Time.DATE_START
+                + "," + Time.DATE_END
+                + "," + Time.TIME_START
+                + "," + Time.TIME_END
+                + ")"
+                + " SELECT "
+                + Time._ID
+                + "," + Time.PUBLISHER_ID
+                + "," + Time.ENTRY_TYPE_ID
+                + "," + Time.DATE_START
+                + "," + Time.DATE_START
+                + "," + Time.TIME_START
+                + "," + Time.TIME_END
+                + " FROM " + Tables.TIMES + "_tmp"
         );
     }
 
     public void updateTimeV3(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.TIMES + " ("
-                        + Time._ID
-                        + "," + Time.PUBLISHER_ID
-                        + "," + Time.ENTRY_TYPE_ID
-                        + "," + Time.DATE_START
-                        + "," + Time.DATE_END
-                        + "," + Time.TIME_START
-                        + "," + Time.TIME_END
-                        + ")"
-                        + " SELECT "
-                        + Time._ID
-                        + "," + Time.PUBLISHER_ID
-                        + "," + Time.ENTRY_TYPE_ID
-                        + "," + Time.DATE_START
-                        + "," + Time.DATE_END
-                        + "," + Time.TIME_START
-                        + "," + Time.TIME_END
-                        + " FROM " + Tables.TIMES + "_tmp"
+                + Time._ID
+                + "," + Time.PUBLISHER_ID
+                + "," + Time.ENTRY_TYPE_ID
+                + "," + Time.DATE_START
+                + "," + Time.DATE_END
+                + "," + Time.TIME_START
+                + "," + Time.TIME_END
+                + ")"
+                + " SELECT "
+                + Time._ID
+                + "," + Time.PUBLISHER_ID
+                + "," + Time.ENTRY_TYPE_ID
+                + "," + Time.DATE_START
+                + "," + Time.DATE_END
+                + "," + Time.TIME_START
+                + "," + Time.TIME_END
+                + " FROM " + Tables.TIMES + "_tmp"
         );
     }
 
     public void updateRollover(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + Tables.ROLLOVER + " ("
-                        + Rollover._ID
-                        + "," + Rollover.PUBLISHER_ID
-                        + "," + Rollover.DATE
-                        + "," + Rollover.MINUTES
-                        + ")"
-                        + " SELECT "
-                        + Rollover._ID
-                        + "," + Rollover.PUBLISHER_ID
-                        + "," + Rollover.DATE
-                        + "," + Rollover.MINUTES
-                        + " FROM " + Tables.ROLLOVER + "_tmp"
+                + Rollover._ID
+                + "," + Rollover.PUBLISHER_ID
+                + "," + Rollover.DATE
+                + "," + Rollover.MINUTES
+                + ")"
+                + " SELECT "
+                + Rollover._ID
+                + "," + Rollover.PUBLISHER_ID
+                + "," + Rollover.DATE
+                + "," + Rollover.MINUTES
+                + " FROM " + Tables.ROLLOVER + "_tmp"
         );
     }
 
     public void convertUsedLiteratureUsingVideoId(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        Cursor cursor = db.query(Tables.TYPES_OF_LIERATURE,new String[]{LiteratureType._ID,LiteratureType.NAME,LiteratureType.ACTIVE},LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW,null,null,null,null);
-        if(cursor.moveToFirst()) {
+        Cursor cursor = db.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE}, LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW, null, null, null, null);
+        if (cursor.moveToFirst()) {
             // Create new record
             values.put(LiteratureType.NAME, cursor.getString(1));
             values.put(LiteratureType.ACTIVE, cursor.getString(2));
-            long newID = db.insert(Tables.TYPES_OF_LIERATURE,null,values);
+            long newID = db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
             // Update all publications to use the new ID
             db.execSQL("UPDATE " + Tables.LITERATURE
@@ -717,7 +717,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
             values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
             values.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
-            db.update(Tables.TYPES_OF_LIERATURE,values,LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW,null);
+            db.update(Tables.TYPES_OF_LIERATURE, values, LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW, null);
         } else {
             // Create the new record
             values.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
@@ -734,8 +734,8 @@ public class MinistryDatabase extends SQLiteOpenHelper {
         File extDB = FileUtils.getExternalDBFile(mContext, "auto-db-v" + version + ".db");
 
         try {
-            if(extDB != null) {
-                if(!extDB.exists())
+            if (extDB != null) {
+                if (!extDB.exists())
                     extDB.createNewFile();
 
                 FileUtils.copyFile(intDB, extDB);

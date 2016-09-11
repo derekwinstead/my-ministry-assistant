@@ -3,17 +3,23 @@ package com.myMinistry.model;
 import java.util.ArrayList;
 
 public class HouseholderForTime {
-    /** Householder Table Vars */
+    /**
+     * Householder Table Vars
+     */
     private int id;
     private String name;
     private String notes;
     private int notesID;
     private boolean return_visit;
 
-    /** Householder Time Table Vars */
+    /**
+     * Householder Time Table Vars
+     */
     private int timeHouseholderPK;
 
-    /** Literature associated for the Householder and Time Entry */
+    /**
+     * Literature associated for the Householder and Time Entry
+     */
     private ArrayList<QuickLiterature> literature = null;
 
     public HouseholderForTime(int _id, String _name, int _timeHouseholderPK) {
@@ -54,7 +60,7 @@ public class HouseholderForTime {
     }
 
     public void setTimeHouseholderPK(long val) {
-        timeHouseholderPK = (int)val;
+        timeHouseholderPK = (int) val;
     }
 
     public boolean isCountedForReturnVisit() {
@@ -74,7 +80,7 @@ public class HouseholderForTime {
     }
 
     public ArrayList<QuickLiterature> getLit() {
-        if(literature == null) {
+        if (literature == null) {
             literature = new ArrayList<QuickLiterature>();
         }
 
@@ -85,13 +91,12 @@ public class HouseholderForTime {
         int retVal = -1;
         boolean shouldAdd = true;
 
-        if(getLit() == null) {
+        if (getLit() == null) {
             literature = new ArrayList<QuickLiterature>();
-        }
-        else {
-            for(QuickLiterature qlit : literature) {
+        } else {
+            for (QuickLiterature qlit : literature) {
                 retVal++;
-                if(qlit.getID() == lit.getID()) {
+                if (qlit.getID() == lit.getID()) {
                     qlit = lit;
                     shouldAdd = false;
                     break;
@@ -99,7 +104,7 @@ public class HouseholderForTime {
             }
         }
 
-        if(shouldAdd) {
+        if (shouldAdd) {
             literature.add(lit);
             retVal = literature.size() - 1;
         }
