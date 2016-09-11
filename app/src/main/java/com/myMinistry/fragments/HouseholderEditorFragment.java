@@ -43,7 +43,6 @@ public class HouseholderEditorFragment extends Fragment {
     private CheckBox cb_is_active;
     private Button view_activity;
     private TextInputLayout nameWrapper, addressWrapper, mobileWrapper, homeWrapper, workWrapper, otherWrapper;
-    private Button save, cancel;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long householderID = CREATE_ID;
@@ -103,8 +102,8 @@ public class HouseholderEditorFragment extends Fragment {
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         view_activity = (Button) root.findViewById(R.id.view_activity);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
-        save = (Button) root.findViewById(R.id.save);
-        cancel = (Button) root.findViewById(R.id.cancel);
+        Button save = (Button) root.findViewById(R.id.save);
+        Button cancel = (Button) root.findViewById(R.id.cancel);
 
         view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +123,7 @@ public class HouseholderEditorFragment extends Fragment {
         });
 
         save.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {

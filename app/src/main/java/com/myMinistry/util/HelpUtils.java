@@ -82,6 +82,7 @@ public class HelpUtils {
         return currentVersionNumber > PrefUtils.getVersionNumber(context);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void doApplicationUpdatedWork(Context mContext) {
         int currentVersionNumber = 0;
         int savedVersionNumber = PrefUtils.getVersionNumber(mContext);

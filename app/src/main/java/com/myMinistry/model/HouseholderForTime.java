@@ -3,31 +3,22 @@ package com.myMinistry.model;
 import java.util.ArrayList;
 
 public class HouseholderForTime {
-    /**
-     * Householder Table Vars
-     */
     private int id;
     private String name;
     private String notes;
     private int notesID;
     private boolean return_visit;
 
-    /**
-     * Householder Time Table Vars
-     */
     private int timeHouseholderPK;
 
-    /**
-     * Literature associated for the Householder and Time Entry
-     */
     private ArrayList<QuickLiterature> literature = null;
 
-    public HouseholderForTime(int _id, String _name, int _timeHouseholderPK) {
-        id = _id;
-        name = _name;
-        timeHouseholderPK = _timeHouseholderPK;
-        notes = "";
-        notesID = 0;
+    public HouseholderForTime(int id, String name, int timeHouseholderPK) {
+        this.id = id;
+        this.name = name;
+        this.timeHouseholderPK = timeHouseholderPK;
+        this.notes = "";
+        this.notesID = 0;
     }
 
     @Override
@@ -72,7 +63,7 @@ public class HouseholderForTime {
     }
 
     public void setCountedForReturnVisit(int return_visit) {
-        this.return_visit = return_visit == 0 ? false : true;
+        this.return_visit = return_visit != 0;
     }
 
     public void toggleCountedForReturnVisit() {
@@ -81,7 +72,7 @@ public class HouseholderForTime {
 
     public ArrayList<QuickLiterature> getLit() {
         if (literature == null) {
-            literature = new ArrayList<QuickLiterature>();
+            literature = new ArrayList<>();
         }
 
         return literature;
@@ -92,12 +83,12 @@ public class HouseholderForTime {
         boolean shouldAdd = true;
 
         if (getLit() == null) {
-            literature = new ArrayList<QuickLiterature>();
+            literature = new ArrayList<>();
         } else {
             for (QuickLiterature qlit : literature) {
                 retVal++;
                 if (qlit.getID() == lit.getID()) {
-                    qlit = lit;
+                    //qlit = lit;
                     shouldAdd = false;
                     break;
                 }

@@ -303,8 +303,8 @@ public class ReportFragment extends Fragment {
         // Loop over all the active publishers
         for (pubs.moveToFirst(); !pubs.isAfterLast(); pubs.moveToNext()) {
             int currentPublisherId = pubs.getInt(pubs.getColumnIndex(MinistryContract.Publisher._ID));
-            int placementCount = 0;
-            int videoCount = 0;
+            int placementCount;
+            int videoCount;
 
             if (pubs.getPosition() > 0)
                 retVal.append("\n");

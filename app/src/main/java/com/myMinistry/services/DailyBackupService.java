@@ -11,6 +11,7 @@ import com.myMinistry.util.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class DailyBackupService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

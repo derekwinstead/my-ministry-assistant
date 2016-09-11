@@ -211,9 +211,6 @@ public class PublicationEditorFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
         switch (item.getItemId()) {
             case R.id.menu_discard:
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

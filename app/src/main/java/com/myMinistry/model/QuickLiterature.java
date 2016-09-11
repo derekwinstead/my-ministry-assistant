@@ -7,18 +7,19 @@ public class QuickLiterature {
     private final String name;
     private int typeID;
 
-    public QuickLiterature(int _id, String _name) {
-        id = _id;
-        name = _name;
-        count = 0;
-        placedID = 0;
-    }
-
-    public QuickLiterature(int _id, String _name, int _count, int typeID) {
-        id = _id;
-        name = _name;
-        count = _count;
-        placedID = 0;
+    /*
+        public QuickLiterature(int _id, String _name) {
+            id = _id;
+            name = _name;
+            count = 0;
+            placedID = 0;
+        }
+    */
+    public QuickLiterature(int id, String name, int count, int typeID) {
+        this.id = id;
+        this.name = name;
+        this.count = count;
+        this.placedID = 0;
         this.typeID = typeID;
     }
 
@@ -39,15 +40,15 @@ public class QuickLiterature {
         return this.typeID;
     }
 
-    public void setCount(int _count) {
-        count = _count;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public long getPlacedID() {
         return placedID;
     }
 
-    public void setPlacedID(long _id) {
-        placedID = _id;
+    public void setPlacedID(long id) {
+        this.placedID = id;
     }
 }

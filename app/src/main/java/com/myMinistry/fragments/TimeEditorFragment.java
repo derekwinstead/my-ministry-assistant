@@ -82,17 +82,15 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     private int publisherId, originalPublisherId, entryTypeId, timeId = 0;
     private Spinner publishers, entryTypes = null;
     private TextView dateStart, dateEnd, timeStart, timeEnd;
-    private ImageView addListItem;
     private Cursor qEntryTypes = null;
     private Calendar selectedDateStart = Calendar.getInstance();
     private Calendar selectedDateEnd = Calendar.getInstance();
     private Calendar originalSelectedDateStart = Calendar.getInstance();
     private Cursor qPublishers = null;
     private String publisherName = null;
-    private ArrayList<HouseholderForTime> householderList = new ArrayList<HouseholderForTime>();
+    private ArrayList<HouseholderForTime> householderList = new ArrayList<>();
     private int selectedHHLoc, selectedLitLoc = 0;
     private HouseholderForTime householderForTime;
-    private QuickLiterature quickLit;
     private TimeEditorEntryAdapter adapter;
     private boolean allowedToEdit = true;
     private boolean publisherExists = false;
@@ -111,13 +109,12 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     private final int REF_TOGGLE_RETURN_VISIT = 3;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.getDefault());
-    SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm aaa", Locale.getDefault());
+    //SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm aaa", Locale.getDefault());
 
     SimpleDateFormat saveTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     public TimeEditorFragment newInstance() {
-        TimeEditorFragment f = new TimeEditorFragment();
-        return f;
+        return new TimeEditorFragment();
     }
 
     public TimeEditorFragment newInstance(int _timeID) {
@@ -181,7 +178,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         dateEnd = (TextView) root.findViewById(R.id.dateEnd);
         timeStart = (TextView) root.findViewById(R.id.timeStart);
         timeEnd = (TextView) root.findViewById(R.id.timeEnd);
-        addListItem = (ImageView) root.findViewById(R.id.addListItem);
+        ImageView addListItem = (ImageView) root.findViewById(R.id.addListItem);
 
         selectedDateStart.set(Calendar.MILLISECOND, 0);
         selectedDateEnd.set(Calendar.MILLISECOND, 0);
@@ -432,7 +429,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                         householderForTime = new HouseholderForTime(qTimeHouseholders.getInt(qTimeHouseholders.getColumnIndex(TimeHouseholder.HOUSEHOLDER_ID)), qTimeHouseholders.getString(qTimeHouseholders.getColumnIndex(Householder.NAME)), qTimeHouseholders.getInt(qTimeHouseholders.getColumnIndex(TimeHouseholder._ID)));
                         householderForTime.setCountedForReturnVisit(qTimeHouseholders.getInt(qTimeHouseholders.getColumnIndex(TimeHouseholder.RETURN_VISIT)));
 
-                        if (qTimeHouseholders.getString(qTimeHouseholders.getColumnIndex(UnionsNameAsRef.NOTE_ID)) != "") {
+                        if (!qTimeHouseholders.getString(qTimeHouseholders.getColumnIndex(UnionsNameAsRef.NOTE_ID)).equals("")) {
                             householderForTime.setNotesID(qTimeHouseholders.getInt(qTimeHouseholders.getColumnIndex(UnionsNameAsRef.NOTE_ID)));
                             householderForTime.setNotes(qTimeHouseholders.getString(qTimeHouseholders.getColumnIndex(Notes.NOTES)));
                         }
@@ -477,10 +474,10 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     }
 
     public void updateDisplayTimes() {
-        dateEnd.setText(dateFormat.format(selectedDateEnd.getTime()).toString());
-        dateStart.setText(dateFormat.format(selectedDateStart.getTime()).toString());
-        timeStart.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(selectedDateStart.getTime()).toString());
-        timeEnd.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(selectedDateEnd.getTime()).toString());
+        dateEnd.setText(dateFormat.format(selectedDateEnd.getTime()));
+        dateStart.setText(dateFormat.format(selectedDateStart.getTime()));
+        timeStart.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(selectedDateStart.getTime()));
+        timeEnd.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(selectedDateEnd.getTime()));
     }
 
     public void setDate(Calendar _date, int _which) {
@@ -633,7 +630,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
      */
     private boolean saveTime() {
         /** Flag to know if the literature should be inserted or deleted */
-        boolean isNew = (timeId == 0) ? true : false;
+        boolean isNew = timeId == 0;
 
         double totalTime = Helper.getDifference(selectedDateStart, selectedDateEnd);
 
@@ -729,7 +726,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 else {
                     placedIDs = new long[litList.size()];
                     for (int j = 0; j < litList.size(); j++) {
-                        quickLit = litList.get(j);
+                        QuickLiterature quickLit = litList.get(j);
                         values = new ContentValues();
                         values.put(LiteraturePlaced.TIME_ID, timeId);
                         values.put(LiteraturePlaced.HOUSEHOLDER_ID, householderForTime.getID());

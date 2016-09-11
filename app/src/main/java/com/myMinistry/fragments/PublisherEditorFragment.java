@@ -37,7 +37,6 @@ public class PublisherEditorFragment extends Fragment {
 
     private CheckBox cb_is_active;
     private TextInputLayout nameWrapper;
-    private Button save, cancel;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long publisherId = CREATE_ID;
@@ -89,15 +88,14 @@ public class PublisherEditorFragment extends Fragment {
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
         gender_type = (Spinner) root.findViewById(R.id.gender_type);
-        save = (Button) root.findViewById(R.id.save);
-        cancel = (Button) root.findViewById(R.id.cancel);
+        Button save = (Button) root.findViewById(R.id.save);
+        Button cancel = (Button) root.findViewById(R.id.cancel);
 
         database = new MinistryService(getActivity().getApplicationContext());
 
         root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
                 PublisherActivityFragment newFragment = new PublisherActivityFragment().newInstance(publisherId);
                 Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
                 FragmentTransaction transaction = fm.beginTransaction();
@@ -194,10 +192,6 @@ public class PublisherEditorFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
         switch (item.getItemId()) {
             case R.id.menu_discard:
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -205,18 +199,17 @@ public class PublisherEditorFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                FragmentManager fm1 = getActivity().getSupportFragmentManager();
                                 database.openWritable();
                                 database.deletePublisherByID((int) publisherId);
                                 database.close();
 
                                 if (is_dual_pane) {
-                                    PublishersFragment f = (PublishersFragment) fm1.findFragmentById(R.id.primary_fragment_container);
+                                    PublishersFragment f = (PublishersFragment) fm.findFragmentById(R.id.primary_fragment_container);
                                     f.updatePublisherList();
                                     switchForm(CREATE_ID);
                                 } else {
                                     PublishersFragment f = new PublishersFragment().newInstance();
-                                    FragmentTransaction transaction = fm1.beginTransaction();
+                                    FragmentTransaction transaction = fm.beginTransaction();
                                     transaction.replace(R.id.primary_fragment_container, f, "main");
                                     transaction.commit();
                                 }

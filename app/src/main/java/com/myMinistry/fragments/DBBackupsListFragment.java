@@ -1,5 +1,6 @@
 package com.myMinistry.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -105,6 +106,7 @@ public class DBBackupsListFragment extends ListFragment {
         builder.setTitle(fileList[position]);
 
         builder.setItems(getResources().getStringArray(R.array.db_backups_list_item_options), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("ResultOfMethodCallIgnored")
             public void onClick(DialogInterface dialog, int item) {
                 if (item == REF_RESTORE) {
                     MinistryService database = new MinistryService(getActivity().getApplicationContext());
@@ -136,6 +138,7 @@ public class DBBackupsListFragment extends ListFragment {
         alert.show();
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void createBackup() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-aaa", Locale.getDefault());
         Calendar now = Calendar.getInstance();
@@ -222,6 +225,7 @@ public class DBBackupsListFragment extends ListFragment {
 
         weekly.set(Calendar.DAY_OF_WEEK, PrefUtils.getDBBackupWeeklyWeekday(getActivity()));
 
+        @SuppressLint("InflateParams")
         View view = LayoutInflater.from(DBBackupsListFragment.this.getActivity()).inflate(R.layout.d_schedule_backups, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(DBBackupsListFragment.this.getActivity());
         final Switch cb_is_active = (Switch) view.findViewById(R.id.cb_is_active);

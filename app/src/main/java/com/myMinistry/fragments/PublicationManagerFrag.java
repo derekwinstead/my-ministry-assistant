@@ -42,7 +42,6 @@ public class PublicationManagerFrag extends ListFragment {
     private ContentValues values = null;
     private MinistryService database;
     private FragmentManager fm;
-    private FloatingActionButton fab;
 
     public PublicationManagerFrag newInstance() {
         return new PublicationManagerFrag();
@@ -67,7 +66,7 @@ public class PublicationManagerFrag extends ListFragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
         getActivity().setTitle(R.string.form_publication_types);
 
@@ -145,8 +144,8 @@ public class PublicationManagerFrag extends ListFragment {
         }
 
         editText.setText(name);
-        cb_is_active.setChecked((isActive != 0) ? true : false);
-        cb_is_default.setChecked((isDefault != 0) ? true : false);
+        cb_is_active.setChecked(isActive != 0);
+        cb_is_default.setChecked(isDefault != 0);
 
         builder.setView(view);
         builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.edit);

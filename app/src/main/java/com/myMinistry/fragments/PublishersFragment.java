@@ -21,7 +21,6 @@ import com.myMinistry.provider.MinistryService;
 public class PublishersFragment extends ListFragment {
 	private boolean is_dual_pane = false;
 
-	private Cursor publishers;
 	private MinistryService database;
 	private TitleAndDateAdapterUpdated adapter;
 	private FloatingActionButton fab;
@@ -70,7 +69,7 @@ public class PublishersFragment extends ListFragment {
 		database = new MinistryService(getActivity());
 
 		database.openWritable();
-		publishers = database.fetchAllPublishersWithActivityDates();
+        Cursor publishers = database.fetchAllPublishersWithActivityDates();
 		adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), publishers, R.string.last_active_on);
 		setListAdapter(adapter);
 		database.close();

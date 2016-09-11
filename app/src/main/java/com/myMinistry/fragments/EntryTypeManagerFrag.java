@@ -187,8 +187,8 @@ public class EntryTypeManagerFrag extends ListFragment {
         }
 
         editText.setText(name);
-        cb_is_active.setChecked((isActive != 0) ? true : false);
-        cb_is_default.setChecked((isDefault != 0) ? true : false);
+        cb_is_active.setChecked(isActive != 0);
+        cb_is_default.setChecked(isDefault != 0);
 
         builder.setView(view);
         builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.edit);

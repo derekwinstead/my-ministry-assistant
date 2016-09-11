@@ -8,44 +8,45 @@ public class ItemWithIcon {
     public int is_default = 0;
     public int count = 0;
 
-    public ItemWithIcon(String _title, int _iconRes) {
-        title = _title;
-        iconRes = _iconRes;
+    public ItemWithIcon(String title, int iconRes) {
+        this.title = title;
+        this.iconRes = iconRes;
     }
 
-    public ItemWithIcon(int _id, String _title, int _count) {
-        title = _title;
-        count = _count;
-        id = _id;
+    public ItemWithIcon(int id, String title, int count) {
+        this.title = title;
+        this.count = count;
+        this.id = id;
     }
 
-    public ItemWithIcon(String _title, int _iconRes, int _id) {
-        title = _title;
-        iconRes = _iconRes;
-        id = _id;
+    /*
+        public ItemWithIcon(String _title, int _iconRes, int _id) {
+            title = _title;
+            iconRes = _iconRes;
+            id = _id;
+        }
+
+        public ItemWithIcon(String _title, int _iconRes, int _id, int _is_active) {
+            title = _title;
+            iconRes = _iconRes;
+            id = _id;
+            is_active = _is_active;
+        }
+    */
+    public ItemWithIcon(String title, int iconRes, int id, int is_active, int is_default) {
+        this.title = title;
+        this.iconRes = iconRes;
+        this.id = id;
+        this.is_active = is_active;
+        this.is_default = is_default;
     }
 
-    public ItemWithIcon(String _title, int _iconRes, int _id, int _is_active) {
-        title = _title;
-        iconRes = _iconRes;
-        id = _id;
-        is_active = _is_active;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public ItemWithIcon(String _title, int _iconRes, int _id, int _is_active, int _is_default) {
-        title = _title;
-        iconRes = _iconRes;
-        id = _id;
-        is_active = _is_active;
-        is_default = _is_default;
-    }
-
-    public void setTitle(String _title) {
-        title = _title;
-    }
-
-    public void setIconRes(int _iconRes) {
-        iconRes = _iconRes;
+    public void setIconRes(int iconRes) {
+        this.iconRes = iconRes;
     }
 
     public String toString() {
@@ -56,18 +57,20 @@ public class ItemWithIcon {
         return id;
     }
 
-    public void setIsActive(int var) {
-        is_active = var;
-    }
-
+    /*
+        public void setIsActive(int var) {
+            is_active = var;
+        }
+    */
     public int getIsActive() {
         return is_active;
     }
 
-    public void setIsDefault(int var) {
-        is_default = var;
-    }
-
+    /*
+        public void setIsDefault(int var) {
+            is_default = var;
+        }
+    */
     public int getIsDefault() {
         return is_default;
     }

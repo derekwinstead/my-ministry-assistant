@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class Helper {
     public static Calendar roundMinutesAndHour(Calendar time, int TIME_PICKER_INTERVAL) {
         int minute = time.get(Calendar.MINUTE);
