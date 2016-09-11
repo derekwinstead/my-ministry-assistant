@@ -67,10 +67,8 @@ public class PublicationEditorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (publicationId == CREATE_ID)
-            inflater.inflate(R.menu.save_cancel, menu);
-        else
-            inflater.inflate(R.menu.save_cancel_discard, menu);
+        if (publicationId != CREATE_ID)
+            inflater.inflate(R.menu.discard, menu);
     }
 
     @Override
@@ -93,6 +91,8 @@ public class PublicationEditorFragment extends Fragment {
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
         view_activity = (Button) root.findViewById(R.id.view_activity);
+        Button save = (Button) root.findViewById(R.id.save);
+        Button cancel = (Button) root.findViewById(R.id.cancel);
 
         database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
@@ -137,28 +137,9 @@ public class PublicationEditorFragment extends Fragment {
             }
         });
 
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.title_publication_edit);
-
-        fillForm();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        switch (item.getItemId()) {
-            case R.id.menu_save:
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
 
@@ -204,38 +185,48 @@ public class PublicationEditorFragment extends Fragment {
                         PublicationFragment f = (PublicationFragment) fm.findFragmentById(R.id.primary_fragment_container);
                         f.updateLiteratureList((int) publicationTypeId);
                     } else {
-                        Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-                        PublicationFragment f = new PublicationFragment().newInstance((int) publicationTypeId);
-
-                        if (frag != null)
-                            ft.remove(frag);
-
-                        ft.add(R.id.primary_fragment_container, f);
-                        ft.addToBackStack(null);
-
-                        ft.commit();
+                        PublicationFragment f = new PublicationFragment().newInstance();
+                        FragmentTransaction transaction = fm.beginTransaction();
+                        transaction.replace(R.id.primary_fragment_container, f, "main");
+                        transaction.commit();
                     }
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
                 }
+            }
+        });
 
-                return true;
-            case R.id.menu_cancel:
-                if (is_dual_pane)
-                    switchForm(CREATE_ID);
-                else {
-                    Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-                    PublicationFragment f = new PublicationFragment().newInstance((int) s_publicationTypes.getSelectedItemId());
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PublicationFragment f = new PublicationFragment().newInstance();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
+            }
+        });
 
-                    if (frag != null)
-                        ft.remove(frag);
+        return root;
+    }
 
-                    ft.add(R.id.primary_fragment_container, f);
-                    ft.addToBackStack(null);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-                    ft.commit();
-                }
-                return true;
+        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+
+        if (!is_dual_pane)
+            getActivity().setTitle(R.string.title_publication_edit);
+
+        fillForm();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+        switch (item.getItemId()) {
             case R.id.menu_discard:
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -257,17 +248,10 @@ public class PublicationEditorFragment extends Fragment {
                                     f.updateLiteratureList((int) publicationTypeId);
                                     switchForm(CREATE_ID);
                                 } else {
-                                    Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
                                     PublicationFragment f = new PublicationFragment().newInstance((int) s_publicationTypes.getSelectedItemId());
-                                    FragmentTransaction ft = fm.beginTransaction();
-
-                                    if (frag != null)
-                                        ft.remove(frag);
-
-                                    ft.add(R.id.primary_fragment_container, f);
-                                    ft.addToBackStack(null);
-
-                                    ft.commit();
+                                    FragmentTransaction transaction = fm.beginTransaction();
+                                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                                    transaction.commit();
                                 }
 
                                 break;

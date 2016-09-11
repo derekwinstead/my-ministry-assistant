@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -36,16 +37,15 @@ public class PublisherEditorFragment extends Fragment {
 
     private CheckBox cb_is_active;
     private TextInputLayout nameWrapper;
+    private Button save, cancel;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long publisherId = CREATE_ID;
 
     private MinistryService database;
-    //private Cursor activity;
-    //private TimeEntryAdapter adapter;
-    //private FragmentManager fm;
     private FloatingActionButton fab;
     private Spinner gender_type;
+    private FragmentManager fm;
 
     private NavDrawerMenuItemAdapter genderAdapter;
 
@@ -66,10 +66,8 @@ public class PublisherEditorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (publisherId == CREATE_ID)
-            inflater.inflate(R.menu.save, menu);
-        else
-            inflater.inflate(R.menu.save_discard, menu);
+        if (publisherId != CREATE_ID)
+            inflater.inflate(R.menu.discard, menu);
     }
 
     @Override
@@ -81,7 +79,7 @@ public class PublisherEditorFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        //fm = getActivity().getSupportFragmentManager();
+        fm = getActivity().getSupportFragmentManager();
 
         genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
@@ -91,9 +89,8 @@ public class PublisherEditorFragment extends Fragment {
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
         gender_type = (Spinner) root.findViewById(R.id.gender_type);
-
-        //adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), activity);
-        //setListAdapter(adapter);
+        save = (Button) root.findViewById(R.id.save);
+        cancel = (Button) root.findViewById(R.id.cancel);
 
         database = new MinistryService(getActivity().getApplicationContext());
 
@@ -113,40 +110,9 @@ public class PublisherEditorFragment extends Fragment {
             }
         });
 
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        if (!is_dual_pane) {
-            fab.setVisibility(View.GONE);
-        }
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchForm(CREATE_ID);
-            }
-        });
-
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.title_publisher_edit);
-
-        fillForm();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        switch (item.getItemId()) {
-            case R.id.menu_save:
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
 
@@ -191,40 +157,60 @@ public class PublisherEditorFragment extends Fragment {
                         PublishersFragment f = (PublishersFragment) fm.findFragmentById(R.id.primary_fragment_container);
                         f.updatePublisherList();
                     } else {
-                        Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
                         PublishersFragment f = new PublishersFragment().newInstance();
-
-                        if (frag != null)
-                            ft.remove(frag);
-
-                        ft.add(R.id.primary_fragment_container, f);
-                        ft.addToBackStack(null);
-
-                        ft.commit();
+                        FragmentTransaction transaction = fm.beginTransaction();
+                        transaction.replace(R.id.primary_fragment_container, f, "main");
+                        transaction.commit();
                     }
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
                 }
+            }
+        });
 
-                return true;
-			/*
-			case R.id.menu_cancel:
-				if(is_dual_pane)
-					switchForm(CREATE_ID);
-				else {
-					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-					PublishersFragment f = new PublishersFragment().newInstance();
-					
-					if(frag != null)
-						ft.remove(frag);
-					
-					ft.add(R.id.primary_fragment_container, f);
-					ft.addToBackStack(null);
-					
-		        	ft.commit();
-				}
-				return true;
-				*/
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PublishersFragment f = new PublishersFragment().newInstance();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
+            }
+        });
+
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+
+        if (!is_dual_pane) {
+            fab.setVisibility(View.GONE);
+        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
+
+        if (!is_dual_pane)
+            getActivity().setTitle(R.string.title_publisher_edit);
+
+        fillForm();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+        switch (item.getItemId()) {
             case R.id.menu_discard:
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -247,17 +233,10 @@ public class PublisherEditorFragment extends Fragment {
                                     f.updatePublisherList();
                                     switchForm(CREATE_ID);
                                 } else {
-                                    FragmentTransaction ft = fm1.beginTransaction();
-                                    Fragment frag = fm1.findFragmentById(R.id.primary_fragment_container);
                                     PublishersFragment f = new PublishersFragment().newInstance();
-
-                                    if (frag != null)
-                                        ft.remove(frag);
-
-                                    ft.add(R.id.primary_fragment_container, f);
-                                    ft.addToBackStack(null);
-
-                                    ft.commit();
+                                    FragmentTransaction transaction = fm1.beginTransaction();
+                                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                                    transaction.commit();
                                 }
 
                                 break;
@@ -298,15 +277,9 @@ public class PublisherEditorFragment extends Fragment {
             nameWrapper.getEditText().setText("");
             cb_is_active.setChecked(true);
 
-            //getListView().setVisibility(View.GONE);
-            //getListView().getEmptyView().setVisibility(View.GONE);
-
             if (is_dual_pane)
                 fab.setVisibility(View.GONE);
         } else {
-            //getListView().setVisibility(View.VISIBLE);
-            //getListView().getEmptyView().setVisibility(View.VISIBLE);
-
             database.openWritable();
             Cursor publisher = database.fetchPublisher((int) publisherId);
             if (publisher.moveToFirst()) {
@@ -323,30 +296,9 @@ public class PublisherEditorFragment extends Fragment {
                 cb_is_active.setChecked(true);
             }
             publisher.close();
-            //activity = database.fetchActivityForPublisher((int) publisherId);
-            //adapter.changeCursor(activity);
             database.close();
             if (is_dual_pane)
                 fab.setVisibility(View.VISIBLE);
         }
     }
-    /*
-    @Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-    	int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-    	
-    	FragmentTransaction ft = fm.beginTransaction();
-    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-    	
-    	Fragment frag = fm.findFragmentById(LAYOUT_ID);
-    	TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id);
-    	
-    	if(frag != null)
-    		ft.remove(frag);
-    	
-    	ft.add(LAYOUT_ID, f);
-    	ft.addToBackStack(null);
-    	
-    	ft.commit();
-	}*/
 }

@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         HelpUtils.doApplicationUpdatedWork(getApplicationContext());
                     } catch (Exception e) {
-
+e.printStackTrace();
                     }
                     ringProgressDialog.dismiss();
                 }
@@ -194,12 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public boolean goToNavDrawerItem(int itemId) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
         Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-
-        //boolean is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
         // TODO put a condition around this to not always set the visibility and only do it if the backup item was selected and then it changed.
         findViewById(R.id.primary_fragment_container).setVisibility(View.VISIBLE);
@@ -217,59 +212,21 @@ public class MainActivity extends AppCompatActivity {
 
                     new ReportFragment();
                     ReportFragment f = ReportFragment.newInstance(PrefUtils.getPublisherId(this));
-                    // test
-                    ft.replace(R.id.primary_fragment_container, f);
+                    FragmentTransaction transaction = fm.beginTransaction();
 
-                    if (!firstLoad)
-                        ft.addToBackStack(null);
+                    if (firstLoad) {
+                        transaction.add(R.id.primary_fragment_container, f, "main");
+                        //transaction.addToBackStack("addReport");
+                    } else {
+                        transaction.replace(R.id.primary_fragment_container, f, "main");
+                    }
 
-                    ft.commit();
+                    //transaction.addToBackStack(null);
+                    transaction.commit();
                 } else {
                     date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
                     date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
-
-                    ReportFragment f = (ReportFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                    /*
-                    f.setPublisherId(PrefUtils.getPublisherId(this));
-                    f.setDate(date);
-                    */
-                    /*
-                    f.calculateSummaryValues();
-                    f.refresh(SummaryNavigationFragment.DIRECTION_NO_CHANGE);
-                    */
                 }
-
-
-                /*
-
-
-
-                if(!(frag instanceof SummaryFragment)) {
-                    if(firstLoad)
-                        PrefUtils.setSummaryMonthAndYear(this, date);
-
-                    new SummaryFragment();
-                    SummaryFragment f = SummaryFragment.newInstance(PrefUtils.getPublisherId(this));
-                    // test
-                    ft.replace(R.id.primary_fragment_container, f);
-
-                    if(!firstLoad)
-                        ft.addToBackStack(null);
-
-                    ft.commit();
-                }
-                else {
-                    date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
-                    date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
-
-                    SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                    f.setPublisherId(PrefUtils.getPublisherId(this));
-                    f.setDate(date);
-                    f.calculateSummaryValues();
-                    f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
-                }
-
-                */
 
                 firstLoad = false;
                 return true;
@@ -279,14 +236,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!(frag instanceof PublicationFragment)) {
                     PublicationFragment f = new PublicationFragment().newInstance();
-
-                    if (frag != null)
-                        ft.remove(frag);
-
-                    ft.add(R.id.primary_fragment_container, f);
-                    ft.addToBackStack(null);
-
-                    ft.commit();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 }
 
                 return true;
@@ -296,14 +248,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!(frag instanceof HouseholdersFragment)) {
                     HouseholdersFragment f = new HouseholdersFragment().newInstance();
-
-                    if (frag != null)
-                        ft.remove(frag);
-
-                    ft.add(R.id.primary_fragment_container, f);
-                    ft.addToBackStack(null);
-
-                    ft.commit();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 }
 
                 return true;
@@ -313,14 +260,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!(frag instanceof PublishersFragment)) {
                     PublishersFragment f = new PublishersFragment().newInstance();
-
-                    if (frag != null)
-                        ft.remove(frag);
-
-                    ft.add(R.id.primary_fragment_container, f);
-                    ft.addToBackStack(null);
-
-                    ft.commit();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 }
 
                 return true;
@@ -330,14 +272,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!(frag instanceof EntryTypeManagerFrag)) {
                     EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
-
-                    if (frag != null)
-                        ft.remove(frag);
-
-                    ft.add(R.id.primary_fragment_container, f);
-                    ft.addToBackStack(null);
-
-                    ft.commit();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 }
 
                 return true;
@@ -347,14 +284,9 @@ public class MainActivity extends AppCompatActivity {
                         showChangeLayout();
 
                     DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
-
-                    if (frag != null)
-                        ft.remove(frag);
-
-                    ft.add(R.id.primary_fragment_container, f);
-                    ft.addToBackStack(null);
-
-                    ft.commit();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 }
 
                 return true;
@@ -369,17 +301,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
 
                 return true;
-
             case NAVDRAWER_ITEM_TIME_ENTRY:
                 int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
 
-                frag = fm.findFragmentById(LAYOUT_ID);
                 TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(LAYOUT_ID, f, "main");
+                transaction.commit();
+/*
+                frag = fm.findFragmentById(LAYOUT_ID);
+
 
                 ft.replace(LAYOUT_ID, f);
 
                 ft.commit();
-
+*/
                 return true;
         }
 
@@ -390,13 +326,18 @@ public class MainActivity extends AppCompatActivity {
         goToNavDrawerItem(getDefaultNavDrawerItem());
     }
 
+    @SuppressWarnings("deprecation")
     public void changeLang(String lang) {
         if (lang.equalsIgnoreCase(""))
             return;
         Locale myLocale = new Locale(lang);
         Locale.setDefault(myLocale);
         android.content.res.Configuration config = new android.content.res.Configuration();
-        config.locale = myLocale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(myLocale);
+        } else {
+            config.locale = myLocale;
+        }
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 

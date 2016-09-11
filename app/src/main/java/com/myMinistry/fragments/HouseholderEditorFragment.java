@@ -43,6 +43,7 @@ public class HouseholderEditorFragment extends Fragment {
     private CheckBox cb_is_active;
     private Button view_activity;
     private TextInputLayout nameWrapper, addressWrapper, mobileWrapper, homeWrapper, workWrapper, otherWrapper;
+    private Button save, cancel;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long householderID = CREATE_ID;
@@ -66,10 +67,8 @@ public class HouseholderEditorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (householderID == CREATE_ID)
-            inflater.inflate(R.menu.save, menu);
-        else
-            inflater.inflate(R.menu.save_discard, menu);
+        if (householderID != CREATE_ID)
+            inflater.inflate(R.menu.discard, menu);
     }
 
     @Override
@@ -104,6 +103,8 @@ public class HouseholderEditorFragment extends Fragment {
         cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
         view_activity = (Button) root.findViewById(R.id.view_activity);
         fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        save = (Button) root.findViewById(R.id.save);
+        cancel = (Button) root.findViewById(R.id.cancel);
 
         view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,40 +123,9 @@ public class HouseholderEditorFragment extends Fragment {
             }
         });
 
-        database = new MinistryService(getActivity().getApplicationContext());
-
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        if (!is_dual_pane) {
-            fab.setVisibility(View.GONE);
-        }
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchForm(CREATE_ID);
-            }
-        });
-
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.title_householder_edit);
-
-        fillForm();
-    }
-
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_save:
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
 
@@ -216,23 +186,60 @@ public class HouseholderEditorFragment extends Fragment {
                         HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
                         f.updateHouseholderList();
                     } else {
-                        HouseholdersFragment newFragment = new HouseholdersFragment().newInstance();
-                        Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+                        HouseholdersFragment f = new HouseholdersFragment().newInstance();
                         FragmentTransaction transaction = fm.beginTransaction();
-
-                        if (replaceFrag != null) {
-                            transaction.remove(replaceFrag);
-                            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        }
-
-                        transaction.add(R.id.primary_fragment_container, newFragment);
+                        transaction.replace(R.id.primary_fragment_container, f, "main");
                         transaction.commit();
                     }
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
                 }
+            }
+        });
 
-                return true;
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
+            }
+        });
+
+        database = new MinistryService(getActivity().getApplicationContext());
+
+        return root;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+
+        if (!is_dual_pane) {
+            fab.setVisibility(View.GONE);
+        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
+
+        if (!is_dual_pane)
+            getActivity().setTitle(R.string.title_householder_edit);
+
+        fillForm();
+    }
+
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menu_discard:
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -254,16 +261,9 @@ public class HouseholderEditorFragment extends Fragment {
                                     f.updateHouseholderList();
                                     switchForm(CREATE_ID);
                                 } else {
-                                    HouseholdersFragment newFragment = new HouseholdersFragment().newInstance();
-                                    Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+                                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
                                     FragmentTransaction transaction = fm.beginTransaction();
-
-                                    if (replaceFrag != null) {
-                                        transaction.remove(replaceFrag);
-                                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                    }
-
-                                    transaction.add(R.id.primary_fragment_container, newFragment);
+                                    transaction.replace(R.id.primary_fragment_container, f, "main");
                                     transaction.commit();
                                 }
 
