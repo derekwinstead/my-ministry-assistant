@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -42,6 +43,8 @@ public class PublicationEditorFragment extends Fragment {
     private CheckBox cb_is_active;
     private CheckBox cb_is_pair;
     private TextInputLayout nameWrapper;
+
+    private FloatingActionButton fab;
 
     private FragmentManager fm;
 
@@ -81,6 +84,8 @@ public class PublicationEditorFragment extends Fragment {
         setHasOptionsMenu(true);
 
         fm = getActivity().getSupportFragmentManager();
+
+        fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
         sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
@@ -122,17 +127,23 @@ public class PublicationEditorFragment extends Fragment {
         });
         database.close();
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
+
         view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublicationActivityFragment newFragment = new PublicationActivityFragment().newInstance(publicationId);
-                Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+                PublicationActivityFragment f = new PublicationActivityFragment().newInstance(publicationId);
                 FragmentTransaction transaction = fm.beginTransaction();
-
-                if (replaceFrag != null)
-                    transaction.remove(replaceFrag);
-
-                transaction.add(R.id.primary_fragment_container, newFragment);
+                if (is_dual_pane) {
+                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                } else {
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                }
                 transaction.commit();
             }
         });
@@ -187,10 +198,17 @@ public class PublicationEditorFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublicationFragment f = new PublicationFragment().newInstance();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
-                transaction.commit();
+                if (is_dual_pane) {
+                    switchForm(CREATE_ID);
+                } else {
+                    fm.popBackStack();
+                    /*
+                    PublicationFragment f = new PublicationFragment().newInstance();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
+                    */
+                }
             }
         });
 
@@ -203,8 +221,10 @@ public class PublicationEditorFragment extends Fragment {
 
         is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
-        if (!is_dual_pane)
+        if (!is_dual_pane) {
             getActivity().setTitle(R.string.title_publication_edit);
+            fab.setVisibility(View.GONE);
+        }
 
         fillForm();
     }
@@ -238,7 +258,7 @@ public class PublicationEditorFragment extends Fragment {
                     }
                 };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(PublicationEditorFragment.this.getActivity());
                 builder.setTitle(R.string.confirm_deletion)
                         .setPositiveButton(R.string.menu_delete, dialogClickListener)
                         .setNegativeButton(R.string.menu_cancel, dialogClickListener)
@@ -268,6 +288,7 @@ public class PublicationEditorFragment extends Fragment {
             cb_is_pair.setChecked(false);
             view_activity.setVisibility(View.GONE);
         } else {
+            view_activity.setVisibility(View.VISIBLE);
             database.openWritable();
             Cursor literature = database.fetchLiteratureByID((int) publicationId);
             if (literature.moveToFirst()) {

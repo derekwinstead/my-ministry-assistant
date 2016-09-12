@@ -302,20 +302,15 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case NAVDRAWER_ITEM_TIME_ENTRY:
-                int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-
                 TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(LAYOUT_ID, f, "main");
+                if (is_dual_pane) {
+                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                } else {
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                }
                 transaction.commit();
-/*
-                frag = fm.findFragmentById(LAYOUT_ID);
 
-
-                ft.replace(LAYOUT_ID, f);
-
-                ft.commit();
-*/
                 return true;
         }
 
