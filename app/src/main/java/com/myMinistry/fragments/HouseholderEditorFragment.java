@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,8 +31,6 @@ import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.squareup.phrase.Phrase;
-
-import java.util.Locale;
 
 public class HouseholderEditorFragment extends Fragment {
     public static final String ARG_HOUSEHOLDER_ID = "householder_id";
@@ -128,18 +125,6 @@ public class HouseholderEditorFragment extends Fragment {
             public void onClick(View v) {
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        mobileWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(mobileWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
-                        homeWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(homeWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
-                        workWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(workWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
-                        otherWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(otherWrapper.getEditText().getText().toString(), Locale.getDefault().getISO3Country()));
-                    } else {
-                        mobileWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(mobileWrapper.getEditText().getText().toString()));
-                        homeWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(homeWrapper.getEditText().getText().toString()));
-                        workWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(workWrapper.getEditText().getText().toString()));
-                        otherWrapper.getEditText().setText(PhoneNumberUtils.formatNumber(otherWrapper.getEditText().getText().toString()));
-                    }
 
                     ContentValues values = new ContentValues();
                     values.put(Householder.NAME, nameWrapper.getEditText().getText().toString().trim());
