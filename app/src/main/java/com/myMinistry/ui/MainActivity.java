@@ -29,6 +29,7 @@ import com.myMinistry.fragments.DBBackupsListFragment;
 import com.myMinistry.fragments.EntryTypeManagerFrag;
 import com.myMinistry.fragments.HouseholdersFragment;
 import com.myMinistry.fragments.PublicationFragment;
+import com.myMinistry.fragments.PublicationManagerFragment;
 import com.myMinistry.fragments.PublishersFragment;
 import com.myMinistry.fragments.ReportFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
@@ -45,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     protected static final int NAVDRAWER_ITEM_TIME_ENTRY = 8;
+    protected static final int NAVDRAWER_ITEM_PUBLICATION_MANAGER = 9;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
+    public static final int PUBLICATION_MANAGER_ID = NAVDRAWER_ITEM_PUBLICATION_MANAGER;
     private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
 
     private boolean layout_changed = false;
@@ -310,6 +313,18 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.primary_fragment_container, f, "main");
                 }
                 transaction.commit();
+
+                return true;
+            case NAVDRAWER_ITEM_PUBLICATION_MANAGER:
+                if (!(frag instanceof PublicationManagerFragment)) {
+                    if (is_dual_pane)
+                        showChangeLayout();
+
+                    PublicationManagerFragment f1 = new PublicationManagerFragment().newInstance();
+                    FragmentTransaction transaction1 = fm.beginTransaction();
+                    transaction1.replace(R.id.primary_fragment_container, f1, "main");
+                    transaction1.commit();
+                }
 
                 return true;
         }

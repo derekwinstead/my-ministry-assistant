@@ -126,8 +126,7 @@ public class EntryTypeManagerFrag extends ListFragment {
             showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         } else {
             if (is_dual_pane) {
-                PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
-                f.switchForm(adapter.getItem(position).getID());
+                // TODO
             } else {
                 createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
             }

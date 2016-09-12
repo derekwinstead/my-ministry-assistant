@@ -22,7 +22,9 @@ import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
+import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.ui.MainActivity;
 
 public class PublicationFragment extends ListFragment {
     public static String ARG_PUBLICATION_ID = "publication_id";
@@ -148,10 +150,13 @@ public class PublicationFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.view_publication_manager:
-                PublicationManagerFrag f = new PublicationManagerFrag().newInstance();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
-                transaction.commit();
+                if (is_dual_pane) {
+                    // TODO: Verify that it's the editor fragment first before doing the switchForm(). Will cause an error
+                    PublicationEditorFragment fragment = (PublicationEditorFragment) fm.findFragmentById(R.id.secondary_fragment_container);
+                    fragment.switchForm(MinistryDatabase.CREATE_ID);
+                }
+
+                ((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.PUBLICATION_MANAGER_ID);
 
                 return true;
             default:

@@ -7,9 +7,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -30,10 +28,9 @@ import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.ui.MainActivity;
 
-public class PublicationManagerFrag extends ListFragment {
-    private boolean is_dual_pane = false;
-
+public class PublicationManagerFragment extends ListFragment {
     private final int RENAME_ID = 0;
     private final int TRANSFER_ID = 1;
     private final int DELETE_ID = 2;
@@ -43,8 +40,10 @@ public class PublicationManagerFrag extends ListFragment {
     private MinistryService database;
     private FragmentManager fm;
 
-    public PublicationManagerFrag newInstance() {
-        return new PublicationManagerFrag();
+    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+
+    public PublicationManagerFragment newInstance() {
+        return new PublicationManagerFragment();
     }
 
     @Override
@@ -54,6 +53,7 @@ public class PublicationManagerFrag extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.publication_manager, container, false);
     }
@@ -61,8 +61,6 @@ public class PublicationManagerFrag extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         fm = getActivity().getSupportFragmentManager();
 
@@ -81,32 +79,12 @@ public class PublicationManagerFrag extends ListFragment {
 
         database.close();
 
-        if (is_dual_pane) {
-            fab.setVisibility(View.GONE);
-
-            Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
-            PublicationManagerEditorFrag f = new PublicationManagerEditorFrag().newInstance(MinistryDatabase.CREATE_ID);
-
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-            if (frag != null)
-                ft.remove(frag);
-
-            ft.add(R.id.secondary_fragment_container, f);
-
-            ft.commit();
-        }
-        if (is_dual_pane) {
-
-        } else {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openEditor(HouseholderEditorFragment.CREATE_ID);
-                }
-            });
-        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openEditor(CREATE_ID);
+            }
+        });
     }
 
     @Override
@@ -114,12 +92,7 @@ public class PublicationManagerFrag extends ListFragment {
         if (adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
             showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         } else {
-            if (is_dual_pane) {
-                PublicationManagerEditorFrag f = (PublicationManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
-                f.switchForm(adapter.getItem(position).getID());
-            } else {
-                createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
-            }
+            createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         }
     }
 
@@ -132,8 +105,8 @@ public class PublicationManagerFrag extends ListFragment {
 
     @SuppressLint("InflateParams")
     private void showEditTextDialog(final int id, String name, int isActive, int isDefault) {
-        View view = LayoutInflater.from(PublicationManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text_with_two_cb, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
+        View view = LayoutInflater.from(PublicationManagerFragment.this.getActivity()).inflate(R.layout.d_edit_text_with_two_cb, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFragment.this.getActivity());
         final EditText editText = (EditText) view.findViewById(R.id.text1);
         final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
         final CheckBox cb_is_default = (CheckBox) view.findViewById(R.id.cb_is_default);
@@ -189,7 +162,7 @@ public class PublicationManagerFrag extends ListFragment {
         cursor.close();
         database.close();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFragment.this.getActivity());
         builder.setTitle(getActivity().getApplicationContext().getString(R.string.menu_transfer_to));
         builder.setAdapter(mAdapter, new OnClickListener() {
             @Override
@@ -220,49 +193,18 @@ public class PublicationManagerFrag extends ListFragment {
     }
 
     public void openEditor(long id) {
-        int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-
-        if (is_dual_pane) {
-            /*
-            if(fm.findFragmentById(LAYOUT_ID) instanceof HouseholderEditorFragment) {
-                HouseholderEditorFragment fragment = (HouseholderEditorFragment) fm.findFragmentById(LAYOUT_ID);
-                fragment.switchForm(id);
-            }
-            else {
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-                Fragment frag = fm.findFragmentById(LAYOUT_ID);
-                HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
-
-                if(frag != null)
-                    ft.remove(frag);
-
-                ft.add(LAYOUT_ID, f);
-                ft.addToBackStack(null);
-
-                ft.commit();
-            }
-            */
-        } else {
-            showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE, MinistryService.INACTIVE);
-        }
+        showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE, MinistryService.INACTIVE);
     }
 
     public void showListItems(final int id, final String name, final int isActive, final int isDefault) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFragment.this.getActivity());
         builder.setTitle(R.string.menu_options);
         builder.setItems(getResources().getStringArray(R.array.entry_type_list_item_options), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case RENAME_ID:
-                        if (is_dual_pane) {
-                            //populateEditor(id);
-                        } else {
-                            showEditTextDialog(id, name, isActive, isDefault);
-                            //sortList(PrefUtils.getEntryTypeSort(getActivity()));
-                        }
+                        showEditTextDialog(id, name, isActive, isDefault);
                         break;
                     case TRANSFER_ID:
                         showTransferToDialog(id, name);
@@ -283,7 +225,7 @@ public class PublicationManagerFrag extends ListFragment {
                             }
                         };
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFrag.this.getActivity());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFragment.this.getActivity());
                         builder.setTitle(R.string.confirm_deletion)
                                 .setMessage(R.string.confirm_deletion_message_publication_types)
                                 .setPositiveButton(R.string.menu_delete, dialogClickListener)
@@ -301,16 +243,7 @@ public class PublicationManagerFrag extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.view_publications:
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-                PublicationFragment f = new PublicationFragment().newInstance();
-
-                if (frag != null)
-                    ft.remove(frag);
-
-                ft.add(R.id.primary_fragment_container, f);
-                ft.commit();
+                ((MainActivity) getActivity()).goToNavDrawerItem(R.id.drawer_publications);
 
                 return true;
             default:
