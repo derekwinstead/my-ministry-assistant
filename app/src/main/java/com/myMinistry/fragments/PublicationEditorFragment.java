@@ -201,13 +201,10 @@ public class PublicationEditorFragment extends Fragment {
                 if (is_dual_pane) {
                     switchForm(CREATE_ID);
                 } else {
-                    fm.popBackStack();
-                    /*
                     PublicationFragment f = new PublicationFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.primary_fragment_container, f, "main");
                     transaction.commit();
-                    */
                 }
             }
         });

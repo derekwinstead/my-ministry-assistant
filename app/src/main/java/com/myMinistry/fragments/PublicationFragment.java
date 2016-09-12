@@ -3,7 +3,6 @@ package com.myMinistry.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -26,212 +25,177 @@ import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryService;
 
 public class PublicationFragment extends ListFragment {
-	public static String ARG_PUBLICATION_ID = "publication_id";
+    public static String ARG_PUBLICATION_ID = "publication_id";
 
-	private boolean is_dual_pane = false;
+    private boolean is_dual_pane = false;
 
-	private MinistryService database;
-	private Spinner myspinner;
-	private TitleAndDateAdapterUpdated adapter;
-	private Cursor cursor;
-	private int literatureTypeId = 0;
-	private FragmentManager fm;
+    private MinistryService database;
+    private Spinner myspinner;
+    private TitleAndDateAdapterUpdated adapter;
+    private Cursor cursor;
+    private int literatureTypeId = 0;
+    private FragmentManager fm;
 
-	private FloatingActionButton fab;
+    private FloatingActionButton fab;
 
-	private NavDrawerMenuItemAdapter sadapter;
+    private NavDrawerMenuItemAdapter sadapter;
 
-	public PublicationFragment newInstance() {
-		return new PublicationFragment();
-	}
+    public PublicationFragment newInstance() {
+        return new PublicationFragment();
+    }
 
-	public PublicationFragment newInstance(int literatureTypeId) {
-		PublicationFragment f = new PublicationFragment();
-		Bundle args = new Bundle();
-		args.putInt(ARG_PUBLICATION_ID, literatureTypeId);
-		f.setArguments(args);
-		return f;
-	}
+    public PublicationFragment newInstance(int literatureTypeId) {
+        PublicationFragment f = new PublicationFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PUBLICATION_ID, literatureTypeId);
+        f.setArguments(args);
+        return f;
+    }
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.publication, menu);
-	}
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.publication, menu);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		setHasOptionsMenu(true);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
 
-		View root = inflater.inflate(R.layout.publications, container, false);
-		Bundle args = getArguments();
+        View root = inflater.inflate(R.layout.publications, container, false);
+        Bundle args = getArguments();
 
-		if (args != null && args.containsKey(ARG_PUBLICATION_ID))
-			literatureTypeId = args.getInt(ARG_PUBLICATION_ID);
+        if (args != null && args.containsKey(ARG_PUBLICATION_ID))
+            literatureTypeId = args.getInt(ARG_PUBLICATION_ID);
 
-		database = new MinistryService(getActivity());
-		myspinner = (Spinner) root.findViewById(R.id.myspinner);
+        database = new MinistryService(getActivity());
+        myspinner = (Spinner) root.findViewById(R.id.myspinner);
 
-		fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab = (FloatingActionButton) root.findViewById(R.id.fab);
 
-		fm = getActivity().getSupportFragmentManager();
+        fm = getActivity().getSupportFragmentManager();
 
-		sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+        sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
-		database.openWritable();
-		cursor = database.fetchActiveTypesOfLiterature();
-		int default_position = 0;
-		while (cursor.moveToNext()) {
-			sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
+        database.openWritable();
+        cursor = database.fetchActiveTypesOfLiterature();
+        int default_position = 0;
+        while (cursor.moveToNext()) {
+            sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
 
-			if (cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT)) == MinistryService.ACTIVE)
-				default_position = cursor.getPosition();
-		}
+            if (cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT)) == MinistryService.ACTIVE)
+                default_position = cursor.getPosition();
+        }
 
-		myspinner.setAdapter(sadapter);
-		myspinner.setSelection(default_position);
-		myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-				updateLiteratureList(sadapter.getItem(position).getID());
-			}
+        myspinner.setAdapter(sadapter);
+        myspinner.setSelection(default_position);
+        myspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                updateLiteratureList(sadapter.getItem(position).getID());
+            }
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-			}
-		});
-		database.close();
+            }
+        });
+        database.close();
 
-		if (literatureTypeId > 0) {
-			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-				if (cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)) == literatureTypeId) {
-					myspinner.setSelection(cursor.getPosition());
-					break;
-				}
-			}
-		}
+        if (literatureTypeId > 0) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                if (cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)) == literatureTypeId) {
+                    myspinner.setSelection(cursor.getPosition());
+                    break;
+                }
+            }
+        }
 
-		return root;
-	}
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openEditor(PublicationEditorFragment.CREATE_ID);
+            }
+        });
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+        return root;
+    }
 
-		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-		getActivity().setTitle(R.string.navdrawer_item_publications);
+        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
-		database.openWritable();
+        getActivity().setTitle(R.string.navdrawer_item_publications);
 
-		adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), null, R.string.last_placed_on);
-		setListAdapter(adapter);
-		database.close();
+        database.openWritable();
 
-		if (is_dual_pane) {
-			fab.setVisibility(View.GONE);
+        adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), null, R.string.last_placed_on);
+        setListAdapter(adapter);
+        database.close();
 
-			Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
-			PublicationEditorFragment f = new PublicationEditorFragment().newInstance();
+        if (is_dual_pane) {
+            fab.setVisibility(View.GONE);
 
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            PublicationEditorFragment f = new PublicationEditorFragment().newInstance();
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+            transaction.commit();
+        }
+    }
 
-			if (frag != null)
-				ft.remove(frag);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_publication_manager:
+                PublicationManagerFrag f = new PublicationManagerFrag().newInstance();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
 
-			ft.add(R.id.secondary_fragment_container, f);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-			ft.commit();
-		} else {
-			fab.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					openEditor(PublicationEditorFragment.CREATE_ID);
-				}
-			});
-		}
-	}
+    public void updateLiteratureList(int typeID) {
+        if (literatureTypeId != typeID) {
+            literatureTypeId = typeID;
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                if (cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)) == literatureTypeId) {
+                    myspinner.setSelection(cursor.getPosition());
+                    break;
+                }
+            }
+        }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.view_publication_manager:
-				FragmentTransaction ft = fm.beginTransaction();
-				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-				Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-				PublicationManagerFrag f = new PublicationManagerFrag().newInstance();
+        database.openWritable();
+        adapter.loadNewData(database.fetchLiteratureByTypeWithActivityDates(literatureTypeId));
+        database.close();
+    }
 
-				if (frag != null)
-					ft.remove(frag);
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        openEditor(id);
+    }
 
-				ft.add(R.id.primary_fragment_container, f);
-
-				ft.commit();
-
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
-
-	public void updateLiteratureList(int typeID) {
-		if (literatureTypeId != typeID) {
-			literatureTypeId = typeID;
-			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-				if (cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)) == literatureTypeId) {
-					myspinner.setSelection(cursor.getPosition());
-					break;
-				}
-			}
-		}
-
-		database.openWritable();
-		adapter.loadNewData(database.fetchLiteratureByTypeWithActivityDates(literatureTypeId));
-		database.close();
-	}
-
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		openEditor(id);
-	}
-
-	public void openEditor(long id) {
-		int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-
-		if (is_dual_pane) {
-			if (fm.findFragmentById(LAYOUT_ID) instanceof PublicationEditorFragment) {
-				PublicationEditorFragment fragment = (PublicationEditorFragment) fm.findFragmentById(LAYOUT_ID);
-				fragment.switchForm(id);
-			} else {
-				FragmentTransaction ft = fm.beginTransaction();
-				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-				Fragment frag = fm.findFragmentById(LAYOUT_ID);
-				PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
-
-				if (frag != null)
-					ft.remove(frag);
-
-				ft.add(LAYOUT_ID, f);
-				ft.addToBackStack(null);
-
-				ft.commit();
-			}
-		} else {
-			Fragment frag = fm.findFragmentById(LAYOUT_ID);
-			PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
-
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-			if (frag != null)
-				ft.remove(frag);
-
-			ft.add(LAYOUT_ID, f);
-			ft.addToBackStack(null);
-
-			ft.commit();
-		}
-	}
+    public void openEditor(long id) {
+        if (is_dual_pane) {
+            if (fm.findFragmentById(R.id.secondary_fragment_container) instanceof PublicationEditorFragment) {
+                PublicationEditorFragment fragment = (PublicationEditorFragment) fm.findFragmentById(R.id.secondary_fragment_container);
+                fragment.switchForm(id);
+            } else {
+                PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                transaction.commit();
+            }
+        } else {
+            PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.replace(R.id.primary_fragment_container, f, "main");
+            transaction.commit();
+        }
+    }
 }
