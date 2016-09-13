@@ -3,7 +3,6 @@ package com.myMinistry.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -67,18 +66,10 @@ public class HouseholdersFragment extends ListFragment {
 		database.close();
 
 		if (is_dual_pane) {
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-			Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
 			HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(HouseholderEditorFragment.CREATE_ID);
-
-			if (frag != null)
-				ft.remove(frag);
-
-			ft.add(R.id.secondary_fragment_container, f);
-
-			ft.commit();
+			FragmentTransaction transaction = fm.beginTransaction();
+			transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+			transaction.commit();
 		}
 	}
 
@@ -101,34 +92,16 @@ public class HouseholdersFragment extends ListFragment {
 				HouseholderEditorFragment fragment = (HouseholderEditorFragment) fm.findFragmentById(LAYOUT_ID);
 				fragment.switchForm(id);
 			} else {
-				FragmentTransaction ft = fm.beginTransaction();
-				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-				Fragment frag = fm.findFragmentById(LAYOUT_ID);
-				HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
-
-				if (frag != null)
-					ft.remove(frag);
-
-				ft.add(LAYOUT_ID, f);
-				ft.addToBackStack(null);
-
-				ft.commit();
+                HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                transaction.commit();
 			}
 		} else {
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-			Fragment frag = fm.findFragmentById(LAYOUT_ID);
-			HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
-
-			if (frag != null)
-				ft.remove(frag);
-
-			ft.add(LAYOUT_ID, f);
-			ft.addToBackStack(null);
-
-			ft.commit();
+            HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.replace(R.id.primary_fragment_container, f, "main");
+            transaction.commit();
 		}
 	}
 
