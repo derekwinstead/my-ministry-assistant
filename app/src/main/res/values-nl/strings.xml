@@ -149,5 +149,6 @@
     <string name="snackbar_backups_scheduled">Automatische back-ups zijn gepland</string>
     <string name="view_month_entries">Bekijk Maand Entries</string>
     <string name="view_month_report">maand Report</string>
+    <string name="activity">Activiteit</string>
 
 </resources>

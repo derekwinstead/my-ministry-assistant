@@ -149,5 +149,6 @@
     <string name="snackbar_backups_scheduled">Les sauvegardes automatiques ont été programmées</string>
     <string name="view_month_entries">Entrées Mois</string>
     <string name="view_month_report">Mois Rapport</string>
+    <string name="activity">Activité</string>
 
 </resources>

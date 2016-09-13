@@ -149,5 +149,6 @@
     <string name="snackbar_backups_scheduled">backup otomatis telah dijadwalkan</string>
     <string name="view_month_entries">Entries bulan</string>
     <string name="view_month_report">bulan Laporan</string>
+    <string name="activity">Aktivitas</string>
 
 </resources>

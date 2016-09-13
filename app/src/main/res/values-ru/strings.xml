@@ -149,5 +149,6 @@
     <string name="snackbar_backups_scheduled">Автоматическое резервное копирование было запланировано</string>
     <string name="view_month_entries">месяц Записи</string>
     <string name="view_month_report">месяц Отчет</string>
+    <string name="activity">Мероприятия</string>
 
 </resources>

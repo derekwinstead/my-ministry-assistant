@@ -149,5 +149,6 @@
     <string name="snackbar_backups_scheduled">Automatisk sikkerhedskopiering er planlagt</string>
     <string name="view_month_entries">Måned Entries</string>
     <string name="view_month_report">måned rapport</string>
+    <string name="activity">Aktivitet</string>
 
 </resources>

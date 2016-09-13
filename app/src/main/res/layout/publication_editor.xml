@@ -106,7 +106,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
-                android:text="@string/recent_activity" />
+                android:text="@string/activity" />
 
         </RelativeLayout>
     </LinearLayout>

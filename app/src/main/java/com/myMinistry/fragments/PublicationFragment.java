@@ -3,6 +3,7 @@ package com.myMinistry.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -22,7 +23,6 @@ import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TitleAndDateAdapterUpdated;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
 
@@ -151,9 +151,10 @@ public class PublicationFragment extends ListFragment {
         switch (item.getItemId()) {
             case R.id.view_publication_manager:
                 if (is_dual_pane) {
-                    // TODO: Verify that it's the editor fragment first before doing the switchForm(). Will cause an error
-                    PublicationEditorFragment fragment = (PublicationEditorFragment) fm.findFragmentById(R.id.secondary_fragment_container);
-                    fragment.switchForm(MinistryDatabase.CREATE_ID);
+                    Fragment f = fm.findFragmentByTag("secondary");
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.remove(f);
+                    transaction.commit();
                 }
 
                 ((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.PUBLICATION_MANAGER_ID);
