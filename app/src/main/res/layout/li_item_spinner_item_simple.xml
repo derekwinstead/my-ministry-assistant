@@ -27,5 +27,5 @@
         android:layout_below="@id/menurow_title"
         android:text="@string/placeholder_lorem_ipsum"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/text_secondary" />
+        android:textColor="@color/secondary_text" />
 </RelativeLayout>

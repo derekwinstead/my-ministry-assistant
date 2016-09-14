@@ -4,15 +4,15 @@
     <style name="MMATheme" parent="@style/_MMATheme" />
 
     <style name="_MMATheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlNormal">@color/primary</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlHighlight">@color/primary_dark</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
-        <item name="actionMenuTextColor">@color/white</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:windowBackground">@color/window_background</item>
         <item name="alertDialogTheme">@style/AlertDialogStyle</item>
         <item name="android:editTextStyle">@style/EditTextStyle</item>
     </style>
@@ -22,18 +22,34 @@
     </style>
 
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/colorPrimary</item>
-        <item name="android:background">@color/card_background</item>
-        <item name="android:windowBackground">@color/card_background</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:background">@color/window_background</item>
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 
     <style name="EditTextStyle" parent="android:Widget.EditText">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textColorHint">@color/secondary_text</item>
     </style>
 
     <style name="EmptyListTextSettings" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+    <style name="TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="TextViewPrimary" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="TextViewPrimarySmall" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="TextViewSecondary" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/secondary_text</item>
     </style>
 </resources>

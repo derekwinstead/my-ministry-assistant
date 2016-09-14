@@ -147,8 +147,8 @@
     <string name="publication_activity">Издательская деятельность</string>
     <string name="snackbar_backups_disabled">Автоматическое резервное копирование отключены</string>
     <string name="snackbar_backups_scheduled">Автоматическое резервное копирование было запланировано</string>
-    <string name="view_month_entries">месяц Записи</string>
-    <string name="view_month_report">месяц Отчет</string>
+    <string name="view_month_entries">Просмотр записи</string>
+    <string name="view_month_report">Просмотреть отчет</string>
     <string name="activity">Мероприятия</string>
 
 </resources>

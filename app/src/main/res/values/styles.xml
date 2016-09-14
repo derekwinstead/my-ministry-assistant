@@ -10,7 +10,7 @@
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
 
         <!-- Support library compatibility -->
-        <item name="background">@color/actionbar_background</item>
+        <item name="background">@color/primary</item>
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>
         <item name="subtitleTextStyle">@style/MyActionBarSubTitleText</item>
     </style>
@@ -35,7 +35,7 @@
     </style>
 
     <style name="ActionBar.Solid.AppBaseTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@color/actionbar_background</item>
+        <item name="background">@color/primary</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_appbasetheme</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_apptheme</item>
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>

@@ -33,24 +33,22 @@
                 android:paddingTop="@dimen/default_padding">
 
                 <TextView
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/placements"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
+                    android:text="@string/placements" />
 
                 <TextView
                     android:id="@+id/placements_count"
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/number_ten"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
+                    android:textColor="@color/primary"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -70,24 +68,22 @@
                 android:paddingTop="@dimen/default_padding">
 
                 <TextView
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/video_showings"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
+                    android:text="@string/video_showings" />
 
                 <TextView
+                    style="@style/TextViewPrimary"
                     android:id="@+id/video_showings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/number_ten"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
+                    android:textColor="@color/primary"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -99,24 +95,22 @@
                 android:paddingTop="@dimen/default_padding">
 
                 <TextView
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/total_time"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
+                    android:text="@string/total_time" />
 
                 <TextView
+                    style="@style/TextViewPrimary"
                     android:id="@+id/total_hours_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/number_ten"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
+                    android:textColor="@color/primary"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -129,24 +123,22 @@
 
                 <TextView
                     android:id="@+id/return_visits_text"
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/default_return_visit"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
+                    android:text="@string/default_return_visit" />
 
                 <TextView
+                    style="@style/TextViewPrimary"
                     android:id="@+id/return_visits_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/number_ten"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
+                    android:textColor="@color/primary"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -159,24 +151,22 @@
 
                 <TextView
                     android:id="@+id/bible_studies_text"
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="@string/default_bible_study"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textsizeMD" />
+                    android:text="@string/default_bible_study" />
 
                 <TextView
                     android:id="@+id/bible_studies_count"
+                    style="@style/TextViewPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/number_ten"
-                    android:textColor="@color/appbasetheme_color"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/textsizeMD"
+                    android:textColor="@color/primary"
                     android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>

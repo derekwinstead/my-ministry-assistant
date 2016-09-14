@@ -147,8 +147,8 @@
     <string name="publication_activity">publicatie Activity</string>
     <string name="snackbar_backups_disabled">Automatische back-ups zijn uitgeschakeld</string>
     <string name="snackbar_backups_scheduled">Automatische back-ups zijn gepland</string>
-    <string name="view_month_entries">Bekijk Maand Entries</string>
-    <string name="view_month_report">maand Report</string>
+    <string name="view_month_entries">Inzendingen bekijken</string>
+    <string name="view_month_report">Rapport weergeven</string>
     <string name="activity">Activiteit</string>
 
 </resources>

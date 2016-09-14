@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/transparent"
+                    android:background="@android:color/transparent"
                     android:text="@string/form_publisher" />
 
                 <Spinner
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/transparent"
+                    android:background="@android:color/transparent"
                     android:text="@string/form_entry_type" />
 
                 <Spinner
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/transparent"
+                    android:background="@android:color/transparent"
                     android:text="@string/form_start" />
 
                 <LinearLayout
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/transparent"
+                    android:background="@android:color/transparent"
                     android:text="@string/form_end" />
 
                 <LinearLayout

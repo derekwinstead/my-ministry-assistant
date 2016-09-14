@@ -35,7 +35,7 @@
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/primary_fragment_container"
-                android:background="@color/navdrawer_divider" />
+                android:background="@color/divider" />
 
             <FrameLayout
                 android:id="@+id/secondary_fragment_container"

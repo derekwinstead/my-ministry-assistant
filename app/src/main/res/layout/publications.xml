@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/myspinner"
         android:clipToPadding="false"
-        android:divider="@color/navdrawer_divider"
+        android:divider="@color/divider"
         android:dividerHeight="1dp"
         android:drawSelectorOnTop="true"
         android:paddingBottom="@dimen/fab_padding"

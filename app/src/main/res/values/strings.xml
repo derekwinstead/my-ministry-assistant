@@ -132,8 +132,8 @@
     <string name="gender_female">Female</string>
     <string name="placements">Placements</string>
     <string name="video_showings">Video Showings</string>
-    <string name="view_month_entries">View Month\'s Entries</string>
-    <string name="view_month_report">View Month\'s Report</string>
+    <string name="view_month_entries">View Entries</string>
+    <string name="view_month_report">View Report</string>
     <string name="navdrawer_item_report">Report</string>
     <string name="menu_create">Create</string>
     <string name="edit">Edit</string>

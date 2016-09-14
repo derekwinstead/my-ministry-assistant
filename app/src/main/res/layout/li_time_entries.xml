@@ -13,14 +13,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/actionbar_background"
+            android:background="@color/primary"
             android:padding="8dp">
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/textsizeSM" />
 
             <LinearLayout
@@ -34,21 +34,21 @@
                     android:id="@+id/timeStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/textsizeSM" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dash"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/textsizeSM" />
 
                 <TextView
                     android:id="@+id/timeEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/textsizeSM" />
             </LinearLayout>
         </RelativeLayout>
@@ -56,7 +56,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/actionbar_background"
+            android:background="@color/primary"
             android:orientation="horizontal"
             android:padding="8dp"
             android:visibility="gone">
@@ -71,7 +71,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textIsSelectable="false" />
         </RelativeLayout>
     </LinearLayout>
@@ -80,16 +80,16 @@
         android:id="@id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@android:color/white"
         android:padding="@dimen/default_padding_half"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/primary_dark" />
 
     <LinearLayout
         android:id="@+id/linlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@android:color/white"
         android:orientation="vertical" />
 
 </LinearLayout>

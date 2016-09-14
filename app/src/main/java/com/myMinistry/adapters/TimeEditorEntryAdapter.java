@@ -83,7 +83,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 
             tv.setText(R.string.menu_do_not_count_as_return_visit);
             tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-            tv.setTextColor(ContextCompat.getColor(context, R.color.white));
+            tv.setTextColor(ContextCompat.getColor(context, android.R.color.white));
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLayoutParams(lp1);
             tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.ic_action_warning), null, null, null);

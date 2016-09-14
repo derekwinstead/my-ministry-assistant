@@ -148,7 +148,7 @@
     <string name="snackbar_backups_disabled">Backup automatici sono stati disabilitati</string>
     <string name="snackbar_backups_scheduled">Backup automatici sono stati programmati</string>
     <string name="view_month_entries">Le voci mese</string>
-    <string name="view_month_report">mese Rapporto</string>
+    <string name="view_month_report">Visualizza rapporto</string>
     <string name="activity">Attività</string>
 
 </resources>

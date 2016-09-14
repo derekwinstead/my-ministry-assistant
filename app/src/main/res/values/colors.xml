@@ -2,8 +2,6 @@
 <resources>
 
     <!-- Standard Colors -->
-    <color name="transparent">#00000000</color>
-    <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="app_background">#eeeeee</color>
     <color name="card_background">#fafafa</color>
@@ -15,26 +13,49 @@
     <!-- Custom Colors for Application -->
     <color name="bg_card_title_text_holo_light">#313131</color>
     <color name="bg_card_default_text">#747474</color>
-    <color name="bg_card">@color/white</color>
+    <color name="bg_card">@android:color/white</color>
     <color name="bg_card_pressed">#f9f9f9</color>
     <color name="default_text">#59646e</color>
     <color name="alert_bg">#db4437</color>
-    <color name="text_hint">#7d7d7d</color>
-    <color name="text_secondary">#7d7d7d</color>
-
-    <!-- Nav Drawer -->
-    <color name="navdrawer_divider">#dddddd</color>
 
     <!-- Action Bar -->
-    <color name="actionbar_background">#2196f3</color>
-    <color name="actionbar_background_darker">#033b9c</color>
     <color name="actionbar_text">#ffffff</color>
     <color name="actionbar_subtitle_text">#dedede</color>
+    <!--
+    https://material.google.com/style/color.html#color-color-palette
+    -->
+    <color name="primary">#673AB7</color>
+    <color name="primary_dark">#512DA8</color>
+    <color name="primary_light">#D1C4E9</color>
+    <color name="accent">#E040FB</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
-    <color name="colorPrimary">#2196f3</color>
-    <color name="colorPrimaryDark">#033b9c</color>
+    <color name="window_background">#FAFAFA</color>
+    <color name="li_separator">#EDE7F6</color>
+    <!--
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#512DA8</color>
+    <color name="colorPrimaryLight">#D1C4E9</color>
 
-    <color name="colorPrimaryPressed">#1976d2</color>
-    <color name="colorPrimaryFocused">#1a77c9</color>
+    <color name="colorPrimaryPressed">#4527A0</color>
+    <color name="colorPrimaryFocused">#5E35B1</color>
+
+    <color name="colorWindowBackground">#FAFAFA</color>
+-->
+    <!-- Deep Purple Theme
+    50#EDE7F6
+    100#D1C4E9
+    200#B39DDB
+    300#9575CD
+    400#7E57C2
+    500#673AB7
+    600#5E35B1
+    700#512DA8
+    800#4527A0
+    900#311B92
+    -->
 
 </resources>

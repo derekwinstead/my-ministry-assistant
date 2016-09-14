@@ -147,8 +147,8 @@
     <string name="publication_activity">publikációs tevékenység</string>
     <string name="snackbar_backups_disabled">Automatikus mentések vannak tiltva</string>
     <string name="snackbar_backups_scheduled">Automatikus mentések ütemezése megtörtént</string>
-    <string name="view_month_entries">hónap bejegyzések</string>
-    <string name="view_month_report">hónap jelentés</string>
+    <string name="view_month_entries">bejegyzések megtekintése</string>
+    <string name="view_month_report">jelentés megtekintése</string>
     <string name="activity">Tevékenység</string>
 
 </resources>

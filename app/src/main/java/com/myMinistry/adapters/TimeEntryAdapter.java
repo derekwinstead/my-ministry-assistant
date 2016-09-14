@@ -185,7 +185,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                 if (counter != 1) {
                     View vnew = new View(context);
                     vnew.setLayoutParams(lp_v);
-                    vnew.setBackgroundResource(R.color.actionbar_background_darker);
+                    vnew.setBackgroundResource(R.color.primary_dark);
 
                     holder.linlay.addView(vnew);
                 }
@@ -194,7 +194,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                     View v = new View(context);
                     LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams((Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) ? LayoutParams.MATCH_PARENT : LayoutParams.FILL_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
                     v.setLayoutParams(lp3);
-                    v.setBackgroundColor(ContextCompat.getColor(context, R.color.navdrawer_divider));
+                    v.setBackgroundColor(ContextCompat.getColor(context, R.color.divider));
 
                     TextView tv;
 
@@ -210,7 +210,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 
                         tv.setText(R.string.menu_do_not_count_as_return_visit);
                         tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
-                        tv.setTextColor(ContextCompat.getColor(context, R.color.white));
+                        tv.setTextColor(ContextCompat.getColor(context, android.R.color.white));
                         tv.setGravity(Gravity.CENTER_VERTICAL);
                         tv.setLayoutParams(lp1);
                         tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, R.drawable.ic_action_warning), null, null, null);

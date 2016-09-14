@@ -147,8 +147,8 @@
     <string name="publication_activity">offentliggørelse Aktivitet</string>
     <string name="snackbar_backups_disabled">Automatisk sikkerhedskopiering er blevet deaktiveret</string>
     <string name="snackbar_backups_scheduled">Automatisk sikkerhedskopiering er planlagt</string>
-    <string name="view_month_entries">Måned Entries</string>
-    <string name="view_month_report">måned rapport</string>
+    <string name="view_month_entries">Vis indlæg</string>
+    <string name="view_month_report">Få vist Rapport</string>
     <string name="activity">Aktivitet</string>
 
 </resources>

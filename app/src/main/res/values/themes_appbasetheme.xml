@@ -6,7 +6,7 @@
     <style name="_AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
         
         <item name="actionBarItemBackground">@drawable/selectable_background_apptheme</item>
         <item name="popupMenuStyle">@style/PopupMenu.AppBaseTheme</item>
@@ -32,12 +32,12 @@
         <item name="android:windowBackground">@color/appbasetheme_color_window_bg</item>
         
         <!-- Set AppCompat’s color theming attrs -->
-        <item name="colorPrimary">@color/actionbar_background</item>
-        <item name="colorPrimaryDark">@color/actionbar_background_darker</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         
-        <item name="colorControlNormal">@color/actionbar_background</item>
-        <item name="colorControlActivated">@color/actionbar_background_darker</item>
-        <item name="colorControlHighlight">@color/actionbar_background_darker</item>
+        <item name="colorControlNormal">@color/primary</item>
+        <item name="colorControlActivated">@color/primary_dark</item>
+        <item name="colorControlHighlight">@color/primary_dark</item>
         
         <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Apptheme.Widget</item>

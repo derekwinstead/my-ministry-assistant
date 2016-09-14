@@ -161,7 +161,7 @@ public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
             LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics()));
             lp3.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()), 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, context.getResources().getDisplayMetrics()));
             v.setLayoutParams(lp3);
-            v.setBackgroundColor(ContextCompat.getColor(context, R.color.navdrawer_divider));
+            v.setBackgroundColor(ContextCompat.getColor(context, R.color.divider));
             holder.linlay.addView(v);
 
             TextView tv;

@@ -41,7 +41,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class ReportFragment extends Fragment {
-    public static String ARG_PUBLISHER_ID = "publisher_id";
+    public final String ARG_PUBLISHER_ID = "publisher_id";
 
     private String mBSText, mRVText, mTotalHoursCount, mPlacementsCount, mVideoShowings, mRVCount, mBSCount = "";
 
@@ -66,10 +66,10 @@ public class ReportFragment extends Fragment {
 
     private FragmentManager fm;
 
-    public static ReportFragment newInstance(int _publisherID) {
+    public ReportFragment newInstance(int publisherId) {
         ReportFragment f = new ReportFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PUBLISHER_ID, _publisherID);
+        args.putInt(ARG_PUBLISHER_ID, publisherId);
         f.setArguments(args);
         return f;
     }
@@ -140,19 +140,10 @@ public class ReportFragment extends Fragment {
             public void onClick(View v) {
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
-                Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
                 TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
-
-                if (frag != null)
-                    ft.remove(frag);
-
-                ft.add(R.id.primary_fragment_container, f);
-                ft.addToBackStack(null);
-
-                ft.commit();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
             }
         });
 
@@ -172,10 +163,9 @@ public class ReportFragment extends Fragment {
             view_entries.setVisibility(View.GONE);
 
             TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.replace(R.id.secondary_fragment_container, f);
-            ft.commit();
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+            transaction.commit();
         } else {
             view_entries.setText(R.string.view_month_entries);
 
@@ -253,9 +243,9 @@ public class ReportFragment extends Fragment {
             tv2.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             tv1.setText(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)));
-            tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.default_text));
+            tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.secondary_text));
             tv2.setText(String.valueOf(literatureTypes.getInt(2)));
-            tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.default_text));
+            tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.secondary_text));
             tv2.setGravity(Gravity.END);
 
             rl.addView(tv1);

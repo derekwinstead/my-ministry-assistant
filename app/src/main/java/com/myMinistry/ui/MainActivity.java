@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_PUBLICATION_MANAGER = 9;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     public static final int PUBLICATION_MANAGER_ID = NAVDRAWER_ITEM_PUBLICATION_MANAGER;
-    private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
+    private final int MAIN_CONTENT_FADEIN_DURATION = 250;
 
     private boolean layout_changed = false;
 
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
         setSupportActionBar(toolbar);
 
         final ActionBar actionBar = getSupportActionBar();
@@ -213,13 +213,11 @@ public class MainActivity extends AppCompatActivity {
                     if (firstLoad)
                         PrefUtils.setSummaryMonthAndYear(this, date);
 
-                    new ReportFragment();
-                    ReportFragment f = ReportFragment.newInstance(PrefUtils.getPublisherId(this));
+                    ReportFragment f = new ReportFragment().newInstance(PrefUtils.getPublisherId(this));
                     FragmentTransaction transaction = fm.beginTransaction();
 
                     if (firstLoad) {
-                        transaction.add(R.id.primary_fragment_container, f, "main");
-                        //transaction.addToBackStack("addReport");
+                        transaction.replace(R.id.primary_fragment_container, f, "main");
                     } else {
                         transaction.replace(R.id.primary_fragment_container, f, "main");
                     }

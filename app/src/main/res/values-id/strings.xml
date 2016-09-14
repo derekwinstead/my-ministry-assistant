@@ -147,8 +147,8 @@
     <string name="publication_activity">Kegiatan Publikasi</string>
     <string name="snackbar_backups_disabled">backup otomatis telah dinonaktifkan</string>
     <string name="snackbar_backups_scheduled">backup otomatis telah dijadwalkan</string>
-    <string name="view_month_entries">Entries bulan</string>
-    <string name="view_month_report">bulan Laporan</string>
+    <string name="view_month_entries">Lihat Entri</string>
+    <string name="view_month_report">Lihat laporan</string>
     <string name="activity">Aktivitas</string>
 
 </resources>

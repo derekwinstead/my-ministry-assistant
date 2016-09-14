@@ -147,8 +147,8 @@
     <string name="publication_activity">Atividade publicação</string>
     <string name="snackbar_backups_disabled">backups automáticos foram desativados</string>
     <string name="snackbar_backups_scheduled">backups automáticos foram programados</string>
-    <string name="view_month_entries">entradas mês</string>
-    <string name="view_month_report">Relatório mês</string>
+    <string name="view_month_entries">Veja as entradas</string>
+    <string name="view_month_report">Exibir relatório</string>
     <string name="activity">Atividade</string>
 
 </resources>
