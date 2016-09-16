@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean firstLoad = true;
 
     private int getDefaultNavDrawerItem() {
-        return R.id.drawer_summary;
+        return R.id.drawer_report;
     }
 
     @Override
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.primary_fragment_container).setVisibility(View.VISIBLE);
 
         switch (itemId) {
-            case R.id.drawer_summary:
+            case R.id.drawer_report:
                 if (is_dual_pane)
                     showDefaultLayout();
 

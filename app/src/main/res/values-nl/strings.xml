@@ -150,5 +150,6 @@
     <string name="view_month_entries">Inzendingen bekijken</string>
     <string name="view_month_report">Rapport weergeven</string>
     <string name="activity">Activiteit</string>
+    <string name="confirm_deletion_message_publisher">Deze actie kan niet ongedaan gemaakt worden. Als u dit record voordat de overdracht van elk moment data geassocieerd met dit record te verwijderen die inzendingen zullen niet meer beschikbaar zijn.\n\nWeet je zeker dat je wilt verwijderen?</string>
 
 </resources>

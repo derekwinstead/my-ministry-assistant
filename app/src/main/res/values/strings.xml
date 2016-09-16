@@ -149,5 +149,6 @@
     <string name="form_schedule_automated_backups">Schedule automated backups</string>
     <string name="publication_activity">Publication Activity</string>
     <string name="activity">Activity</string>
+    <string name="confirm_deletion_message_publisher">This action cannot be undone. If you delete this record before transferring any time entries associated with this record those entries will no longer be available.\n\nAre you sure you want to delete?</string>
 
 </resources>

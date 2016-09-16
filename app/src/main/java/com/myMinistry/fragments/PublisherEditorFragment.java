@@ -1,8 +1,6 @@
 package com.myMinistry.fragments;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -20,15 +18,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
+import com.myMinistry.bean.Publisher;
+import com.myMinistry.db.PublisherDAO;
 import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
-import com.squareup.phrase.Phrase;
 
 public class PublisherEditorFragment extends Fragment {
     public static final String ARG_PUBLISHER_ID = "publisher_id";
@@ -41,10 +37,12 @@ public class PublisherEditorFragment extends Fragment {
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long publisherId = CREATE_ID;
 
-    private MinistryService database;
     private FloatingActionButton fab;
     private Spinner gender_type;
     private FragmentManager fm;
+
+    private PublisherDAO publisherDAO;
+    private Publisher publisher;
 
     private NavDrawerMenuItemAdapter genderAdapter;
 
@@ -80,7 +78,14 @@ public class PublisherEditorFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
+        publisherDAO = new PublisherDAO(getActivity().getApplicationContext());
+
         genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+        genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));
+        genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_female), R.drawable.ic_drawer_publisher_female, GENDER_FEMALE));
+
+        genderAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        gender_type.setAdapter(genderAdapter);
 
         nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
@@ -91,19 +96,16 @@ public class PublisherEditorFragment extends Fragment {
         Button save = (Button) root.findViewById(R.id.save);
         Button cancel = (Button) root.findViewById(R.id.cancel);
 
-        database = new MinistryService(getActivity().getApplicationContext());
-
         root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublisherActivityFragment newFragment = new PublisherActivityFragment().newInstance(publisherId);
-                Fragment replaceFrag = fm.findFragmentById(R.id.primary_fragment_container);
+                PublisherActivityFragment f = new PublisherActivityFragment().newInstance(publisherId);
                 FragmentTransaction transaction = fm.beginTransaction();
-
-                if (replaceFrag != null)
-                    transaction.remove(replaceFrag);
-
-                transaction.add(R.id.primary_fragment_container, newFragment);
+                if (is_dual_pane) {
+                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                } else {
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                }
                 transaction.commit();
             }
         });
@@ -114,30 +116,16 @@ public class PublisherEditorFragment extends Fragment {
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
 
-                    ContentValues values = new ContentValues();
-                    values.put(Publisher.NAME, nameWrapper.getEditText().getText().toString().trim());
-                    values.put(Publisher.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
-                    values.put(Publisher.GENDER, (gender_type.getSelectedItemPosition() == GENDER_MALE) ? "male" : "female");
+                    publisher.setName(nameWrapper.getEditText().getText().toString().trim());
+                    publisher.setIsActive(cb_is_active.isChecked());
+                    publisher.setGender(gender_type.getSelectedItemPosition() == GENDER_MALE ? "male" : "female");
 
-                    database.openWritable();
-                    if (publisherId > 0) {
-                        if (database.savePublisher(publisherId, values) == 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        }
+                    if (publisher.getId() == CREATE_ID) {
+                        publisherId = publisherDAO.create(publisher);
+                        publisher.setId(publisherId);
                     } else {
-                        if (database.createPublisher(values) == -1) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        }
+                        publisherDAO.update(publisher);
                     }
-                    database.close();
 
                     if (is_dual_pane) {
                         PublishersFragment f = (PublishersFragment) fm.findFragmentById(R.id.primary_fragment_container);
@@ -157,10 +145,14 @@ public class PublisherEditorFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublishersFragment f = new PublishersFragment().newInstance();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
-                transaction.commit();
+                if (is_dual_pane) {
+                    switchForm(CREATE_ID);
+                } else {
+                    PublishersFragment f = new PublishersFragment().newInstance();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
+                }
             }
         });
 
@@ -174,6 +166,7 @@ public class PublisherEditorFragment extends Fragment {
         is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         if (!is_dual_pane) {
+            getActivity().setTitle(R.string.title_publisher_edit);
             fab.setVisibility(View.GONE);
         }
 
@@ -183,9 +176,6 @@ public class PublisherEditorFragment extends Fragment {
                 switchForm(CREATE_ID);
             }
         });
-
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.title_publisher_edit);
 
         fillForm();
     }
@@ -199,9 +189,7 @@ public class PublisherEditorFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                database.openWritable();
-                                database.deletePublisherByID((int) publisherId);
-                                database.close();
+                                publisherDAO.deletePublisher(publisher);
 
                                 if (is_dual_pane) {
                                     PublishersFragment f = (PublishersFragment) fm.findFragmentById(R.id.primary_fragment_container);
@@ -221,6 +209,7 @@ public class PublisherEditorFragment extends Fragment {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.confirm_deletion)
+                        .setMessage(R.string.confirm_deletion_message_publisher)
                         .setPositiveButton(R.string.menu_delete, dialogClickListener)
                         .setNegativeButton(R.string.menu_cancel, dialogClickListener)
                         .show();
@@ -241,39 +230,24 @@ public class PublisherEditorFragment extends Fragment {
     }
 
     public void fillForm() {
-        genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));
-        genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_female), R.drawable.ic_drawer_publisher_female, GENDER_FEMALE));
-
-        genderAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        gender_type.setAdapter(genderAdapter);
-
         nameWrapper.setError(null);
-        if (publisherId == CREATE_ID) {
-            nameWrapper.getEditText().setText("");
-            cb_is_active.setChecked(true);
 
-            if (is_dual_pane)
+        publisher = publisherDAO.getPublisher((int) publisherId);
+
+        nameWrapper.getEditText().setText(publisher.getName());
+        cb_is_active.setChecked(publisher.isActive());
+
+        int position = GENDER_MALE;
+        if (publisher.getGender().equals("female"))
+            position = GENDER_FEMALE;
+        gender_type.setSelection(position);
+
+        if (is_dual_pane) {
+            if (publisher.getId() == CREATE_ID) {
                 fab.setVisibility(View.GONE);
-        } else {
-            database.openWritable();
-            Cursor publisher = database.fetchPublisher((int) publisherId);
-            if (publisher.moveToFirst()) {
-                nameWrapper.getEditText().setText(publisher.getString(publisher.getColumnIndex(Publisher.NAME)));
-                cb_is_active.setChecked(publisher.getInt(publisher.getColumnIndex(Publisher.ACTIVE)) == 1);
-
-                int position = GENDER_MALE;
-                if (publisher.getString(publisher.getColumnIndex(Publisher.GENDER)).equals("female"))
-                    position = GENDER_FEMALE;
-
-                gender_type.setSelection(position);
             } else {
-                nameWrapper.getEditText().setText("");
-                cb_is_active.setChecked(true);
-            }
-            publisher.close();
-            database.close();
-            if (is_dual_pane)
                 fab.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

@@ -18,10 +18,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codetroopers.betterpickers.numberpicker.NumberPickerBuilder;
@@ -81,7 +81,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     private MinistryService database = null;
     private int publisherId, originalPublisherId, entryTypeId, timeId = 0;
     private Spinner publishers, entryTypes = null;
-    private TextView dateStart, dateEnd, timeStart, timeEnd;
+    private Button dateStart, dateEnd, timeStart, timeEnd;
     private Cursor qEntryTypes = null;
     private Calendar selectedDateStart = Calendar.getInstance();
     private Calendar selectedDateEnd = Calendar.getInstance();
@@ -174,10 +174,10 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
         publishers = (Spinner) root.findViewById(R.id.publishers);
         entryTypes = (Spinner) root.findViewById(R.id.entryTypes);
-        dateStart = (TextView) root.findViewById(R.id.dateStart);
-        dateEnd = (TextView) root.findViewById(R.id.dateEnd);
-        timeStart = (TextView) root.findViewById(R.id.timeStart);
-        timeEnd = (TextView) root.findViewById(R.id.timeEnd);
+        dateStart = (Button) root.findViewById(R.id.dateStart);
+        dateEnd = (Button) root.findViewById(R.id.dateEnd);
+        timeStart = (Button) root.findViewById(R.id.timeStart);
+        timeEnd = (Button) root.findViewById(R.id.timeEnd);
         ImageView addListItem = (ImageView) root.findViewById(R.id.addListItem);
 
         selectedDateStart.set(Calendar.MILLISECOND, 0);

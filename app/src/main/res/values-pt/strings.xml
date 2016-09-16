@@ -150,5 +150,6 @@
     <string name="view_month_entries">Veja as entradas</string>
     <string name="view_month_report">Exibir relatório</string>
     <string name="activity">Atividade</string>
+    <string name="confirm_deletion_message_publisher">Essa ação não pode ser desfeita. Se você excluir este registro antes de transferir quaisquer entradas de tempo associado a este registro essas entradas não será mais disponível.\n\nTem certeza de que deseja excluir?</string>
 
 </resources>

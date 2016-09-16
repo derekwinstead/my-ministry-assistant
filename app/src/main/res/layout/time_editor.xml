@@ -1,118 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="@dimen/material_corner_radius">
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding_half">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/inner_padding"
+            android:paddingLeft="@dimen/default_padding_half"
+            android:text="@string/form_publisher"
+            android:textColor="@color/bg_card_default_text"
+            android:textSize="@dimen/flet_hint_text_size" />
+
+        <Spinner
+            android:id="@+id/publishers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/inner_padding"
+            android:paddingLeft="@dimen/default_padding_half"
+            android:paddingTop="@dimen/default_padding"
+            android:text="@string/form_entry_type"
+            android:textColor="@color/bg_card_default_text"
+            android:textSize="@dimen/flet_hint_text_size" />
+
+        <Spinner
+            android:id="@+id/entryTypes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/default_padding_half">
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/default_padding_half"
+            android:paddingStart="@dimen/default_padding_half"
+            android:paddingTop="@dimen/default_padding_half">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/inner_padding"
-                android:paddingLeft="@dimen/default_padding_half"
-                android:text="@string/form_publisher"
-                android:textColor="@color/bg_card_default_text"
-                android:textSize="@dimen/flet_hint_text_size" />
-
-            <Spinner
-                android:id="@+id/publishers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/inner_padding"
-                android:paddingLeft="@dimen/default_padding_half"
-                android:paddingTop="@dimen/default_padding"
-                android:text="@string/form_entry_type"
-                android:textColor="@color/bg_card_default_text"
-                android:textSize="@dimen/flet_hint_text_size" />
-
-            <Spinner
-                android:id="@+id/entryTypes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/inner_padding"
-                android:paddingLeft="@dimen/default_padding_half"
-                android:paddingTop="@dimen/default_padding"
-                android:text="@string/form_start"
-                android:textColor="@color/bg_card_default_text"
-                android:textSize="@dimen/flet_hint_text_size" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/thumb_height"
+                android:layout_gravity="fill_vertical"
+                android:src="@drawable/ic_time"
+                android:tint="@color/primary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/default_padding_half">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/dateStart"
-                    style="@style/SpinnerMaterial"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/timeStart"
-                    style="@style/SpinnerMaterial"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingLeft="@dimen/default_padding" />
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/dateStart"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="fill_vertical|start"
+                        android:textColor="@color/primary_text"
+                        tools:text="Fri, Sep 16, 2016" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/inner_padding"
-                android:paddingLeft="@dimen/default_padding_half"
-                android:paddingTop="@dimen/default_padding"
-                android:text="@string/form_end"
-                android:textColor="@color/bg_card_default_text"
-                android:textSize="@dimen/flet_hint_text_size" />
+                    <Button
+                        android:id="@+id/timeStart"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="fill_vertical|end"
+                        android:textColor="@color/primary_text"
+                        tools:text="10:00 AM" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/default_padding_half"
-                android:paddingLeft="@dimen/default_padding_half">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/dateEnd"
-                    style="@style/SpinnerMaterial"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3" />
+                    <Button
+                        android:id="@+id/dateEnd"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="fill_vertical|start"
+                        android:textColor="@color/primary_text"
+                        tools:text="Fri, Sep 16, 2016" />
 
-                <TextView
-                    android:id="@+id/timeEnd"
-                    style="@style/SpinnerMaterial"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingLeft="@dimen/default_padding" />
+                    <Button
+                        android:id="@+id/timeEnd"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="fill_vertical|end"
+                        android:textColor="@color/primary_text"
+                        tools:text="11:00 AM" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -137,6 +138,41 @@
             android:layout_alignParentRight="true"
             android:contentDescription="@string/menu_add_new"
             android:src="@drawable/ic_action_new" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/view_activity"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:text="@string/menu_rv_publications_notes" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/default_padding">
+
+        <Button
+            android:id="@+id/save"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/menu_save" />
+
+        <Button
+            android:id="@+id/cancel"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/save"
+            android:layout_toStartOf="@id/save"
+            android:text="@string/menu_cancel" />
     </RelativeLayout>
 
     <ListView

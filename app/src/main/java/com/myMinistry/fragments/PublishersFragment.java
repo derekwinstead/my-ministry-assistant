@@ -38,6 +38,19 @@ public class PublishersFragment extends ListFragment {
 		fm = getActivity().getSupportFragmentManager();
 
 		fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
+                f.setPositiveButton(new PublisherNewDialogFragmentListener() {
+                    @Override
+                    public void setPositiveButton(int _ID, String _name) {
+                        updatePublisherList();
+                    }
+                });
+                f.show(fm, PublisherNewDialogFragment.class.getName());
+            }
+        });
 
 		return view;
 	}
@@ -50,20 +63,6 @@ public class PublishersFragment extends ListFragment {
 
 		if (is_dual_pane) {
 			fab.setVisibility(View.GONE);
-		} else {
-			fab.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
-					f.setPositiveButton(new PublisherNewDialogFragmentListener() {
-						@Override
-						public void setPositiveButton(int _ID, String _name) {
-							updatePublisherList();
-						}
-					});
-					f.show(fm, PublisherNewDialogFragment.class.getName());
-				}
-			});
 		}
 
 		database = new MinistryService(getActivity());

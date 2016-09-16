@@ -150,5 +150,6 @@
     <string name="view_month_entries">Просмотр записи</string>
     <string name="view_month_report">Просмотреть отчет</string>
     <string name="activity">Мероприятия</string>
+    <string name="confirm_deletion_message_publisher">Это действие не может быть отменено. Если удалить эту запись перед передачей каких-либо время записи, связанные с этой записью, эти записи больше не будут доступны.\n\nВы уверены, что хотите удалить?</string>
 
 </resources>

@@ -150,5 +150,6 @@
     <string name="view_month_entries">Lihat Entri</string>
     <string name="view_month_report">Lihat laporan</string>
     <string name="activity">Aktivitas</string>
+    <string name="confirm_deletion_message_publisher">Tindakan ini tidak bisa dibatalkan. Jika Anda menghapus catatan ini sebelum mentransfer pesan di waktu yang terkait dengan catatan ini entri tidak akan lagi tersedia.\n\nApakah Anda yakin ingin menghapus?</string>
 
 </resources>

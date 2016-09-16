@@ -150,5 +150,6 @@
     <string name="view_month_entries">Voir les entrées</string>
     <string name="view_month_report">Voir le rapport</string>
     <string name="activity">Activité</string>
+    <string name="confirm_deletion_message_publisher">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer toutes les entrées de temps associées à cette fiche les entrées ne seront plus disponibles.\n\nEtes-vous sûr que vous voulez supprimer?</string>
 
 </resources>

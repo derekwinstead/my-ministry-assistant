@@ -150,5 +150,6 @@
     <string name="view_month_entries">bejegyzések megtekintése</string>
     <string name="view_month_report">jelentés megtekintése</string>
     <string name="activity">Tevékenység</string>
+    <string name="confirm_deletion_message_publisher">Ez a művelet nem vonható vissza. Ha törli ezt a rekordot, mielőtt át bármikor társított bejegyzéseket e rekord azokat a bejegyzéseket már nem lesz elérhető.\n\nBiztos vagy benne, hogy törölni akarod?</string>
 
 </resources>

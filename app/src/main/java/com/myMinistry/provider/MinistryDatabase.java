@@ -124,7 +124,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
      * Constructor should be private to prevent direct instantiation.
      * make call to static factory method "getInstance()" instead.
      */
-    private MinistryDatabase(Context context) {
+    public MinistryDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
