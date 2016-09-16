@@ -1,9 +1,7 @@
 package com.myMinistry.fragments;
 
 import android.annotation.TargetApi;
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,16 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.myMinistry.Helper;
 import com.myMinistry.R;
-import com.myMinistry.provider.MinistryContract.Householder;
+import com.myMinistry.bean.Householder;
+import com.myMinistry.db.HouseholderDAO;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
-import com.squareup.phrase.Phrase;
 
 public class HouseholderEditorFragment extends Fragment {
     public static final String ARG_HOUSEHOLDER_ID = "householder_id";
@@ -44,7 +37,8 @@ public class HouseholderEditorFragment extends Fragment {
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
     private long householderID = CREATE_ID;
 
-    private MinistryService database;
+    private HouseholderDAO householderDAO;
+    private Householder householder;
 
     private FragmentManager fm;
     private FloatingActionButton fab;
@@ -78,6 +72,8 @@ public class HouseholderEditorFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
+        householderDAO = new HouseholderDAO(getActivity().getApplicationContext());
+
         nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
 
@@ -102,19 +98,23 @@ public class HouseholderEditorFragment extends Fragment {
         Button save = (Button) root.findViewById(R.id.save);
         Button cancel = (Button) root.findViewById(R.id.cancel);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
+
         view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int LAYOUT_ID = is_dual_pane ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-
-                HouseholderActivityFragment newFragment = new HouseholderActivityFragment().newInstance(householderID);
-                Fragment replaceFrag = fm.findFragmentById(LAYOUT_ID);
+                HouseholderActivityFragment f = new HouseholderActivityFragment().newInstance(householderID);
                 FragmentTransaction transaction = fm.beginTransaction();
-
-                if (replaceFrag != null)
-                    transaction.remove(replaceFrag);
-
-                transaction.add(LAYOUT_ID, newFragment);
+                if (is_dual_pane) {
+                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                } else {
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                }
                 transaction.commit();
             }
         });
@@ -126,34 +126,20 @@ public class HouseholderEditorFragment extends Fragment {
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
 
-                    ContentValues values = new ContentValues();
-                    values.put(Householder.NAME, nameWrapper.getEditText().getText().toString().trim());
-                    values.put(Householder.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-                    values.put(Householder.ADDR, addressWrapper.getEditText().getText().toString().trim());
-                    values.put(Householder.MOBILE_PHONE, mobileWrapper.getEditText().getText().toString().trim());
-                    values.put(Householder.HOME_PHONE, homeWrapper.getEditText().getText().toString().trim());
-                    values.put(Householder.WORK_PHONE, workWrapper.getEditText().getText().toString().trim());
-                    values.put(Householder.OTHER_PHONE, otherWrapper.getEditText().getText().toString().trim());
+                    householder.setName(nameWrapper.getEditText().getText().toString().trim());
+                    householder.setAddress(addressWrapper.getEditText().getText().toString().trim());
+                    householder.setPhoneMobile(mobileWrapper.getEditText().getText().toString().trim());
+                    householder.setPhoneHome(homeWrapper.getEditText().getText().toString().trim());
+                    householder.setPhoneWork(workWrapper.getEditText().getText().toString().trim());
+                    householder.setPhoneOther(otherWrapper.getEditText().getText().toString().trim());
+                    householder.setIsActive(cb_is_active.isChecked());
 
-                    database.openWritable();
-                    if (householderID > 0) {
-                        if (database.saveHouseholder(householderID, values) == 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        }
+                    if (householder.getId() == CREATE_ID) {
+                        householderID = householderDAO.create(householder);
+                        householder.setId(householderID);
                     } else {
-                        if (database.createHouseholder(values) == -1) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        }
+                        householderDAO.update(householder);
                     }
-                    database.close();
 
                     if (is_dual_pane) {
                         HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
@@ -173,14 +159,16 @@ public class HouseholderEditorFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HouseholdersFragment f = new HouseholdersFragment().newInstance();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
-                transaction.commit();
+                if (is_dual_pane) {
+                    switchForm(CREATE_ID);
+                } else {
+                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
+                }
             }
         });
-
-        database = new MinistryService(getActivity().getApplicationContext());
 
         return root;
     }
@@ -192,18 +180,9 @@ public class HouseholderEditorFragment extends Fragment {
         is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         if (!is_dual_pane) {
+            getActivity().setTitle(R.string.title_householder_edit);
             fab.setVisibility(View.GONE);
         }
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchForm(CREATE_ID);
-            }
-        });
-
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.title_householder_edit);
 
         fillForm();
     }
@@ -219,9 +198,7 @@ public class HouseholderEditorFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                database.openWritable();
-                                database.deleteHouseholderByID((int) householderID);
-                                database.close();
+                                householderDAO.deleteHouseholder(householder);
 
                                 if (is_dual_pane) {
                                     HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
@@ -240,21 +217,8 @@ public class HouseholderEditorFragment extends Fragment {
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                LinearLayout layout = new LinearLayout(getContext());
-                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layout.setLayoutParams(parms);
-
-                TextView tv = new TextView(getContext());
-                tv.setText(R.string.confirm_deletion_message_householders);
-                tv.setPadding(Helper.dipsToPix(getContext(), 25), Helper.dipsToPix(getContext(), 25), Helper.dipsToPix(getContext(), 25), Helper.dipsToPix(getContext(), 25));
-
-                LinearLayout.LayoutParams tv1Params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layout.addView(tv, tv1Params);
-
-
                 builder.setTitle(R.string.confirm_deletion)
-                        .setView(layout)
-                        //.setMessage(R.string.confirm_deletaion_message_householders)
+                        .setMessage(R.string.confirm_deletion_message_householders)
                         .setPositiveButton(R.string.menu_delete, dialogClickListener)
                         .setNegativeButton(R.string.menu_cancel, dialogClickListener)
                         .show();
@@ -275,47 +239,31 @@ public class HouseholderEditorFragment extends Fragment {
     }
 
     public void fillForm() {
+        nameWrapper.setErrorEnabled(false);
         nameWrapper.getEditText().setError(null);
-        if (householderID == CREATE_ID) {
-            nameWrapper.getEditText().setText("");
-            cb_is_active.setChecked(true);
-            addressWrapper.getEditText().setText("");
-            mobileWrapper.getEditText().setText("");
-            homeWrapper.getEditText().setText("");
-            workWrapper.getEditText().setText("");
-            otherWrapper.getEditText().setText("");
-            view_activity.setVisibility(View.GONE);
 
-            if (is_dual_pane)
-                fab.setVisibility(View.GONE);
+        householder = householderDAO.getHouseholder((int) householderID);
+
+        nameWrapper.getEditText().setText(householder.getName());
+        cb_is_active.setChecked(householder.isActive());
+        addressWrapper.getEditText().setText(householder.getAddress());
+        mobileWrapper.getEditText().setText(householder.getPhoneMobile());
+        homeWrapper.getEditText().setText(householder.getPhoneHome());
+        workWrapper.getEditText().setText(householder.getPhoneWork());
+        otherWrapper.getEditText().setText(householder.getPhoneOther());
+
+        if (householder.getId() == CREATE_ID) {
+            view_activity.setVisibility(View.GONE);
         } else {
             view_activity.setVisibility(View.VISIBLE);
+        }
 
-            database.openWritable();
-            Cursor householder = database.fetchHouseholder((int) householderID);
-            if (householder.moveToFirst()) {
-                nameWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.NAME)));
-                cb_is_active.setChecked(householder.getInt(householder.getColumnIndex(Householder.ACTIVE)) == MinistryService.ACTIVE);
-                addressWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.ADDR)));
-                mobileWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.MOBILE_PHONE)));
-                homeWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.HOME_PHONE)));
-                workWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.WORK_PHONE)));
-                otherWrapper.getEditText().setText(householder.getString(householder.getColumnIndex(Householder.OTHER_PHONE)));
+        if (is_dual_pane) {
+            if (householder.getId() == CREATE_ID) {
+                fab.setVisibility(View.GONE);
             } else {
-                nameWrapper.getEditText().setText("");
-                cb_is_active.setChecked(true);
-                addressWrapper.getEditText().setText("");
-                mobileWrapper.getEditText().setText("");
-                homeWrapper.getEditText().setText("");
-                workWrapper.getEditText().setText("");
-                otherWrapper.getEditText().setText("");
-            }
-
-            householder.close();
-            database.close();
-
-            if (is_dual_pane)
                 fab.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

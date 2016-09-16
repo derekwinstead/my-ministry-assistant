@@ -32,6 +32,7 @@ public class PublisherEditorFragment extends Fragment {
     private boolean is_dual_pane = false;
 
     private CheckBox cb_is_active;
+    private Button view_activity;
     private TextInputLayout nameWrapper;
 
     static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
@@ -80,6 +81,16 @@ public class PublisherEditorFragment extends Fragment {
 
         publisherDAO = new PublisherDAO(getActivity().getApplicationContext());
 
+        nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+        nameWrapper.setHint(getActivity().getString(R.string.form_name));
+
+        cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
+        fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        gender_type = (Spinner) root.findViewById(R.id.gender_type);
+        view_activity = (Button) root.findViewById(R.id.view_activity);
+        Button save = (Button) root.findViewById(R.id.save);
+        Button cancel = (Button) root.findViewById(R.id.cancel);
+
         genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_female), R.drawable.ic_drawer_publisher_female, GENDER_FEMALE));
@@ -87,16 +98,14 @@ public class PublisherEditorFragment extends Fragment {
         genderAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         gender_type.setAdapter(genderAdapter);
 
-        nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
-        nameWrapper.setHint(getActivity().getString(R.string.form_name));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchForm(CREATE_ID);
+            }
+        });
 
-        cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
-        gender_type = (Spinner) root.findViewById(R.id.gender_type);
-        Button save = (Button) root.findViewById(R.id.save);
-        Button cancel = (Button) root.findViewById(R.id.cancel);
-
-        root.findViewById(R.id.view_activity).setOnClickListener(new View.OnClickListener() {
+        view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PublisherActivityFragment f = new PublisherActivityFragment().newInstance(publisherId);
@@ -170,13 +179,6 @@ public class PublisherEditorFragment extends Fragment {
             fab.setVisibility(View.GONE);
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchForm(CREATE_ID);
-            }
-        });
-
         fillForm();
     }
 
@@ -230,7 +232,8 @@ public class PublisherEditorFragment extends Fragment {
     }
 
     public void fillForm() {
-        nameWrapper.setError(null);
+        nameWrapper.setErrorEnabled(false);
+        nameWrapper.getEditText().setError(null);
 
         publisher = publisherDAO.getPublisher((int) publisherId);
 
@@ -241,6 +244,12 @@ public class PublisherEditorFragment extends Fragment {
         if (publisher.getGender().equals("female"))
             position = GENDER_FEMALE;
         gender_type.setSelection(position);
+
+        if (publisher.getId() == CREATE_ID) {
+            view_activity.setVisibility(View.GONE);
+        } else {
+            view_activity.setVisibility(View.VISIBLE);
+        }
 
         if (is_dual_pane) {
             if (publisher.getId() == CREATE_ID) {

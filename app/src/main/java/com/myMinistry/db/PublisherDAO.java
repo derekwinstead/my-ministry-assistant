@@ -47,6 +47,7 @@ public class PublisherDAO {
     }
 
     public boolean deletePublisher(Publisher publisher) {
+        // TODO: Delete all associated records from other tables too.
         open();
         long id = publisher.getId();
         int affectedRows = database.delete(TABLE_NAME, MinistryContract.Publisher._ID + " = ?", new String[]{id + ""});
@@ -54,7 +55,7 @@ public class PublisherDAO {
         return affectedRows > 0;
     }
 
-    public List<Publisher> getAllPublisher() {
+    public List<Publisher> getAllPublishers() {
         open();
         List<Publisher> publisherList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.Publisher.All_COLS, null, null, null, null, MinistryContract.Publisher.DEFAULT_SORT);
