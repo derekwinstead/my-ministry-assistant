@@ -64,7 +64,7 @@ public class HouseholderDAO {
         List<Householder> householderList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.Householder.All_COLS, null, null, null, null, MinistryContract.Householder.DEFAULT_SORT);
         while (cursor.moveToNext()) {
-            Householder householder = cursorToTask(cursor);
+            Householder householder = cursorToHouseholder(cursor);
             householderList.add(householder);
         }
         // make sure to close the cursor
@@ -79,7 +79,7 @@ public class HouseholderDAO {
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + MinistryContract.Householder._ID + " =  " + id;
         Cursor cursor = database.rawQuery(sql, null);
         if (cursor.moveToNext()) {
-            householder = cursorToTask(cursor);
+            householder = cursorToHouseholder(cursor);
         } else {
             householder = new Householder();
         }
@@ -104,7 +104,7 @@ public class HouseholderDAO {
         close();
     }
 
-    private Householder cursorToTask(Cursor cursor) {
+    private Householder cursorToHouseholder(Cursor cursor) {
         Householder householder = new Householder();
         householder.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Householder._ID)));
         householder.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME)));

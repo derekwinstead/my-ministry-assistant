@@ -60,7 +60,7 @@ public class PublisherDAO {
         List<Publisher> publisherList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.Publisher.All_COLS, null, null, null, null, MinistryContract.Publisher.DEFAULT_SORT);
         while (cursor.moveToNext()) {
-            Publisher publisher = cursorToTask(cursor);
+            Publisher publisher = cursorToPublisher(cursor);
             publisherList.add(publisher);
         }
         // make sure to close the cursor
@@ -75,7 +75,7 @@ public class PublisherDAO {
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + MinistryContract.Publisher._ID + " =  " + id;
         Cursor cursor = database.rawQuery(sql, null);
         if (cursor.moveToNext()) {
-            publisher = cursorToTask(cursor);
+            publisher = cursorToPublisher(cursor);
         } else {
             publisher = new Publisher();
         }
@@ -96,7 +96,7 @@ public class PublisherDAO {
         close();
     }
 
-    private Publisher cursorToTask(Cursor cursor) {
+    private Publisher cursorToPublisher(Cursor cursor) {
         Publisher publisher = new Publisher();
         publisher.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Publisher._ID)));
         publisher.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME)));
