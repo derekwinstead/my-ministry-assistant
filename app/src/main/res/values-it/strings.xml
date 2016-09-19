@@ -151,5 +151,6 @@
     <string name="view_month_report">Visualizza rapporto</string>
     <string name="activity">Attività</string>
     <string name="confirm_deletion_message_publisher">Questa azione non può essere annullata. Se si elimina il record prima di trasferire le voci temporali associati con questo disco le voci non saranno più disponibili.\n\nSei sicuro di voler eliminare?</string>
+    <string name="confirm_deletion_message_publication">Questa azione non può essere annullata. Se si elimina il record prima di trasferire qualsiasi cosa associata a questo record verranno eliminati quelle voci e non sarà più disponibile in nessun modo.\n\nSei sicuro di voler eliminare?</string>
 
 </resources>

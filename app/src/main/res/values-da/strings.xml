@@ -151,5 +151,6 @@
     <string name="view_month_report">Få vist Rapport</string>
     <string name="activity">Aktivitet</string>
     <string name="confirm_deletion_message_publisher">Denne handling kan ikke fortrydes. Hvis du sletter denne post inden overførsel af eventuelle tidsregistreringer forbundet med denne rekord disse poster vil ikke længere være tilgængelig.\n\nEr du sikker på at du vil slette?</string>
+    <string name="confirm_deletion_message_publication">Denne handling kan ikke fortrydes. Hvis du sletter denne post, før du overfører noget forbundet med denne rekord disse poster vil blive slettet og vil ikke længere være tilgængelig på nogen måde.\n\nEr du sikker på at du vil slette?</string>
 
 </resources>

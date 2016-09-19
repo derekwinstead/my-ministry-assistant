@@ -18,6 +18,10 @@ public class Publication {
         this.id = id;
     }
 
+    public boolean isNew() {
+        return id == MinistryDatabase.CREATE_ID;
+    }
+
     public long getTypeId() {
         return typeId;
     }

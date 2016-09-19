@@ -1,7 +1,6 @@
 package com.myMinistry.fragments;
 
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -21,17 +20,16 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
+import com.myMinistry.bean.Publication;
+import com.myMinistry.db.PublicationDAO;
 import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.squareup.phrase.Phrase;
 
 public class PublicationEditorFragment extends Fragment {
     public static String ARG_PUBLICATION_ID = "publication_id";
@@ -45,14 +43,13 @@ public class PublicationEditorFragment extends Fragment {
     private TextInputLayout nameWrapper;
 
     private FloatingActionButton fab;
-
     private FragmentManager fm;
 
-    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
-    private long publicationId = CREATE_ID;
+    private PublicationDAO publicationDAO;
+    private Publication publication;
 
-    private long publicationTypeId = 0;
-    private MinistryService database;
+    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+
     private Cursor cursor;
     private NavDrawerMenuItemAdapter sadapter;
 
@@ -70,13 +67,18 @@ public class PublicationEditorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (publicationId != CREATE_ID)
+        if (!publication.isNew()) {
             inflater.inflate(R.menu.discard, menu);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.publication_editor, container, false);
+
+        publicationDAO = new PublicationDAO(getActivity().getApplicationContext());
+        publication = new Publication();
+
         Bundle args = getArguments();
         if (args != null && args.containsKey(ARG_PUBLICATION_ID))
             setLiterature(args.getLong(ARG_PUBLICATION_ID));
@@ -99,7 +101,7 @@ public class PublicationEditorFragment extends Fragment {
         Button save = (Button) root.findViewById(R.id.save);
         Button cancel = (Button) root.findViewById(R.id.cancel);
 
-        database = new MinistryService(getActivity().getApplicationContext());
+        MinistryService database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
 
         cursor = database.fetchActiveTypesOfLiterature();
@@ -117,7 +119,7 @@ public class PublicationEditorFragment extends Fragment {
         s_publicationTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                publicationTypeId = sadapter.getItem(position).getID();
+                publication.setTypeId(sadapter.getItem(position).getID());
             }
 
             @Override
@@ -137,7 +139,7 @@ public class PublicationEditorFragment extends Fragment {
         view_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublicationActivityFragment f = new PublicationActivityFragment().newInstance(publicationId);
+                PublicationActivityFragment f = new PublicationActivityFragment().newInstance(publication.getId());
                 FragmentTransaction transaction = fm.beginTransaction();
                 if (is_dual_pane) {
                     transaction.replace(R.id.secondary_fragment_container, f, "secondary");
@@ -154,37 +156,21 @@ public class PublicationEditorFragment extends Fragment {
                 if (nameWrapper.getEditText().getText().toString().trim().length() > 0) {
                     nameWrapper.setErrorEnabled(false);
 
-                    ContentValues values = new ContentValues();
-                    values.put(Literature.NAME, nameWrapper.getEditText().getText().toString().trim());
-                    values.put(Literature.ACTIVE, (cb_is_active.isChecked()) ? 1 : 0);
-                    values.put(Literature.TYPE_OF_LIERATURE_ID, publicationTypeId);
-                    values.put(Literature.WEIGHT, (cb_is_pair.isChecked()) ? 2 : 1);
+                    publication.setName(nameWrapper.getEditText().getText().toString().trim());
+                    publication.setIsActive(cb_is_active.isChecked());
+                    publication.setWeight(cb_is_pair.isChecked() ? 2 : 1);
 
-                    database.openWritable();
-                    if (publicationId > 0) {
-                        if (database.saveLiterature(publicationId, values) == 0) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_saved_problem_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        }
+                    if (publication.isNew()) {
+                        publication.setId(publicationDAO.create(publication));
                     } else {
-                        if (database.createLiterature(values) == -1) {
-                            Toast.makeText(getActivity()
-                                    , Phrase.from(getActivity().getApplicationContext(), R.string.toast_created_problem_with_space)
-                                            .put("name", nameWrapper.getEditText().getText().toString().trim())
-                                            .format()
-                                    , Toast.LENGTH_SHORT).show();
-                        }
+                        publicationDAO.update(publication);
                     }
-                    database.close();
 
                     if (is_dual_pane) {
                         PublicationFragment f = (PublicationFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                        f.updateLiteratureList((int) publicationTypeId);
+                        f.updateLiteratureList((int) publication.getTypeId());
                     } else {
-                        PublicationFragment f = new PublicationFragment().newInstance();
+                        PublicationFragment f = new PublicationFragment().newInstance((int) publication.getTypeId());
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.replace(R.id.primary_fragment_container, f, "main");
                         transaction.commit();
@@ -220,7 +206,6 @@ public class PublicationEditorFragment extends Fragment {
 
         if (!is_dual_pane) {
             getActivity().setTitle(R.string.title_publication_edit);
-            fab.setVisibility(View.GONE);
         }
 
         fillForm();
@@ -235,16 +220,14 @@ public class PublicationEditorFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                database.openWritable();
-                                database.deleteLiteratureByID((int) publicationId);
-                                database.close();
+                                publicationDAO.deletePublication(publication);
 
                                 if (is_dual_pane) {
                                     PublicationFragment f = (PublicationFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                                    f.updateLiteratureList((int) publicationTypeId);
+                                    f.updateLiteratureList((int) publication.getTypeId());
                                     switchForm(CREATE_ID);
                                 } else {
-                                    PublicationFragment f = new PublicationFragment().newInstance((int) s_publicationTypes.getSelectedItemId());
+                                    PublicationFragment f = new PublicationFragment().newInstance((int) publication.getTypeId());
                                     FragmentTransaction transaction = fm.beginTransaction();
                                     transaction.replace(R.id.primary_fragment_container, f, "main");
                                     transaction.commit();
@@ -257,6 +240,7 @@ public class PublicationEditorFragment extends Fragment {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(PublicationEditorFragment.this.getActivity());
                 builder.setTitle(R.string.confirm_deletion)
+                        .setMessage(R.string.confirm_deletion_message_publication)
                         .setPositiveButton(R.string.menu_delete, dialogClickListener)
                         .setNegativeButton(R.string.menu_cancel, dialogClickListener)
                         .show();
@@ -268,7 +252,7 @@ public class PublicationEditorFragment extends Fragment {
     }
 
     public void setLiterature(long _id) {
-        publicationId = _id;
+        publication = publicationDAO.getPublication((int) _id);
     }
 
     public void switchForm(long _id) {
@@ -279,39 +263,36 @@ public class PublicationEditorFragment extends Fragment {
 
     public void fillForm() {
         nameWrapper.setError(null);
-        if (publicationId == CREATE_ID) {
-            nameWrapper.getEditText().setText("");
-            cb_is_active.setChecked(true);
-            cb_is_pair.setChecked(false);
+
+        nameWrapper.getEditText().setText(publication.getName());
+        cb_is_active.setChecked(publication.isActive());
+        cb_is_pair.setChecked(publication.getWeight() > 1);
+
+        int position = -1;
+        cursor.moveToFirst();
+        do {
+            position++;
+            if (cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)) == publication.getTypeId()) {
+                s_publicationTypes.setSelection(position);
+                break;
+            }
+        } while (cursor.moveToNext());
+
+
+        if (publication.isNew()) {
             view_activity.setVisibility(View.GONE);
         } else {
             view_activity.setVisibility(View.VISIBLE);
-            database.openWritable();
-            Cursor literature = database.fetchLiteratureByID((int) publicationId);
-            if (literature.moveToFirst()) {
-                nameWrapper.getEditText().setText(literature.getString(literature.getColumnIndex(Literature.NAME)));
-                cb_is_active.setChecked(literature.getInt(literature.getColumnIndex(Literature.ACTIVE)) == MinistryService.ACTIVE);
-                cb_is_pair.setChecked(literature.getInt(literature.getColumnIndex(Literature.WEIGHT)) != 1);
+        }
 
-                if (cursor.moveToFirst()) {
-                    int position = -1;
-                    do {
-                        position++;
-                        if (cursor.getInt(cursor.getColumnIndex(LiteratureType._ID)) == literature.getInt(literature.getColumnIndex(Literature.TYPE_OF_LIERATURE_ID))) {
-                            s_publicationTypes.setSelection(position);
-                            break;
-                        }
-                    } while (cursor.moveToNext());
-                }
+        if (is_dual_pane) {
+            if (publication.isNew()) {
+                fab.setVisibility(View.GONE);
             } else {
-                nameWrapper.getEditText().setText("");
-                s_publicationTypes.setSelection(0);
-                cb_is_active.setChecked(true);
-                cb_is_pair.setChecked(false);
+                fab.setVisibility(View.VISIBLE);
             }
-
-            literature.close();
-            database.close();
+        } else {
+            fab.setVisibility(View.GONE);
         }
     }
 }

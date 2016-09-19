@@ -39,14 +39,14 @@ public class PublisherNewDialogFragment extends DialogFragment {
         builder.setView(view);
         builder.setTitle(getActivity().getApplicationContext().getString(R.string.form_name));
         builder.setNegativeButton(R.string.menu_cancel, null); // Do nothing on cancel - this will dismiss the dialog :)
-        builder.setPositiveButton(R.string.menu_save, PositiveButtonListener);
+        builder.setPositiveButton(R.string.menu_create, PositiveButtonListener);
         return builder.create();
     }
 
     private DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            /** Get the input value */
+            // Get the input value
             EditText editText = (EditText) view.findViewById(R.id.text1);
             String _name = editText.getText().toString();
             long _newID = 0;
@@ -59,7 +59,7 @@ public class PublisherNewDialogFragment extends DialogFragment {
                 _newID = new PublisherDAO(getActivity().getApplicationContext()).create(publisher);
                 publisher.setId(_newID);
             }
-            /** Call back to the DialogFragment listener */
+            // Call back to the DialogFragment listener
             sListener.setPositiveButton((int) _newID, _name);
         }
     };

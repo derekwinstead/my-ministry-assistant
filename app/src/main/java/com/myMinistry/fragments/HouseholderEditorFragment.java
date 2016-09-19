@@ -57,22 +57,26 @@ public class HouseholderEditorFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (householderID != CREATE_ID)
+        if (!householder.isNew()) {
             inflater.inflate(R.menu.discard, menu);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.householder_editor, container, false);
+
+        householderDAO = new HouseholderDAO(getActivity().getApplicationContext());
+        householder = new Householder();
+
         Bundle args = getArguments();
-        if (args != null)
+        if (args != null) {
             setHouseholder(args.getLong(ARG_HOUSEHOLDER_ID));
+        }
 
         setHasOptionsMenu(true);
 
         fm = getActivity().getSupportFragmentManager();
-
-        householderDAO = new HouseholderDAO(getActivity().getApplicationContext());
 
         nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
@@ -181,7 +185,6 @@ public class HouseholderEditorFragment extends Fragment {
 
         if (!is_dual_pane) {
             getActivity().setTitle(R.string.title_householder_edit);
-            fab.setVisibility(View.GONE);
         }
 
         fillForm();
@@ -229,7 +232,7 @@ public class HouseholderEditorFragment extends Fragment {
     }
 
     public void setHouseholder(long _id) {
-        householderID = _id;
+        householder = householderDAO.getHouseholder((int) _id);
     }
 
     public void switchForm(long _id) {
@@ -242,8 +245,6 @@ public class HouseholderEditorFragment extends Fragment {
         nameWrapper.setErrorEnabled(false);
         nameWrapper.getEditText().setError(null);
 
-        householder = householderDAO.getHouseholder((int) householderID);
-
         nameWrapper.getEditText().setText(householder.getName());
         cb_is_active.setChecked(householder.isActive());
         addressWrapper.getEditText().setText(householder.getAddress());
@@ -252,18 +253,20 @@ public class HouseholderEditorFragment extends Fragment {
         workWrapper.getEditText().setText(householder.getPhoneWork());
         otherWrapper.getEditText().setText(householder.getPhoneOther());
 
-        if (householder.getId() == CREATE_ID) {
+        if (householder.isNew()) {
             view_activity.setVisibility(View.GONE);
         } else {
             view_activity.setVisibility(View.VISIBLE);
         }
 
         if (is_dual_pane) {
-            if (householder.getId() == CREATE_ID) {
+            if (householder.isNew()) {
                 fab.setVisibility(View.GONE);
             } else {
                 fab.setVisibility(View.VISIBLE);
             }
+        } else {
+            fab.setVisibility(View.GONE);
         }
     }
 }
