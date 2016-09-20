@@ -80,8 +80,9 @@ public class PublicationEditorFragment extends Fragment {
         publication = new Publication();
 
         Bundle args = getArguments();
-        if (args != null && args.containsKey(ARG_PUBLICATION_ID))
+        if (args != null && args.containsKey(ARG_PUBLICATION_ID)) {
             setLiterature(args.getLong(ARG_PUBLICATION_ID));
+        }
 
         setHasOptionsMenu(true);
 
@@ -238,7 +239,7 @@ public class PublicationEditorFragment extends Fragment {
                     }
                 };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(PublicationEditorFragment.this.getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.confirm_deletion)
                         .setMessage(R.string.confirm_deletion_message_publication)
                         .setPositiveButton(R.string.menu_delete, dialogClickListener)
