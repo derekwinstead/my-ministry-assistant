@@ -32,24 +32,24 @@ public class PublisherDAO {
         dbHelper.close();
     }
 
-    public long create(Publisher publisher) {
+    public long create(Publisher bean) {
         open();
 
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.Publisher.NAME, publisher.getName());
-        values.put(MinistryContract.Publisher.ACTIVE, publisher.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Publisher.GENDER, publisher.getGender());
-        values.put(MinistryContract.Publisher.DEFAULT, publisher.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.NAME, bean.getName());
+        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.GENDER, bean.getGender());
+        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
         return id;
     }
 
-    public boolean deletePublisher(Publisher publisher) {
+    public boolean deletePublisher(Publisher bean) {
         // TODO: Delete all associated records from other tables too.
         open();
-        long id = publisher.getId();
+        long id = bean.getId();
         int affectedRows = database.delete(TABLE_NAME, MinistryContract.Publisher._ID + " = ?", new String[]{id + ""});
         close();
         return affectedRows > 0;
@@ -57,53 +57,53 @@ public class PublisherDAO {
 
     public List<Publisher> getAllPublishers() {
         open();
-        List<Publisher> publisherList = new ArrayList<>();
+        List<Publisher> beanList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.Publisher.All_COLS, null, null, null, null, MinistryContract.Publisher.DEFAULT_SORT);
         while (cursor.moveToNext()) {
-            Publisher publisher = cursorToPublisher(cursor);
-            publisherList.add(publisher);
+            Publisher bean = cursorToPublisher(cursor);
+            beanList.add(bean);
         }
         // make sure to close the cursor
         cursor.close();
         close();
-        return publisherList;
+        return beanList;
     }
 
     public Publisher getPublisher(int id) {
         open();
-        Publisher publisher;
+        Publisher bean;
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + MinistryContract.Publisher._ID + " =  " + id;
         Cursor cursor = database.rawQuery(sql, null);
         if (cursor.moveToNext()) {
-            publisher = cursorToPublisher(cursor);
+            bean = cursorToPublisher(cursor);
         } else {
-            publisher = new Publisher();
+            bean = new Publisher();
         }
         cursor.close();
         close();
-        return publisher;
+        return bean;
     }
 
-    public void update(Publisher publisher) {
+    public void update(Publisher bean) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.Publisher.NAME, publisher.getName());
-        values.put(MinistryContract.Publisher.ACTIVE, publisher.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Publisher.GENDER, publisher.getGender());
-        values.put(MinistryContract.Publisher.DEFAULT, publisher.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.NAME, bean.getName());
+        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.GENDER, bean.getGender());
+        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
-        database.update(TABLE_NAME, values, MinistryContract.Publisher._ID + " = ?", new String[]{publisher.getId() + ""});
+        database.update(TABLE_NAME, values, MinistryContract.Publisher._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private Publisher cursorToPublisher(Cursor cursor) {
-        Publisher publisher = new Publisher();
-        publisher.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Publisher._ID)));
-        publisher.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME)));
-        publisher.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.ACTIVE)));
-        publisher.setGender(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)));
-        publisher.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.DEFAULT)));
-        return publisher;
+        Publisher bean = new Publisher();
+        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Publisher._ID)));
+        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME)));
+        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.ACTIVE)));
+        bean.setGender(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)));
+        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.DEFAULT)));
+        return bean;
     }
 
     public void deleteAll() {

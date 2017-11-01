@@ -32,28 +32,28 @@ public class HouseholderDAO {
         dbHelper.close();
     }
 
-    public long create(Householder householder) {
+    public long create(Householder bean) {
         open();
 
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.Householder.NAME, householder.getName());
-        values.put(MinistryContract.Householder.ADDR, householder.getAddress());
-        values.put(MinistryContract.Householder.MOBILE_PHONE, householder.getPhoneMobile());
-        values.put(MinistryContract.Householder.HOME_PHONE, householder.getPhoneHome());
-        values.put(MinistryContract.Householder.WORK_PHONE, householder.getPhoneWork());
-        values.put(MinistryContract.Householder.OTHER_PHONE, householder.getPhoneOther());
-        values.put(MinistryContract.Householder.ACTIVE, householder.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Householder.DEFAULT, householder.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Householder.NAME, bean.getName());
+        values.put(MinistryContract.Householder.ADDR, bean.getAddress());
+        values.put(MinistryContract.Householder.MOBILE_PHONE, bean.getPhoneMobile());
+        values.put(MinistryContract.Householder.HOME_PHONE, bean.getPhoneHome());
+        values.put(MinistryContract.Householder.WORK_PHONE, bean.getPhoneWork());
+        values.put(MinistryContract.Householder.OTHER_PHONE, bean.getPhoneOther());
+        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
         return id;
     }
 
-    public boolean deleteHouseholder(Householder householder) {
+    public boolean deleteHouseholder(Householder bean) {
         // TODO: Delete all associated records from other tables too.
         open();
-        long id = householder.getId();
+        long id = bean.getId();
         int affectedRows = database.delete(TABLE_NAME, MinistryContract.Householder._ID + " = ?", new String[]{id + ""});
         close();
         return affectedRows > 0;
@@ -61,61 +61,61 @@ public class HouseholderDAO {
 
     public List<Householder> getAllHouseholders() {
         open();
-        List<Householder> householderList = new ArrayList<>();
+        List<Householder> beanList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.Householder.All_COLS, null, null, null, null, MinistryContract.Householder.DEFAULT_SORT);
         while (cursor.moveToNext()) {
-            Householder householder = cursorToHouseholder(cursor);
-            householderList.add(householder);
+            Householder bean = cursorToHouseholder(cursor);
+            beanList.add(bean);
         }
         // make sure to close the cursor
         cursor.close();
         close();
-        return householderList;
+        return beanList;
     }
 
     public Householder getHouseholder(int id) {
         open();
-        Householder householder;
+        Householder bean;
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + MinistryContract.Householder._ID + " =  " + id;
         Cursor cursor = database.rawQuery(sql, null);
         if (cursor.moveToNext()) {
-            householder = cursorToHouseholder(cursor);
+            bean = cursorToHouseholder(cursor);
         } else {
-            householder = new Householder();
+            bean = new Householder();
         }
         cursor.close();
         close();
-        return householder;
+        return bean;
     }
 
-    public void update(Householder householder) {
+    public void update(Householder bean) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.Householder.NAME, householder.getName());
-        values.put(MinistryContract.Householder.ADDR, householder.getAddress());
-        values.put(MinistryContract.Householder.MOBILE_PHONE, householder.getPhoneMobile());
-        values.put(MinistryContract.Householder.HOME_PHONE, householder.getPhoneHome());
-        values.put(MinistryContract.Householder.WORK_PHONE, householder.getPhoneWork());
-        values.put(MinistryContract.Householder.OTHER_PHONE, householder.getPhoneOther());
-        values.put(MinistryContract.Householder.ACTIVE, householder.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Householder.DEFAULT, householder.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Householder.NAME, bean.getName());
+        values.put(MinistryContract.Householder.ADDR, bean.getAddress());
+        values.put(MinistryContract.Householder.MOBILE_PHONE, bean.getPhoneMobile());
+        values.put(MinistryContract.Householder.HOME_PHONE, bean.getPhoneHome());
+        values.put(MinistryContract.Householder.WORK_PHONE, bean.getPhoneWork());
+        values.put(MinistryContract.Householder.OTHER_PHONE, bean.getPhoneOther());
+        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
-        database.update(TABLE_NAME, values, MinistryContract.Householder._ID + " = ?", new String[]{householder.getId() + ""});
+        database.update(TABLE_NAME, values, MinistryContract.Householder._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private Householder cursorToHouseholder(Cursor cursor) {
-        Householder householder = new Householder();
-        householder.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Householder._ID)));
-        householder.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME)));
-        householder.setAddress(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.ADDR)));
-        householder.setPhoneMobile(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.MOBILE_PHONE)));
-        householder.setPhoneHome(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.HOME_PHONE)));
-        householder.setPhoneWork(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.WORK_PHONE)));
-        householder.setPhoneOther(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.OTHER_PHONE)));
-        householder.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.ACTIVE)));
-        householder.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.DEFAULT)));
-        return householder;
+        Householder bean = new Householder();
+        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Householder._ID)));
+        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME)));
+        bean.setAddress(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.ADDR)));
+        bean.setPhoneMobile(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.MOBILE_PHONE)));
+        bean.setPhoneHome(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.HOME_PHONE)));
+        bean.setPhoneWork(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.WORK_PHONE)));
+        bean.setPhoneOther(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.OTHER_PHONE)));
+        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.ACTIVE)));
+        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.DEFAULT)));
+        return bean;
     }
 
     public void deleteAll() {

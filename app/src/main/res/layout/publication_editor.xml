@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/default_padding_half">
+                android:paddingTop="@dimen/default_padding_double">
 
                 <CheckBox
                     android:id="@+id/cb_is_active"
@@ -78,6 +78,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingStart="@dimen/default_padding"
             android:paddingTop="@dimen/default_padding">
 
             <Button

@@ -14,6 +14,8 @@ import com.myMinistry.provider.MinistryService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.myMinistry.R.menu.publication;
+
 public class PublicationDAO {
     // Database fields
     private SQLiteDatabase database;
@@ -32,24 +34,24 @@ public class PublicationDAO {
         dbHelper.close();
     }
 
-    public long create(Publication publication) {
+    public long create(Publication bean) {
         open();
 
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, publication.getTypeId());
-        values.put(MinistryContract.Literature.NAME, publication.getName());
-        values.put(MinistryContract.Literature.ACTIVE, publication.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Literature.WEIGHT, publication.getWeight());
+        values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, bean.getTypeId());
+        values.put(MinistryContract.Literature.NAME, bean.getName());
+        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Literature.WEIGHT, bean.getWeight());
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
         return id;
     }
 
-    public boolean deletePublication(Publication publication) {
+    public boolean deletePublication(Publication bean) {
         // TODO: Delete all associated records from other tables too.
         open();
-        long id = publication.getId();
+        long id = bean.getId();
         int affectedRows = database.delete(TABLE_NAME, MinistryContract.Literature._ID + " = ?", new String[]{id + ""});
         close();
         return affectedRows > 0;
@@ -57,53 +59,53 @@ public class PublicationDAO {
 
     public List<Publication> getAllPublications() {
         open();
-        List<Publication> publicationList = new ArrayList<>();
+        List<Publication> beanList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.Literature.All_COLS, null, null, null, null, MinistryContract.Literature.DEFAULT_SORT);
         while (cursor.moveToNext()) {
-            Publication publication = cursorToPublication(cursor);
-            publicationList.add(publication);
+            Publication bean = cursorToPublication(cursor);
+            beanList.add(bean);
         }
         // make sure to close the cursor
         cursor.close();
         close();
-        return publicationList;
+        return beanList;
     }
 
     public Publication getPublication(int id) {
         open();
-        Publication publication;
+        Publication bean;
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + MinistryContract.Literature._ID + " =  " + id;
         Cursor cursor = database.rawQuery(sql, null);
         if (cursor.moveToNext()) {
-            publication = cursorToPublication(cursor);
+            bean = cursorToPublication(cursor);
         } else {
-            publication = new Publication();
+            bean = new Publication();
         }
         cursor.close();
         close();
-        return publication;
+        return bean;
     }
 
-    public void update(Publication publication) {
+    public void update(Publication bean) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, publication.getTypeId());
-        values.put(MinistryContract.Literature.NAME, publication.getName());
-        values.put(MinistryContract.Literature.ACTIVE, publication.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Literature.WEIGHT, publication.getWeight());
+        values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, bean.getTypeId());
+        values.put(MinistryContract.Literature.NAME, bean.getName());
+        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Literature.WEIGHT, bean.getWeight());
 
-        database.update(TABLE_NAME, values, MinistryContract.Literature._ID + " = ?", new String[]{publication.getId() + ""});
+        database.update(TABLE_NAME, values, MinistryContract.Literature._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private Publication cursorToPublication(Cursor cursor) {
-        Publication publication = new Publication();
-        publication.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature._ID)));
-        publication.setTypeId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature.TYPE_OF_LIERATURE_ID)));
-        publication.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Literature.NAME)));
-        publication.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.ACTIVE)));
-        publication.setWeight(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.WEIGHT)));
-        return publication;
+        Publication bean = new Publication();
+        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature._ID)));
+        bean.setTypeId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature.TYPE_OF_LIERATURE_ID)));
+        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Literature.NAME)));
+        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.ACTIVE)));
+        bean.setWeight(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.WEIGHT)));
+        return bean;
     }
 
     public void deleteAll() {

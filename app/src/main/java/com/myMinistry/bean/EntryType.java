@@ -3,11 +3,10 @@ package com.myMinistry.bean;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 
-public class Publisher {
+public class EntryType {
     private long id = MinistryDatabase.CREATE_ID;
     private String name = "";
     private int isActive = MinistryService.ACTIVE;
-    private String gender = "male";
     private int isDefault = MinistryService.INACTIVE;
 
     public long getId() {
@@ -40,14 +39,6 @@ public class Publisher {
 
     public void setIsActive(boolean isActive) {
         this.isActive = (isActive) ? 1 : 0;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public boolean isDefault() {

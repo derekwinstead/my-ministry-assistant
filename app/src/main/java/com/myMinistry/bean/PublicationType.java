@@ -17,6 +17,10 @@ public class PublicationType {
         this.id = id;
     }
 
+    public boolean isNew() {
+        return id == MinistryDatabase.CREATE_ID;
+    }
+
     public String getName() {
         return name;
     }

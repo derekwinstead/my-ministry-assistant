@@ -32,23 +32,23 @@ public class PublicationTypeDAO {
         dbHelper.close();
     }
 
-    public long create(PublicationType publicationType) {
+    public long create(PublicationType bean) {
         open();
 
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.LiteratureType.NAME, publicationType.getName());
-        values.put(MinistryContract.LiteratureType.ACTIVE, publicationType.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.LiteratureType.DEFAULT, publicationType.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.LiteratureType.NAME, bean.getName());
+        values.put(MinistryContract.LiteratureType.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.LiteratureType.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
         return id;
     }
 
-    public boolean deletePublicationType(PublicationType publicationType) {
+    public boolean deletePublicationType(PublicationType bean) {
         // TODO: Delete all associated records from other tables too.
         open();
-        long id = publicationType.getId();
+        long id = bean.getId();
         int affectedRows = database.delete(TABLE_NAME, MinistryContract.LiteratureType._ID + " = ?", new String[]{id + ""});
         close();
         return affectedRows > 0;
@@ -56,51 +56,51 @@ public class PublicationTypeDAO {
 
     public List<PublicationType> getAllPublicationTypes() {
         open();
-        List<PublicationType> publicationTypeList = new ArrayList<>();
+        List<PublicationType> beanList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME, MinistryContract.LiteratureType.All_COLS, null, null, null, null, MinistryContract.LiteratureType.DEFAULT_SORT);
         while (cursor.moveToNext()) {
-            PublicationType publicationType = cursorToPublicationType(cursor);
-            publicationTypeList.add(publicationType);
+            PublicationType bean = cursorToPublicationType(cursor);
+            beanList.add(bean);
         }
         // make sure to close the cursor
         cursor.close();
         close();
-        return publicationTypeList;
+        return beanList;
     }
 
     public PublicationType getPublicationType(int id) {
         open();
-        PublicationType publicationType;
+        PublicationType bean;
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + MinistryContract.LiteratureType._ID + " =  " + id;
         Cursor cursor = database.rawQuery(sql, null);
         if (cursor.moveToNext()) {
-            publicationType = cursorToPublicationType(cursor);
+            bean = cursorToPublicationType(cursor);
         } else {
-            publicationType = new PublicationType();
+            bean = new PublicationType();
         }
         cursor.close();
         close();
-        return publicationType;
+        return bean;
     }
 
-    public void update(PublicationType publicationType) {
+    public void update(PublicationType bean) {
         open();
         ContentValues values = new ContentValues();
-        values.put(MinistryContract.LiteratureType.NAME, publicationType.getName());
-        values.put(MinistryContract.LiteratureType.ACTIVE, publicationType.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.LiteratureType.DEFAULT, publicationType.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.LiteratureType.NAME, bean.getName());
+        values.put(MinistryContract.LiteratureType.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.LiteratureType.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
 
-        database.update(TABLE_NAME, values, MinistryContract.LiteratureType._ID + " = ?", new String[]{publicationType.getId() + ""});
+        database.update(TABLE_NAME, values, MinistryContract.LiteratureType._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private PublicationType cursorToPublicationType(Cursor cursor) {
-        PublicationType publicationType = new PublicationType();
-        publicationType.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.LiteratureType._ID)));
-        publicationType.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME)));
-        publicationType.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)));
-        publicationType.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT)));
-        return publicationType;
+        PublicationType bean = new PublicationType();
+        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.LiteratureType._ID)));
+        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME)));
+        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)));
+        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT)));
+        return bean;
     }
 
     public void deleteAll() {
