@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myMinistry"
-    xmlns:tools="http://schemas.android.com/tools">
+    package="com.myMinistry">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,11 +10,12 @@
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MMATheme" >
+        android:theme="@style/MMATheme">
         <activity
             android:name="com.myMinistry.ui.MainActivity"
+            android:configChanges="locale"
             android:label="@string/app_name"
-            android:configChanges="locale" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,24 +25,21 @@
         <activity
             android:name="com.myMinistry.ui.SettingsActivity"
             android:configChanges="locale"
-            android:exported="false" >
-        </activity>
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.myMinistry.services.DailyBackupService"
-            android:enabled="true" >
-        </service>
+            android:enabled="true" />
         <service
             android:name="com.myMinistry.services.WeeklyBackupService"
-            android:enabled="true" >
-        </service>
+            android:enabled="true" />
 
         <receiver
             android:name="com.myMinistry.receivers.BootReceiver"
-            android:enabled="false" >
+            android:enabled="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" >
-                </action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
     </application>
