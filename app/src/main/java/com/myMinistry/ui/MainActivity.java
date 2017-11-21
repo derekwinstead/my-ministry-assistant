@@ -41,7 +41,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private boolean is_dual_pane = false;
+    //private boolean is_dual_pane = false;
 
     private Toolbar toolbar;
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         fm = getSupportFragmentManager();
 
-        is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
+        //is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
         initToolbar();
         setupDrawerLayout();
@@ -204,8 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (itemId) {
             case R.id.drawer_report:
-                if (is_dual_pane)
-                    showDefaultLayout();
+                //if (is_dual_pane)
+                    //showDefaultLayout();
 
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
@@ -232,8 +232,8 @@ public class MainActivity extends AppCompatActivity {
                 firstLoad = false;
                 return true;
             case R.id.drawer_publications:
-                if (is_dual_pane)
-                    showDefaultLayout();
+                //if (is_dual_pane)
+                    //showDefaultLayout();
 
                 if (!(frag instanceof PublicationFragment)) {
                     PublicationFragment f = new PublicationFragment().newInstance();
@@ -244,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_householders:
-                if (is_dual_pane)
-                    showDefaultLayout();
+                //if (is_dual_pane)
+                    //showDefaultLayout();
 
                 if (!(frag instanceof HouseholdersFragment)) {
                     HouseholdersFragment f = new HouseholdersFragment().newInstance();
@@ -256,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_publishers:
-                if (is_dual_pane)
-                    showDefaultLayout();
+                //if (is_dual_pane)
+                    //showDefaultLayout();
 
                 if (!(frag instanceof PublishersFragment)) {
                     PublishersFragment f = new PublishersFragment().newInstance();
@@ -268,8 +268,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_entry_types:
-                if (is_dual_pane)
-                    showDefaultLayout();
+                //if (is_dual_pane)
+                    //showDefaultLayout();
 
                 if (!(frag instanceof EntryTypeManagerFrag)) {
                     EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
@@ -281,8 +281,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.drawer_db:
                 if (!(frag instanceof DBBackupsListFragment)) {
-                    if (is_dual_pane)
-                        showChangeLayout();
+                    //if (is_dual_pane)
+                        //showChangeLayout();
 
                     DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -305,18 +305,18 @@ public class MainActivity extends AppCompatActivity {
             case NAVDRAWER_ITEM_TIME_ENTRY:
                 TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
                 FragmentTransaction transaction = fm.beginTransaction();
-                if (is_dual_pane) {
-                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-                } else {
+                //if (is_dual_pane) {
+                    //transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                //} else {
                     transaction.replace(R.id.primary_fragment_container, f, "main");
-                }
+                //}
                 transaction.commit();
 
                 return true;
             case NAVDRAWER_ITEM_PUBLICATION_MANAGER:
                 if (!(frag instanceof PublicationManagerFragment)) {
-                    if (is_dual_pane)
-                        showChangeLayout();
+                    //if (is_dual_pane)
+                        //showChangeLayout();
 
                     PublicationManagerFragment f1 = new PublicationManagerFragment().newInstance();
                     FragmentTransaction transaction1 = fm.beginTransaction();
