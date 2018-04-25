@@ -7,9 +7,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.percent.PercentLayoutHelper;
-import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -107,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupDrawerLayout() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView view = findViewById(R.id.navigation_view);
         view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 // Handle menu item clicks here.
                 menuItem.setChecked(true);
                 setTitle(menuItem.getTitle());
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
         setSupportActionBar(toolbar);
 
@@ -177,14 +176,12 @@ public class MainActivity extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            View mainContent = findViewById(R.id.primary_fragment_container);
-            if (mainContent != null) {
-                mainContent.setAlpha(0);
-                mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
-            } else {
-                Log.e("MainActivity", "No view with ID primary_fragment_container to fade in.");
-            }
+        View mainContent = findViewById(R.id.primary_fragment_container);
+        if (mainContent != null) {
+            mainContent.setAlpha(0);
+            mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
+        } else {
+            Log.e("MainActivity", "No view with ID primary_fragment_container to fade in.");
         }
     }
 
@@ -204,9 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (itemId) {
             case R.id.drawer_report:
-                //if (is_dual_pane)
-                    //showDefaultLayout();
-
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
                 if (!(frag instanceof ReportFragment)) {
@@ -216,13 +210,7 @@ public class MainActivity extends AppCompatActivity {
                     ReportFragment f = new ReportFragment().newInstance(PrefUtils.getPublisherId(this));
                     FragmentTransaction transaction = fm.beginTransaction();
 
-                    if (firstLoad) {
-                        transaction.replace(R.id.primary_fragment_container, f, "main");
-                    } else {
-                        transaction.replace(R.id.primary_fragment_container, f, "main");
-                    }
-
-                    //transaction.addToBackStack(null);
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
                     transaction.commit();
                 } else {
                     date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
@@ -232,9 +220,6 @@ public class MainActivity extends AppCompatActivity {
                 firstLoad = false;
                 return true;
             case R.id.drawer_publications:
-                //if (is_dual_pane)
-                    //showDefaultLayout();
-
                 if (!(frag instanceof PublicationFragment)) {
                     PublicationFragment f = new PublicationFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -244,9 +229,6 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_householders:
-                //if (is_dual_pane)
-                    //showDefaultLayout();
-
                 if (!(frag instanceof HouseholdersFragment)) {
                     HouseholdersFragment f = new HouseholdersFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -256,9 +238,6 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_publishers:
-                //if (is_dual_pane)
-                    //showDefaultLayout();
-
                 if (!(frag instanceof PublishersFragment)) {
                     PublishersFragment f = new PublishersFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -268,9 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_entry_types:
-                //if (is_dual_pane)
-                    //showDefaultLayout();
-
                 if (!(frag instanceof EntryTypeManagerFrag)) {
                     EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -281,9 +257,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.drawer_db:
                 if (!(frag instanceof DBBackupsListFragment)) {
-                    //if (is_dual_pane)
-                        //showChangeLayout();
-
                     DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.primary_fragment_container, f, "main");
@@ -303,21 +276,16 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case NAVDRAWER_ITEM_TIME_ENTRY:
-                TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
-                FragmentTransaction transaction = fm.beginTransaction();
-                //if (is_dual_pane) {
-                    //transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-                //} else {
+                if (!(frag instanceof TimeEditorFragment)) {
+                    TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
+                    FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.primary_fragment_container, f, "main");
-                //}
-                transaction.commit();
+                    transaction.commit();
+                }
 
                 return true;
             case NAVDRAWER_ITEM_PUBLICATION_MANAGER:
                 if (!(frag instanceof PublicationManagerFragment)) {
-                    //if (is_dual_pane)
-                        //showChangeLayout();
-
                     PublicationManagerFragment f1 = new PublicationManagerFragment().newInstance();
                     FragmentTransaction transaction1 = fm.beginTransaction();
                     transaction1.replace(R.id.primary_fragment_container, f1, "main");
@@ -341,55 +309,7 @@ public class MainActivity extends AppCompatActivity {
         Locale myLocale = new Locale(lang);
         Locale.setDefault(myLocale);
         android.content.res.Configuration config = new android.content.res.Configuration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(myLocale);
-        } else {
-            config.locale = myLocale;
-        }
+        config.setLocale(myLocale);
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-    }
-
-    private void showDefaultLayout() {
-        if (layout_changed) {
-            View primary_view = findViewById(R.id.primary_fragment_container);
-            View secondary_view = findViewById(R.id.secondary_fragment_container);
-
-            PercentRelativeLayout.LayoutParams primary_params = (PercentRelativeLayout.LayoutParams) primary_view.getLayoutParams();
-            PercentRelativeLayout.LayoutParams secondary_params = (PercentRelativeLayout.LayoutParams) secondary_view.getLayoutParams();
-
-            PercentLayoutHelper.PercentLayoutInfo primary_info = primary_params.getPercentLayoutInfo();
-            PercentLayoutHelper.PercentLayoutInfo secondary_info = secondary_params.getPercentLayoutInfo();
-
-            primary_info.widthPercent = 0.40f;
-            secondary_info.widthPercent = 0.60f;
-
-            primary_view.requestLayout();
-            secondary_view.requestLayout();
-
-            findViewById(R.id.divider_fragment_container).setVisibility(View.VISIBLE);
-        }
-        layout_changed = false;
-    }
-
-    private void showChangeLayout() {
-        if (!layout_changed) {
-            View primary_view = findViewById(R.id.primary_fragment_container);
-            View secondary_view = findViewById(R.id.secondary_fragment_container);
-
-            PercentRelativeLayout.LayoutParams primary_params = (PercentRelativeLayout.LayoutParams) primary_view.getLayoutParams();
-            PercentRelativeLayout.LayoutParams secondary_params = (PercentRelativeLayout.LayoutParams) secondary_view.getLayoutParams();
-
-            PercentLayoutHelper.PercentLayoutInfo primary_info = primary_params.getPercentLayoutInfo();
-            PercentLayoutHelper.PercentLayoutInfo secondary_info = secondary_params.getPercentLayoutInfo();
-
-            primary_info.widthPercent = 1.00f;
-            secondary_info.widthPercent = 0.00f;
-
-            primary_view.requestLayout();
-            secondary_view.requestLayout();
-
-            findViewById(R.id.divider_fragment_container).setVisibility(View.GONE);
-        }
-        layout_changed = true;
     }
 }

@@ -88,30 +88,33 @@ public class ReportFragment extends Fragment {
         if (args != null && args.containsKey(ARG_PUBLISHER_ID))
             publisherId = args.getInt(ARG_PUBLISHER_ID);
 
-        setPublisherId(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+        if (publisherId != 0)
+            setPublisherId(publisherId);
+        else
+            setPublisherId(PrefUtils.getPublisherId(getActivity().getApplicationContext()));
 
         setHasOptionsMenu(true);
 
         database = new MinistryService(getActivity().getApplicationContext());
 
         fm = getActivity().getSupportFragmentManager();
-        publishers = (Spinner) root.findViewById(R.id.publishers);
-        view_entries = (Button) root.findViewById(R.id.view_entries);
+        publishers = root.findViewById(R.id.publishers);
+        view_entries = root.findViewById(R.id.view_entries);
 
-        month = (TextView) root.findViewById(R.id.month);
-        year = (TextView) root.findViewById(R.id.year);
+        month = root.findViewById(R.id.month);
+        year = root.findViewById(R.id.year);
 
-        placements_count = (TextView) root.findViewById(R.id.placements_count);
-        video_showings = (TextView) root.findViewById(R.id.video_showings);
+        placements_count = root.findViewById(R.id.placements_count);
+        video_showings = root.findViewById(R.id.video_showings);
 
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab = root.findViewById(R.id.fab);
 
-        return_visits_text = (TextView) root.findViewById(R.id.return_visits_text);
-        return_visits_count = (TextView) root.findViewById(R.id.return_visits_count);
-        bible_studies_text = (TextView) root.findViewById(R.id.bible_studies_text);
-        bible_studies_count = (TextView) root.findViewById(R.id.bible_studies_count);
-        total_hours_count = (TextView) root.findViewById(R.id.total_hours_count);
-        placement_list = (LinearLayout) root.findViewById(R.id.placement_list);
+        return_visits_text = root.findViewById(R.id.return_visits_text);
+        return_visits_count = root.findViewById(R.id.return_visits_count);
+        bible_studies_text = root.findViewById(R.id.bible_studies_text);
+        bible_studies_count = root.findViewById(R.id.bible_studies_count);
+        total_hours_count = root.findViewById(R.id.total_hours_count);
+        placement_list = root.findViewById(R.id.placement_list);
 
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +123,6 @@ public class ReportFragment extends Fragment {
 
                 calculateSummaryValues();
                 fillPublisherSummary();
-                displayTimeEntries();
             }
         });
 
@@ -131,7 +133,6 @@ public class ReportFragment extends Fragment {
 
                 calculateSummaryValues();
                 fillPublisherSummary();
-                displayTimeEntries();
             }
         });
 
@@ -140,7 +141,7 @@ public class ReportFragment extends Fragment {
             public void onClick(View v) {
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
-                TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+                TimeEntriesFragmentBU f = new TimeEntriesFragmentBU().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
@@ -162,7 +163,7 @@ public class ReportFragment extends Fragment {
             fab.setVisibility(View.GONE);
             view_entries.setVisibility(View.GONE);
 
-            TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
+            TimeEntriesFragmentBU f = new TimeEntriesFragmentBU().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
             FragmentTransaction transaction = fm.beginTransaction();
             transaction.replace(R.id.secondary_fragment_container, f, "secondary");
             transaction.commit();
@@ -416,7 +417,6 @@ public class ReportFragment extends Fragment {
                     PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
                     calculateSummaryValues();
                     fillPublisherSummary();
-                    displayTimeEntries();
                 }
             }
 
@@ -424,25 +424,5 @@ public class ReportFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-    }
-
-    public void displayTimeEntries() {
-        if (is_dual_pane) {
-            Fragment rf = fm.findFragmentById(R.id.secondary_fragment_container);
-
-            if (rf instanceof TimeEntriesFragment) {
-                TimeEntriesFragment f = (TimeEntriesFragment) fm.findFragmentById(R.id.secondary_fragment_container);
-
-                f.setPublisherId(publisherId);
-
-                f.switchToMonthList(monthPicked);
-            } else {
-                TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.secondary_fragment_container, f);
-                ft.commit();
-            }
-        }
     }
 }

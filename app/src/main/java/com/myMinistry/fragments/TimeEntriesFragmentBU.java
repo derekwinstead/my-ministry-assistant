@@ -3,13 +3,14 @@ package com.myMinistry.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,26 +18,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myMinistry.R;
+import com.myMinistry.adapters.MyAdapter;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEntryAdapter;
-import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
-import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryContract.Time;
-import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.bean.TimeEntry;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
-import com.myMinistry.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeEntriesFragment extends ListFragment {
+public class TimeEntriesFragmentBU extends Fragment {
     public static String ARG_YEAR = "year";
     public static String ARG_MONTH = "month";
     public static String ARG_PUBLISHER_ID = "publisher_id";
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private Button view_report;
     private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
@@ -75,8 +75,24 @@ public class TimeEntriesFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.time_entries, container, false);
+        View view = inflater.inflate(R.layout.time_entries_bu, container, false);
         Bundle args = getArguments();
+
+        mRecyclerView = view.findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        // specify an adapter (see also next example)
+
+        mAdapter = new MyAdapter(new TimeEntry[]{new TimeEntry()});
+        mRecyclerView.setAdapter(mAdapter);
 
         fm = getActivity().getSupportFragmentManager();
 
@@ -95,16 +111,18 @@ public class TimeEntriesFragment extends ListFragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        publishers = view.findViewById(R.id.publishers);
-        view_report = view.findViewById(R.id.view_entries);
-        report_nav = view.findViewById(R.id.report_nav);
+        publishers = (Spinner) view.findViewById(R.id.publishers);
+        view_report = (Button) view.findViewById(R.id.view_entries);
+        report_nav = (LinearLayout) view.findViewById(R.id.report_nav);
 
-        month = view.findViewById(R.id.month);
-        year = view.findViewById(R.id.year);
+        month = (TextView) view.findViewById(R.id.month);
+        year = (TextView) view.findViewById(R.id.year);
 
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
-        setListAdapter(adapter);
+
+
+        //setListAdapter(adapter);
 
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,12 +156,13 @@ public class TimeEntriesFragment extends ListFragment {
 
         pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
-        fab = view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         return view;
     }
 
     public void updateList() {
+        /*
         month.setText(mMonth);
         year.setText(mYear);
 
@@ -155,14 +174,15 @@ public class TimeEntriesFragment extends ListFragment {
         }
         adapter.changeCursor(entries);
         database.close();
+        */
     }
 
     public void setPublisherId(int _id) {
         publisherId = _id;
     }
 
-    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        /*
         entries.moveToPosition(position);
         if (entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
             TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
@@ -174,12 +194,13 @@ public class TimeEntriesFragment extends ListFragment {
             }
             transaction.commit();
         }
+        */
     }
 
     @Override
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
-
+/*
         is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +220,7 @@ public class TimeEntriesFragment extends ListFragment {
 
             adjustMonth(0);
         }
+        */
 /*
 		if(is_dual_pane) {
 			fab.setVisibility(View.GONE);
@@ -218,28 +240,34 @@ public class TimeEntriesFragment extends ListFragment {
 			});
 		}
 */
-        loadPublisherAdapter();
+//        loadPublisherAdapter();
     }
 
     public void switchToMonthList(Calendar _date) {
+        /*
         date = _date;
 
         calculateValues();
         refresh();
+        */
     }
 
     public void calculateValues() {
+        /*
         dbDateFormatted = TimeUtils.dbDateFormat.format(date.getTime());
         dbTimeFrame = "month";
+        */
     }
 
     public void adjustMonth(int addValue) {
+        /*
         date.add(Calendar.MONTH, addValue);
 
         mMonth = buttonFormat.format(date.getTime()).toUpperCase(Locale.getDefault());
         mYear = String.valueOf(date.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
         saveSharedPrefs();
+        */
     }
 
     private void saveSharedPrefs() {
@@ -248,10 +276,11 @@ public class TimeEntriesFragment extends ListFragment {
     }
 
     public void refresh() {
-        updateList();
+        //updateList();
     }
 
     private void loadPublisherAdapter() {
+        /*
         int initialSelection = 0;
         // Add new publisher item
         pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, MinistryDatabase.CREATE_ID));
@@ -299,5 +328,6 @@ public class TimeEntriesFragment extends ListFragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        */
     }
 }
