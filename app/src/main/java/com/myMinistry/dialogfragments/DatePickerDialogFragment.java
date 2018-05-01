@@ -35,11 +35,18 @@ public class DatePickerDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new DatePickerDialog(this.getActivity(), new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                sListener.DatePickerDialogFragmentListenerSet(selectedYear, selectedMonth, selectedDay);
+            }
+        }, getArguments().getInt(ARG_YEAR), getArguments().getInt(ARG_MONTH), getArguments().getInt(ARG_DAY));
+        /*
         DatePickerDialog builder = new DatePickerDialog(this.getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
                 sListener.DatePickerDialogFragmentListenerSet(selectedYear, selectedMonth, selectedDay);
             }
         }, getArguments().getInt(ARG_YEAR), getArguments().getInt(ARG_MONTH), getArguments().getInt(ARG_DAY));
         return builder;
+        */
     }
 }

@@ -14,8 +14,6 @@ import com.myMinistry.provider.MinistryService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.myMinistry.R.menu.publication;
-
 public class PublicationDAO {
     // Database fields
     private SQLiteDatabase database;

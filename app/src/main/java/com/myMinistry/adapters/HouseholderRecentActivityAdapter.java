@@ -61,11 +61,11 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = li.inflate(LAYOUT_ID, parent, false);
         ViewHolder holder = new ViewHolder();
-        holder.activity_title = (TextView) view.findViewById(R.id.activity_title);
-        holder.activity_publications = (LinearLayout) view.findViewById(R.id.activity_publications);
-        holder.activity_notes_layout = (LinearLayout) view.findViewById(R.id.activity_notes_layout);
-        holder.activity_notes = (TextView) view.findViewById(R.id.activity_notes);
-        holder.activity_date = (TextView) view.findViewById(R.id.activity_date);
+        holder.activity_title = view.findViewById(R.id.activity_title);
+        holder.activity_publications = view.findViewById(R.id.activity_publications);
+        holder.activity_notes_layout = view.findViewById(R.id.activity_notes_layout);
+        holder.activity_notes = view.findViewById(R.id.activity_notes);
+        holder.activity_date = view.findViewById(R.id.activity_date);
         view.setTag(holder);
         return view;
     }
@@ -75,12 +75,12 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder holder = (ViewHolder) view.getTag();
 
-        /** Title */
+        /* Title */
         holder.activity_title.setText(Phrase.from(context, R.string.activity_for_householder)
                 .put("service", cursor.getString(cursor.getColumnIndex(MinistryContract.UnionsNameAsRef.ENTRY_TYPE_NAME)))
                 .format().toString());
 
-        /** Publications */
+        /* Publications */
         if (cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.COUNT)) > 0) {
             holder.activity_publications.setVisibility(View.VISIBLE);
             holder.activity_publications.removeAllViews();
@@ -108,7 +108,7 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
             holder.activity_publications.setVisibility(View.GONE);
         }
 
-        /** Notes */
+        /* Notes */
         if (TextUtils.isEmpty(cursor.getString(cursor.getColumnIndex(Notes.NOTES)))) {
             holder.activity_notes_layout.setVisibility(View.GONE);
         } else {
@@ -116,11 +116,11 @@ public class HouseholderRecentActivityAdapter extends ResourceCursorAdapter {
             holder.activity_notes.setText(cursor.getString(cursor.getColumnIndex(Notes.NOTES)));
         }
 
-        /** Date */
+        /* Date */
         if (cursor.getString(cursor.getColumnIndex(Time.DATE_START)) != null && cursor.getString(cursor.getColumnIndex(Time.DATE_START)).length() > 0) {
             String[] thedate = cursor.getString(cursor.getColumnIndex(Time.DATE_START)).split("-");
             if (thedate.length == 3) {
-                /** We have the three numbers to make the date. Subtract 1 for zero based months. */
+                /* We have the three numbers to make the date. Subtract 1 for zero based months. */
                 displayDate.set(Integer.valueOf(thedate[0]), Integer.valueOf(thedate[1]) - 1, Integer.valueOf(thedate[2]));
                 String date = DateUtils.formatDateTime(context, displayDate.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY);
 

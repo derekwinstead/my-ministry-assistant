@@ -46,7 +46,7 @@ public class NotesDialogFragment extends DialogFragment {
 		
 		if(args != null) {
 			if(args.containsKey(ARG_NOTES)) {
-				EditText et_text1 = (EditText) view.findViewById(R.id.text1);
+				EditText et_text1 = view.findViewById(R.id.text1);
 				et_text1.setText(args.getString(ARG_NOTES));
 			}
 		}
@@ -61,7 +61,7 @@ public class NotesDialogFragment extends DialogFragment {
 	private DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener() {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			EditText editText = (EditText) view.findViewById(R.id.text1);
+			EditText editText = view.findViewById(R.id.text1);
 			sListener.setPositiveButton(editText.getText().toString());
 		}
 	};

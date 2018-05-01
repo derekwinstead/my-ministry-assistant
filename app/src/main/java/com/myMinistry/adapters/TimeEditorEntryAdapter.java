@@ -53,14 +53,14 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(LAYOUT_ID, parent, false);
 
             holder = new ViewHolder();
-            holder.linlay = (LinearLayout) row.findViewById(R.id.linlay);
+            holder.linlay = row.findViewById(R.id.linlay);
 
             row.setTag(holder);
         } else {
@@ -72,7 +72,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
 
         TextView tv;
 
-        /** Show if NOT a return visit */
+        /* Show if NOT a return visit */
         if (!entry.isCountedForReturnVisit()) {
             tv = new TextView(context);
 
@@ -91,7 +91,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             holder.linlay.addView(tv);
         }
 
-        /** Show Householder if exists */
+        /* Show Householder if exists */
         if (!TextUtils.isEmpty(entry.toString())) {
             tv = new TextView(context);
             tv.setText(entry.toString());
@@ -104,7 +104,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             holder.linlay.addView(tv);
         }
 
-        /** Show Notes if exists */
+        /* Show Notes if exists */
         if (!TextUtils.isEmpty(entry.getNotes())) {
             ImageView iv = new ImageView(context);
             iv.setPadding(0, 0, padding, 0);
@@ -129,7 +129,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
             holder.linlay.addView(linlay);
         }
 
-        /** Load the publications for the entry */
+        /* Load the publications for the entry */
         for (QuickLiterature item : entry.getLit()) {
             tv = new TextView(context);
             tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);
@@ -175,7 +175,7 @@ public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
         public String notes;
 
         public Entry() {
-            pubs = new ArrayList<PublicationItem>();
+            pubs = new ArrayList<>();
             householder = "";
             notes = "";
         }

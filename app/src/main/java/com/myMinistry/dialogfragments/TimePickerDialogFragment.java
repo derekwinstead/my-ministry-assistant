@@ -33,6 +33,13 @@ public class TimePickerDialogFragment extends DialogFragment {
 	
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+		return new TimePickerDialog(this.getActivity(), new TimePickerDialog.OnTimeSetListener() {
+			@Override
+			public void onTimeSet(TimePicker arg0, int hourOfDay, int minute) {
+				sListener.TimePickerDialogFragmentListenerSet(hourOfDay, minute);
+			}
+		}, getArguments().getInt(ARG_HOUR_OF_DAY), getArguments().getInt(ARG_MINUTES), false);
+		/*
 		TimePickerDialog builder = new TimePickerDialog(this.getActivity(), new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker arg0, int hourOfDay, int minute) {
@@ -40,5 +47,6 @@ public class TimePickerDialogFragment extends DialogFragment {
 			}
 		}, getArguments().getInt(ARG_HOUR_OF_DAY), getArguments().getInt(ARG_MINUTES), false);
 	    return builder;
+	    */
     }
 }

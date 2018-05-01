@@ -35,7 +35,7 @@ public class HouseholdersFragment extends ListFragment {
 
 		fm = getActivity().getSupportFragmentManager();
 
-		fab = (FloatingActionButton) view.findViewById(R.id.fab);
+		fab = view.findViewById(R.id.fab);
 
 		return view;
 	}

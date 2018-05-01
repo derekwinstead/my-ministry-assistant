@@ -22,9 +22,9 @@ public class TitleAndTextViewHolder extends RecyclerView.ViewHolder {
     public TitleAndTextViewHolder(View itemView) {
         super(itemView);
         //this.listener = listener;
-        textTitle = (TextView) itemView.findViewById(R.id.text1);
-        textSub = (TextView) itemView.findViewById(R.id.text1);
-        textContainer = (View) itemView.findViewById(R.id.text_householder); // TODO This needs to be the container for all the views to have an onclick :)
+        textTitle = itemView.findViewById(R.id.text1);
+        textSub = itemView.findViewById(R.id.text1);
+        textContainer = itemView.findViewById(R.id.text_householder); // TODO This needs to be the container for all the views to have an onclick :)
 
         textContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +43,8 @@ public class TitleAndTextViewHolder extends RecyclerView.ViewHolder {
     }
 
     private String getFormattedDate(ItemWithDate item) {
-        String date = item.getDate();
+        //String date = item.getDate();
         //String date = item.getYear() + " " + item.getEra();
-        return date;
+        return item.getDate();
     }
 }

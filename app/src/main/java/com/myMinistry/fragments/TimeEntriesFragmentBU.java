@@ -111,12 +111,12 @@ public class TimeEntriesFragmentBU extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        publishers = (Spinner) view.findViewById(R.id.publishers);
-        view_report = (Button) view.findViewById(R.id.view_entries);
-        report_nav = (LinearLayout) view.findViewById(R.id.report_nav);
+        publishers = view.findViewById(R.id.publishers);
+        view_report = view.findViewById(R.id.view_entries);
+        report_nav = view.findViewById(R.id.report_nav);
 
-        month = (TextView) view.findViewById(R.id.month);
-        year = (TextView) view.findViewById(R.id.year);
+        month = view.findViewById(R.id.month);
+        year = view.findViewById(R.id.year);
 
         database = new MinistryService(getActivity().getApplicationContext());
         adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
@@ -156,7 +156,7 @@ public class TimeEntriesFragmentBU extends Fragment {
 
         pubsAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = view.findViewById(R.id.fab);
 
         return view;
     }

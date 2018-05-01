@@ -69,11 +69,11 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         View view = li.inflate(LAYOUT_ID, parent, false);
         ViewHolder holder = new ViewHolder();
 
-        holder.linlay = (LinearLayout) view.findViewById(R.id.linlay);
-        holder.title = (TextView) view.findViewById(R.id.title);
-        holder.date = (TextView) view.findViewById(R.id.date);
-        holder.timeStart = (TextView) view.findViewById(R.id.timeStart);
-        holder.timeEnd = (TextView) view.findViewById(R.id.timeEnd);
+        holder.linlay = view.findViewById(R.id.linlay);
+        holder.title = view.findViewById(R.id.title);
+        holder.date = view.findViewById(R.id.date);
+        holder.timeStart = view.findViewById(R.id.timeStart);
+        holder.timeEnd = view.findViewById(R.id.timeEnd);
 
         view.setTag(holder);
         return view;
@@ -88,11 +88,11 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         ArrayList<Entry> entries = new ArrayList<>();
         Entry entry;
 
-        /** Set the date for the view */
+        /* Set the date for the view */
         String[] splits = cursor.getString(cursor.getColumnIndex(Time.DATE_START)).split("-");
-        /** We have the three numbers to make the date. */
+        /* We have the three numbers to make the date. */
         displayDateStart.set(Calendar.YEAR, Integer.valueOf(splits[0]));
-        /** Subtract 1 for zero based months. */
+        /* Subtract 1 for zero based months. */
         displayDateStart.set(Calendar.MONTH, Integer.valueOf(splits[1]) - 1);
         displayDateStart.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splits[2]));
 
@@ -102,9 +102,9 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
             splits = null;
         }
         if (splits != null && splits.length == 3) {
-            /** We have the three numbers to make the date. */
+            /* We have the three numbers to make the date. */
             displayDateEnd.set(Calendar.YEAR, Integer.valueOf(splits[0]));
-            /** Subtract 1 for zero based months. */
+            /* Subtract 1 for zero based months. */
             displayDateEnd.set(Calendar.MONTH, Integer.valueOf(splits[1]) - 1);
             displayDateEnd.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splits[2]));
         } else {
@@ -113,7 +113,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
             displayDateEnd.set(Calendar.DAY_OF_MONTH, displayDateStart.get(Calendar.DAY_OF_MONTH));
         }
 
-        /** Set the time of the entry */
+        /* Set the time of the entry */
         splits = cursor.getString(cursor.getColumnIndex(Time.TIME_START)).split(":");
         displayDateStart.set(Calendar.HOUR_OF_DAY, Integer.valueOf(splits[0]));
         displayDateStart.set(Calendar.MINUTE, Integer.valueOf(splits[1]));
@@ -130,7 +130,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         Cursor timeHouseholders = database.fetchTimeHouseholdersForTimeByID(cursor.getInt(cursor.getColumnIndex(Time._ID)));
         Cursor publications;
 
-        /** Loop over the householders */
+        /* Loop over the householders */
         for (timeHouseholders.moveToFirst(); !timeHouseholders.isAfterLast(); timeHouseholders.moveToNext()) {
             entry = new Entry();
             entry.setHouseholder(timeHouseholders.getString(timeHouseholders.getColumnIndex(Householder.NAME)));
@@ -149,15 +149,15 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         timeHouseholders.close();
         database.close();
 
-        /** Set the display in the view as  Ddd, Mmm dd, H:MMTT - H:MMTT */
+        /* Set the display in the view as  Ddd, Mmm dd, H:MMTT - H:MMTT */
         holder.date.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY | DateUtils.FORMAT_SHOW_YEAR));
         holder.timeStart.setText(DateUtils.formatDateTime(context, displayDateStart.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
         holder.timeEnd.setText(DateUtils.formatDateTime(context, displayDateEnd.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
 
-        /** Set the display in the view as Xh Ym */
+        /* Set the display in the view as Xh Ym */
         //holder.hours.setText(TimeUtils.getTimeLength(displayDateStart, displayDateEnd, context.getString(R.string.hours_label), context.getString(R.string.minutes_label)));
 
-        /** Set the display in the view for the header */
+        /* Set the display in the view for the header */
         holder.title.setText(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE)));
 
         if (entries.isEmpty()) {
@@ -166,7 +166,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
         } else {
             //holder.div.setVisibility(View.VISIBLE);
             holder.linlay.setVisibility(View.VISIBLE);
-            /** Clean out the old views for the entries */
+            /* Clean out the old views for the entries */
             holder.linlay.removeAllViews();
 
             int counter = 0;
@@ -198,7 +198,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
 
                     TextView tv;
 
-                    /** Show if NOT a return visit */
+                    /* Show if NOT a return visit */
                     if (!entryitem.isReturnVisit()) {
                         emptyItem = false;
                         tv = new TextView(context);
@@ -219,7 +219,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                         ll.addView(tv);
                     }
 
-                    /** Show Householder if exists */
+                    /* Show Householder if exists */
                     if (!TextUtils.isEmpty(entryitem.getHouseholder())) {
                         emptyItem = false;
                         tv = new TextView(context);
@@ -237,7 +237,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                         ll.addView(tv);
                     }
 
-                    /** Show Notes if exists */
+                    /* Show Notes if exists */
                     if (!TextUtils.isEmpty(entryitem.getNotes())) {
                         ImageView iv = new ImageView(context);
                         iv.setPadding(0, 0, padding, 0);
@@ -262,7 +262,7 @@ public class TimeEntryAdapter extends ResourceCursorAdapter {
                         ll.addView(linlay);
                     }
 
-                    /** Load the publications for the entry */
+                    /* Load the publications for the entry */
                     for (PublicationItem item : entryitem.pubs) {
                         tv = new TextView(context);
                         tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);

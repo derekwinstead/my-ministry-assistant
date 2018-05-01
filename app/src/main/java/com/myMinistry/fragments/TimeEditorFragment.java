@@ -172,13 +172,13 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
         anim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.fade_anim);
 
-        publishers = (Spinner) root.findViewById(R.id.publishers);
-        entryTypes = (Spinner) root.findViewById(R.id.entryTypes);
-        dateStart = (Button) root.findViewById(R.id.dateStart);
-        dateEnd = (Button) root.findViewById(R.id.dateEnd);
-        timeStart = (Button) root.findViewById(R.id.timeStart);
-        timeEnd = (Button) root.findViewById(R.id.timeEnd);
-        ImageView addListItem = (ImageView) root.findViewById(R.id.addListItem);
+        publishers = root.findViewById(R.id.publishers);
+        entryTypes = root.findViewById(R.id.entryTypes);
+        dateStart = root.findViewById(R.id.dateStart);
+        dateEnd = root.findViewById(R.id.dateEnd);
+        timeStart = root.findViewById(R.id.timeStart);
+        timeEnd = root.findViewById(R.id.timeEnd);
+        ImageView addListItem = root.findViewById(R.id.addListItem);
 
         selectedDateStart.set(Calendar.MILLISECOND, 0);
         selectedDateEnd.set(Calendar.MILLISECOND, 0);
@@ -369,7 +369,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 for (qPublishers.moveToFirst(); !qPublishers.isAfterLast(); qPublishers.moveToNext()) {
                     if (qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
                         publishers.setSelection(qPublishers.getPosition());
-                        /** Set the default publisher ID to be checked on update */
+                        /* Set the default publisher ID to be checked on update */
                         originalPublisherId = record.getInt(record.getColumnIndex(Time.PUBLISHER_ID));
                         publisherExists = true;
                         break;
@@ -394,7 +394,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                     for (qPublishers.moveToFirst(); !qPublishers.isAfterLast(); qPublishers.moveToNext()) {
                         if (qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
                             publishers.setSelection(qPublishers.getPosition());
-                            /** Set the default publisher ID to be checked on update */
+                            /* Set the default publisher ID to be checked on update */
                             originalPublisherId = record.getInt(record.getColumnIndex(Time.PUBLISHER_ID));
                             break;
                         }
@@ -629,16 +629,16 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
      * Insert values into database
      */
     private boolean saveTime() {
-        /** Flag to know if the literature should be inserted or deleted */
+        /* Flag to know if the literature should be inserted or deleted */
         boolean isNew = timeId == 0;
 
         double totalTime = Helper.getDifference(selectedDateStart, selectedDateEnd);
 
-        /** No zero or negative hours allowed */
+        /* No zero or negative hours allowed */
         if (totalTime < 0) {
             Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_saved_problem), Toast.LENGTH_SHORT).show();
         } else {
-            /** Values to save */
+            /* Values to save */
             ContentValues values = new ContentValues();
             values.put(Time.PUBLISHER_ID, publisherId);
             values.put(Time.ENTRY_TYPE_ID, entryTypeId);
@@ -647,7 +647,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
             values.put(Time.TIME_START, saveTimeFormat.format(selectedDateStart.getTime()));
             values.put(Time.TIME_END, saveTimeFormat.format(selectedDateEnd.getTime()));
 
-            /** Let's save the info to the times table */
+            /* Let's save the info to the times table */
             database.openWritable();
             if (timeId > 0) {
                 if (database.saveTime(timeId, values) == 0) {
@@ -662,9 +662,9 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 }
             }
 
-            /** Do we need to check for two publishers for the changing of the guard? :) */
+            /* Do we need to check for two publishers for the changing of the guard? :) */
             if (!isNew && publisherId != originalPublisherId) {
-                /** Run the rollover checkup on the original publisher. */
+                /* Run the rollover checkup on the original publisher. */
                 database.processRolloverTime(originalPublisherId, originalSelectedDateStart);
             }
 
@@ -681,7 +681,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
             database.openWritable();
 
-            /** Loop over our householder list to save */
+            /* Loop over our householder list to save */
             for (int i = 0; i < householderList.size(); i++) {
                 householderForTime = householderList.get(i);
                 values = new ContentValues();
@@ -689,13 +689,13 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 values.put(TimeHouseholder.HOUSEHOLDER_ID, householderForTime.getID());
                 values.put(TimeHouseholder.RETURN_VISIT, householderForTime.isCountedForReturnVisit());
 
-                /** Bible Study */
+                /* Bible Study */
                 if (entryTypeId == MinistryDatabase.ID_BIBLE_STUDY)
                     values.put(TimeHouseholder.STUDY, 1);
                 else
                     values.put(TimeHouseholder.STUDY, 0);
 
-                /** Check to see if the record exists */
+                /* Check to see if the record exists */
                 if (householderForTime.getTimeHouseholderPK() == MinistryDatabase.CREATE_ID) {
                     householderForTime.setTimeHouseholderPK(database.createTimeHouseholder(values));
                 } else {
@@ -713,7 +713,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                         database.saveNotes(householderForTime.getNotesID(), values);
                 }
 
-                /** We need to delete a note that existed before but has been removed. */
+                /* We need to delete a note that existed before but has been removed. */
                 if (householderForTime.getNotesID() != 0 && (householderForTime.getNotes() == null || (householderForTime.getNotes() != null && householderForTime.getNotes().length() == 0)))
                     database.deleteNoteByID(householderForTime.getNotesID());
 
@@ -735,7 +735,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                         values.put(LiteraturePlaced.DATE, TimeUtils.dbDateFormat.format(selectedDateStart.getTime()));
                         values.put(LiteraturePlaced.COUNT, quickLit.getCount());
 
-                        /** Check to see if the record exists */
+                        /* Check to see if the record exists */
                         quickLit.setPlacedID(database.fetchPlacedLitByTimeAndHouseholderAndLitID(timeId, householderForTime.getID(), quickLit.getID()));
 
                         if (quickLit.getPlacedID() == 0) {
@@ -749,17 +749,17 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 }
 
                 if (!isNew) {
-                    /** Delete orphaned litPlaced records */
+                    /* Delete orphaned litPlaced records */
                     database.deletePlacedLiteratureOrphans(timeId, householderForTime.getID(), placedIDs);
                 }
             }
 
             if (!isNew) {
-                /** Delete orphaned timeHouseholder and records */
+                /* Delete orphaned timeHouseholder and records */
                 database.deleteTimeHouseholderOrphans(timeId, householderPKIDs);
-                /** Delete orphaned litPlaced records that aren't for the householders */
+                /* Delete orphaned litPlaced records that aren't for the householders */
                 database.deleteTimeHouseholderLiteraturePlacedOrphans(timeId, householderIDs);
-                /** Delete orphaned notes records */
+                /* Delete orphaned notes records */
                 database.deleteTimeHouseholderNotesOrphans(timeId, householderIDs);
             }
 
@@ -782,7 +782,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
         for (int i = 0; i < householderList.size(); i++) {
             if (householderList.get(i).getID() == _ID) {
-                /** We have the householder selected - don't add a new one */
+                /* We have the householder selected - don't add a new one */
                 addHH = false;
                 selectedHHLoc = i;
                 break;
@@ -792,7 +792,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         if (addHH) {
             HouseholderForTime entry = new HouseholderForTime(_ID, _name, MinistryDatabase.CREATE_ID);
             entry.setCountedForReturnVisit(_isReturnVisit);
-            selectedHHLoc = householderList.size(); /** Since this is a zero based list, the size will be the new location of the added entry. */
+            selectedHHLoc = householderList.size(); /* Since this is a zero based list, the size will be the new location of the added entry. */
             householderList.add(entry);
         }
 
@@ -934,7 +934,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
-                                /** Remove the item from our list */
+                                /* Remove the item from our list */
                                 householderList.remove(position);
                                 adapter.notifyDataSetChanged();
                             }

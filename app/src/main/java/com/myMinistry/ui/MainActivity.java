@@ -40,8 +40,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    //private boolean is_dual_pane = false;
-
     private Toolbar toolbar;
 
     protected static final int NAVDRAWER_ITEM_TIME_ENTRY = 8;
@@ -49,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     public static final int PUBLICATION_MANAGER_ID = NAVDRAWER_ITEM_PUBLICATION_MANAGER;
     private final int MAIN_CONTENT_FADEIN_DURATION = 250;
-
-    private boolean layout_changed = false;
 
     private FragmentManager fm;
 
@@ -78,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
         changeLang(PrefUtils.getLocale(getApplicationContext()));
 
         fm = getSupportFragmentManager();
-
-        //is_dual_pane = findViewById(R.id.secondary_fragment_container) != null;
 
         initToolbar();
         setupDrawerLayout();

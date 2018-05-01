@@ -59,7 +59,7 @@ public class PublicationNewDialogFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Get the input values
-                EditText editText = (EditText) view.findViewById(R.id.text1);
+                EditText editText = view.findViewById(R.id.text1);
                 String _name = editText.getText().toString();
                 long _newID = 0;
                 if (!TextUtils.isEmpty(_name)) {

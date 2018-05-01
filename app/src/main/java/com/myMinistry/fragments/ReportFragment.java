@@ -9,8 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,13 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
+import com.myMinistry.adapters.ReportPublicationSummaryAdapter;
+import com.myMinistry.bean.ReportPublication;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
@@ -37,6 +37,7 @@ import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -49,12 +50,9 @@ public class ReportFragment extends Fragment {
 
     private TextView total_hours_count, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, placements_count, video_showings;
     private Button view_entries;
-    private LinearLayout placement_list;
     private Calendar monthPicked = Calendar.getInstance();
     private int publisherId = 0;
-    private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-
-    private boolean is_dual_pane = false;
+    private final SimpleDateFormat fullMonthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
 
     private MinistryService database;
 
@@ -65,6 +63,9 @@ public class ReportFragment extends Fragment {
     private NavDrawerMenuItemAdapter pubsAdapter;
 
     private FragmentManager fm;
+
+    private ReportPublicationSummaryAdapter placement_list_adapter;
+    private ArrayList<ReportPublication> user_placements = new ArrayList<>();
 
     public ReportFragment newInstance(int publisherId) {
         ReportFragment f = new ReportFragment();
@@ -114,7 +115,13 @@ public class ReportFragment extends Fragment {
         bible_studies_text = root.findViewById(R.id.bible_studies_text);
         bible_studies_count = root.findViewById(R.id.bible_studies_count);
         total_hours_count = root.findViewById(R.id.total_hours_count);
-        placement_list = root.findViewById(R.id.placement_list);
+
+        RecyclerView placement_list;
+        placement_list = root.findViewById(R.id.placement_list_new);
+        placement_list.setHasFixedSize(true);
+        placement_list.setLayoutManager(new LinearLayoutManager(getContext()));
+        placement_list_adapter= new ReportPublicationSummaryAdapter(getContext(), user_placements);
+        placement_list.setAdapter(placement_list_adapter);
 
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,18 +164,7 @@ public class ReportFragment extends Fragment {
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        if (is_dual_pane) {
-            fab.setVisibility(View.GONE);
-            view_entries.setVisibility(View.GONE);
-
-            TimeEntriesFragmentBU f = new TimeEntriesFragmentBU().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-            transaction.commit();
-        } else {
-            view_entries.setText(R.string.view_month_entries);
+        view_entries.setText(R.string.view_month_entries);
 
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -176,10 +172,8 @@ public class ReportFragment extends Fragment {
                     ((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
                 }
             });
-        }
 
         loadPublisherAdapter();
-        calculateSummaryValues();
         fillPublisherSummary();
     }
 
@@ -201,13 +195,15 @@ public class ReportFragment extends Fragment {
         bible_studies_count.setText(mBSCount);
         return_visits_text.setText(mRVText);
         return_visits_count.setText(mRVCount);
+
+        placement_list_adapter.notifyDataSetChanged();
     }
 
     public void calculateSummaryValues() {
         if (!database.isOpen())
             database.openWritable();
 
-        mMonth = buttonFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
+        mMonth = fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
         mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
         String dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
@@ -229,33 +225,15 @@ public class ReportFragment extends Fragment {
         if (!database.isOpen())
             database.openWritable();
 
-        placement_list.removeAllViews();
         Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (literatureTypes.moveToFirst(); !literatureTypes.isAfterLast(); literatureTypes.moveToNext()) {
-            LinearLayout ll = new LinearLayout(getContext());
-            ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            RelativeLayout rl = new RelativeLayout(getContext());
-            rl.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            TextView tv1 = new TextView(getContext());
-            TextView tv2 = new TextView(getContext());
-            tv1.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            tv2.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            tv1.setText(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)));
-            tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.secondary_text));
-            tv2.setText(String.valueOf(literatureTypes.getInt(2)));
-            tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.secondary_text));
-            tv2.setGravity(Gravity.END);
-
-            rl.addView(tv1);
-            rl.addView(tv2);
-
-            ll.addView(rl);
-
-            placement_list.addView(ll);
+            if(user_placements.size() <= literatureTypes.getPosition()) {
+                user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
+            } else {
+                user_placements.set(literatureTypes.getPosition(),new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
+            }
         }
+        literatureTypes.close();
 
         mVideoShowings = String.valueOf(database.fetchVideoShowingsCountForPublisher(publisherId, dbDateFormatted, dbTimeFrame));
 
@@ -287,7 +265,7 @@ public class ReportFragment extends Fragment {
             database.openWritable();
 
         // Set the date
-        retVal.append(buttonFormat.format(monthPicked.getTime())).append(" ").append(monthPicked.get(Calendar.YEAR));
+        retVal.append(fullMonthFormat.format(monthPicked.getTime())).append(" ").append(monthPicked.get(Calendar.YEAR));
 
         Cursor pubs = database.fetchActivePublishers();
 
@@ -348,7 +326,7 @@ public class ReportFragment extends Fragment {
                 share.setType("text/plain");
                 share.setFlags((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 share.putExtra(Intent.EXTRA_TEXT, populateShareString());
-                share.putExtra(Intent.EXTRA_SUBJECT, buttonFormat.format(monthPicked.getTime()) + " " + monthPicked.get(Calendar.YEAR));
+                share.putExtra(Intent.EXTRA_SUBJECT, fullMonthFormat.format(monthPicked.getTime()) + " " + monthPicked.get(Calendar.YEAR));
                 startActivity(Intent.createChooser(share, getResources().getString(R.string.menu_send_report)));
 
                 return true;

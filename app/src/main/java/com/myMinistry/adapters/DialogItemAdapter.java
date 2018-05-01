@@ -67,7 +67,7 @@ public class DialogItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
 
-            TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
+            TextView text1 = view.findViewById(R.id.menurow_title);
             view.setTag(new ViewHolder(text1));
         }
 

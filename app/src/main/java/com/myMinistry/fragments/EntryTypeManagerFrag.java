@@ -48,7 +48,7 @@ public class EntryTypeManagerFrag extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.entry_type_manager, container, false);
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab = root.findViewById(R.id.fab);
         return root;
     }
 
@@ -176,9 +176,9 @@ public class EntryTypeManagerFrag extends ListFragment {
     private void showEditTextDialog(final int id, String name, int isActive, int isDefault) {
         View view = LayoutInflater.from(EntryTypeManagerFrag.this.getActivity()).inflate(R.layout.d_edit_text_with_two_cb, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(EntryTypeManagerFrag.this.getActivity());
-        final EditText editText = (EditText) view.findViewById(R.id.text1);
-        final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
-        final CheckBox cb_is_default = (CheckBox) view.findViewById(R.id.cb_is_default);
+        final EditText editText = view.findViewById(R.id.text1);
+        final CheckBox cb_is_active = view.findViewById(R.id.cb_is_active);
+        final CheckBox cb_is_default = view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
         if (id <= MinistryDatabase.MAX_ENTRY_TYPE_ID && id != MinistryDatabase.CREATE_ID) {

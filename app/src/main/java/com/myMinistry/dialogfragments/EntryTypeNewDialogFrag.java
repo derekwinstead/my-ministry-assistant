@@ -47,11 +47,11 @@ public class EntryTypeNewDialogFrag extends DialogFragment {
     private DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            /** Get the input value */
-            EditText editText = (EditText) view.findViewById(R.id.text1);
+            /* Get the input value */
+            EditText editText = view.findViewById(R.id.text1);
             String _name = editText.getText().toString();
             if(!TextUtils.isEmpty(_name)) {
-                /** Create a new householder */
+                /* Create a new householder */
                 ContentValues values = new ContentValues();
                 values.put(EntryType.NAME, _name.trim());
                 values.put(EntryType.ACTIVE, MinistryService.ACTIVE);
@@ -62,7 +62,7 @@ public class EntryTypeNewDialogFrag extends DialogFragment {
                 database.createEntryType(values);
                 database.close();
             }
-            /** Call back to the DialogFragment listener */
+            /* Call back to the DialogFragment listener */
             sListener.setPositiveButton(true);
         }
     };

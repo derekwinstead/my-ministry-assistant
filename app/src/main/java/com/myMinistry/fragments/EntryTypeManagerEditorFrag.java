@@ -64,10 +64,10 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 
 		setHasOptionsMenu(true);
 
-		et_name = (EditText) root.findViewById(R.id.et_name);
-		cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-		tv_note = (TextView) root.findViewById(R.id.tv_note);
-		fab = (FloatingActionButton) root.findViewById(R.id.fab);
+		et_name = root.findViewById(R.id.et_name);
+		cb_is_active = root.findViewById(R.id.cb_is_active);
+		tv_note = root.findViewById(R.id.tv_note);
+		fab = root.findViewById(R.id.fab);
 
 		database = new MinistryService(getActivity().getApplicationContext());
 

@@ -101,10 +101,10 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
 
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(type == ITEM_VIEW_TYPE_SEPARATOR ? LAYOUT_SEPARATOR_ID : LAYOUT_CONTENT_ID, parent, false);
-            TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
-            TextView text2 = (TextView) view.findViewById(R.id.menurow_subtitle);
-            ImageView img1 = (ImageView) view.findViewById(R.id.menurow_img);
-            TextView tvCount = (TextView) view.findViewById(R.id.menurow_count);
+            TextView text1 = view.findViewById(R.id.menurow_title);
+            TextView text2 = view.findViewById(R.id.menurow_subtitle);
+            ImageView img1 = view.findViewById(R.id.menurow_img);
+            TextView tvCount = view.findViewById(R.id.menurow_count);
             view.setTag(new ViewHolder(text1, text2, img1, tvCount));
         }
 

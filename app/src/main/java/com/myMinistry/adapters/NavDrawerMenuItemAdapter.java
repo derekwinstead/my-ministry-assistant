@@ -66,7 +66,7 @@ public class NavDrawerMenuItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.li_spinner_item, parent, false);
 
-            TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
+            TextView text1 = view.findViewById(R.id.menurow_title);
             view.setTag(new ViewHolder(text1));
         }
 
@@ -92,7 +92,7 @@ public class NavDrawerMenuItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.li_spinner_item_dropdown, parent, false);
 
-            TextView text1 = (TextView) view.findViewById(R.id.menurow_title);
+            TextView text1 = view.findViewById(R.id.menurow_title);
             view.setTag(new ViewHolder(text1));
         }
 

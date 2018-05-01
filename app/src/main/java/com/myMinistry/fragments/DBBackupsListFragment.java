@@ -75,7 +75,7 @@ public class DBBackupsListFragment extends ListFragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorLayout);
+        coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
 
         view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,10 +228,10 @@ public class DBBackupsListFragment extends ListFragment {
         @SuppressLint("InflateParams")
         View view = LayoutInflater.from(DBBackupsListFragment.this.getActivity()).inflate(R.layout.d_schedule_backups, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(DBBackupsListFragment.this.getActivity());
-        final Switch cb_is_active = (Switch) view.findViewById(R.id.cb_is_active);
-        final Spinner s_weekday = (Spinner) view.findViewById(R.id.s_weekday);
-        final TextView b_daily_time = (TextView) view.findViewById(R.id.b_daily_time);
-        final TextView b_weekly_time = (TextView) view.findViewById(R.id.b_weekly_time);
+        final Switch cb_is_active = view.findViewById(R.id.cb_is_active);
+        final Spinner s_weekday = view.findViewById(R.id.s_weekday);
+        final TextView b_daily_time = view.findViewById(R.id.b_daily_time);
+        final TextView b_weekly_time = view.findViewById(R.id.b_weekly_time);
 
         b_daily_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(daily.getTime()));
         b_weekly_time.setText(DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(weekly.getTime()));

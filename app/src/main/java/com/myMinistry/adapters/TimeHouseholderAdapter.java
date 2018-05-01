@@ -37,7 +37,7 @@ public class TimeHouseholderAdapter extends ArrayAdapter<HouseholderForTime> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        ViewHolder holder = null;
+        ViewHolder holder;
         mystring = new StringBuilder();
 
         if(row == null) {
@@ -45,10 +45,10 @@ public class TimeHouseholderAdapter extends ArrayAdapter<HouseholderForTime> {
             row = inflater.inflate(LAYOUT_ID, parent, false);
 
             holder = new ViewHolder();
-            holder.linlay = (LinearLayout)row.findViewById(R.id.linlay);
-            holder.text_householder = (TextView)row.findViewById(R.id.text_householder);
-            holder.text_publications = (TextView)row.findViewById(R.id.text_publications);
-            holder.text_notes = (TextView)row.findViewById(R.id.text_notes);
+            holder.linlay = row.findViewById(R.id.linlay);
+            holder.text_householder = row.findViewById(R.id.text_householder);
+            holder.text_publications = row.findViewById(R.id.text_publications);
+            holder.text_notes = row.findViewById(R.id.text_notes);
 
             row.setTag(holder);
         }
@@ -58,7 +58,7 @@ public class TimeHouseholderAdapter extends ArrayAdapter<HouseholderForTime> {
 
         HouseholderForTime item = mylist.get(position);
 
-        /** Set householder name to be displayed */
+        /* Set householder name to be displayed */
         if(item.toString() != null && item.toString().length() > 0) {
             holder.text_householder.setText(item.toString());
             holder.text_householder.setVisibility(View.VISIBLE);
@@ -66,7 +66,7 @@ public class TimeHouseholderAdapter extends ArrayAdapter<HouseholderForTime> {
         else
             holder.text_householder.setVisibility(View.GONE);
 
-        /** Set the publications selected to be displayed */
+        /* Set the publications selected to be displayed */
         if(item.getID() != 0 || emptyHHPosition == -1 || emptyHHPosition == position) {
             if(item.getID() == 0)
                 emptyHHPosition = position;
@@ -89,7 +89,7 @@ public class TimeHouseholderAdapter extends ArrayAdapter<HouseholderForTime> {
         else
             holder.text_publications.setVisibility(View.GONE);
 
-        /** Set the notes to be displayed */
+        /* Set the notes to be displayed */
         if(item.getNotes() != null && item.getNotes().length() > 0 && (item.getID() != 0 || emptyHHPosition == -1 || emptyHHPosition == position)) {
             mystring.append(context.getResources().getString(R.string.form_notes) + ": " + item.getNotes());
 

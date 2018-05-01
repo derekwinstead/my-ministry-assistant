@@ -78,29 +78,29 @@ public class HouseholderEditorFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+        nameWrapper = root.findViewById(R.id.nameWrapper);
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
 
-        addressWrapper = (TextInputLayout) root.findViewById(R.id.addressWrapper);
+        addressWrapper = root.findViewById(R.id.addressWrapper);
         addressWrapper.setHint(getActivity().getString(R.string.form_address));
 
-        mobileWrapper = (TextInputLayout) root.findViewById(R.id.mobileWrapper);
+        mobileWrapper = root.findViewById(R.id.mobileWrapper);
         mobileWrapper.setHint(getActivity().getString(R.string.form_phone_mobile));
 
-        homeWrapper = (TextInputLayout) root.findViewById(R.id.homeWrapper);
+        homeWrapper = root.findViewById(R.id.homeWrapper);
         homeWrapper.setHint(getActivity().getString(R.string.form_phone_home));
 
-        workWrapper = (TextInputLayout) root.findViewById(R.id.workWrapper);
+        workWrapper = root.findViewById(R.id.workWrapper);
         workWrapper.setHint(getActivity().getString(R.string.form_phone_work));
 
-        otherWrapper = (TextInputLayout) root.findViewById(R.id.otherWrapper);
+        otherWrapper = root.findViewById(R.id.otherWrapper);
         otherWrapper.setHint(getActivity().getString(R.string.form_phone_other));
 
-        cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-        view_activity = (Button) root.findViewById(R.id.view_activity);
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
-        Button save = (Button) root.findViewById(R.id.save);
-        Button cancel = (Button) root.findViewById(R.id.cancel);
+        cb_is_active = root.findViewById(R.id.cb_is_active);
+        view_activity = root.findViewById(R.id.view_activity);
+        fab = root.findViewById(R.id.fab);
+        Button save = root.findViewById(R.id.save);
+        Button cancel = root.findViewById(R.id.cancel);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

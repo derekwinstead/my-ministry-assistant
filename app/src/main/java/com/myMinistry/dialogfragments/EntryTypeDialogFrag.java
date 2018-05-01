@@ -47,9 +47,9 @@ public class EntryTypeDialogFrag extends DialogFragment {
 
         int id = MinistryDatabase.CREATE_ID;
 
-        EditText et_text1 = (EditText) view.findViewById(R.id.text1);
-        CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
-        TextView tv_note = (TextView) view.findViewById(R.id.tv_note);
+        EditText et_text1 = view.findViewById(R.id.text1);
+        CheckBox cb_is_active = view.findViewById(R.id.cb_is_active);
+        TextView tv_note = view.findViewById(R.id.tv_note);
 
         if (args != null) {
             id = args.getInt(ARG_ID);
@@ -75,8 +75,8 @@ public class EntryTypeDialogFrag extends DialogFragment {
     private DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            EditText editText = (EditText) view.findViewById(R.id.text1);
-            CheckBox cb = (CheckBox) view.findViewById(R.id.cb_is_active);
+            EditText editText = view.findViewById(R.id.text1);
+            CheckBox cb = view.findViewById(R.id.cb_is_active);
             sListener.setPositiveButton(editText.getText().toString(), cb.isChecked() ? 1 : 0);
         }
     };

@@ -88,19 +88,19 @@ public class PublicationEditorFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab = root.findViewById(R.id.fab);
 
         sadapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
 
-        nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+        nameWrapper = root.findViewById(R.id.nameWrapper);
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
 
-        s_publicationTypes = (Spinner) root.findViewById(R.id.literatureTypes);
-        cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-        cb_is_pair = (CheckBox) root.findViewById(R.id.cb_is_pair);
-        view_activity = (Button) root.findViewById(R.id.view_activity);
-        Button save = (Button) root.findViewById(R.id.save);
-        Button cancel = (Button) root.findViewById(R.id.cancel);
+        s_publicationTypes = root.findViewById(R.id.literatureTypes);
+        cb_is_active = root.findViewById(R.id.cb_is_active);
+        cb_is_pair = root.findViewById(R.id.cb_is_pair);
+        view_activity = root.findViewById(R.id.view_activity);
+        Button save = root.findViewById(R.id.save);
+        Button cancel = root.findViewById(R.id.cancel);
 
         MinistryService database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();

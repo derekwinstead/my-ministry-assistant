@@ -89,7 +89,7 @@ public class AppUpdated extends AsyncTask<Void, Integer, Void> {
         } catch (Exception e) {
         }
 
-        /** Cleanup SharedPrefs - This will always check for the old "defaults" as well as cleanup the prefs to use the Android default. */
+        /* Cleanup SharedPrefs - This will always check for the old "defaults" as well as cleanup the prefs to use the Android default. */
         // sp.upgradePrefs();
 
         if (savedVersionNumber <= 161) {
@@ -99,7 +99,7 @@ public class AppUpdated extends AsyncTask<Void, Integer, Void> {
             File intDB = mContext.getDatabasePath(MinistryDatabase.DATABASE_NAME);
             File extDB = FileUtils.getExternalDBFile(mContext, "auto-db-v" + MinistryDatabase.DATABASE_VERSION + "-1.db");
 
-            /** Create a backup just in case */
+            /* Create a backup just in case */
             try {
                 if (extDB != null) {
                     if (!extDB.exists())
@@ -110,14 +110,14 @@ public class AppUpdated extends AsyncTask<Void, Integer, Void> {
             } catch (IOException e) {
             }
 
-            /** This is to recalculate everyone's roll over time entries. */
+            /* This is to recalculate everyone's roll over time entries. */
             MinistryService database = new MinistryService(mContext);
             database.openWritable();
             //SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Calendar start = Calendar.getInstance(Locale.getDefault());
             int pubID = 0;
 
-            /** Loop over each publisher for each available month to convert */
+            /* Loop over each publisher for each available month to convert */
             if (!database.isOpen())
                 database.openWritable();
 
@@ -132,7 +132,7 @@ public class AppUpdated extends AsyncTask<Void, Integer, Void> {
             for (pubs.moveToFirst(); !pubs.isAfterLast(); pubs.moveToNext()) {
                 pubID = pubs.getInt(pubs.getColumnIndex(Publisher._ID));
 
-                /** Get first time entry date for publisher */
+                /* Get first time entry date for publisher */
                 theDate = database.fetchPublisherFirstTimeEntry(pubID);
 
                 if (theDate.moveToFirst()) {

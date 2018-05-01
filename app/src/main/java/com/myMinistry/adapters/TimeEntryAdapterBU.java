@@ -69,11 +69,11 @@ public class TimeEntryAdapterBU extends ResourceCursorAdapter {
         View view = li.inflate(LAYOUT_ID, parent, false);
         ViewHolder holder = new ViewHolder();
 
-        holder.linlay = (LinearLayout) view.findViewById(R.id.linlay);
-        holder.title = (TextView) view.findViewById(R.id.title);
-        holder.date = (TextView) view.findViewById(R.id.date);
-        holder.timeStart = (TextView) view.findViewById(R.id.timeStart);
-        holder.timeEnd = (TextView) view.findViewById(R.id.timeEnd);
+        holder.linlay = view.findViewById(R.id.linlay);
+        holder.title = view.findViewById(R.id.title);
+        holder.date = view.findViewById(R.id.date);
+        holder.timeStart = view.findViewById(R.id.timeStart);
+        holder.timeEnd = view.findViewById(R.id.timeEnd);
 
         view.setTag(holder);
         return view;
@@ -214,7 +214,7 @@ public class TimeEntryAdapterBU extends ResourceCursorAdapter {
                         ll.addView(tv);
                     }
 
-                    /** Show Householder if exists */
+                    /* Show Householder if exists */
                     if (!TextUtils.isEmpty(entryitem.getHouseholder())) {
                         emptyItem = false;
                         tv = new TextView(context);
@@ -232,7 +232,7 @@ public class TimeEntryAdapterBU extends ResourceCursorAdapter {
                         ll.addView(tv);
                     }
 
-                    /** Show Notes if exists */
+                    /* Show Notes if exists */
                     if (!TextUtils.isEmpty(entryitem.getNotes())) {
                         ImageView iv = new ImageView(context);
                         iv.setPadding(0, 0, padding, 0);
@@ -257,7 +257,7 @@ public class TimeEntryAdapterBU extends ResourceCursorAdapter {
                         ll.addView(linlay);
                     }
 
-                    /** Load the publications for the entry */
+                    /* Load the publications for the entry */
                     for (PublicationItem item : entryitem.pubs) {
                         tv = new TextView(context);
                         tv.setTextAppearance(context, android.R.attr.textAppearanceMedium);

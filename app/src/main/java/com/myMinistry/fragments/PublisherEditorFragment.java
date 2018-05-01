@@ -81,15 +81,15 @@ public class PublisherEditorFragment extends Fragment {
 
         publisherDAO = new PublisherDAO(getActivity().getApplicationContext());
 
-        nameWrapper = (TextInputLayout) root.findViewById(R.id.nameWrapper);
+        nameWrapper = root.findViewById(R.id.nameWrapper);
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
 
-        cb_is_active = (CheckBox) root.findViewById(R.id.cb_is_active);
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
-        gender_type = (Spinner) root.findViewById(R.id.gender_type);
-        view_activity = (Button) root.findViewById(R.id.view_activity);
-        Button save = (Button) root.findViewById(R.id.save);
-        Button cancel = (Button) root.findViewById(R.id.cancel);
+        cb_is_active = root.findViewById(R.id.cb_is_active);
+        fab = root.findViewById(R.id.fab);
+        gender_type = root.findViewById(R.id.gender_type);
+        view_activity = root.findViewById(R.id.view_activity);
+        Button save = root.findViewById(R.id.save);
+        Button cancel = root.findViewById(R.id.cancel);
 
         genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));

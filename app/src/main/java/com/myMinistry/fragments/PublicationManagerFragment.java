@@ -69,7 +69,7 @@ public class PublicationManagerFragment extends ListFragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
 
         getActivity().setTitle(R.string.form_publication_types);
 
@@ -118,9 +118,9 @@ public class PublicationManagerFragment extends ListFragment {
     private void showEditTextDialog(final int id, String name, int isActive, int isDefault) {
         View view = LayoutInflater.from(PublicationManagerFragment.this.getActivity()).inflate(R.layout.d_edit_text_with_two_cb, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFragment.this.getActivity());
-        final EditText editText = (EditText) view.findViewById(R.id.text1);
-        final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
-        final CheckBox cb_is_default = (CheckBox) view.findViewById(R.id.cb_is_default);
+        final EditText editText = view.findViewById(R.id.text1);
+        final CheckBox cb_is_active = view.findViewById(R.id.cb_is_active);
+        final CheckBox cb_is_default = view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
         if (id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
@@ -166,9 +166,9 @@ public class PublicationManagerFragment extends ListFragment {
     private void showEditTextDialog(final PublicationType publicationType) {
         View view = LayoutInflater.from(PublicationManagerFragment.this.getActivity()).inflate(R.layout.d_edit_text_with_two_cb, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(PublicationManagerFragment.this.getActivity());
-        final EditText editText = (EditText) view.findViewById(R.id.text1);
-        final CheckBox cb_is_active = (CheckBox) view.findViewById(R.id.cb_is_active);
-        final CheckBox cb_is_default = (CheckBox) view.findViewById(R.id.cb_is_default);
+        final EditText editText = view.findViewById(R.id.text1);
+        final CheckBox cb_is_active = view.findViewById(R.id.cb_is_active);
+        final CheckBox cb_is_default = view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
         if (publicationType.getId() <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && publicationType.getId() != MinistryDatabase.CREATE_ID) {

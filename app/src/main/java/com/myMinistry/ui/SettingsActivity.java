@@ -157,7 +157,7 @@ public class SettingsActivity extends PreferenceActivity {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
                     alertDialogBuilder.setTitle(R.string.pref_about_licenses);
                     alertDialogBuilder.setView(promptsView);
-                    final WebView webview = (WebView) promptsView.findViewById(R.id.webview_dialog);
+                    final WebView webview = promptsView.findViewById(R.id.webview_dialog);
                     webview.loadUrl("file:///android_asset/licenses.html");
                     final AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();

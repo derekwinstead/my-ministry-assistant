@@ -47,9 +47,9 @@ public class HouseholderNewDialogFragment extends DialogFragment {
     private DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            /** Get the input value */
-            EditText editText = (EditText) view.findViewById(R.id.text1);
-            CheckBox cb = (CheckBox) view.findViewById(R.id.cb_is_not_return_visit);
+            /* Get the input value */
+            EditText editText = view.findViewById(R.id.text1);
+            CheckBox cb = view.findViewById(R.id.cb_is_not_return_visit);
             String _name = editText.getText().toString();
             long _newID = 0;
             if (!TextUtils.isEmpty(_name)) {
@@ -60,7 +60,7 @@ public class HouseholderNewDialogFragment extends DialogFragment {
                 _newID = new HouseholderDAO(getActivity().getApplicationContext()).create(householder);
                 householder.setId(_newID);
             }
-            /** Call back to the DialogFragment listener */
+            /* Call back to the DialogFragment listener */
             sListener.setPositiveButton((int) _newID, _name, cb.isChecked());
         }
     };

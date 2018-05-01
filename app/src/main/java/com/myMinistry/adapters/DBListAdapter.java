@@ -56,8 +56,8 @@ public class DBListAdapter extends ArrayAdapter<File> {
             //row = inflater.inflate(LAYOUT_ID, parent, false);
 
             holder = new ViewHolder();
-            holder.title = (TextView)row.findViewById(R.id.title);
-            holder.date = (TextView)row.findViewById(R.id.date);
+            holder.title = row.findViewById(R.id.title);
+            holder.date = row.findViewById(R.id.date);
 
             row.setTag(holder);
         }

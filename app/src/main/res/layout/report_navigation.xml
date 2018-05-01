@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity"
+    tools:showIn="@layout/report">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textStyle="bold"
-                tools:text="March" />
+                tools:text="@tools:sample/date/day_of_week" />
 
             <TextView
                 android:id="@+id/year"
@@ -44,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                tools:text="2016" />
+                tools:text="@tools:sample/date/mmddyy" />
         </LinearLayout>
 
         <ImageView
@@ -63,12 +65,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/placeholder_lorem_ipsum"
         tools:text="@string/view_month_entries" />
 
     <Spinner
         android:id="@+id/publishers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_padding_half" />
+        android:layout_marginTop="@dimen/default_padding_half"
+        tools:listitem="@layout/li_spinner_item" />
 </LinearLayout>

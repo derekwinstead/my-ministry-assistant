@@ -237,7 +237,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d("MinistryDatabase", "onUpgrade() from " + oldVersion + " to " + newVersion);
 
-        /** NOTE: This switch statement is designed to handle cascading database updates, starting at the current version and falling through
+        /*  NOTE: This switch statement is designed to handle cascading database updates, starting at the current version and falling through
          *  to all future upgrade cases. Only use "break;" when you want to drop and recreate the entire database.
          */
         int version = oldVersion;
@@ -245,7 +245,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
         switch (version) {
             case VER_LAUNCH:
                 versionBackup(version);
-                /** Version 2 added column for return visits. */
+                /* Version 2 added column for return visits. */
                 db.execSQL("ALTER TABLE " + Tables.TIMES + " ADD COLUMN returnVisits INTEGER DEFAULT 0");
                 version = VER_ADD_RETURN_VISITS;
             case VER_ADD_RETURN_VISITS:
@@ -272,12 +272,12 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
                 onCreate(db);
 
-                /** Hack to get around not creating the defaults so there aren't any records in the table */
+                /* Hack to get around not creating the defaults so there aren't any records in the table */
                 db.execSQL("DROP TABLE IF EXISTS " + Tables.ENTRY_TYPES);
                 db.execSQL(EntryType.SCRIPT_CREATE);
                 db.execSQL("DROP TABLE IF EXISTS " + Tables.TYPES_OF_LIERATURE);
                 db.execSQL(LiteratureType.SCRIPT_CREATE);
-                /** End Hack */
+                /* End Hack */
 
                 updateEntryTypes(db);
                 updateHouseholders(db);
@@ -354,11 +354,11 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 Calendar now = Calendar.getInstance(Locale.getDefault());
                 int minutes = 0;
                 int pubID = 0;
-                boolean found = false;
+                boolean found;
                 values = new ContentValues();
                 values.put(Rollover.PUBLISHER_ID, 0);
 
-                /** Loop over each publisher for each available month to convert */
+                /* Loop over each publisher for each available month to convert */
                 Cursor pubs = database.fetchAllPublishers(db);
                 Cursor theDate, ro;
 
@@ -367,7 +367,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                     pubID = pubs.getInt(pubs.getColumnIndex(Publisher._ID));
                     values.put(Rollover.PUBLISHER_ID, pubID);
 
-                    /** Get first RO date for publisher */
+                    /* Get first RO date for publisher */
                     theDate = db.query(Tables.ROLLOVER, new String[]{Rollover._ID, Rollover.DATE}, Rollover.PUBLISHER_ID + " = " + pubID, null, null, null, Rollover.DATE, "1");
 
                     if (theDate.moveToFirst()) {
@@ -390,7 +390,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                             values.put(Rollover.DATE, TimeUtils.dbDateFormat.format(start.getTime()));
                             values.put(Rollover.MINUTES, minutes);
 
-                            /** Save the minutes back to the RO table */
+                            /* Save the minutes back to the RO table */
                             ro = database.fetchRolloverRecord(db, pubID, TimeUtils.dbDateFormat.format(start.getTime()));
                             if (ro.moveToFirst())
                                 database.saveRolloverMinutes(db, ro.getInt(ro.getColumnIndex(Rollover._ID)), values);
@@ -584,11 +584,11 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     }
 
     public void updateTime(SQLiteDatabase db) {
-        /** Let's get ALL the time entries and insert them into the new table timeHouseholders */
+        /* Let's get ALL the time entries and insert them into the new table timeHouseholders */
         Cursor times = db.rawQuery("SELECT * FROM " + Tables.TIMES + "_tmp", null);
 
         if (times.moveToFirst()) {
-            int rvs, entryType = 0;
+            int rvs, entryType;
             ContentValues values = new ContentValues();
             do {
                 entryType = times.getInt(times.getColumnIndex(Time.ENTRY_TYPE_ID));
@@ -602,7 +602,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                     values.put(TimeHouseholder.HOUSEHOLDER_ID, times.getInt(times.getColumnIndex("householderID")));
                     values.put(TimeHouseholder.STUDY, 0);
                     db.insert(Tables.TIME_HOUSEHOLDERS, null, values);
-                    /** Change the type for the insert into the new table. */
+                    /* Change the type for the insert into the new table. */
                     ContentValues timeValues = new ContentValues();
                     timeValues.put(Time.ENTRY_TYPE_ID, 4);
                     db.update(Tables.TIMES + "_tmp", timeValues, Time._ID + "=" + times.getInt(times.getColumnIndex(Time._ID)), null);

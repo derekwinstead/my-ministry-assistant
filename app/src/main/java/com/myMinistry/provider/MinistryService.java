@@ -99,7 +99,7 @@ public class MinistryService {
     }
 
     public int fetchStudyCountForPublisher(String formattedDate, String timeFrame, int publisherId) {
-        int retVal = 0;
+        int retVal;
         String sql = "SELECT " + Qualified.TIMEHOUSEHOLDER_ID
                 + " , strftime('%m', date(startDate)) as month"
                 + " FROM " + Tables.TIME_HOUSEHOLDERS
@@ -477,11 +477,11 @@ public class MinistryService {
     }
 
     public boolean importDatabase(File newDB, File oldDB) throws IOException {
-        /** Close the SQLiteOpenHelper so it will commit the created empty database to internal storage. */
+        /* Close the SQLiteOpenHelper so it will commit the created empty database to internal storage. */
         close();
         try {
             FileUtils.copyFile(newDB, oldDB);
-            /** Access the copied database so SQLiteHelper will cache it and mark it as created. */
+            /* Access the copied database so SQLiteHelper will cache it and mark it as created. */
             close();
             return true;
         } catch (Exception e) {
@@ -744,7 +744,7 @@ public class MinistryService {
     public void processRolloverTime(int publisherId, Calendar requestedStartDate) {
         //SimpleDateFormat saveDateFormat	= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-        /** We'll start off by going back one month from the requested start date. This will ensure we always have accurate rollover minutes. */
+        /* We'll start off by going back one month from the requested start date. This will ensure we always have accurate rollover minutes. */
         Calendar nextMonth = Calendar.getInstance(Locale.getDefault());
         Calendar start = Calendar.getInstance(Locale.getDefault());
         start.set(requestedStartDate.get(Calendar.YEAR), requestedStartDate.get(Calendar.MONTH), 1);
@@ -767,7 +767,7 @@ public class MinistryService {
         boolean isFirstLoop = true;
 
         do {
-            /** Let's get our minutes and rollover._id from the db for the publisher and date. */
+            /* Let's get our minutes and rollover._id from the db for the publisher and date. */
             ro = fetchRolloverRecord(publisherId, TimeUtils.dbDateFormat.format(start.getTime()));
             if (ro.moveToFirst()) {
                 roID = ro.getInt(ro.getColumnIndex(Rollover._ID));
@@ -783,12 +783,12 @@ public class MinistryService {
 
             minutesTime = Integer.valueOf(Helper.getMinuteDuration(fetchListOfHoursForPublisherNoRollover(TimeUtils.dbDateFormat.format(start.getTime()), publisherId, "month")));
 
-            /** Is there already a rollover time entry for this month? If so we need that time._id to update or delete. */
+            /* Is there already a rollover time entry for this month? If so we need that time._id to update or delete. */
             time = fetchRolloverTimeEntry(publisherId, TimeUtils.dbDateFormat.format(start.getTime()));
 
-            /** The sum of both minutes is over an hour */
+            /* The sum of both minutes is over an hour */
             if (minutesTime + minutesRO >= oneHour) {
-                /** The time entry should be for the needed minutes to put the total time to the next hour. */
+                /* The time entry should be for the needed minutes to put the total time to the next hour. */
                 timeValues.put(Time.TIME_END, "00:" + String.valueOf(oneHour - minutesTime));
 
                 minutesRO = minutesTime + minutesRO - oneHour;
@@ -803,14 +803,14 @@ public class MinistryService {
             } else {
                 minutesRO += minutesTime;
                 if (time.moveToFirst()) {
-                    /** We have a time record that needs to be deleted since there won't be a time entry for this month. */
+                    /* We have a time record that needs to be deleted since there won't be a time entry for this month. */
                     removeTimeEntryDeep(time.getInt(time.getColumnIndex(Time._ID)));
                 }
             }
 
             time.close();
 
-            /** No matter what we'll make sure a rollover record exists for this publisher and date. */
+            /* No matter what we'll make sure a rollover record exists for this publisher and date. */
             roValues.put(Rollover.DATE, TimeUtils.dbDateFormat.format(start.getTime()));
             roValues.put(Rollover.MINUTES, minutesRO);
 

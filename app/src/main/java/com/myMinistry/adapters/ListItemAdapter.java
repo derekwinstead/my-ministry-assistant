@@ -70,9 +70,9 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
 
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
-            TextView title = (TextView) view.findViewById(R.id.menurow_title);
-            TextView subtitle = (TextView) view.findViewById(R.id.menurow_subtitle);
-            ImageView img = (ImageView) view.findViewById(R.id.menurow_img);
+            TextView title = view.findViewById(R.id.menurow_title);
+            TextView subtitle = view.findViewById(R.id.menurow_subtitle);
+            ImageView img = view.findViewById(R.id.menurow_img);
             view.setTag(new ViewHolder(title, subtitle, img));
         }
 

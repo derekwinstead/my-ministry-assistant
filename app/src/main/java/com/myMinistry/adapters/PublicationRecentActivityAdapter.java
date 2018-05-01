@@ -36,8 +36,8 @@ public class PublicationRecentActivityAdapter extends ResourceCursorAdapter {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = li.inflate(LAYOUT_ID, parent, false);
         ViewHolder holder = new ViewHolder();
-        holder.activity_title = (TextView) view.findViewById(R.id.activity_title);
-        holder.activity_date = (TextView) view.findViewById(R.id.activity_date);
+        holder.activity_title = view.findViewById(R.id.activity_title);
+        holder.activity_date = view.findViewById(R.id.activity_date);
         view.setTag(holder);
         return view;
     }
@@ -62,11 +62,11 @@ public class PublicationRecentActivityAdapter extends ResourceCursorAdapter {
                     .format().toString());
         }
 
-        /** Get the date */
+        /* Get the date */
         if(cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE)) != null && cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE)).length() > 0) {
             String[] thedate = cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE)).split("-");
             if(thedate.length == 3) {
-                /** We have the three numbers to make the date. Subtract 1 for zero based months. */
+                /* We have the three numbers to make the date. Subtract 1 for zero based months. */
                 displayDate.set(Integer.valueOf(thedate[0]),Integer.valueOf(thedate[1])-1,Integer.valueOf(thedate[2]));
                 String date = DateUtils.formatDateTime(context, displayDate.getTimeInMillis(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY);
 

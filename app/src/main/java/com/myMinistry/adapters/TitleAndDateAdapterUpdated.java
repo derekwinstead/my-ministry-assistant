@@ -153,9 +153,9 @@ public class TitleAndDateAdapterUpdated extends ArrayAdapter<ItemWithDate> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(type == ITEM_VIEW_TYPE_SEPARATOR ? LAYOUT_SEPARATOR_ID : LAYOUT_CONTENT_ID, parent, false);
-            TextView text1 = (TextView) convertView.findViewById(R.id.menurow_title);
-            TextView tvCount = (TextView) convertView.findViewById(R.id.menurow_count);
-            TextView tvActivity = (TextView) convertView.findViewById(R.id.menurow_subtitle);
+            TextView text1 = convertView.findViewById(R.id.menurow_title);
+            TextView tvCount = convertView.findViewById(R.id.menurow_count);
+            TextView tvActivity = convertView.findViewById(R.id.menurow_subtitle);
             convertView.setTag(new ViewHolder(text1, tvCount, tvActivity));
         }
 

@@ -70,9 +70,9 @@ public class PublicationFragment extends ListFragment {
             literatureTypeId = args.getInt(ARG_PUBLICATION_ID);
 
         database = new MinistryService(getActivity());
-        myspinner = (Spinner) root.findViewById(R.id.myspinner);
+        myspinner = root.findViewById(R.id.myspinner);
 
-        fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab = root.findViewById(R.id.fab);
 
         fm = getActivity().getSupportFragmentManager();
 

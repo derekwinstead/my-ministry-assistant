@@ -37,7 +37,7 @@ public class PublishersFragment extends ListFragment {
 
 		fm = getActivity().getSupportFragmentManager();
 
-		fab = (FloatingActionButton) view.findViewById(R.id.fab);
+		fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

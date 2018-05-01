@@ -43,14 +43,12 @@ public class Helper {
         return time;
     }
 
-    public static boolean renameDB(Context context) {
-        /** Create the file */
+    public static void renameDB(Context context) {
+        /* Create the file */
         File oldDB = context.getDatabasePath(MinistryDatabase.DATABASE_NAME_OLD);
-        /** If the file exists we want to rename it to our new DB name :) */
+        /* If the file exists we want to rename it to our new DB name :) */
         if (oldDB.exists())
             oldDB.renameTo(context.getDatabasePath(MinistryDatabase.DATABASE_NAME));
-
-        return true;
     }
 
     public static void renameAndMoveBackups(Context context) {
@@ -64,7 +62,7 @@ public class Helper {
         if (!filePath.exists())
             filePath.mkdirs();
 
-        /** Check for old incorrect package name folder structure. */
+        /* Check for old incorrect package name folder structure. */
         if (dbPathOLD.exists()) {
             if (dbPathOLD.exists() && dbPathOLD.canWrite()) {
                 if (dbPathOLD.listFiles() != null) {
@@ -88,7 +86,7 @@ public class Helper {
             }
         }
 
-        /** Check for correct package name but using "databases" folder instead of Android default "files". */
+        /* Check for correct package name but using "databases" folder instead of Android default "files". */
         if (dbPath.exists() && dbPath.canWrite()) {
             deleteDir = true;
             if (dbPath.listFiles() != null) {
