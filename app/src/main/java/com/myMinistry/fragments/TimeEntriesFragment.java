@@ -29,7 +29,6 @@ import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -39,7 +38,6 @@ public class TimeEntriesFragment extends ListFragment {
     public static String ARG_PUBLISHER_ID = "publisher_id";
 
     private Button view_report;
-    private final SimpleDateFormat buttonFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
 
     private String mMonth, mYear = "";
     private Spinner publishers;
@@ -47,8 +45,6 @@ public class TimeEntriesFragment extends ListFragment {
     private LinearLayout report_nav;
 
     private NavDrawerMenuItemAdapter pubsAdapter;
-
-    private boolean is_dual_pane = false;
 
     private FragmentManager fm;
 
@@ -58,13 +54,13 @@ public class TimeEntriesFragment extends ListFragment {
     private Cursor entries = null;
     private TimeEntryAdapter adapter = null;
     private int publisherId = 0;
-    private Calendar date = Calendar.getInstance(Locale.getDefault());
+    private Calendar monthPicked = Calendar.getInstance(Locale.getDefault());
 
     private String dbDateFormatted = "";
     private String dbTimeFrame = "";
 
-    public TimeEntriesFragmentBU newInstance(int month, int year, int publisherId) {
-        TimeEntriesFragmentBU f = new TimeEntriesFragmentBU();
+    public TimeEntriesFragment newInstance(int publisherId, int month, int year) {
+        TimeEntriesFragment f = new TimeEntriesFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_YEAR, year);
         args.putInt(ARG_MONTH, month);
@@ -80,14 +76,14 @@ public class TimeEntriesFragment extends ListFragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        date.set(Calendar.DAY_OF_MONTH, 1);
+        monthPicked.set(Calendar.DAY_OF_MONTH, 1);
 
         if (args != null) {
             if (args.containsKey(ARG_YEAR)) {
-                date.set(Calendar.YEAR, args.getInt(ARG_YEAR));
+                monthPicked.set(Calendar.YEAR, args.getInt(ARG_YEAR));
             }
             if (args.containsKey(ARG_MONTH)) {
-                date.set(Calendar.MONTH, args.getInt(ARG_MONTH));
+                monthPicked.set(Calendar.MONTH, args.getInt(ARG_MONTH));
             }
             if (args.containsKey(ARG_PUBLISHER_ID))
                 setPublisherId(args.getInt(ARG_PUBLISHER_ID));
@@ -167,11 +163,7 @@ public class TimeEntriesFragment extends ListFragment {
         if (entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
             TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
             FragmentTransaction transaction = fm.beginTransaction();
-            if (is_dual_pane) {
-                transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-            } else {
-                transaction.replace(R.id.primary_fragment_container, f, "main");
-            }
+            transaction.replace(R.id.primary_fragment_container, f, "main");
             transaction.commit();
         }
     }
@@ -179,8 +171,6 @@ public class TimeEntriesFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
-
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,59 +182,29 @@ public class TimeEntriesFragment extends ListFragment {
         calculateValues();
         updateList();
 
-        if (is_dual_pane) {
-            report_nav.setVisibility(View.GONE);
-        } else {
-            view_report.setText(R.string.view_month_report);
+        view_report.setText(R.string.view_month_report);
+        adjustMonth(0);
 
-            adjustMonth(0);
-        }
-/*
-		if(is_dual_pane) {
-			fab.setVisibility(View.GONE);
-			view_summary.setVisibility(View.GONE);
-
-			TimeEntriesFragment f = new TimeEntriesFragment().newInstance(monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR), publisherId);
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-			ft.replace(R.id.secondary_fragment_container, f);
-			ft.commit();
-		} else {
-			fab.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					((MainActivity)getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
-				}
-			});
-		}
-*/
         loadPublisherAdapter();
     }
 
-    public void switchToMonthList(Calendar _date) {
-        date = _date;
-
-        calculateValues();
-        refresh();
-    }
-
     public void calculateValues() {
-        dbDateFormatted = TimeUtils.dbDateFormat.format(date.getTime());
+        dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
         dbTimeFrame = "month";
     }
 
     public void adjustMonth(int addValue) {
-        date.add(Calendar.MONTH, addValue);
+        monthPicked.add(Calendar.MONTH, addValue);
 
-        mMonth = buttonFormat.format(date.getTime()).toUpperCase(Locale.getDefault());
-        mYear = String.valueOf(date.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
+        mMonth = TimeUtils.fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
+        mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
         saveSharedPrefs();
     }
 
     private void saveSharedPrefs() {
         if (getActivity() != null)
-            PrefUtils.setSummaryMonthAndYear(getActivity(), date);
+            PrefUtils.setSummaryMonthAndYear(getActivity(), monthPicked);
     }
 
     public void refresh() {

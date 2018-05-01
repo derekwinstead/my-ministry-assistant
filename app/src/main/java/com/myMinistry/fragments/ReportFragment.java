@@ -36,13 +36,14 @@ import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class ReportFragment extends Fragment {
-    public final String ARG_PUBLISHER_ID = "publisher_id";
+    private final String ARG_YEAR = "year";
+    private final String ARG_MONTH = "month";
+    private final String ARG_PUBLISHER_ID = "publisher_id";
 
     private String mBSText, mRVText, mTotalHoursCount, mPlacementsCount, mVideoShowings, mRVCount, mBSCount = "";
 
@@ -50,9 +51,8 @@ public class ReportFragment extends Fragment {
 
     private TextView total_hours_count, return_visits_text, return_visits_count, bible_studies_text, bible_studies_count, placements_count, video_showings;
     private Button view_entries;
-    private Calendar monthPicked = Calendar.getInstance();
+    private final Calendar monthPicked = Calendar.getInstance();
     private int publisherId = 0;
-    private final SimpleDateFormat fullMonthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
 
     private MinistryService database;
 
@@ -65,11 +65,21 @@ public class ReportFragment extends Fragment {
     private FragmentManager fm;
 
     private ReportPublicationSummaryAdapter placement_list_adapter;
-    private ArrayList<ReportPublication> user_placements = new ArrayList<>();
+    private final ArrayList<ReportPublication> user_placements = new ArrayList<>();
 
     public ReportFragment newInstance(int publisherId) {
         ReportFragment f = new ReportFragment();
         Bundle args = new Bundle();
+        args.putInt(ARG_PUBLISHER_ID, publisherId);
+        f.setArguments(args);
+        return f;
+    }
+
+    public ReportFragment newInstance(int publisherId, int month, int year) {
+        ReportFragment f = new ReportFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_YEAR, year);
+        args.putInt(ARG_MONTH, month);
         args.putInt(ARG_PUBLISHER_ID, publisherId);
         f.setArguments(args);
         return f;
@@ -86,8 +96,16 @@ public class ReportFragment extends Fragment {
 
         Bundle args = getArguments();
 
-        if (args != null && args.containsKey(ARG_PUBLISHER_ID))
-            publisherId = args.getInt(ARG_PUBLISHER_ID);
+        if (args != null && args.containsKey(ARG_PUBLISHER_ID)) {
+            if (args.containsKey(ARG_YEAR))
+                monthPicked.set(Calendar.YEAR, args.getInt(ARG_YEAR));
+
+            if (args.containsKey(ARG_MONTH))
+                monthPicked.set(Calendar.MONTH, args.getInt(ARG_MONTH));
+
+            if (args.containsKey(ARG_PUBLISHER_ID))
+                publisherId = args.getInt(ARG_PUBLISHER_ID);
+        }
 
         if (publisherId != 0)
             setPublisherId(publisherId);
@@ -117,7 +135,7 @@ public class ReportFragment extends Fragment {
         total_hours_count = root.findViewById(R.id.total_hours_count);
 
         RecyclerView placement_list;
-        placement_list = root.findViewById(R.id.placement_list_new);
+        placement_list = root.findViewById(R.id.user_placements);
         placement_list.setHasFixedSize(true);
         placement_list.setLayoutManager(new LinearLayoutManager(getContext()));
         placement_list_adapter= new ReportPublicationSummaryAdapter(getContext(), user_placements);
@@ -126,20 +144,20 @@ public class ReportFragment extends Fragment {
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adjustMonth(1);
+                monthPicked.add(Calendar.MONTH, 1);
 
-                calculateSummaryValues();
-                fillPublisherSummary();
+                calculateReportValues();
+                fillPublisherReport();
             }
         });
 
         root.findViewById(R.id.prev).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adjustMonth(-1);
+                monthPicked.add(Calendar.MONTH, -1);
 
-                calculateSummaryValues();
-                fillPublisherSummary();
+                calculateReportValues();
+                fillPublisherReport();
             }
         });
 
@@ -166,23 +184,18 @@ public class ReportFragment extends Fragment {
 
         view_entries.setText(R.string.view_month_entries);
 
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
-                }
-            });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.TIME_ENTRY_ID);
+            }
+        });
 
         loadPublisherAdapter();
-        fillPublisherSummary();
+        fillPublisherReport();
     }
 
-    private void saveSharedPrefs() {
-        if (getActivity() != null)
-            PrefUtils.setSummaryMonthAndYear(getActivity(), monthPicked);
-    }
-
-    public void fillPublisherSummary() {
+    private void fillPublisherReport() {
         month.setText(mMonth);
         year.setText(mYear);
 
@@ -199,11 +212,8 @@ public class ReportFragment extends Fragment {
         placement_list_adapter.notifyDataSetChanged();
     }
 
-    public void calculateSummaryValues() {
-        if (!database.isOpen())
-            database.openWritable();
-
-        mMonth = fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
+    private void calculateReportValues() {
+        mMonth = TimeUtils.fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
         mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
         String dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
@@ -212,19 +222,18 @@ public class ReportFragment extends Fragment {
         if (!database.isOpen())
             database.openWritable();
 
+        // Total Time
         if (PrefUtils.shouldCalculateRolloverTime(getActivity()))
             mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
         else
             mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
 
-        if (!database.isOpen())
-            database.openWritable();
-
+        // Placements
         mPlacementsCount = String.valueOf(database.fetchPlacementsCountForPublisher(publisherId, dbDateFormatted, dbTimeFrame));
+        // Video Showings
+        mVideoShowings = String.valueOf(database.fetchVideoShowingsCountForPublisher(publisherId, dbDateFormatted, dbTimeFrame));
 
-        if (!database.isOpen())
-            database.openWritable();
-
+        // All user placements
         Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (literatureTypes.moveToFirst(); !literatureTypes.isAfterLast(); literatureTypes.moveToNext()) {
             if(user_placements.size() <= literatureTypes.getPosition()) {
@@ -234,12 +243,9 @@ public class ReportFragment extends Fragment {
             }
         }
         literatureTypes.close();
+        // End All user placements
 
-        mVideoShowings = String.valueOf(database.fetchVideoShowingsCountForPublisher(publisherId, dbDateFormatted, dbTimeFrame));
-
-        if (!database.isOpen())
-            database.openWritable();
-
+        // Return visits and Bible studies
         Cursor entryTypes = database.fetchEntryTypeCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (entryTypes.moveToFirst(); !entryTypes.isAfterLast(); entryTypes.moveToNext()) {
             switch (entryTypes.getInt(entryTypes.getColumnIndex(MinistryContract.EntryType._ID))) {
@@ -254,9 +260,12 @@ public class ReportFragment extends Fragment {
             }
         }
         entryTypes.close();
+        // End Return visits and Bible studies
+
         database.close();
     }
 
+    // TODO populateShareString() - Make sure this is still needed and correct
     private String populateShareString() {
         StringBuilder retVal = new StringBuilder();
         String formattedDate = TimeUtils.dbDateFormat.format(monthPicked.getTime());
@@ -265,7 +274,7 @@ public class ReportFragment extends Fragment {
             database.openWritable();
 
         // Set the date
-        retVal.append(fullMonthFormat.format(monthPicked.getTime())).append(" ").append(monthPicked.get(Calendar.YEAR));
+        retVal.append(TimeUtils.fullMonthFormat.format(monthPicked.getTime())).append(" ").append(monthPicked.get(Calendar.YEAR));
 
         Cursor pubs = database.fetchActivePublishers();
 
@@ -326,7 +335,7 @@ public class ReportFragment extends Fragment {
                 share.setType("text/plain");
                 share.setFlags((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 share.putExtra(Intent.EXTRA_TEXT, populateShareString());
-                share.putExtra(Intent.EXTRA_SUBJECT, fullMonthFormat.format(monthPicked.getTime()) + " " + monthPicked.get(Calendar.YEAR));
+                share.putExtra(Intent.EXTRA_SUBJECT, TimeUtils.fullMonthFormat.format(monthPicked.getTime()) + " " + monthPicked.get(Calendar.YEAR));
                 startActivity(Intent.createChooser(share, getResources().getString(R.string.menu_send_report)));
 
                 return true;
@@ -335,8 +344,9 @@ public class ReportFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setPublisherId(int _id) {
+    private void setPublisherId(int _id) {
         if (pubsAdapter != null) {
+
             for (int i = 0; i <= pubsAdapter.getCount(); i++) {
                 if (_id == pubsAdapter.getItem(i).getID()) {
                     publishers.setSelection(i);
@@ -348,12 +358,7 @@ public class ReportFragment extends Fragment {
         publisherId = _id;
     }
 
-    public void adjustMonth(int addValue) {
-        monthPicked.add(Calendar.MONTH, addValue);
-
-        saveSharedPrefs();
-    }
-
+    // TODO loadPublisherAdapter() - Review the function and make sure it's up to standards now
     private void loadPublisherAdapter() {
         int initialSelection = 0;
         // Add new publisher item
@@ -364,6 +369,7 @@ public class ReportFragment extends Fragment {
         while (cursor.moveToNext()) {
             if (cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID)) == publisherId)
                 initialSelection = pubsAdapter.getCount();
+
             pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME))
                     , getResources().getIdentifier("ic_drawer_publisher_" + cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
                     , cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
@@ -393,8 +399,8 @@ public class ReportFragment extends Fragment {
                 } else {
                     setPublisherId(pubsAdapter.getItem(position).getID());
                     PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
-                    calculateSummaryValues();
-                    fillPublisherSummary();
+                    calculateReportValues();
+                    fillPublisherReport();
                 }
             }
 

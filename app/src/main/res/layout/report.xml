@@ -54,7 +54,7 @@
                     tools:text="@tools:sample/us_zipcodes" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/placement_list_new"
+                    android:id="@+id/user_placements"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/placements_count"

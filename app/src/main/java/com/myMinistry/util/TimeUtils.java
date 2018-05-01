@@ -16,6 +16,7 @@ import java.util.Locale;
 
 public class TimeUtils {
     public static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    public static final SimpleDateFormat fullMonthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
 
     public static String getTimeLength(Calendar start, Calendar end, String h, String m) {
         Duration dur = new Duration(new DateTime(start), new DateTime(end));
