@@ -103,8 +103,7 @@ public class ReportFragment extends Fragment {
             if (args.containsKey(ARG_MONTH))
                 monthPicked.set(Calendar.MONTH, args.getInt(ARG_MONTH));
 
-            if (args.containsKey(ARG_PUBLISHER_ID))
-                publisherId = args.getInt(ARG_PUBLISHER_ID);
+            publisherId = args.getInt(ARG_PUBLISHER_ID);
         }
 
         if (publisherId != 0)
@@ -166,7 +165,8 @@ public class ReportFragment extends Fragment {
             public void onClick(View v) {
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
-                TimeEntriesFragmentBU f = new TimeEntriesFragmentBU().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+                //TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
+                TimeEntriesFragment f = new TimeEntriesFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
@@ -345,17 +345,16 @@ public class ReportFragment extends Fragment {
     }
 
     private void setPublisherId(int _id) {
-        if (pubsAdapter != null) {
+        publisherId = _id;
 
+        if (pubsAdapter != null) {
             for (int i = 0; i <= pubsAdapter.getCount(); i++) {
-                if (_id == pubsAdapter.getItem(i).getID()) {
+                if (publisherId == pubsAdapter.getItem(i).getID()) {
                     publishers.setSelection(i);
                     break;
                 }
             }
         }
-
-        publisherId = _id;
     }
 
     // TODO loadPublisherAdapter() - Review the function and make sure it's up to standards now

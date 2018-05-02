@@ -3,16 +3,16 @@ package com.myMinistry.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,7 +22,6 @@ import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
@@ -32,7 +31,7 @@ import com.myMinistry.util.TimeUtils;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeEntriesFragment extends ListFragment {
+public class TimeEntriesFragment extends Fragment {
     public static String ARG_YEAR = "year";
     public static String ARG_MONTH = "month";
     public static String ARG_PUBLISHER_ID = "publisher_id";
@@ -43,6 +42,8 @@ public class TimeEntriesFragment extends ListFragment {
     private Spinner publishers;
     private TextView month, year;
     private LinearLayout report_nav;
+    private TextView empty_view;
+    private RecyclerView monthly_entries;
 
     private NavDrawerMenuItemAdapter pubsAdapter;
 
@@ -79,14 +80,9 @@ public class TimeEntriesFragment extends ListFragment {
         monthPicked.set(Calendar.DAY_OF_MONTH, 1);
 
         if (args != null) {
-            if (args.containsKey(ARG_YEAR)) {
-                monthPicked.set(Calendar.YEAR, args.getInt(ARG_YEAR));
-            }
-            if (args.containsKey(ARG_MONTH)) {
-                monthPicked.set(Calendar.MONTH, args.getInt(ARG_MONTH));
-            }
-            if (args.containsKey(ARG_PUBLISHER_ID))
-                setPublisherId(args.getInt(ARG_PUBLISHER_ID));
+            monthPicked.set(Calendar.YEAR, args.getInt(ARG_YEAR));
+            monthPicked.set(Calendar.MONTH, args.getInt(ARG_MONTH));
+            publisherId = args.getInt(ARG_PUBLISHER_ID);
         }
 
         fm = getActivity().getSupportFragmentManager();
@@ -98,9 +94,21 @@ public class TimeEntriesFragment extends ListFragment {
         month = view.findViewById(R.id.month);
         year = view.findViewById(R.id.year);
 
+        empty_view = view.findViewById(R.id.empty_view);
+        monthly_entries = view.findViewById(R.id.monthly_entries);
+
+        /*
+        RecyclerView placement_list;
+        placement_list = root.findViewById(R.id.user_placements);
+        placement_list.setHasFixedSize(true);
+        placement_list.setLayoutManager(new LinearLayoutManager(getContext()));
+        placement_list_adapter= new ReportPublicationSummaryAdapter(getContext(), user_placements);
+        placement_list.setAdapter(placement_list_adapter);
+         */
+
         database = new MinistryService(getActivity().getApplicationContext());
-        adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
-        setListAdapter(adapter);
+        //adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
+        //setListAdapter(adapter);
 
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +133,7 @@ public class TimeEntriesFragment extends ListFragment {
         view_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReportFragment f = new ReportFragment().newInstance(publisherId);
+                ReportFragment f = new ReportFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
@@ -142,7 +150,7 @@ public class TimeEntriesFragment extends ListFragment {
     public void updateList() {
         month.setText(mMonth);
         year.setText(mYear);
-
+/*
         database.openWritable();
         if (PrefUtils.shouldCalculateRolloverTime(getActivity())) {
             entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, dbDateFormatted, dbTimeFrame);
@@ -151,12 +159,9 @@ public class TimeEntriesFragment extends ListFragment {
         }
         adapter.changeCursor(entries);
         database.close();
+        */
     }
-
-    public void setPublisherId(int _id) {
-        publisherId = _id;
-    }
-
+/*
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         entries.moveToPosition(position);
@@ -167,7 +172,7 @@ public class TimeEntriesFragment extends ListFragment {
             transaction.commit();
         }
     }
-
+*/
     @Override
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
@@ -179,18 +184,29 @@ public class TimeEntriesFragment extends ListFragment {
             }
         });
 
-        calculateValues();
-        updateList();
+        //calculateValues();
+        //updateList();
 
         view_report.setText(R.string.view_month_report);
         adjustMonth(0);
-
+        updateList();
         loadPublisherAdapter();
     }
 
     public void calculateValues() {
         dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
         dbTimeFrame = "month";
+
+        /*
+        if (dataset.isEmpty()) {
+    recyclerView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.VISIBLE);
+}
+else {
+    recyclerView.setVisibility(View.VISIBLE);
+    emptyView.setVisibility(View.GONE);
+}
+         */
     }
 
     public void adjustMonth(int addValue) {
@@ -199,7 +215,7 @@ public class TimeEntriesFragment extends ListFragment {
         mMonth = TimeUtils.fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
         mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
-        saveSharedPrefs();
+        //saveSharedPrefs();
     }
 
     private void saveSharedPrefs() {
@@ -211,6 +227,20 @@ public class TimeEntriesFragment extends ListFragment {
         updateList();
     }
 
+    private void setPublisherId(int _id) {
+        publisherId = _id;
+
+        if (pubsAdapter != null) {
+            for (int i = 0; i <= pubsAdapter.getCount(); i++) {
+                if (publisherId == pubsAdapter.getItem(i).getID()) {
+                    publishers.setSelection(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    // TODO loadPublisherAdapter() - Review the function and make sure it's up to standards now
     private void loadPublisherAdapter() {
         int initialSelection = 0;
         // Add new publisher item
@@ -221,6 +251,7 @@ public class TimeEntriesFragment extends ListFragment {
         while (cursor.moveToNext()) {
             if (cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID)) == publisherId)
                 initialSelection = pubsAdapter.getCount();
+
             pubsAdapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME))
                     , getResources().getIdentifier("ic_drawer_publisher_" + cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)), "drawable", getActivity().getPackageName())
                     , cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher._ID))));
@@ -250,8 +281,6 @@ public class TimeEntriesFragment extends ListFragment {
                 } else {
                     setPublisherId(pubsAdapter.getItem(position).getID());
                     PrefUtils.setPublisherId(getActivity().getApplicationContext(), pubsAdapter.getItem(position).getID());
-                    calculateValues();
-                    refresh();
                 }
             }
 
