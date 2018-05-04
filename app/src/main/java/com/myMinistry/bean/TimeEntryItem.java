@@ -6,6 +6,7 @@ import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.util.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -13,7 +14,8 @@ public class TimeEntryItem {
     private long id, entryTypdId = MinistryDatabase.CREATE_ID;
     private Calendar startDateAndTime, endDateAndTime;
     private String entryTypeName;
-    public String cleaned;
+    //private ArrayList<>  = ArrayList<>;
+    private ArrayList<TimeEntryItem> entry_placements = new ArrayList<>();
 
     public TimeEntryItem(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time._ID));
@@ -54,6 +56,4 @@ public class TimeEntryItem {
 
     public Calendar getStartDateAndTime() { return startDateAndTime; }
     public Calendar getEndDateAndTime() { return endDateAndTime; }
-
-    public void setCal(String value) { this.cleaned = value; }
 }

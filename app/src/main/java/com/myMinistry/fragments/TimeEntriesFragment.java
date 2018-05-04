@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,12 +170,8 @@ public class TimeEntriesFragment extends Fragment {
 
         // Load up the array list for the adapter
         for(entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
-            TimeEntryItem asdf = new TimeEntryItem(entries);
-            asdf.setCal(DateUtils.formatDateTime(getActivity().getApplicationContext(), asdf.getStartDateAndTime().getTimeInMillis(),
-                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY));
-
-            time_entries_arraylist.add(asdf);
-            //user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
+            TimeEntryItem timeEntryItem = new TimeEntryItem(entries);
+            time_entries_arraylist.add(timeEntryItem);
         }
 
         entries.close();
