@@ -6,19 +6,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.adapters.TimeEntryAdapter;
+import com.myMinistry.adapters.TimeEntryListAdapter;
+import com.myMinistry.bean.TimeEntryItem;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
@@ -28,6 +31,7 @@ import com.myMinistry.ui.MainActivity;
 import com.myMinistry.util.PrefUtils;
 import com.myMinistry.util.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -41,9 +45,11 @@ public class TimeEntriesFragment extends Fragment {
     private String mMonth, mYear = "";
     private Spinner publishers;
     private TextView month, year;
-    private LinearLayout report_nav;
     private TextView empty_view;
     private RecyclerView monthly_entries;
+    private TimeEntryListAdapter monthly_entries_adapter;
+    private ArrayList<TimeEntryItem> time_entries_arraylist = new ArrayList<>();
+    private boolean calculate_rollover_time;
 
     private NavDrawerMenuItemAdapter pubsAdapter;
 
@@ -52,7 +58,6 @@ public class TimeEntriesFragment extends Fragment {
     private FloatingActionButton fab;
 
     private MinistryService database;
-    private Cursor entries = null;
     private TimeEntryAdapter adapter = null;
     private int publisherId = 0;
     private Calendar monthPicked = Calendar.getInstance(Locale.getDefault());
@@ -75,25 +80,22 @@ public class TimeEntriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.time_entries, container, false);
         Bundle args = getArguments();
 
-        fm = getActivity().getSupportFragmentManager();
-
-        monthPicked.set(Calendar.DAY_OF_MONTH, 1);
-
         if (args != null) {
             monthPicked.set(Calendar.YEAR, args.getInt(ARG_YEAR));
             monthPicked.set(Calendar.MONTH, args.getInt(ARG_MONTH));
             publisherId = args.getInt(ARG_PUBLISHER_ID);
         }
 
+        //monthPicked.set(Calendar.DAY_OF_MONTH, 1);
+
+        database = new MinistryService(getActivity().getApplicationContext());
         fm = getActivity().getSupportFragmentManager();
+        calculate_rollover_time = PrefUtils.shouldCalculateRolloverTime(getActivity());
 
         publishers = view.findViewById(R.id.publishers);
         view_report = view.findViewById(R.id.view_entries);
-        report_nav = view.findViewById(R.id.report_nav);
-
         month = view.findViewById(R.id.month);
         year = view.findViewById(R.id.year);
-
         empty_view = view.findViewById(R.id.empty_view);
         monthly_entries = view.findViewById(R.id.monthly_entries);
 
@@ -105,8 +107,12 @@ public class TimeEntriesFragment extends Fragment {
         placement_list_adapter= new ReportPublicationSummaryAdapter(getContext(), user_placements);
         placement_list.setAdapter(placement_list_adapter);
          */
+        //monthly_entries.setHasFixedSize(true);
+        monthly_entries.setLayoutManager(new LinearLayoutManager(getContext()));
+        monthly_entries_adapter = new TimeEntryListAdapter(getActivity().getApplicationContext(), time_entries_arraylist);
+        monthly_entries.setAdapter(monthly_entries_adapter);
 
-        database = new MinistryService(getActivity().getApplicationContext());
+
         //adapter = new TimeEntryAdapter(getActivity().getApplicationContext(), entries);
         //setListAdapter(adapter);
 
@@ -115,8 +121,8 @@ public class TimeEntriesFragment extends Fragment {
             public void onClick(View v) {
                 adjustMonth(1);
 
-                calculateValues();
-                refresh();
+                //calculateValues();
+                //refresh();
             }
         });
 
@@ -125,8 +131,8 @@ public class TimeEntriesFragment extends Fragment {
             public void onClick(View v) {
                 adjustMonth(-1);
 
-                calculateValues();
-                refresh();
+                //calculateValues();
+                //refresh();
             }
         });
 
@@ -147,18 +153,77 @@ public class TimeEntriesFragment extends Fragment {
         return view;
     }
 
-    public void updateList() {
-        month.setText(mMonth);
-        year.setText(mYear);
+    public void updateDisplayList() {
+        Cursor entries;
+
+        if(!database.isOpen())
+            database.openWritable();
+
+        // Get all the entries for the selected month
+        if(calculate_rollover_time) {
+            entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, TimeUtils.dbDateFormat.format(monthPicked.getTime()), "month");
+        } else {
+            entries = database.fetchTimeEntriesByPublisherAndMonthNoRollover(publisherId, TimeUtils.dbDateFormat.format(monthPicked.getTime()), "month");
+        }
+
+        // Remove all previous entries in the array list
+        time_entries_arraylist.clear();
+
+        // Load up the array list for the adapter
+        for(entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
+            TimeEntryItem asdf = new TimeEntryItem(entries);
+            asdf.setCal(DateUtils.formatDateTime(getActivity().getApplicationContext(), asdf.getStartDateAndTime().getTimeInMillis(),
+                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY));
+
+            time_entries_arraylist.add(asdf);
+            //user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
+        }
+
+        entries.close();
+        database.close();
+
+        monthly_entries_adapter.notifyDataSetChanged();
+
+        if(time_entries_arraylist.isEmpty()) {
+            monthly_entries.setVisibility(View.GONE);
+            empty_view.setVisibility(View.VISIBLE);
+        } else  {
+            monthly_entries.setVisibility(View.VISIBLE);
+            empty_view.setVisibility(View.GONE);
+        }
+
+         /*
+        if (dataset.isEmpty()) {
+    recyclerView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.VISIBLE);
+}
+else {
+    recyclerView.setVisibility(View.VISIBLE);
+    emptyView.setVisibility(View.GONE);
+}
+         */
+
+
 /*
-        database.openWritable();
+        // All user placements
+        Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
+        for (literatureTypes.moveToFirst(); !literatureTypes.isAfterLast(); literatureTypes.moveToNext()) {
+            if(user_placements.size() <= literatureTypes.getPosition()) {
+                user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
+            } else {
+                user_placements.set(literatureTypes.getPosition(),new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
+            }
+        }
+        literatureTypes.close();
+        */
+        // End All user placements
+/*
         if (PrefUtils.shouldCalculateRolloverTime(getActivity())) {
             entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, dbDateFormatted, dbTimeFrame);
         } else {
             entries = database.fetchTimeEntriesByPublisherAndMonthNoRollover(publisherId, dbDateFormatted, dbTimeFrame);
         }
         adapter.changeCursor(entries);
-        database.close();
         */
     }
 /*
@@ -184,29 +249,18 @@ public class TimeEntriesFragment extends Fragment {
             }
         });
 
-        //calculateValues();
-        //updateList();
-
         view_report.setText(R.string.view_month_report);
         adjustMonth(0);
-        updateList();
         loadPublisherAdapter();
+        updateDisplayList();
+
     }
 
     public void calculateValues() {
         dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
         dbTimeFrame = "month";
 
-        /*
-        if (dataset.isEmpty()) {
-    recyclerView.setVisibility(View.GONE);
-    emptyView.setVisibility(View.VISIBLE);
-}
-else {
-    recyclerView.setVisibility(View.VISIBLE);
-    emptyView.setVisibility(View.GONE);
-}
-         */
+
     }
 
     public void adjustMonth(int addValue) {
@@ -215,18 +269,16 @@ else {
         mMonth = TimeUtils.fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
         mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
 
-        //saveSharedPrefs();
-    }
+        month.setText(mMonth);
+        year.setText(mYear);
 
-    private void saveSharedPrefs() {
-        if (getActivity() != null)
-            PrefUtils.setSummaryMonthAndYear(getActivity(), monthPicked);
+        updateDisplayList();
     }
-
+/*
     public void refresh() {
         updateList();
     }
-
+*/
     private void setPublisherId(int _id) {
         publisherId = _id;
 

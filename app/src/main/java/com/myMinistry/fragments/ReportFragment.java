@@ -53,6 +53,7 @@ public class ReportFragment extends Fragment {
     private Button view_entries;
     private final Calendar monthPicked = Calendar.getInstance();
     private int publisherId = 0;
+    private boolean calculate_rollover_time;
 
     private MinistryService database;
 
@@ -116,6 +117,7 @@ public class ReportFragment extends Fragment {
         database = new MinistryService(getActivity().getApplicationContext());
 
         fm = getActivity().getSupportFragmentManager();
+        calculate_rollover_time = PrefUtils.shouldCalculateRolloverTime(getActivity());
         publishers = root.findViewById(R.id.publishers);
         view_entries = root.findViewById(R.id.view_entries);
 
@@ -163,9 +165,6 @@ public class ReportFragment extends Fragment {
         view_entries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar date = Calendar.getInstance(Locale.getDefault());
-
-                //TimeEntriesFragment f = new TimeEntriesFragment().newInstance(PrefUtils.getSummaryMonth(getActivity().getApplicationContext(), date), PrefUtils.getSummaryYear(getActivity().getApplicationContext(), date), PrefUtils.getPublisherId(getActivity().getApplicationContext()));
                 TimeEntriesFragment f = new TimeEntriesFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");

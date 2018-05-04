@@ -20,31 +20,4 @@
         android:layout_alignParentEnd="true"
         android:textColor="@color/secondary_text"
         tools:text="@tools:sample/us_zipcodes" />
-
-
 </RelativeLayout>
-
-
-    <!--
-     LinearLayout ll = new LinearLayout(getContext());
-                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                RelativeLayout rl = new RelativeLayout(getContext());
-                rl.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                TextView tv1 = new TextView(getContext());
-                TextView tv2 = new TextView(getContext());
-                tv1.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                tv2.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                tv1.setText(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)));
-                tv1.setTextColor(ContextCompat.getColor(getContext(), R.color.secondary_text));
-                tv2.setText(String.valueOf(literatureTypes.getInt(2)));
-                tv2.setTextColor(ContextCompat.getColor(getContext(), R.color.secondary_text));
-                tv2.setGravity(Gravity.END);
-
-                rl.addView(tv1);
-                rl.addView(tv2);
-
-                ll.addView(rl);
-    -->
