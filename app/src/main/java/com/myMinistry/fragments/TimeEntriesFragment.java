@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.adapters.TimeEntryListAdapter;
 import com.myMinistry.bean.TimeEntryItem;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
@@ -35,19 +34,18 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class TimeEntriesFragment extends Fragment {
-    public static String ARG_YEAR = "year";
-    public static String ARG_MONTH = "month";
-    public static String ARG_PUBLISHER_ID = "publisher_id";
+    private final String ARG_YEAR = "year";
+    private final String ARG_MONTH = "month";
+    private final String ARG_PUBLISHER_ID = "publisher_id";
 
     private Button view_report;
 
-    private String mMonth, mYear = "";
     private Spinner publishers;
     private TextView month, year;
     private TextView empty_view;
     private RecyclerView monthly_entries;
     private TimeEntryListAdapter monthly_entries_adapter;
-    private ArrayList<TimeEntryItem> time_entries_arraylist = new ArrayList<>();
+    private final ArrayList<TimeEntryItem> time_entries_arraylist = new ArrayList<>();
     private boolean calculate_rollover_time;
 
     private NavDrawerMenuItemAdapter pubsAdapter;
@@ -57,12 +55,8 @@ public class TimeEntriesFragment extends Fragment {
     private FloatingActionButton fab;
 
     private MinistryService database;
-    private TimeEntryAdapter adapter = null;
     private int publisherId = 0;
-    private Calendar monthPicked = Calendar.getInstance(Locale.getDefault());
-
-    private String dbDateFormatted = "";
-    private String dbTimeFrame = "";
+    private final Calendar monthPicked = Calendar.getInstance(Locale.getDefault());
 
     public TimeEntriesFragment newInstance(int publisherId, int month, int year) {
         TimeEntriesFragment f = new TimeEntriesFragment();
@@ -152,7 +146,7 @@ public class TimeEntriesFragment extends Fragment {
         return view;
     }
 
-    public void updateDisplayList() {
+    private void updateDisplayList() {
         Cursor entries;
         Cursor entryItems;
 
@@ -255,22 +249,19 @@ else {
         loadPublisherAdapter();
         adjustMonth(0);
     }
-
+/*
     public void calculateValues() {
-        dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
+        //dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
         dbTimeFrame = "month";
 
 
     }
-
-    public void adjustMonth(int addValue) {
+*/
+    private void adjustMonth(int addValue) {
         monthPicked.add(Calendar.MONTH, addValue);
 
-        mMonth = TimeUtils.fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault());
-        mYear = String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault());
-
-        month.setText(mMonth);
-        year.setText(mYear);
+        month.setText(TimeUtils.fullMonthFormat.format(monthPicked.getTime()).toUpperCase(Locale.getDefault()));
+        year.setText(String.valueOf(monthPicked.get(Calendar.YEAR)).toUpperCase(Locale.getDefault()));
 
         updateDisplayList();
     }
