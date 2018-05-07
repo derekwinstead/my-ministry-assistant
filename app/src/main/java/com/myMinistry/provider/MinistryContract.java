@@ -386,6 +386,9 @@ public class MinistryContract {
         String HOUSEHOLDERS_JOIN_PLACED_LITERATURE = " LEFT JOIN " + Tables.HOUSEHOLDERS + " ON " + Qualified.HOUSEHOLDER_ID + " = " + Qualified.PLACED_LITERATURE_HOUSEHOLDER_ID;
         String ENTRY_TYPES_JOIN_TIME = " LEFT JOIN " + Tables.ENTRY_TYPES + " ON " + Qualified.ENTRY_TYPE_ID + " = " + Qualified.TIME_ENTRY_TYPE_ID;
         String NOTES_ON_TIMEHOUSEHOLDER_AND_TIME = " LEFT JOIN " + Tables.NOTES + " ON (" + Qualified.NOTES_HOUSEHOLDER_ID + " = " + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID + " AND " + Qualified.NOTES_TIME_ID + " = " + Qualified.TIME_ID + ")";
+        String TIMEHOUSEHOLDER_ON_TIME = " LEFT JOIN " + Tables.TIME_HOUSEHOLDERS + " ON " + Qualified.TIMEHOUSEHOLDER_TIME_ID + " = " + Qualified.TIME_ID;
+        String PLACED_LITERATURE_ON_TIME = " LEFT JOIN " + Tables.PLACED_LITERATURE + " ON " + Qualified.PLACED_LITERATURE_TIME_ID + " = " + Qualified.TIME_ID;
+        String LITERATURE_ON_PLACED_LITERATURE = " LEFT JOIN " + Tables.LITERATURE + " ON " + Qualified.LITERATURE_ID + " = " + Qualified.PLACED_LITERATURE_LIT_ID;
     }
 
     private MinistryContract() {

@@ -154,6 +154,7 @@ public class TimeEntriesFragment extends Fragment {
 
     public void updateDisplayList() {
         Cursor entries;
+        Cursor entryItems;
 
         if(!database.isOpen())
             database.openWritable();
@@ -171,7 +172,13 @@ public class TimeEntriesFragment extends Fragment {
         // Load up the array list for the adapter
         for(entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
             TimeEntryItem timeEntryItem = new TimeEntryItem(entries);
+
+            entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(timeEntryItem.getId());
+
+            timeEntryItem.setEntryHouseholderItems(entryItems);
             time_entries_arraylist.add(timeEntryItem);
+
+            entryItems.close();
         }
 
         entries.close();
@@ -245,10 +252,8 @@ else {
         });
 
         view_report.setText(R.string.view_month_report);
-        adjustMonth(0);
         loadPublisherAdapter();
-        updateDisplayList();
-
+        adjustMonth(0);
     }
 
     public void calculateValues() {

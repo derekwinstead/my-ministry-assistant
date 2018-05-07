@@ -38,9 +38,11 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.date_day_of_month.setText(TimeUtils.dayOfMonthFormat.format(mData.get(position).getStartDateAndTime().getTime()));
-        holder.date_day_of_week.setText(TimeUtils.fullDayOfWeekFormat.format(mData.get(position).getStartDateAndTime().getTime()));
-        holder.date_month_and_year.setText(TimeUtils.monthAndYearFormat.format(mData.get(position).getStartDateAndTime().getTime()));
+        //holder.date_day_of_week.setText(TimeUtils.shortDayOfWeekFormat.format(mData.get(position).getStartDateAndTime().getTime()));
+        holder.date_day_of_week.setText(TimeUtils.getDayOfWeek(mData.get(position).getStartDateAndTime()));
+        holder.start_and_end_times.setText(TimeUtils.getStartAndEndTimes(mData.get(position).getStartDateAndTime(), mData.get(position).getEndDateAndTime()));
         holder.entry_hours.setText(TimeUtils.getTimeLength(mData.get(position).getStartDateAndTime(),mData.get(position).getEndDateAndTime(),context.getString(R.string.hours_label),context.getString(R.string.minutes_label)));
+        holder.entry_type.setText(mData.get(position).getEntryTypeName());
 
 
         //public static String getTimeLength(Calendar start, Calendar end, String h, String m) {
@@ -57,15 +59,17 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
     public class ViewHolder extends RecyclerView.ViewHolder {//} implements View.OnClickListener {
         TextView date_day_of_month;
         TextView date_day_of_week;
-        TextView date_month_and_year;
+        TextView start_and_end_times;
         TextView entry_hours;
+        TextView entry_type;
 
         ViewHolder(View itemView) {
             super(itemView);
             date_day_of_month = itemView.findViewById(R.id.date_day_of_month);
             date_day_of_week = itemView.findViewById(R.id.date_day_of_week);
-            date_month_and_year = itemView.findViewById(R.id.date_month_and_year);
+            start_and_end_times = itemView.findViewById(R.id.start_and_end_times);
             entry_hours = itemView.findViewById(R.id.entry_hours);
+            entry_type = itemView.findViewById(R.id.entry_type);
             //myTextViewCount = itemView.findViewById(R.id.count1);
             //itemView.setOnClickListener((View.OnClickListener) this);
         }

@@ -6,6 +6,7 @@ import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -17,9 +18,39 @@ import java.util.Locale;
 public class TimeUtils {
     public static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     public static final SimpleDateFormat fullMonthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-    public static final SimpleDateFormat fullDayOfWeekFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
-    public static final SimpleDateFormat dayOfMonthFormat = new SimpleDateFormat("dd", Locale.getDefault());
+    public static final SimpleDateFormat shortDayOfWeekFormat = new SimpleDateFormat("EEE", Locale.getDefault());
+    public static final SimpleDateFormat dayOfMonthFormat = new SimpleDateFormat("d", Locale.getDefault());
     public static final SimpleDateFormat monthAndYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+
+    public static String getDayOfWeek(Calendar cal) {
+        DateTime dt = new DateTime(cal.getTimeInMillis());
+        DateTime.Property pDoW = dt.dayOfWeek();
+        return pDoW.getAsShortText(); // returns "Mon", "Tue", etc.
+    }
+
+    public static String getStartAndEndTimes(Calendar calStart, Calendar calEnd) {
+        DateTime start = new DateTime(calStart.getTimeInMillis());
+        DateTime end = new DateTime(calEnd.getTimeInMillis());
+        Interval interval = new Interval(start, end);
+        Period period = interval.toPeriod();
+
+        StringBuilder builder = new StringBuilder();
+
+        return builder.append(start.toString("h:mm")).append(" - ").append(end.toString("h:mm a")).toString();
+/*
+        PeriodFormatter retVal = new PeriodFormatterBuilder()
+                .printZeroNever()
+                .appendHours()
+                .appendSuffix(h)
+                .appendSeparator(" ")
+                .appendMinutes()
+                .appendSuffix(m)
+                .toFormatter();
+
+        return retVal.print(period);
+
+        return "";*/
+    }
 
     public static String getTimeLength(Calendar start, Calendar end, String h, String m) {
         Duration dur = new Duration(new DateTime(start), new DateTime(end));

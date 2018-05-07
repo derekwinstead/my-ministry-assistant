@@ -20,6 +20,7 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:paddingBottom="@dimen/fab_padding"
+        android:paddingTop="@dimen/default_padding_half"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="none"
         tools:itemCount="5"

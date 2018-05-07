@@ -15,7 +15,7 @@ public class TimeEntryItem {
     private Calendar startDateAndTime, endDateAndTime;
     private String entryTypeName;
     //private ArrayList<>  = ArrayList<>;
-    private ArrayList<TimeEntryItem> entry_placements = new ArrayList<>();
+    private ArrayList<TimeEntryHouseholderItem> entry_householder_and_placements = new ArrayList<>();
 
     public TimeEntryItem(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time._ID));
@@ -43,6 +43,61 @@ public class TimeEntryItem {
             endDateAndTime = Calendar.getInstance(Locale.getDefault());
         }
     }
+
+    public void setEntryHouseholderItems(Cursor cursor) {
+        entry_householder_and_placements.clear();
+        int old_householder_id = MinistryDatabase.CREATE_ID - 1; // Creating a number that will not exist for initial comparisons
+        TimeEntryHouseholderItem householderItem;
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            // A new householder
+            if (cursor.getInt(cursor.getColumnIndex(MinistryContract.TimeHouseholder.HOUSEHOLDER_ID)) != old_householder_id) {
+                /*
+                // If there is already a an existing item we need to add it to the ArrayList before resetting the
+                if(entry_householder_and_placements.size() > 0) {
+                    entry_householder_and_placements.add(householderItem);
+                }
+                */
+                old_householder_id = cursor.getInt(cursor.getColumnIndex(MinistryContract.TimeHouseholder.HOUSEHOLDER_ID));
+
+
+                householderItem = new TimeEntryHouseholderItem(cursor);
+                entry_householder_and_placements.add(householderItem);
+            }
+
+            entry_householder_and_placements.get(entry_householder_and_placements.size() - 1).addPlacedPublication(cursor);
+        }
+
+        //householderItem
+        //TimeEntryHouseholderItem
+        //PlacedPublication
+                /*
+                ********************TimeEntryHouseholderItem*******************
+                 private long id = MinistryDatabase.CREATE_ID;
+    private String name;
+    private String notes;
+    private int notesID;
+    private ArrayList<Publication> publications_placed = new ArrayList<>();
+                 */
+
+    }
+
+
+//        entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(timeEntryItem.getId());
+/*
+        // Load up the array list for the adapter
+        for(entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
+            TimeEntryItem timeEntryItem = new TimeEntryItem(entries);
+            entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(timeEntryItem.getId());
+            timeEntryItem.setEntryHouseholderItems(entryItems);
+            time_entries_arraylist.add(timeEntryItem);
+
+
+        for(entryItems.moveToFirst(); !entryItems.isAfterLast(); entryItems.moveToNext()) {
+
+        }
+*/
+
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }

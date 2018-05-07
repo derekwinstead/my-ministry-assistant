@@ -842,4 +842,24 @@ public class MinistryService {
 
         return sqlDB.rawQuery(sql, null);
     }
+
+    public Cursor fetchHouseholderAndPlacedPublicationsByTimeId(long timeId) {
+        String sql = "SELECT " + Qualified.TIME_ID
+                + "," + Qualified.TIMEHOUSEHOLDER_HOUSEHOLDER_ID
+                + "," + Qualified.HOUSEHOLDER_NAME
+                + "," + Qualified.NOTES_NOTES
+                + "," + Qualified.PLACED_LITERATURE_COUNT
+                + "," + Qualified.LITERATURE_NAME + UnionsNameAsCols.TITLE
+                + " FROM " + Tables.TIMES
+                + LeftJoins.TIMEHOUSEHOLDER_ON_TIME
+                + LeftJoins.HOUSEHOLDERS_JOIN_TIMEHOUSEHOLDERS
+                + LeftJoins.NOTES_ON_TIMEHOUSEHOLDER_AND_TIME
+                + LeftJoins.PLACED_LITERATURE_ON_TIME
+                + LeftJoins.LITERATURE_ON_PLACED_LITERATURE
+                + " WHERE " + Qualified.TIME_ID + "=" + timeId
+                + " AND " + Qualified.TIME_ENTRY_TYPE_ID + " <> " + MinistryDatabase.ID_ROLLOVER;
+
+        return sqlDB.rawQuery(sql, null);
+    }
+
 }
