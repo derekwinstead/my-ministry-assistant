@@ -44,7 +44,7 @@ public class HouseholdersFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+		//is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
 		database = new MinistryService(getActivity());
 
@@ -64,13 +64,13 @@ public class HouseholdersFragment extends ListFragment {
 		adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), cursor, R.string.last_visited_on);
 		setListAdapter(adapter);
 		database.close();
-
+/*
 		if (is_dual_pane) {
 			HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(HouseholderEditorFragment.CREATE_ID);
 			FragmentTransaction transaction = fm.beginTransaction();
 			transaction.replace(R.id.secondary_fragment_container, f, "secondary");
 			transaction.commit();
-		}
+		}*/
 	}
 
 	@Override
@@ -85,8 +85,8 @@ public class HouseholdersFragment extends ListFragment {
 	}
 
 	public void openEditor(long id) {
-		int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-
+		int LAYOUT_ID = R.id.primary_fragment_container;
+/*
 		if (is_dual_pane) {
 			if (fm.findFragmentById(LAYOUT_ID) instanceof HouseholderEditorFragment) {
 				HouseholderEditorFragment fragment = (HouseholderEditorFragment) fm.findFragmentById(LAYOUT_ID);
@@ -97,12 +97,12 @@ public class HouseholdersFragment extends ListFragment {
                 transaction.replace(R.id.secondary_fragment_container, f, "secondary");
                 transaction.commit();
 			}
-		} else {
+		} else {*/
             HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
             FragmentTransaction transaction = fm.beginTransaction();
             transaction.replace(R.id.primary_fragment_container, f, "main");
             transaction.commit();
-		}
+		//}
 	}
 
 	private void loadCursor() {

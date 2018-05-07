@@ -59,7 +59,7 @@ public class PublishersFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+		//is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
 		if (is_dual_pane) {
 			fab.setVisibility(View.GONE);
@@ -72,7 +72,7 @@ public class PublishersFragment extends ListFragment {
 		adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), publishers, R.string.last_active_on);
 		setListAdapter(adapter);
 		database.close();
-
+/*
 		if (is_dual_pane) {
 			Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
 			PublisherEditorFragment f = new PublisherEditorFragment().newInstance(PublisherEditorFragment.CREATE_ID);
@@ -86,7 +86,7 @@ public class PublishersFragment extends ListFragment {
 			ft.add(R.id.secondary_fragment_container, f);
 
 			ft.commit();
-		}
+		}*/
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class PublishersFragment extends ListFragment {
 	}
 
 	public void openEditor(long id) {
-		int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
+		int LAYOUT_ID = R.id.primary_fragment_container;
 
 		if (is_dual_pane) {
 			if (fm.findFragmentById(LAYOUT_ID) instanceof PublisherEditorFragment) {

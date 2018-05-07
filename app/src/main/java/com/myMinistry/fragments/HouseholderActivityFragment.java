@@ -65,7 +65,7 @@ public class HouseholderActivityFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         if (!is_dual_pane)
             getActivity().setTitle(R.string.householder_activity);
@@ -84,7 +84,7 @@ public class HouseholderActivityFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
+        int LAYOUT_ID = R.id.primary_fragment_container;
 
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

@@ -115,7 +115,7 @@ public class HouseholderEditorFragment extends Fragment {
                 HouseholderActivityFragment f = new HouseholderActivityFragment().newInstance(householderID);
                 FragmentTransaction transaction = fm.beginTransaction();
                 if (is_dual_pane) {
-                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
+                    //transaction.replace(R.id.secondary_fragment_container, f, "secondary");
                 } else {
                     transaction.replace(R.id.primary_fragment_container, f, "main");
                 }
@@ -181,7 +181,7 @@ public class HouseholderEditorFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         if (!is_dual_pane) {
             getActivity().setTitle(R.string.title_householder_edit);

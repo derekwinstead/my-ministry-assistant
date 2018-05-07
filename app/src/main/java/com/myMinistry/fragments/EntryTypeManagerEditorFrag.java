@@ -27,8 +27,6 @@ import com.squareup.phrase.Phrase;
 public class EntryTypeManagerEditorFrag extends Fragment {
 	public static final String ARG_ENTRY_TYPE_ID = "entry_type_id";
 
-	private boolean is_dual_pane = false;
-
 	private EditText et_name;
 	private CheckBox cb_is_active;
 	private TextView tv_note;
@@ -78,8 +76,6 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -127,23 +123,17 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 					}
 					database.close();
 
-					if (is_dual_pane) {
-						EntryTypeManagerFrag f = (EntryTypeManagerFrag) fm.findFragmentById(R.id.primary_fragment_container);
-						//f.sortList(PrefUtils.getEntryTypeSort(getActivity()));
-						f.reloadCursor();
-					} else {
-						Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-						EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
+					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+					EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
 
-						if (frag != null)
-							ft.remove(frag);
+					if (frag != null)
+						ft.remove(frag);
 
-						ft.add(R.id.primary_fragment_container, f);
-						ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-						ft.addToBackStack(null);
+					ft.add(R.id.primary_fragment_container, f);
+					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+					ft.addToBackStack(null);
 
-						ft.commit();
-					}
+					ft.commit();
 				} else {
 					et_name.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
 					et_name.setFocusable(true);
@@ -179,17 +169,11 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 				tv_note.setVisibility(View.GONE);
 				cb_is_active.setEnabled(true);
 			}
-
-			if (is_dual_pane)
-				fab.setVisibility(View.VISIBLE);
 		} else {
 			et_name.setText("");
 			cb_is_active.setChecked(true);
 			cb_is_active.setEnabled(true);
 			tv_note.setVisibility(View.GONE);
-
-			if (is_dual_pane)
-				fab.setVisibility(View.GONE);
 		}
 		cursor.close();
 		database.close();

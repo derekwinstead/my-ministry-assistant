@@ -142,11 +142,7 @@ public class PublicationEditorFragment extends Fragment {
             public void onClick(View v) {
                 PublicationActivityFragment f = new PublicationActivityFragment().newInstance(publication.getId());
                 FragmentTransaction transaction = fm.beginTransaction();
-                if (is_dual_pane) {
-                    transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-                } else {
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                }
+                transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
             }
         });
@@ -203,7 +199,7 @@ public class PublicationEditorFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         if (!is_dual_pane) {
             getActivity().setTitle(R.string.title_publication_edit);

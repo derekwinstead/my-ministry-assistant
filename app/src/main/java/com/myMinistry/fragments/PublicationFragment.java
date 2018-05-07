@@ -126,7 +126,7 @@ public class PublicationFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
+        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         getActivity().setTitle(R.string.navdrawer_item_publications);
 
@@ -135,7 +135,7 @@ public class PublicationFragment extends ListFragment {
         adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), null, R.string.last_placed_on);
         setListAdapter(adapter);
         database.close();
-
+/*
         if (is_dual_pane) {
             fab.setVisibility(View.GONE);
 
@@ -144,6 +144,7 @@ public class PublicationFragment extends ListFragment {
             transaction.replace(R.id.secondary_fragment_container, f, "secondary");
             transaction.commit();
         }
+        */
     }
 
     @Override
@@ -187,6 +188,7 @@ public class PublicationFragment extends ListFragment {
     }
 
     public void openEditor(long id) {
+        /*
         if (is_dual_pane) {
             if (fm.findFragmentById(R.id.secondary_fragment_container) instanceof PublicationEditorFragment) {
                 PublicationEditorFragment fragment = (PublicationEditorFragment) fm.findFragmentById(R.id.secondary_fragment_container);
@@ -197,11 +199,11 @@ public class PublicationFragment extends ListFragment {
                 transaction.replace(R.id.secondary_fragment_container, f, "secondary");
                 transaction.commit();
             }
-        } else {
+        } else {*/
             PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
             FragmentTransaction transaction = fm.beginTransaction();
             transaction.replace(R.id.primary_fragment_container, f, "main");
             transaction.commit();
-        }
+        //}
     }
 }

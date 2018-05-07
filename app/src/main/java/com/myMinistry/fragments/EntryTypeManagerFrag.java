@@ -6,9 +6,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -28,8 +26,6 @@ import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 
 public class EntryTypeManagerFrag extends ListFragment {
-    private boolean is_dual_pane = false;
-
     private FloatingActionButton fab;
 
     private ItemWithIconAdapter adapter;
@@ -56,36 +52,25 @@ public class EntryTypeManagerFrag extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
         fm = getActivity().getSupportFragmentManager();
 
-        if (is_dual_pane) {
-            fab.setVisibility(View.GONE);
-        } else {
-            fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    if (is_dual_pane) {
-                        populateEditor(MinistryDatabase.CREATE_ID);
-                    } else {
+            @Override
+            public void onClick(View v) {
+                openEditor(HouseholderEditorFragment.CREATE_ID);
+                /*
+                EntryTypeNewDialogFrag f = EntryTypeNewDialogFrag.newInstance();
+                f.setPositiveButton(new EntryTypeNewDialogFragListener() {
+                    @Override
+                    public void setPositiveButton(boolean created) {
 
-                        openEditor(HouseholderEditorFragment.CREATE_ID);
-                        /*
-                        EntryTypeNewDialogFrag f = EntryTypeNewDialogFrag.newInstance();
-                        f.setPositiveButton(new EntryTypeNewDialogFragListener() {
-                            @Override
-                            public void setPositiveButton(boolean created) {
-
-                            }
-                        });
-                        f.show(fm, EntryTypeNewDialogFrag.class.getName());
-                        */
                     }
-                }
-            });
-        }
+                });
+                f.show(fm, EntryTypeNewDialogFrag.class.getName());
+                */
+            }
+        });
 
         database = new MinistryService(getActivity().getApplicationContext());
         database.openWritable();
@@ -97,39 +82,20 @@ public class EntryTypeManagerFrag extends ListFragment {
         setListAdapter(adapter);
 
         database.close();
-
-        if (is_dual_pane) {
-            Fragment frag = fm.findFragmentById(R.id.secondary_fragment_container);
-            EntryTypeManagerEditorFrag f = new EntryTypeManagerEditorFrag().newInstance(MinistryDatabase.CREATE_ID);
-            FragmentTransaction ft = fm.beginTransaction();
-
-            if (frag != null)
-                ft.remove(frag);
-
-            ft.add(R.id.secondary_fragment_container, f);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.addToBackStack(null);
-
-            ft.commit();
-        }
     }
-
+/*
     private void populateEditor(long id) {
         EntryTypeManagerEditorFrag f = (EntryTypeManagerEditorFrag) fm.findFragmentById(R.id.secondary_fragment_container);
         f.switchForm(id);
     }
-
+*/
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (adapter.getItem(position).getID() > MinistryDatabase.MAX_ENTRY_TYPE_ID) {
             showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         } else {
-            if (is_dual_pane) {
-                // TODO
-            } else {
-                createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
-            }
+            createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         }
     }
 
@@ -269,12 +235,7 @@ public class EntryTypeManagerFrag extends ListFragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case RENAME_ID:
-                        if (is_dual_pane) {
-                            //populateEditor(id);
-                        } else {
-                            showEditTextDialog(id, name, isActive, isDefault);
-                            //sortList(PrefUtils.getEntryTypeSort(getActivity()));
-                        }
+                        showEditTextDialog(id, name, isActive, isDefault);
                         break;
                     case TRANSFER_ID:
                         showTransferToDialog(id, name);
@@ -424,32 +385,6 @@ public class EntryTypeManagerFrag extends ListFragment {
 
 
     public void openEditor(long id) {
-        int LAYOUT_ID = (is_dual_pane) ? R.id.secondary_fragment_container : R.id.primary_fragment_container;
-
-        if (is_dual_pane) {
-            /*
-            if(fm.findFragmentById(LAYOUT_ID) instanceof HouseholderEditorFragment) {
-                HouseholderEditorFragment fragment = (HouseholderEditorFragment) fm.findFragmentById(LAYOUT_ID);
-                fragment.switchForm(id);
-            }
-            else {
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-                Fragment frag = fm.findFragmentById(LAYOUT_ID);
-                HouseholderEditorFragment f = new HouseholderEditorFragment().newInstance(id);
-
-                if(frag != null)
-                    ft.remove(frag);
-
-                ft.add(LAYOUT_ID, f);
-                ft.addToBackStack(null);
-
-                ft.commit();
-            }
-            */
-        } else {
-            showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE, MinistryService.INACTIVE);
-        }
+        showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE, MinistryService.INACTIVE);
     }
 }
