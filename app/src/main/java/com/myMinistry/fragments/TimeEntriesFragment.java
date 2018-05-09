@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeEntriesFragment extends Fragment {
+public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapter.ItemClickListener {
     private final String ARG_YEAR = "year";
     private final String ARG_MONTH = "month";
     private final String ARG_PUBLISHER_ID = "publisher_id";
@@ -331,5 +331,10 @@ else {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }

@@ -6,12 +6,12 @@ String VERSION_NAME = '4.1.0.831'
 String APK_NAME = "myministryassistant"
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId 'com.myMinistry'
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionName VERSION_NAME
     }
     buildTypes {
@@ -38,11 +38,11 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.+'
-    implementation 'com.android.support:cardview-v7:26.+'
-    implementation 'com.android.support:recyclerview-v7:26.+'
-    implementation 'com.android.support:design:26.+'
-    implementation 'com.android.support:percent:26.+'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:percent:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.code-troopers.betterpickers:library:3.1.0'
     implementation 'com.squareup.phrase:phrase:1.1.0'

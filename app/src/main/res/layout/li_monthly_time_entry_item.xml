@@ -1,98 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/default_padding"
-        android:paddingStart="@dimen/default_padding">
+        android:layout_margin="@dimen/default_padding"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:elevation="@dimen/default_padding_half"
+        card_view:cardElevation="@dimen/default_padding_half"
+        card_view:cardPreventCornerOverlap="false">
 
         <LinearLayout
-            android:id="@+id/ll_day_of_month"
-            android:layout_width="@dimen/thumb_height"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/default_padding">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/date_day_of_month"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/default_padding"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/black"
-                tools:text="4" />
+                android:paddingStart="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding">
 
-            <TextView
-                android:id="@+id/date_day_of_week"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
-                tools:text="@tools:sample/date/day_of_week" />
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_type_and_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/ll_day_of_month"
-            android:background="@color/primary"
-            android:padding="@dimen/default_padding_half">
+                    <TextView
+                        android:id="@+id/entry_type"
+                        style="@style/TextViewPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        tools:text="@tools:sample/date/day_of_week" />
+
+                    <TextView
+                        android:id="@+id/start_and_end_times"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        tools:text="@tools:sample/date/mmddyy" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/entry_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    tools:text="@tools:sample/us_zipcodes" />
+            </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/ll_entry_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/entry_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/bpWhite"
-                    android:textStyle="bold"
-                    tools:text="@tools:sample/date/day_of_week" />
-
-                <TextView
-                    android:id="@+id/start_and_end_times"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/bpWhite"
-                    tools:text="@tools:sample/date/mmddyy" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/entry_hours"
-                style="@style/TextViewPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/bpWhite"
-                android:textStyle="bold"
-                tools:text="@tools:sample/us_zipcodes" />
-        </RelativeLayout>
-    </RelativeLayout>
-    <!--
-        <view
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/holo_grey" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@tools:sample/us_zipcodes" />
-    </LinearLayout>
-    -->
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/default_padding" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -11,15 +11,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class TimeEntryItem {
-    private long id, entryTypdId = MinistryDatabase.CREATE_ID;
+    private long id, entryTypeId;
     private Calendar startDateAndTime, endDateAndTime;
     private String entryTypeName;
-    //private ArrayList<>  = ArrayList<>;
     private ArrayList<TimeEntryHouseholderItem> entry_householder_and_placements = new ArrayList<>();
 
     public TimeEntryItem(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time._ID));
-        entryTypdId = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time.ENTRY_TYPE_ID));
+        entryTypeId = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time.ENTRY_TYPE_ID));
         entryTypeName = cursor.getString(cursor.getColumnIndex(MinistryContract.UnionsNameAsRef.TITLE));
 
         startDateAndTime = Calendar.getInstance(Locale.getDefault());
@@ -103,12 +102,14 @@ public class TimeEntryItem {
     public void setId(long id) { this.id = id; }
     public boolean isNew() { return id == MinistryDatabase.CREATE_ID; }
 
-    public long getEntryTypeId() { return entryTypdId; }
-    public void setEntryTypeId(long entryTypdId) { this.entryTypdId = entryTypdId; }
+    public long getEntryTypeId() { return entryTypeId; }
+    public void setEntryTypeId(long entryTypeId) { this.entryTypeId = entryTypeId; }
 
     public String getEntryTypeName() { return entryTypeName; }
     public void setEntryTypeName(String name) { this.entryTypeName = name; }
 
     public Calendar getStartDateAndTime() { return startDateAndTime; }
     public Calendar getEndDateAndTime() { return endDateAndTime; }
+
+    public ArrayList<TimeEntryHouseholderItem> getEntryHouseholderAndPlacements() { return entry_householder_and_placements; }
 }

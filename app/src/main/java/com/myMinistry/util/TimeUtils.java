@@ -19,8 +19,19 @@ public class TimeUtils {
     public static final SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     public static final SimpleDateFormat fullMonthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
     public static final SimpleDateFormat shortDayOfWeekFormat = new SimpleDateFormat("EEE", Locale.getDefault());
+    public static final SimpleDateFormat numericalMonthAndDayFormat = new SimpleDateFormat("M/d", Locale.getDefault());
     public static final SimpleDateFormat dayOfMonthFormat = new SimpleDateFormat("d", Locale.getDefault());
     public static final SimpleDateFormat monthAndYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+
+    private static String[] suffixes =
+            //     0     1     2     3     4     5     6     7     8     9
+            {     "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th",
+            //     10    11    12    13    14    15    16    17    18    19
+                  "th", "th", "th", "th", "th", "th", "th", "th", "th", "th",
+            //     20    21    22    23    24    25    26    27    28    29
+                  "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th",
+            //     30    31
+                  "th", "st" };
 
     public static String getDayOfWeek(Calendar cal) {
         DateTime dt = new DateTime(cal.getTimeInMillis());
@@ -28,7 +39,7 @@ public class TimeUtils {
         return pDoW.getAsShortText(); // returns "Mon", "Tue", etc.
     }
 
-    public static String getStartAndEndTimes(Calendar calStart, Calendar calEnd) {
+    private static String getStartAndEndTimes(Calendar calStart, Calendar calEnd) {
         DateTime start = new DateTime(calStart.getTimeInMillis());
         DateTime end = new DateTime(calEnd.getTimeInMillis());
         Interval interval = new Interval(start, end);
@@ -37,19 +48,17 @@ public class TimeUtils {
         StringBuilder builder = new StringBuilder();
 
         return builder.append(start.toString("h:mm")).append(" - ").append(end.toString("h:mm a")).toString();
-/*
-        PeriodFormatter retVal = new PeriodFormatterBuilder()
-                .printZeroNever()
-                .appendHours()
-                .appendSuffix(h)
-                .appendSeparator(" ")
-                .appendMinutes()
-                .appendSuffix(m)
-                .toFormatter();
+    }
 
-        return retVal.print(period);
+    public static String getDayInfoStartTimeEndTime(Calendar start, Calendar end) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getDayOfMonthWithSuffix(start)).append(", ").append(getDayOfWeek(start)).append(", ").append(getStartAndEndTimes(start, end));
+        return builder.toString();
+    }
 
-        return "";*/
+    private static String getDayOfMonthWithSuffix(Calendar cal) {
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        return String.valueOf(dayOfMonth) + suffixes[dayOfMonth];
     }
 
     public static String getTimeLength(Calendar start, Calendar end, String h, String m) {

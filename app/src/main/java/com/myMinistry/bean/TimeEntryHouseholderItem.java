@@ -1,6 +1,7 @@
 package com.myMinistry.bean;
 
 import android.database.Cursor;
+import android.text.TextUtils;
 
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
@@ -21,6 +22,7 @@ public class TimeEntryHouseholderItem {
     public TimeEntryHouseholderItem(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time._ID));
         name = cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME));
+        notes = cursor.getString(cursor.getColumnIndex(MinistryContract.Notes.NOTES));
         /*
         entryTypdId = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time.ENTRY_TYPE_ID));
         entryTypeName = cursor.getString(cursor.getColumnIndex(MinistryContract.UnionsNameAsRef.TITLE));
@@ -54,4 +56,10 @@ public class TimeEntryHouseholderItem {
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
     public boolean isNew() { return id == MinistryDatabase.CREATE_ID; }
+
+    public String getName() { return (!TextUtils.isEmpty(name)) ? name : ""; }
+
+    public String getNotes() { return (!TextUtils.isEmpty(notes)) ? notes : ""; }
+
+    public ArrayList<PlacedPublication> getPlacedPublications() { return placedPublications; }
 }
