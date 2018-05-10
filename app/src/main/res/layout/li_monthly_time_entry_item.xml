@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_padding"
+        android:clickable="true"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
         android:elevation="@dimen/default_padding_half"
+        android:foreground="?android:attr/selectableItemBackground"
         card_view:cardElevation="@dimen/default_padding_half"
         card_view:cardPreventCornerOverlap="false">
 

@@ -150,11 +150,11 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
         Cursor entries;
         Cursor entryItems;
 
-        if(!database.isOpen())
+        if (!database.isOpen())
             database.openWritable();
 
         // Get all the entries for the selected month
-        if(calculate_rollover_time) {
+        if (calculate_rollover_time) {
             entries = database.fetchTimeEntriesByPublisherAndMonth(publisherId, TimeUtils.dbDateFormat.format(monthPicked.getTime()), "month");
         } else {
             entries = database.fetchTimeEntriesByPublisherAndMonthNoRollover(publisherId, TimeUtils.dbDateFormat.format(monthPicked.getTime()), "month");
@@ -164,7 +164,7 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
         time_entries_arraylist.clear();
 
         // Load up the array list for the adapter
-        for(entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
+        for (entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
             TimeEntryItem timeEntryItem = new TimeEntryItem(entries);
 
             entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(timeEntryItem.getId());
@@ -180,10 +180,10 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
 
         monthly_entries_adapter.notifyDataSetChanged();
 
-        if(time_entries_arraylist.isEmpty()) {
+        if (time_entries_arraylist.isEmpty()) {
             monthly_entries.setVisibility(View.GONE);
             empty_view.setVisibility(View.VISIBLE);
-        } else  {
+        } else {
             monthly_entries.setVisibility(View.VISIBLE);
             empty_view.setVisibility(View.GONE);
         }
@@ -222,18 +222,19 @@ else {
         adapter.changeCursor(entries);
         */
     }
-/*
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        entries.moveToPosition(position);
-        if (entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
-            TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.replace(R.id.primary_fragment_container, f, "main");
-            transaction.commit();
+
+    /*
+        @Override
+        public void onListItemClick(ListView l, View v, int position, long id) {
+            entries.moveToPosition(position);
+            if (entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
+                TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
+            }
         }
-    }
-*/
+    */
     @Override
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
@@ -249,14 +250,15 @@ else {
         loadPublisherAdapter();
         adjustMonth(0);
     }
-/*
-    public void calculateValues() {
-        //dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
-        dbTimeFrame = "month";
+
+    /*
+        public void calculateValues() {
+            //dbDateFormatted = TimeUtils.dbDateFormat.format(monthPicked.getTime());
+            dbTimeFrame = "month";
 
 
-    }
-*/
+        }
+    */
     private void adjustMonth(int addValue) {
         monthPicked.add(Calendar.MONTH, addValue);
 
@@ -265,11 +267,12 @@ else {
 
         updateDisplayList();
     }
-/*
-    public void refresh() {
-        updateList();
-    }
-*/
+
+    /*
+        public void refresh() {
+            updateList();
+        }
+    */
     private void setPublisherId(int _id) {
         publisherId = _id;
 
@@ -335,6 +338,10 @@ else {
 
     @Override
     public void onItemClick(View view, int position) {
-
+        //TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId(), publisherId);
+        TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId());
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.primary_fragment_container, f, "mail");
+        ft.commit();
     }
 }
