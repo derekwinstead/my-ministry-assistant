@@ -24,6 +24,7 @@ import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.ui.householders.HouseholderEditFragment;
 import com.myMinistry.utils.AppConstants;
 
 public class EntryTypeManagerFrag extends ListFragment {
@@ -59,7 +60,7 @@ public class EntryTypeManagerFrag extends ListFragment {
 
             @Override
             public void onClick(View v) {
-                openEditor(HouseholderEditorFragment.CREATE_ID);
+                openEditor(HouseholderEditFragment.CREATE_ID);
                 /*
                 EntryTypeNewDialogFrag f = EntryTypeNewDialogFrag.newInstance();
                 f.setPositiveButton(new EntryTypeNewDialogFragListener() {

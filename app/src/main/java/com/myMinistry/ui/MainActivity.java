@@ -26,7 +26,7 @@ import android.view.View;
 import com.myMinistry.R;
 import com.myMinistry.fragments.DBBackupsListFragment;
 import com.myMinistry.fragments.EntryTypeManagerFrag;
-import com.myMinistry.fragments.HouseholdersFragment;
+import com.myMinistry.ui.householders.HouseholdersListFragment;
 import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublicationManagerFragment;
 import com.myMinistry.fragments.PublishersFragment;
@@ -232,8 +232,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.drawer_householders:
-                if (!(frag instanceof HouseholdersFragment)) {
-                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                if (!(frag instanceof HouseholdersListFragment)) {
+                    HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.primary_fragment_container, f, "main");
                     transaction.commit();

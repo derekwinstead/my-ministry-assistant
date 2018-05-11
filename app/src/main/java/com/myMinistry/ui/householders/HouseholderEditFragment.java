@@ -1,4 +1,4 @@
-package com.myMinistry.fragments;
+package com.myMinistry.ui.householders;
 
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
@@ -23,15 +23,15 @@ import android.widget.CheckBox;
 import com.myMinistry.R;
 import com.myMinistry.bean.Householder;
 import com.myMinistry.db.HouseholderDAO;
+import com.myMinistry.fragments.HouseholderActivityFragment;
 import com.myMinistry.utils.AppConstants;
 
-public class HouseholderEditorFragment extends Fragment {
+public class HouseholderEditFragment extends Fragment {
     private CheckBox cb_is_active;
     private Button view_activity;
     private TextInputLayout nameWrapper, addressWrapper, mobileWrapper, homeWrapper, workWrapper, otherWrapper;
 
-    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
-    private long householderID = CREATE_ID;
+    private long householderID = (long) AppConstants.CREATE_ID;
 
     private HouseholderDAO householderDAO;
     private Householder householder;
@@ -39,12 +39,12 @@ public class HouseholderEditorFragment extends Fragment {
     private FragmentManager fm;
     private FloatingActionButton fab;
 
-    public HouseholderEditorFragment newInstance() {
-        return new HouseholderEditorFragment();
+    public HouseholderEditFragment newInstance() {
+        return new HouseholderEditFragment();
     }
 
-    public HouseholderEditorFragment newInstance(long _householderID) {
-        HouseholderEditorFragment f = new HouseholderEditorFragment();
+    public HouseholderEditFragment newInstance(long _householderID) {
+        HouseholderEditFragment f = new HouseholderEditFragment();
         Bundle args = new Bundle();
         args.putLong(AppConstants.ARG_HOUSEHOLDER_ID, _householderID);
         f.setArguments(args);
@@ -101,7 +101,7 @@ public class HouseholderEditorFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchForm(CREATE_ID);
+                switchForm((long) AppConstants.CREATE_ID);
             }
         });
 
@@ -130,14 +130,14 @@ public class HouseholderEditorFragment extends Fragment {
                     householder.setPhoneOther(otherWrapper.getEditText().getText().toString().trim());
                     householder.setIsActive(cb_is_active.isChecked());
 
-                    if (householder.getId() == CREATE_ID) {
+                    if (householder.getId() == (long) AppConstants.CREATE_ID) {
                         householderID = householderDAO.create(householder);
                         householder.setId(householderID);
                     } else {
                         householderDAO.update(householder);
                     }
 
-                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                    HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.primary_fragment_container, f, "main");
                     transaction.commit();
@@ -150,7 +150,7 @@ public class HouseholderEditorFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
@@ -184,7 +184,7 @@ public class HouseholderEditorFragment extends Fragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 householderDAO.deleteHouseholder(householder);
 
-                                HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                                HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                                 FragmentTransaction transaction = fm.beginTransaction();
                                 transaction.replace(R.id.primary_fragment_container, f, "main");
                                 transaction.commit();
