@@ -30,7 +30,7 @@ import com.myMinistry.fragments.HouseholdersFragment;
 import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublicationManagerFragment;
 import com.myMinistry.fragments.PublishersFragment;
-import com.myMinistry.fragments.ReportFragment;
+import com.myMinistry.ui.report.ReportSummaryFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.utils.HelpUtils;
@@ -206,11 +206,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawer_report:
                 Calendar date = Calendar.getInstance(Locale.getDefault());
 
-                if (!(frag instanceof ReportFragment)) {
+                if (!(frag instanceof ReportSummaryFragment)) {
                     if (firstLoad)
                         PrefUtils.setSummaryMonthAndYear(this, date);
 
-                    ReportFragment f = new ReportFragment().newInstance(PrefUtils.getPublisherId(this));
+                    ReportSummaryFragment f = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
                     FragmentTransaction transaction = fm.beginTransaction();
 
                     transaction.replace(R.id.primary_fragment_container, f, "main");

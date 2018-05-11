@@ -1,4 +1,4 @@
-package com.myMinistry.adapters;
+package com.myMinistry.ui.report;
 
 import android.content.Context;
 import android.os.Build;
@@ -10,16 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.myMinistry.R;
-import com.myMinistry.bean.PlacedPublication;
-import com.myMinistry.bean.TimeEntryHouseholderItem;
-import com.myMinistry.bean.TimeEntryItem;
 import com.myMinistry.utils.TimeUtils;
 import com.myMinistry.utils.ViewUtils;
 
 import java.util.ArrayList;
 
-public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdapter.ViewHolder> {
-    private ArrayList<TimeEntryItem> mData;
+public class ReportListAdapter extends RecyclerView.Adapter<ReportListAdapter.ViewHolder> {
+    private ArrayList<ReportListEntryItem> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
@@ -29,7 +26,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
     private final int leftRightPaddingDPExtra = leftRightPaddingDP + 5;
 
     // data is passed into the constructor
-    public TimeEntryListAdapter(Context context, ArrayList<TimeEntryItem> data) {
+    public ReportListAdapter(Context context, ArrayList<ReportListEntryItem> data) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -51,7 +48,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
         holder.ll_entry_info.removeAllViews();
 
         boolean isFirst;
-        for (TimeEntryHouseholderItem householderItem : mData.get(position).getEntryHouseholderAndPlacements()) {
+        for (ReportListEntryHouseholderItem householderItem : mData.get(position).getEntryHouseholderAndPlacements()) {
             boolean shouldAddTopPadding = false;
             // Create a divider for each householder entry (even empty householder)
             View v = new View(this.context);
@@ -99,7 +96,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
 
             // Add placed publications if they exist
             isFirst = true;
-            for (PlacedPublication publication : householderItem.getPlacedPublications()) {
+            for (ReportListEntryPlacedPublicationItem publication : householderItem.getReportListEntryPlacedPublicationItems()) {
                 if (isFirst) {
                     TextView tv1 = new TextView(this.context);
                     tv1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -159,7 +156,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
     }
 
     // convenience method for getting data at click position
-    TimeEntryItem getItem(int id) {
+    ReportListEntryItem getItem(int id) {
         return mData.get(id);
     }
 

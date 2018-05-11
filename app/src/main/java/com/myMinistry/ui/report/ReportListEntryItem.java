@@ -1,4 +1,4 @@
-package com.myMinistry.bean;
+package com.myMinistry.ui.report;
 
 import android.database.Cursor;
 
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeEntryItem {
+public class ReportListEntryItem {
     private long id, entryTypeId;
     private Calendar startDateAndTime, endDateAndTime;
     private String entryTypeName;
-    private ArrayList<TimeEntryHouseholderItem> entry_householder_and_placements = new ArrayList<>();
+    private ArrayList<ReportListEntryHouseholderItem> entry_householder_and_placements = new ArrayList<>();
 
-    public TimeEntryItem(Cursor cursor) {
+    public ReportListEntryItem(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time._ID));
         entryTypeId = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time.ENTRY_TYPE_ID));
         entryTypeName = cursor.getString(cursor.getColumnIndex(MinistryContract.UnionsNameAsRef.TITLE));
@@ -46,7 +46,7 @@ public class TimeEntryItem {
     public void setEntryHouseholderItems(Cursor cursor) {
         entry_householder_and_placements.clear();
         int old_householder_id = AppConstants.CREATE_ID - 1; // Creating a number that will not exist for initial comparisons
-        TimeEntryHouseholderItem householderItem;
+        ReportListEntryHouseholderItem householderItem;
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             // A new householder
@@ -60,7 +60,7 @@ public class TimeEntryItem {
                 old_householder_id = cursor.getInt(cursor.getColumnIndex(MinistryContract.TimeHouseholder.HOUSEHOLDER_ID));
 
 
-                householderItem = new TimeEntryHouseholderItem(cursor);
+                householderItem = new ReportListEntryHouseholderItem(cursor);
                 entry_householder_and_placements.add(householderItem);
             }
 
@@ -68,10 +68,10 @@ public class TimeEntryItem {
         }
 
         //householderItem
-        //TimeEntryHouseholderItem
-        //PlacedPublication
+        //ReportListEntryHouseholderItem
+        //ReportListEntryPlacedPublicationItem
                 /*
-                ********************TimeEntryHouseholderItem*******************
+                ********************ReportListEntryHouseholderItem*******************
                  private long id = MinistryDatabase.CREATE_ID;
     private String name;
     private String notes;
@@ -86,7 +86,7 @@ public class TimeEntryItem {
 /*
         // Load up the array list for the adapter
         for(entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
-            TimeEntryItem timeEntryItem = new TimeEntryItem(entries);
+            ReportListEntryItem timeEntryItem = new ReportListEntryItem(entries);
             entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(timeEntryItem.getId());
             timeEntryItem.setEntryHouseholderItems(entryItems);
             time_entries_arraylist.add(timeEntryItem);
@@ -111,5 +111,5 @@ public class TimeEntryItem {
     public Calendar getStartDateAndTime() { return startDateAndTime; }
     public Calendar getEndDateAndTime() { return endDateAndTime; }
 
-    public ArrayList<TimeEntryHouseholderItem> getEntryHouseholderAndPlacements() { return entry_householder_and_placements; }
+    public ArrayList<ReportListEntryHouseholderItem> getEntryHouseholderAndPlacements() { return entry_householder_and_placements; }
 }

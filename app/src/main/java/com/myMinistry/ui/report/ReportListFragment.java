@@ -1,4 +1,4 @@
-package com.myMinistry.fragments;
+package com.myMinistry.ui.report;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,9 +19,8 @@ import android.widget.Toast;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.TimeEntryListAdapter;
-import com.myMinistry.bean.TimeEntryItem;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
+import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryService;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapter.ItemClickListener {
+public class ReportListFragment extends Fragment implements ReportListAdapter.ItemClickListener {
     private final String ARG_YEAR = "year";
     private final String ARG_MONTH = "month";
     private final String ARG_PUBLISHER_ID = "publisher_id";
@@ -45,8 +44,8 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
     private TextView month, year;
     private TextView empty_view;
     private RecyclerView monthly_entries;
-    private TimeEntryListAdapter monthly_entries_adapter;
-    private final ArrayList<TimeEntryItem> time_entries_arraylist = new ArrayList<>();
+    private ReportListAdapter monthly_entries_adapter;
+    private final ArrayList<ReportListEntryItem> time_entries_arraylist = new ArrayList<>();
     private boolean calculate_rollover_time;
 
     private NavDrawerMenuItemAdapter pubsAdapter;
@@ -59,8 +58,8 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
     private int publisherId = 0;
     private final Calendar monthPicked = Calendar.getInstance(Locale.getDefault());
 
-    public TimeEntriesFragment newInstance(int publisherId, int month, int year) {
-        TimeEntriesFragment f = new TimeEntriesFragment();
+    public ReportListFragment newInstance(int publisherId, int month, int year) {
+        ReportListFragment f = new ReportListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_YEAR, year);
         args.putInt(ARG_MONTH, month);
@@ -98,12 +97,12 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
         placement_list = root.findViewById(R.id.user_placements);
         placement_list.setHasFixedSize(true);
         placement_list.setLayoutManager(new LinearLayoutManager(getContext()));
-        placement_list_adapter= new ReportPublicationSummaryAdapter(getContext(), user_placements);
+        placement_list_adapter= new ReportSummaryPublicationAdapter(getContext(), user_placements);
         placement_list.setAdapter(placement_list_adapter);
          */
         //monthly_entries.setHasFixedSize(true);
         monthly_entries.setLayoutManager(new LinearLayoutManager(getContext()));
-        monthly_entries_adapter = new TimeEntryListAdapter(getActivity().getApplicationContext(), time_entries_arraylist);
+        monthly_entries_adapter = new ReportListAdapter(getActivity().getApplicationContext(), time_entries_arraylist);
         monthly_entries_adapter.setClickListener(this);
         //monthly_entries_adapter.setClickListener(this);
         monthly_entries.setAdapter(monthly_entries_adapter);
@@ -135,7 +134,7 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
         view_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReportFragment f = new ReportFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
+                ReportSummaryFragment f = new ReportSummaryFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
@@ -168,12 +167,12 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
 
         // Load up the array list for the adapter
         for (entries.moveToFirst(); !entries.isAfterLast(); entries.moveToNext()) {
-            TimeEntryItem timeEntryItem = new TimeEntryItem(entries);
+            ReportListEntryItem reportListEntryItem = new ReportListEntryItem(entries);
 
-            entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(timeEntryItem.getId());
+            entryItems = database.fetchHouseholderAndPlacedPublicationsByTimeId(reportListEntryItem.getId());
 
-            timeEntryItem.setEntryHouseholderItems(entryItems);
-            time_entries_arraylist.add(timeEntryItem);
+            reportListEntryItem.setEntryHouseholderItems(entryItems);
+            time_entries_arraylist.add(reportListEntryItem);
 
             entryItems.close();
         }
@@ -208,9 +207,9 @@ else {
         Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (literatureTypes.moveToFirst(); !literatureTypes.isAfterLast(); literatureTypes.moveToNext()) {
             if(user_placements.size() <= literatureTypes.getPosition()) {
-                user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
+                user_placements.add(new ReportSummaryPublicationItem(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
             } else {
-                user_placements.set(literatureTypes.getPosition(),new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
+                user_placements.set(literatureTypes.getPosition(),new ReportSummaryPublicationItem(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
             }
         }
         literatureTypes.close();

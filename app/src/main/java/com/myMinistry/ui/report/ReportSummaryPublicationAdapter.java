@@ -1,4 +1,4 @@
-package com.myMinistry.adapters;
+package com.myMinistry.ui.report;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,18 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.myMinistry.R;
-import com.myMinistry.bean.ReportPublication;
 
 import java.util.ArrayList;
 
-public class ReportPublicationSummaryAdapter extends RecyclerView.Adapter<ReportPublicationSummaryAdapter.ViewHolder> {
+public class ReportSummaryPublicationAdapter extends RecyclerView.Adapter<ReportSummaryPublicationAdapter.ViewHolder> {
 
-    private ArrayList<ReportPublication> mData;
+    private ArrayList<ReportSummaryPublicationItem> mData;
     private LayoutInflater mInflater;
     //private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public ReportPublicationSummaryAdapter(Context context, ArrayList<ReportPublication> data) {
+    public ReportSummaryPublicationAdapter(Context context, ArrayList<ReportSummaryPublicationItem> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -65,7 +64,7 @@ public class ReportPublicationSummaryAdapter extends RecyclerView.Adapter<Report
     }
 /*
     // convenience method for getting data at click position
-    ReportPublication getItem(int id) {
+    ReportSummaryPublicationItem getItem(int id) {
         return mData.get(id);
     }*/
 /*

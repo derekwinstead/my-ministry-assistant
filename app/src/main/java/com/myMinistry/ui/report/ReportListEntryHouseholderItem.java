@@ -1,4 +1,4 @@
-package com.myMinistry.bean;
+package com.myMinistry.ui.report;
 
 import android.database.Cursor;
 import android.text.TextUtils;
@@ -8,18 +8,18 @@ import com.myMinistry.utils.AppConstants;
 
 import java.util.ArrayList;
 
-public class TimeEntryHouseholderItem {
+public class ReportListEntryHouseholderItem {
     private long id = AppConstants.CREATE_ID;
     private String name;
     private String notes;
     private int notesID;
-    private ArrayList<PlacedPublication> placedPublications = new ArrayList<>();
+    private ArrayList<ReportListEntryPlacedPublicationItem> reportListEntryPlacedPublicationItems = new ArrayList<>();
 
-    public TimeEntryHouseholderItem() {
+    public ReportListEntryHouseholderItem() {
 
     }
 
-    public TimeEntryHouseholderItem(Cursor cursor) {
+    public ReportListEntryHouseholderItem(Cursor cursor) {
         id = cursor.getLong(cursor.getColumnIndex(MinistryContract.Time._ID));
         name = cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME));
         notes = cursor.getString(cursor.getColumnIndex(MinistryContract.Notes.NOTES));
@@ -50,7 +50,7 @@ public class TimeEntryHouseholderItem {
     }
 
     public void addPlacedPublication(Cursor cursor) {
-        placedPublications.add(new PlacedPublication(cursor));
+        reportListEntryPlacedPublicationItems.add(new ReportListEntryPlacedPublicationItem(cursor));
     }
 
     public long getId() { return id; }
@@ -61,5 +61,5 @@ public class TimeEntryHouseholderItem {
 
     public String getNotes() { return (!TextUtils.isEmpty(notes)) ? notes : ""; }
 
-    public ArrayList<PlacedPublication> getPlacedPublications() { return placedPublications; }
+    public ArrayList<ReportListEntryPlacedPublicationItem> getReportListEntryPlacedPublicationItems() { return reportListEntryPlacedPublicationItems; }
 }

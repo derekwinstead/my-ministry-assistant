@@ -1,10 +1,11 @@
-package com.myMinistry.fragments;
+package com.myMinistry.ui.report;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,8 +25,6 @@ import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
-import com.myMinistry.adapters.ReportPublicationSummaryAdapter;
-import com.myMinistry.bean.ReportPublication;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
@@ -40,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ReportFragment extends Fragment {
+public class ReportSummaryFragment extends Fragment {
     private final String ARG_YEAR = "year";
     private final String ARG_MONTH = "month";
     private final String ARG_PUBLISHER_ID = "publisher_id";
@@ -65,19 +64,19 @@ public class ReportFragment extends Fragment {
 
     private FragmentManager fm;
 
-    private ReportPublicationSummaryAdapter placement_list_adapter;
-    private final ArrayList<ReportPublication> user_placements = new ArrayList<>();
+    private ReportSummaryPublicationAdapter placement_list_adapter;
+    private final ArrayList<ReportSummaryPublicationItem> user_placements = new ArrayList<>();
 
-    public ReportFragment newInstance(int publisherId) {
-        ReportFragment f = new ReportFragment();
+    public ReportSummaryFragment newInstance(int publisherId) {
+        ReportSummaryFragment f = new ReportSummaryFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PUBLISHER_ID, publisherId);
         f.setArguments(args);
         return f;
     }
 
-    public ReportFragment newInstance(int publisherId, int month, int year) {
-        ReportFragment f = new ReportFragment();
+    public ReportSummaryFragment newInstance(int publisherId, int month, int year) {
+        ReportSummaryFragment f = new ReportSummaryFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_YEAR, year);
         args.putInt(ARG_MONTH, month);
@@ -92,7 +91,7 @@ public class ReportFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.report, container, false);
 
         Bundle args = getArguments();
@@ -139,7 +138,7 @@ public class ReportFragment extends Fragment {
         placement_list = root.findViewById(R.id.user_placements);
         placement_list.setHasFixedSize(true);
         placement_list.setLayoutManager(new LinearLayoutManager(getContext()));
-        placement_list_adapter = new ReportPublicationSummaryAdapter(getContext(), user_placements);
+        placement_list_adapter = new ReportSummaryPublicationAdapter(getContext(), user_placements);
         placement_list.setAdapter(placement_list_adapter);
 
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
@@ -165,7 +164,7 @@ public class ReportFragment extends Fragment {
         view_entries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimeEntriesFragment f = new TimeEntriesFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
+                ReportListFragment f = new ReportListFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
@@ -222,7 +221,7 @@ public class ReportFragment extends Fragment {
             database.openWritable();
 
         // Total Time
-        if (PrefUtils.shouldCalculateRolloverTime(getActivity()))
+        if (calculate_rollover_time)
             mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisher(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
         else
             mTotalHoursCount = TimeUtils.getTimeLength(database.fetchListOfHoursForPublisherNoRollover(dbDateFormatted, publisherId, dbTimeFrame), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity()));
@@ -236,9 +235,9 @@ public class ReportFragment extends Fragment {
         Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (literatureTypes.moveToFirst(); !literatureTypes.isAfterLast(); literatureTypes.moveToNext()) {
             if (user_placements.size() <= literatureTypes.getPosition()) {
-                user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
+                user_placements.add(new ReportSummaryPublicationItem(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
             } else {
-                user_placements.set(literatureTypes.getPosition(), new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
+                user_placements.set(literatureTypes.getPosition(), new ReportSummaryPublicationItem(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
             }
         }
         literatureTypes.close();
@@ -324,6 +323,19 @@ public class ReportFragment extends Fragment {
         return retVal.toString();
     }
 
+    private void setPublisherId(int _id) {
+        publisherId = _id;
+
+        if (pubsAdapter != null) {
+            for (int i = 0; i <= pubsAdapter.getCount(); i++) {
+                if (publisherId == pubsAdapter.getItem(i).getID()) {
+                    publishers.setSelection(i);
+                    break;
+                }
+            }
+        }
+    }
+
     @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -341,19 +353,6 @@ public class ReportFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setPublisherId(int _id) {
-        publisherId = _id;
-
-        if (pubsAdapter != null) {
-            for (int i = 0; i <= pubsAdapter.getCount(); i++) {
-                if (publisherId == pubsAdapter.getItem(i).getID()) {
-                    publishers.setSelection(i);
-                    break;
-                }
-            }
-        }
     }
 
     // TODO loadPublisherAdapter() - Review the function and make sure it's up to standards now

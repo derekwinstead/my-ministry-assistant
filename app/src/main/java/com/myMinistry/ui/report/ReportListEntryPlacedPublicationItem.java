@@ -1,11 +1,11 @@
-package com.myMinistry.bean;
+package com.myMinistry.ui.report;
 
 import android.database.Cursor;
 
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.utils.AppConstants;
 
-public class PlacedPublication {
+public class ReportListEntryPlacedPublicationItem {
     private long id = AppConstants.CREATE_ID;
     private long publisherId, publicationNameId, publicationTypeId, householderId, timeId;
     private int count;
@@ -14,7 +14,7 @@ public class PlacedPublication {
     private int isActive = AppConstants.ACTIVE;
     private int weight = 1;
 
-    public PlacedPublication(Cursor cursor) {
+    public ReportListEntryPlacedPublicationItem(Cursor cursor) {
         this.householderName = cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME));
         this.publicationName = cursor.getString(cursor.getColumnIndex(MinistryContract.UnionsNameAsRef.TITLE));
         this.count = cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteraturePlaced.COUNT));
