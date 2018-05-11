@@ -70,7 +70,7 @@ public class ReportListFragment extends Fragment implements ReportListAdapter.It
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.time_entries, container, false);
+        View view = inflater.inflate(R.layout.report_entries, container, false);
         Bundle args = getArguments();
 
         if (args != null) {

@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@android:id/list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/householders_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/report_nav"
         android:clipToPadding="false"
-        android:divider="@color/divider"
-        android:dividerHeight="1dp"
-        android:drawSelectorOnTop="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:paddingBottom="@dimen/fab_padding"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none"
+        tools:itemCount="5"
+        tools:listitem="@layout/li_householder_item" />
 
     <TextView
-        android:id="@id/android:empty"
+        android:id="@+id/empty_view"
         style="@style/EmptyListTextSettings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/no_householders" />
+        android:text="@string/zero_entries"
+        android:visibility="gone" />
 
     <include layout="@layout/fab_user_add" />
 </RelativeLayout>
