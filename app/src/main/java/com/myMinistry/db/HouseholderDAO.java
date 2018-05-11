@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.Householder;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +42,8 @@ public class HouseholderDAO {
         values.put(MinistryContract.Householder.HOME_PHONE, bean.getPhoneHome());
         values.put(MinistryContract.Householder.WORK_PHONE, bean.getPhoneWork());
         values.put(MinistryContract.Householder.OTHER_PHONE, bean.getPhoneOther());
-        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -97,8 +97,8 @@ public class HouseholderDAO {
         values.put(MinistryContract.Householder.HOME_PHONE, bean.getPhoneHome());
         values.put(MinistryContract.Householder.WORK_PHONE, bean.getPhoneWork());
         values.put(MinistryContract.Householder.OTHER_PHONE, bean.getPhoneOther());
-        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
         database.update(TABLE_NAME, values, MinistryContract.Householder._ID + " = ?", new String[]{bean.getId() + ""});
         close();

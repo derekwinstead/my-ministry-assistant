@@ -13,9 +13,8 @@ import android.widget.TextView;
 import com.myMinistry.R;
 import com.myMinistry.model.ItemWithDate;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.TimeUtils;
 import com.squareup.phrase.Phrase;
 
 import java.text.ParseException;
@@ -26,7 +25,7 @@ public class TitleAndDateAdapter extends ArrayAdapter<ItemWithDate> {
     private static final int LAYOUT_CONTENT_ID = R.layout.li_item_spinner_item;
     private static final int LAYOUT_SEPARATOR_ID = R.layout.li_separator_item_spinner_item;
 
-    private int separatorId = MinistryDatabase.CREATE_ID;
+    private int separatorId = AppConstants.CREATE_ID;
     private int leadingTextResId = 0;
     private Context context;
 
@@ -45,7 +44,7 @@ public class TitleAndDateAdapter extends ArrayAdapter<ItemWithDate> {
         loadNewData(cursor);
     }
 
-    public void loadNewData(Cursor cursor) {
+    private void loadNewData(Cursor cursor) {
         this.clear();
         int activeId = -1;
         int firstActivePosition = -1;
@@ -54,19 +53,19 @@ public class TitleAndDateAdapter extends ArrayAdapter<ItemWithDate> {
         int inactiveCount = 0;
         if(cursor != null) {
             for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
-                if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE)
+                if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == AppConstants.ACTIVE)
                     activeCount++;
                 else
                     inactiveCount++;
 
                 if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) != activeId) {
-                    if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE)
+                    if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == AppConstants.ACTIVE)
                         firstActivePosition = cursor.getPosition();
                     else
                         firstInActivePosition = cursor.getPosition();
 
                     activeId = cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE));
-                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.form_is_inactive) : context.getResources().getString(R.string.form_is_active), cursor.getCount() - cursor.getPosition());
+                    addSeparatorItem(activeId == AppConstants.INACTIVE ? context.getResources().getString(R.string.form_is_inactive) : context.getResources().getString(R.string.form_is_active), cursor.getCount() - cursor.getPosition());
                 }
 
 
@@ -86,7 +85,7 @@ public class TitleAndDateAdapter extends ArrayAdapter<ItemWithDate> {
         }
     }
 
-    public void addSeparatorItem(String title, int count) {
+    private void addSeparatorItem(String title, int count) {
         addItem(new ItemWithDate(separatorId, title, count));
     }
 

@@ -24,18 +24,16 @@ import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.bean.Publisher;
 import com.myMinistry.db.PublisherDAO;
 import com.myMinistry.model.NavDrawerMenuItem;
-import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.utils.AppConstants;
 
 public class PublisherEditorFragment extends Fragment {
-    public static final String ARG_PUBLISHER_ID = "publisher_id";
-
     private boolean is_dual_pane = false;
 
     private CheckBox cb_is_active;
     private Button view_activity;
     private TextInputLayout nameWrapper;
 
-    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
     private long publisherId = CREATE_ID;
 
     private FloatingActionButton fab;
@@ -57,7 +55,7 @@ public class PublisherEditorFragment extends Fragment {
     public PublisherEditorFragment newInstance(long _publisherID) {
         PublisherEditorFragment f = new PublisherEditorFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_PUBLISHER_ID, _publisherID);
+        args.putLong(AppConstants.ARG_PUBLISHER_ID, _publisherID);
         f.setArguments(args);
         return f;
     }
@@ -73,7 +71,7 @@ public class PublisherEditorFragment extends Fragment {
         View root = inflater.inflate(R.layout.publisher_editor, container, false);
         Bundle args = getArguments();
         if (args != null)
-            setPublisher(args.getLong(ARG_PUBLISHER_ID));
+            setPublisher(args.getLong(AppConstants.ARG_PUBLISHER_ID));
 
         setHasOptionsMenu(true);
 

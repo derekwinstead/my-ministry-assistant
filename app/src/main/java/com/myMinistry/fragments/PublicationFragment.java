@@ -3,7 +3,6 @@ package com.myMinistry.fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -25,12 +24,9 @@ import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
+import com.myMinistry.utils.AppConstants;
 
 public class PublicationFragment extends ListFragment {
-    public static String ARG_PUBLICATION_ID = "publication_id";
-
-    private boolean is_dual_pane = false;
-
     private MinistryService database;
     private Spinner myspinner;
     private TitleAndDateAdapterUpdated adapter;
@@ -49,7 +45,7 @@ public class PublicationFragment extends ListFragment {
     public PublicationFragment newInstance(int literatureTypeId) {
         PublicationFragment f = new PublicationFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PUBLICATION_ID, literatureTypeId);
+        args.putInt(AppConstants.ARG_PUBLICATION_ID, literatureTypeId);
         f.setArguments(args);
         return f;
     }
@@ -66,8 +62,8 @@ public class PublicationFragment extends ListFragment {
         View root = inflater.inflate(R.layout.publications, container, false);
         Bundle args = getArguments();
 
-        if (args != null && args.containsKey(ARG_PUBLICATION_ID))
-            literatureTypeId = args.getInt(ARG_PUBLICATION_ID);
+        if (args != null && args.containsKey(AppConstants.ARG_PUBLICATION_ID))
+            literatureTypeId = args.getInt(AppConstants.ARG_PUBLICATION_ID);
 
         database = new MinistryService(getActivity());
         myspinner = root.findViewById(R.id.myspinner);
@@ -84,7 +80,7 @@ public class PublicationFragment extends ListFragment {
         while (cursor.moveToNext()) {
             sadapter.addItem(new NavDrawerMenuItem(cursor.getString(cursor.getColumnIndex(LiteratureType.NAME)), Helper.getIconResIDByLitTypeID(cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))), cursor.getInt(cursor.getColumnIndex(LiteratureType._ID))));
 
-            if (cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT)) == MinistryService.ACTIVE)
+            if (cursor.getInt(cursor.getColumnIndex(LiteratureType.DEFAULT)) == AppConstants.ACTIVE)
                 default_position = cursor.getPosition();
         }
 
@@ -151,13 +147,6 @@ public class PublicationFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.view_publication_manager:
-                if (is_dual_pane) {
-                    Fragment f = fm.findFragmentByTag("secondary");
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.remove(f);
-                    transaction.commit();
-                }
-
                 ((MainActivity) getActivity()).goToNavDrawerItem(MainActivity.PUBLICATION_MANAGER_ID);
 
                 return true;
@@ -188,22 +177,9 @@ public class PublicationFragment extends ListFragment {
     }
 
     public void openEditor(long id) {
-        /*
-        if (is_dual_pane) {
-            if (fm.findFragmentById(R.id.secondary_fragment_container) instanceof PublicationEditorFragment) {
-                PublicationEditorFragment fragment = (PublicationEditorFragment) fm.findFragmentById(R.id.secondary_fragment_container);
-                fragment.switchForm(id);
-            } else {
-                PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-                transaction.commit();
-            }
-        } else {*/
-            PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.replace(R.id.primary_fragment_container, f, "main");
-            transaction.commit();
-        //}
+        PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.primary_fragment_container, f, "main");
+        transaction.commit();
     }
 }

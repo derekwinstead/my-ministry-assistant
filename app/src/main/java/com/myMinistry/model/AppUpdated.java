@@ -12,9 +12,10 @@ import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.FileUtils;
-import com.myMinistry.util.PrefUtils;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.FileUtils;
+import com.myMinistry.utils.PrefUtils;
+import com.myMinistry.utils.TimeUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +97,7 @@ public class AppUpdated extends AsyncTask<Void, Integer, Void> {
             Helper.renameDB(mContext);
             Helper.renameAndMoveBackups(mContext);
 
-            File intDB = mContext.getDatabasePath(MinistryDatabase.DATABASE_NAME);
+            File intDB = mContext.getDatabasePath(AppConstants.DATABASE_NAME);
             File extDB = FileUtils.getExternalDBFile(mContext, "auto-db-v" + MinistryDatabase.DATABASE_VERSION + "-1.db");
 
             /* Create a backup just in case */
@@ -115,7 +116,7 @@ public class AppUpdated extends AsyncTask<Void, Integer, Void> {
             database.openWritable();
             //SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Calendar start = Calendar.getInstance(Locale.getDefault());
-            int pubID = 0;
+            int pubID;
 
             /* Loop over each publisher for each available month to convert */
             if (!database.isOpen())

@@ -23,18 +23,14 @@ import android.widget.CheckBox;
 import com.myMinistry.R;
 import com.myMinistry.bean.Householder;
 import com.myMinistry.db.HouseholderDAO;
-import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.utils.AppConstants;
 
 public class HouseholderEditorFragment extends Fragment {
-    public static final String ARG_HOUSEHOLDER_ID = "householder_id";
-
-    private boolean is_dual_pane = false;
-
     private CheckBox cb_is_active;
     private Button view_activity;
     private TextInputLayout nameWrapper, addressWrapper, mobileWrapper, homeWrapper, workWrapper, otherWrapper;
 
-    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
     private long householderID = CREATE_ID;
 
     private HouseholderDAO householderDAO;
@@ -50,7 +46,7 @@ public class HouseholderEditorFragment extends Fragment {
     public HouseholderEditorFragment newInstance(long _householderID) {
         HouseholderEditorFragment f = new HouseholderEditorFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_HOUSEHOLDER_ID, _householderID);
+        args.putLong(AppConstants.ARG_HOUSEHOLDER_ID, _householderID);
         f.setArguments(args);
         return f;
     }
@@ -71,7 +67,7 @@ public class HouseholderEditorFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            setHouseholder(args.getLong(ARG_HOUSEHOLDER_ID));
+            setHouseholder(args.getLong(AppConstants.ARG_HOUSEHOLDER_ID));
         }
 
         setHasOptionsMenu(true);
@@ -114,11 +110,7 @@ public class HouseholderEditorFragment extends Fragment {
             public void onClick(View v) {
                 HouseholderActivityFragment f = new HouseholderActivityFragment().newInstance(householderID);
                 FragmentTransaction transaction = fm.beginTransaction();
-                if (is_dual_pane) {
-                    //transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-                } else {
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                }
+                transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
             }
         });
@@ -145,15 +137,10 @@ public class HouseholderEditorFragment extends Fragment {
                         householderDAO.update(householder);
                     }
 
-                    if (is_dual_pane) {
-                        HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                        f.updateHouseholderList();
-                    } else {
-                        HouseholdersFragment f = new HouseholdersFragment().newInstance();
-                        FragmentTransaction transaction = fm.beginTransaction();
-                        transaction.replace(R.id.primary_fragment_container, f, "main");
-                        transaction.commit();
-                    }
+                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
                 }
@@ -163,14 +150,10 @@ public class HouseholderEditorFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_dual_pane) {
-                    switchForm(CREATE_ID);
-                } else {
-                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
-                }
+                HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
             }
         });
 
@@ -183,9 +166,7 @@ public class HouseholderEditorFragment extends Fragment {
 
         //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
-        if (!is_dual_pane) {
-            getActivity().setTitle(R.string.title_householder_edit);
-        }
+        getActivity().setTitle(R.string.title_householder_edit);
 
         fillForm();
     }
@@ -203,16 +184,10 @@ public class HouseholderEditorFragment extends Fragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 householderDAO.deleteHouseholder(householder);
 
-                                if (is_dual_pane) {
-                                    HouseholdersFragment f = (HouseholdersFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                                    f.updateHouseholderList();
-                                    switchForm(CREATE_ID);
-                                } else {
-                                    HouseholdersFragment f = new HouseholdersFragment().newInstance();
-                                    FragmentTransaction transaction = fm.beginTransaction();
-                                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                                    transaction.commit();
-                                }
+                                HouseholdersFragment f = new HouseholdersFragment().newInstance();
+                                FragmentTransaction transaction = fm.beginTransaction();
+                                transaction.replace(R.id.primary_fragment_container, f, "main");
+                                transaction.commit();
 
                                 break;
                         }
@@ -259,14 +234,6 @@ public class HouseholderEditorFragment extends Fragment {
             view_activity.setVisibility(View.VISIBLE);
         }
 
-        if (is_dual_pane) {
-            if (householder.isNew()) {
-                fab.setVisibility(View.GONE);
-            } else {
-                fab.setVisibility(View.VISIBLE);
-            }
-        } else {
-            fab.setVisibility(View.GONE);
-        }
+        fab.setVisibility(View.GONE);
     }
 }

@@ -1,13 +1,12 @@
 package com.myMinistry.bean;
 
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class PublicationType {
-    private long id = MinistryDatabase.CREATE_ID;
+    private long id = AppConstants.CREATE_ID;
     private String name = "";
-    private int isActive = MinistryService.ACTIVE;
-    private int isDefault = MinistryService.INACTIVE;
+    private int isActive = AppConstants.ACTIVE;
+    private int isDefault = AppConstants.INACTIVE;
 
     public long getId() {
         return id;
@@ -18,7 +17,7 @@ public class PublicationType {
     }
 
     public boolean isNew() {
-        return id == MinistryDatabase.CREATE_ID;
+        return id == AppConstants.CREATE_ID;
     }
 
     public String getName() {

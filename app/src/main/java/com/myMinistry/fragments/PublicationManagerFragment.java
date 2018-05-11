@@ -31,6 +31,7 @@ import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
+import com.myMinistry.utils.AppConstants;
 
 public class PublicationManagerFragment extends ListFragment {
     private final int RENAME_ID = 0;
@@ -44,7 +45,7 @@ public class PublicationManagerFragment extends ListFragment {
 
     private PublicationTypeDAO publicationTypeDAO;
 
-    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
 
     public PublicationManagerFragment newInstance() {
         return new PublicationManagerFragment();
@@ -123,7 +124,7 @@ public class PublicationManagerFragment extends ListFragment {
         final CheckBox cb_is_default = view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
-        if (id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
+        if (id <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && id != AppConstants.CREATE_ID) {
             cb_is_active.setVisibility(View.GONE);
         }
 
@@ -132,17 +133,17 @@ public class PublicationManagerFragment extends ListFragment {
         cb_is_default.setChecked(isDefault != 0);
 
         builder.setView(view);
-        builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.edit);
+        builder.setTitle((id == AppConstants.CREATE_ID) ? R.string.form_name : R.string.edit);
         builder.setNegativeButton(R.string.menu_cancel, null); // Do nothing on cancel - this will dismiss the dialog :)
-        builder.setPositiveButton((id == MinistryDatabase.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new OnClickListener() {
+        builder.setPositiveButton((id == AppConstants.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (values == null)
                     values = new ContentValues();
 
                 values.put(LiteratureType.NAME, editText.getText().toString());
-                values.put(LiteratureType.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-                values.put(LiteratureType.DEFAULT, cb_is_default.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+                values.put(LiteratureType.ACTIVE, cb_is_active.isChecked() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+                values.put(LiteratureType.DEFAULT, cb_is_default.isChecked() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
                 database.openWritable();
 
@@ -150,7 +151,7 @@ public class PublicationManagerFragment extends ListFragment {
                     database.clearPublicationTypeDefault();
                 }
 
-                if (id == MinistryDatabase.CREATE_ID)
+                if (id == AppConstants.CREATE_ID)
                     database.createPublicationType(values);
                 else
                     database.savePublicationType(id, values);
@@ -171,7 +172,7 @@ public class PublicationManagerFragment extends ListFragment {
         final CheckBox cb_is_default = view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
-        if (publicationType.getId() <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && publicationType.getId() != MinistryDatabase.CREATE_ID) {
+        if (publicationType.getId() <= MinistryDatabase.MAX_PUBLICATION_TYPE_ID && publicationType.getId() != AppConstants.CREATE_ID) {
             cb_is_active.setVisibility(View.GONE);
         }
 
@@ -180,9 +181,9 @@ public class PublicationManagerFragment extends ListFragment {
         cb_is_default.setChecked(publicationType.isDefault());
 
         builder.setView(view);
-        builder.setTitle((publicationType.getId() == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.edit);
+        builder.setTitle((publicationType.getId() == AppConstants.CREATE_ID) ? R.string.form_name : R.string.edit);
         builder.setNegativeButton(R.string.menu_cancel, null); // Do nothing on cancel - this will dismiss the dialog :)
-        builder.setPositiveButton((publicationType.getId() == MinistryDatabase.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new OnClickListener() {
+        builder.setPositiveButton((publicationType.getId() == AppConstants.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 publicationType.setName(editText.getText().toString());
@@ -196,7 +197,7 @@ public class PublicationManagerFragment extends ListFragment {
                     database.close();
                 }
 
-                if (publicationType.getId() == MinistryDatabase.CREATE_ID) {
+                if (publicationType.getId() == AppConstants.CREATE_ID) {
                     publicationTypeDAO.create(publicationType);
                 } else {
                     publicationTypeDAO.update(publicationType);
@@ -303,7 +304,7 @@ public class PublicationManagerFragment extends ListFragment {
                         showEditTextDialog(publicationType);
                         break;
                     case TRANSFER_ID:
-                        showTransferToDialog((int)publicationType.getId(), publicationType.getName());
+                        showTransferToDialog((int) publicationType.getId(), publicationType.getName());
                         break;
                     case DELETE_ID:
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

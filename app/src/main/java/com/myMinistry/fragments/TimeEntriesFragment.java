@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
@@ -23,11 +24,11 @@ import com.myMinistry.bean.TimeEntryItem;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
-import com.myMinistry.util.PrefUtils;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.PrefUtils;
+import com.myMinistry.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,6 +104,8 @@ public class TimeEntriesFragment extends Fragment implements TimeEntryListAdapte
         //monthly_entries.setHasFixedSize(true);
         monthly_entries.setLayoutManager(new LinearLayoutManager(getContext()));
         monthly_entries_adapter = new TimeEntryListAdapter(getActivity().getApplicationContext(), time_entries_arraylist);
+        monthly_entries_adapter.setClickListener(this);
+        //monthly_entries_adapter.setClickListener(this);
         monthly_entries.setAdapter(monthly_entries_adapter);
 
 
@@ -290,7 +293,7 @@ else {
     private void loadPublisherAdapter() {
         int initialSelection = 0;
         // Add new publisher item
-        pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, MinistryDatabase.CREATE_ID));
+        pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, AppConstants.CREATE_ID));
 
         database.openWritable();
         final Cursor cursor = database.fetchActivePublishers();
@@ -314,7 +317,7 @@ else {
         publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if (pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
+                if (pubsAdapter.getItem(position).getID() == AppConstants.CREATE_ID) {
                     PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
                     f.setPositiveButton(new PublisherNewDialogFragment.PublisherNewDialogFragmentListener() {
                         @Override
@@ -338,10 +341,14 @@ else {
 
     @Override
     public void onItemClick(View view, int position) {
-        //TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId(), publisherId);
-        TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId());
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.primary_fragment_container, f, "mail");
-        ft.commit();
+        if (true) {
+            Toast.makeText(getActivity().getApplicationContext(), "You clicked " + time_entries_arraylist.get(position).getEntryTypeName() + " on row number " + position, Toast.LENGTH_SHORT).show();
+        } else {
+            //TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId(), publisherId);
+            TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId());
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.primary_fragment_container, f, "mail");
+            ft.commit();
+        }
     }
 }

@@ -26,7 +26,7 @@ import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
 import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;

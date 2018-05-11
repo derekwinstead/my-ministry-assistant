@@ -13,12 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.myMinistry.R;
-import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.utils.AppConstants;
 
 public class EntryTypeDialogFrag extends DialogFragment {
     public static final String ARG_ID = "notes";
-    public static final String ARG_NAME = "name";
-    public static final String ARG_IS_ACTIVE = "is_active";
     private EntryTypeDialogFragListener sListener;
     private View view;
 
@@ -26,8 +24,8 @@ public class EntryTypeDialogFrag extends DialogFragment {
         EntryTypeDialogFrag f = new EntryTypeDialogFrag();
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
-        args.putString(ARG_NAME, name);
-        args.putInt(ARG_IS_ACTIVE, isActive);
+        args.putString(AppConstants.ARG_NAME, name);
+        args.putInt(AppConstants.ARG_IS_ACTIVE, isActive);
         f.setArguments(args);
         return f;
     }
@@ -45,7 +43,7 @@ public class EntryTypeDialogFrag extends DialogFragment {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.d_edit_text_with_cb, null);
         Bundle args = getArguments();
 
-        int id = MinistryDatabase.CREATE_ID;
+        int id = AppConstants.CREATE_ID;
 
         EditText et_text1 = view.findViewById(R.id.text1);
         CheckBox cb_is_active = view.findViewById(R.id.cb_is_active);
@@ -53,13 +51,13 @@ public class EntryTypeDialogFrag extends DialogFragment {
 
         if (args != null) {
             id = args.getInt(ARG_ID);
-            et_text1.setText(args.getString(ARG_NAME));
-            cb_is_active.setChecked(args.getInt(ARG_IS_ACTIVE) != 0 ? true : false);
+            et_text1.setText(args.getString(AppConstants.ARG_NAME));
+            cb_is_active.setChecked(args.getInt(AppConstants.ARG_IS_ACTIVE) != 0 ? true : false);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if (id == MinistryDatabase.ID_ROLLOVER) {
+        if (id == AppConstants.ID_ENTRY_TYPE_ROLLOVER) {
             cb_is_active.setEnabled(false);
             cb_is_active.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.holo_grey_light));
             tv_note.setVisibility(View.VISIBLE);

@@ -7,8 +7,8 @@ import android.text.format.DateUtils;
 import android.util.TypedValue;
 
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.util.FileUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.FileUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -45,10 +45,10 @@ public class Helper {
 
     public static void renameDB(Context context) {
         /* Create the file */
-        File oldDB = context.getDatabasePath(MinistryDatabase.DATABASE_NAME_OLD);
+        File oldDB = context.getDatabasePath(AppConstants.DATABASE_NAME_OLD);
         /* If the file exists we want to rename it to our new DB name :) */
         if (oldDB.exists())
-            oldDB.renameTo(context.getDatabasePath(MinistryDatabase.DATABASE_NAME));
+            oldDB.renameTo(context.getDatabasePath(AppConstants.DATABASE_NAME));
     }
 
     public static void renameAndMoveBackups(Context context) {
@@ -191,17 +191,17 @@ public class Helper {
 
     public static int getIconResIDByLitTypeID(int litTypeID) {
         switch (litTypeID) {
-            case MinistryDatabase.ID_BOOKS:
+            case AppConstants.ID_PUBLICATION_TYPE_BOOKS:
                 return R.drawable.ic_action_book;
-            case MinistryDatabase.ID_MAGAZINES:
+            case AppConstants.ID_PUBLICATION_TYPE_MAGAZINES:
                 return R.drawable.ic_mag;
-            case MinistryDatabase.ID_MEDIA:
+            case AppConstants.ID_PUBLICATION_TYPE_MEDIA:
                 return R.drawable.ic_media;
-            case MinistryDatabase.ID_TRACTS:
+            case AppConstants.ID_PUBLICATION_TYPE_TRACTS:
                 return R.drawable.ic_tracts;
-            case MinistryDatabase.ID_BROCHURES:
+            case AppConstants.ID_PUBLICATION_TYPE_BROCHURES:
                 return R.drawable.ic_booklets;
-            case MinistryDatabase.ID_VIDEOS_TO_SHOW:
+            case AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW:
                 return R.drawable.ic_video;
             default:
                 return R.drawable.ic_action_default;

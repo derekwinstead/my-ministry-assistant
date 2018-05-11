@@ -13,9 +13,8 @@ import android.widget.TextView;
 import com.myMinistry.R;
 import com.myMinistry.model.ItemWithDate;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.TimeUtils;
 import com.squareup.phrase.Phrase;
 
 import java.text.ParseException;
@@ -26,7 +25,7 @@ public class TitleAndDateAdapterUpdated extends ArrayAdapter<ItemWithDate> {
     private static final int LAYOUT_CONTENT_ID = R.layout.li_item_spinner_item_simple;
     private static final int LAYOUT_SEPARATOR_ID = R.layout.li_separator_item_spinner_item;
 
-    private int separatorId = MinistryDatabase.CREATE_ID;
+    private int separatorId = AppConstants.CREATE_ID;
     private int leadingTextResId = 0;
     private Context context;
 
@@ -52,35 +51,35 @@ public class TitleAndDateAdapterUpdated extends ArrayAdapter<ItemWithDate> {
         int firstInActivePosition = -1;
         int activeCount = 0;
         int inactiveCount = 0;
-        if(cursor != null) {
-            for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
-                if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE)
+        if (cursor != null) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                if (cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == AppConstants.ACTIVE)
                     activeCount++;
                 else
                     inactiveCount++;
 
-                if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) != activeId) {
-                    if(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE)
+                if (cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) != activeId) {
+                    if (cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE)) == AppConstants.ACTIVE)
                         firstActivePosition = cursor.getPosition();
                     else
                         firstInActivePosition = cursor.getPosition();
 
                     activeId = cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef.ACTIVE));
-                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.inactive) : context.getResources().getString(R.string.active), cursor.getCount() - cursor.getPosition());
+                    addSeparatorItem(activeId == AppConstants.INACTIVE ? context.getResources().getString(R.string.inactive) : context.getResources().getString(R.string.active), cursor.getCount() - cursor.getPosition());
                 }
 
 
-                addItem( cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef._ID))
-                        ,cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE))
-                        ,cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE))
+                addItem(cursor.getInt(cursor.getColumnIndex(UnionsNameAsRef._ID))
+                        , cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.TITLE))
+                        , cursor.getString(cursor.getColumnIndex(UnionsNameAsRef.DATE))
                 );
             }
 
-            if(firstActivePosition != -1) {
+            if (firstActivePosition != -1) {
                 getItem(firstActivePosition).setCount(activeCount);
             }
 
-            if(firstInActivePosition != -1) {
+            if (firstInActivePosition != -1) {
                 getItem(firstInActivePosition).setCount(inactiveCount);
             }
         }
@@ -96,7 +95,7 @@ public class TitleAndDateAdapterUpdated extends ArrayAdapter<ItemWithDate> {
 
     public void addItem(int id, String title, String date) {
         Calendar convertedDate = Calendar.getInstance(Locale.getDefault());
-        if(!TextUtils.isEmpty(date)) {
+        if (!TextUtils.isEmpty(date)) {
             try {
                 convertedDate.setTime(TimeUtils.dbDateFormat.parse(date));
             } catch (ParseException e) {
@@ -159,14 +158,14 @@ public class TitleAndDateAdapterUpdated extends ArrayAdapter<ItemWithDate> {
             convertView.setTag(new ViewHolder(text1, tvCount, tvActivity));
         }
 
-        if(holder == null && convertView != null) {
+        if (holder == null && convertView != null) {
             Object tag = convertView.getTag();
             if (tag instanceof ViewHolder)
                 holder = (ViewHolder) tag;
         }
 
         holder.menurow_title.setText(getItem(position).toString());
-        if(type == ITEM_VIEW_TYPE_SEPARATOR) {
+        if (type == ITEM_VIEW_TYPE_SEPARATOR) {
             holder.menurow_count.setText(getItem(position).getCount());
         } else {
             holder.menurow_subtitle.setText(getItem(position).getDate());

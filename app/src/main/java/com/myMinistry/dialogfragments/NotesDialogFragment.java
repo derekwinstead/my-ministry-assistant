@@ -11,10 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.myMinistry.R;
+import com.myMinistry.utils.AppConstants;
 
 public class NotesDialogFragment extends DialogFragment {
-	public static final String ARG_NOTES = "notes";
-	
 	private NotesDialogFragmentListener sListener;
 	private View view;
 	
@@ -29,7 +28,7 @@ public class NotesDialogFragment extends DialogFragment {
 	public static NotesDialogFragment newInstance(String notes) {
 		NotesDialogFragment f = new NotesDialogFragment();
 		Bundle args = new Bundle();
-		args.putString(ARG_NOTES, notes);
+		args.putString(AppConstants.ARG_NOTES, notes);
 		f.setArguments(args);
 		return f;
     }
@@ -45,9 +44,9 @@ public class NotesDialogFragment extends DialogFragment {
 		Bundle args = getArguments();
 		
 		if(args != null) {
-			if(args.containsKey(ARG_NOTES)) {
+			if(args.containsKey(AppConstants.ARG_NOTES)) {
 				EditText et_text1 = view.findViewById(R.id.text1);
-				et_text1.setText(args.getString(ARG_NOTES));
+				et_text1.setText(args.getString(AppConstants.ARG_NOTES));
 			}
 		}
 		

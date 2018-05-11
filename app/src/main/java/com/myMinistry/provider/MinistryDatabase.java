@@ -23,8 +23,9 @@ import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Rollover;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
-import com.myMinistry.util.FileUtils;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.FileUtils;
+import com.myMinistry.utils.TimeUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,38 +37,13 @@ public class MinistryDatabase extends SQLiteOpenHelper {
     private static MinistryDatabase mInstance = null;
     private static Context mContext = null;
 
-    public static final String DATABASE_NAME = "myministry.db";
-    public static final String DATABASE_NAME_OLD = "myministry";
-
-    public static final int ID_BOOKS = 1;
-    public static final int ID_BROCHURES = 2;
-    public static final int ID_MAGAZINES = 3;
-    public static final int ID_MEDIA = 4;
-    public static final int ID_TRACTS = 5;
-    public static final int ID_VIDEOS_TO_SHOW = 6;
-
-    public static final int MAX_PUBLICATION_TYPE_ID = ID_VIDEOS_TO_SHOW;
-
-    public static final int ID_ROLLOVER = 1;
-    public static final int ID_BIBLE_STUDY = 2;
-    public static final int ID_RETURN_VISIT = 3;
-    public static final int ID_SERVICE = 4;
-    public static final int ID_RBC = 5;
-
-    public static final int MAX_ENTRY_TYPE_ID = ID_RBC;
-
-    public static final int ID_PIONEERING = 1;
-    public static final int ID_PIONEERING_AUXILIARY = 2;
-    public static final int ID_PIONEERING_AUXILIARY_SPECIAL = 3;
+    public static final int MAX_PUBLICATION_TYPE_ID = AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW;
+    public static final int MAX_ENTRY_TYPE_ID = AppConstants.ID_ENTRY_TYPE_RBC;
 
     public static final int ID_UNION_TYPE_PERSON = 1;
     public static final int ID_UNION_TYPE_PUBLICATION = 2;
 
     public static final int ID_DEFAULT_PUBLISHER = 1;
-
-    public static final int CREATE_ID = -5;
-
-    public static final int NO_HOUSEHOLDER_ID = -1;
 
     public static final int SORT_BY_ASC = 1;
     public static final int SORT_BY_DESC = 2;
@@ -125,71 +101,71 @@ public class MinistryDatabase extends SQLiteOpenHelper {
      * make call to static factory method "getInstance()" instead.
      */
     public MinistryDatabase(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, AppConstants.DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
 
     private void createDefaults(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(EntryType._ID, MinistryDatabase.ID_ROLLOVER);
+        values.put(EntryType._ID, AppConstants.ID_ENTRY_TYPE_ROLLOVER);
         values.put(EntryType.NAME, mContext.getResources().getString(R.string.default_rollover_time));
-        values.put(EntryType.ACTIVE, MinistryService.INACTIVE);
-        values.put(EntryType.RBC, MinistryService.INACTIVE);
-        values.put(EntryType.SORT_ORDER, MinistryService.INACTIVE);
+        values.put(EntryType.ACTIVE, AppConstants.INACTIVE);
+        values.put(EntryType.RBC, AppConstants.INACTIVE);
+        values.put(EntryType.SORT_ORDER, AppConstants.INACTIVE);
 
         db.insert(Tables.ENTRY_TYPES, null, values);
 
-        values.put(EntryType._ID, MinistryDatabase.ID_BIBLE_STUDY);
+        values.put(EntryType._ID, AppConstants.ID_ENTRY_TYPE_BIBLE_STUDY);
         values.put(EntryType.NAME, mContext.getResources().getString(R.string.default_bible_study));
-        values.put(EntryType.ACTIVE, MinistryService.ACTIVE);
+        values.put(EntryType.ACTIVE, AppConstants.ACTIVE);
 
         db.insert(Tables.ENTRY_TYPES, null, values);
 
-        values.put(EntryType._ID, MinistryDatabase.ID_RETURN_VISIT);
+        values.put(EntryType._ID, AppConstants.ID_ENTRY_TYPE_RETURN_VISIT);
         values.put(EntryType.NAME, mContext.getResources().getString(R.string.default_return_visit));
 
         db.insert(Tables.ENTRY_TYPES, null, values);
 
-        values.put(EntryType._ID, MinistryDatabase.ID_SERVICE);
+        values.put(EntryType._ID, AppConstants.ID_ENTRY_TYPE_SERVICE);
         values.put(EntryType.NAME, mContext.getResources().getString(R.string.default_ministry_service));
 
         db.insert(Tables.ENTRY_TYPES, null, values);
 
-        values.put(EntryType._ID, MinistryDatabase.ID_RBC);
+        values.put(EntryType._ID, AppConstants.ID_ENTRY_TYPE_RBC);
         values.put(EntryType.NAME, mContext.getResources().getString(R.string.default_rebuild_committee));
-        values.put(EntryType.RBC, MinistryService.ACTIVE);
+        values.put(EntryType.RBC, AppConstants.ACTIVE);
 
         db.insert(Tables.ENTRY_TYPES, null, values);
 
         values = new ContentValues();
-        values.put(LiteratureType._ID, MinistryDatabase.ID_BOOKS);
+        values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_BOOKS);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_books));
-        values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
-        values.put(LiteratureType.SORT_ORDER, MinistryService.INACTIVE);
+        values.put(LiteratureType.ACTIVE, AppConstants.ACTIVE);
+        values.put(LiteratureType.SORT_ORDER, AppConstants.INACTIVE);
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
-        values.put(LiteratureType._ID, MinistryDatabase.ID_BROCHURES);
+        values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_BROCHURES);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_booklets));
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
-        values.put(LiteratureType._ID, MinistryDatabase.ID_MAGAZINES);
+        values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_MAGAZINES);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_magazines));
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
-        values.put(LiteratureType._ID, MinistryDatabase.ID_MEDIA);
+        values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_MEDIA);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_media));
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
-        values.put(LiteratureType._ID, MinistryDatabase.ID_TRACTS);
+        values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_TRACTS);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_tracts));
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
 
-        values.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
+        values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW);
         values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
 
         db.insert(Tables.TYPES_OF_LIERATURE, null, values);
@@ -199,17 +175,17 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
     private void createPioneeringTypeDefaults(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(PioneeringType._ID, MinistryDatabase.ID_PIONEERING);
+        values.put(PioneeringType._ID, AppConstants.ID_PIONEERING);
         values.put(PioneeringType.NAME, mContext.getResources().getString(R.string.default_pioneering));
 
         db.insert(Tables.TYPES_OF_PIONEERING, null, values);
 
-        values.put(PioneeringType._ID, MinistryDatabase.ID_PIONEERING_AUXILIARY);
+        values.put(PioneeringType._ID, AppConstants.ID_PIONEERING_AUXILIARY);
         values.put(PioneeringType.NAME, mContext.getResources().getString(R.string.default_pioneering_aux));
 
         db.insert(Tables.TYPES_OF_PIONEERING, null, values);
 
-        values.put(PioneeringType._ID, MinistryDatabase.ID_PIONEERING_AUXILIARY_SPECIAL);
+        values.put(PioneeringType._ID, AppConstants.ID_PIONEERING_AUXILIARY_SPECIAL);
         values.put(PioneeringType.NAME, mContext.getResources().getString(R.string.default_pioneering_aux_special));
 
         db.insert(Tables.TYPES_OF_PIONEERING, null, values);
@@ -318,7 +294,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
                 version = VER_REMOVE_PIONEERING_TABLE;
             case VER_REMOVE_PIONEERING_TABLE:
                 versionBackup(version);
-                Cursor cursor = db.rawQuery("SELECT * FROM " + Tables.TYPES_OF_LIERATURE + " WHERE " + LiteratureType._ID + " = " + ID_TRACTS, null);
+                Cursor cursor = db.rawQuery("SELECT * FROM " + Tables.TYPES_OF_LIERATURE + " WHERE " + LiteratureType._ID + " = " + AppConstants.ID_PUBLICATION_TYPE_TRACTS, null);
                 ContentValues values = new ContentValues();
 
                 if (cursor.moveToFirst()) {
@@ -328,18 +304,18 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
                     ContentValues updatevalues = new ContentValues();
                     updatevalues.put(Literature.TYPE_OF_LIERATURE_ID, db.insert(Tables.TYPES_OF_LIERATURE, null, values));
-                    db.update(Tables.LITERATURE, updatevalues, Literature.TYPE_OF_LIERATURE_ID + "=" + ID_TRACTS, null);
+                    db.update(Tables.LITERATURE, updatevalues, Literature.TYPE_OF_LIERATURE_ID + "=" + AppConstants.ID_PUBLICATION_TYPE_TRACTS, null);
 
                     values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_tracts));
-                    values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
-                    values.put(LiteratureType.SORT_ORDER, ID_TRACTS);
+                    values.put(LiteratureType.ACTIVE, AppConstants.ACTIVE);
+                    values.put(LiteratureType.SORT_ORDER, AppConstants.ID_PUBLICATION_TYPE_TRACTS);
 
-                    db.update(Tables.TYPES_OF_LIERATURE, values, BaseColumns._ID + "=" + ID_TRACTS, null);
+                    db.update(Tables.TYPES_OF_LIERATURE, values, BaseColumns._ID + "=" + AppConstants.ID_PUBLICATION_TYPE_TRACTS, null);
                 } else {
-                    values.put(LiteratureType._ID, MinistryDatabase.ID_TRACTS);
+                    values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_TRACTS);
                     values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_tracts));
-                    values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
-                    values.put(LiteratureType.SORT_ORDER, ID_TRACTS);
+                    values.put(LiteratureType.ACTIVE, AppConstants.ACTIVE);
+                    values.put(LiteratureType.SORT_ORDER, AppConstants.ID_PUBLICATION_TYPE_TRACTS);
 
                     db.insert(Tables.TYPES_OF_LIERATURE, null, values);
                 }
@@ -592,12 +568,12 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             do {
                 entryType = times.getInt(times.getColumnIndex(Time.ENTRY_TYPE_ID));
-                if (entryType == ID_BIBLE_STUDY) {
+                if (entryType == AppConstants.ID_ENTRY_TYPE_BIBLE_STUDY) {
                     values.put(TimeHouseholder.TIME_ID, times.getInt(times.getColumnIndex(Time._ID)));
                     values.put(TimeHouseholder.HOUSEHOLDER_ID, times.getInt(times.getColumnIndex("householderID")));
                     values.put(TimeHouseholder.STUDY, 1);
                     db.insert(Tables.TIME_HOUSEHOLDERS, null, values);
-                } else if (entryType == ID_RETURN_VISIT) {
+                } else if (entryType == AppConstants.ID_ENTRY_TYPE_RETURN_VISIT) {
                     values.put(TimeHouseholder.TIME_ID, times.getInt(times.getColumnIndex(Time._ID)));
                     values.put(TimeHouseholder.HOUSEHOLDER_ID, times.getInt(times.getColumnIndex("householderID")));
                     values.put(TimeHouseholder.STUDY, 0);
@@ -700,7 +676,7 @@ public class MinistryDatabase extends SQLiteOpenHelper {
 
     public void convertUsedLiteratureUsingVideoId(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        Cursor cursor = db.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE}, LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW, null, null, null, null);
+        Cursor cursor = db.query(Tables.TYPES_OF_LIERATURE, new String[]{LiteratureType._ID, LiteratureType.NAME, LiteratureType.ACTIVE}, LiteratureType._ID + " = " + AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW, null, null, null, null);
         if (cursor.moveToFirst()) {
             // Create new record
             values.put(LiteratureType.NAME, cursor.getString(1));
@@ -710,27 +686,27 @@ public class MinistryDatabase extends SQLiteOpenHelper {
             // Update all publications to use the new ID
             db.execSQL("UPDATE " + Tables.LITERATURE
                     + " SET " + Literature.TYPE_OF_LIERATURE_ID + " = " + newID
-                    + " WHERE " + Literature._ID + " IN (SELECT " + Literature._ID + " FROM " + Tables.LITERATURE + " WHERE " + Literature.TYPE_OF_LIERATURE_ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW + ")");
+                    + " WHERE " + Literature._ID + " IN (SELECT " + Literature._ID + " FROM " + Tables.LITERATURE + " WHERE " + Literature.TYPE_OF_LIERATURE_ID + " = " + AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW + ")");
 
             // Update the old record to use the VIDEO information
             values = new ContentValues();
             values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
-            values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
-            values.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
-            db.update(Tables.TYPES_OF_LIERATURE, values, LiteratureType._ID + " = " + MinistryDatabase.ID_VIDEOS_TO_SHOW, null);
+            values.put(LiteratureType.ACTIVE, AppConstants.ACTIVE);
+            values.put(LiteratureType.SORT_ORDER, AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW);
+            db.update(Tables.TYPES_OF_LIERATURE, values, LiteratureType._ID + " = " + AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW, null);
         } else {
             // Create the new record
-            values.put(LiteratureType._ID, MinistryDatabase.ID_VIDEOS_TO_SHOW);
+            values.put(LiteratureType._ID, AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW);
             values.put(LiteratureType.NAME, mContext.getResources().getString(R.string.default_videos));
-            values.put(LiteratureType.ACTIVE, MinistryService.ACTIVE);
-            values.put(LiteratureType.SORT_ORDER, ID_VIDEOS_TO_SHOW);
+            values.put(LiteratureType.ACTIVE, AppConstants.ACTIVE);
+            values.put(LiteratureType.SORT_ORDER, AppConstants.ID_PUBLICATION_TYPE_VIDEOS_TO_SHOW);
 
             db.insert(Tables.TYPES_OF_LIERATURE, null, values);
         }
     }
 
     public static void versionBackup(int version) {
-        File intDB = mContext.getDatabasePath(MinistryDatabase.DATABASE_NAME);
+        File intDB = mContext.getDatabasePath(AppConstants.DATABASE_NAME);
         File extDB = FileUtils.getExternalDBFile(mContext, "auto-db-v" + version + ".db");
 
         try {

@@ -13,17 +13,13 @@ import android.widget.ListView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.TimeEntryAdapter;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class PublicationActivityFragment extends ListFragment {
-	public static String ARG_PUBLICATION_ID = "publication_id";
-
-	private boolean is_dual_pane = false;
-
 	private FragmentManager fm;
 
-	static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+	static final long CREATE_ID = (long) AppConstants.CREATE_ID;
 	private long publicationId = CREATE_ID;
 
 	private MinistryService database;
@@ -37,7 +33,7 @@ public class PublicationActivityFragment extends ListFragment {
 	public PublicationActivityFragment newInstance(long _literatureID) {
 		PublicationActivityFragment f = new PublicationActivityFragment();
 		Bundle args = new Bundle();
-		args.putLong(ARG_PUBLICATION_ID, _literatureID);
+		args.putLong(AppConstants.ARG_PUBLICATION_ID, _literatureID);
 		f.setArguments(args);
 		return f;
 	}
@@ -46,8 +42,8 @@ public class PublicationActivityFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.publication_activity, container, false);
 		Bundle args = getArguments();
-		if (args != null && args.containsKey(ARG_PUBLICATION_ID))
-			setLiterature(args.getLong(ARG_PUBLICATION_ID));
+		if (args != null && args.containsKey(AppConstants.ARG_PUBLICATION_ID))
+			setLiterature(args.getLong(AppConstants.ARG_PUBLICATION_ID));
 
 		fm = getActivity().getSupportFragmentManager();
 
@@ -63,10 +59,7 @@ public class PublicationActivityFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		//is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-		if (!is_dual_pane)
-			getActivity().setTitle(R.string.publication_activity);
+		getActivity().setTitle(R.string.publication_activity);
 
 		if (!database.isOpen())
 			database.openWritable();

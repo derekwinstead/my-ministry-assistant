@@ -4,12 +4,12 @@ import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.utils.AppConstants;
 
 import java.util.ArrayList;
 
 public class TimeEntryHouseholderItem {
-    private long id = MinistryDatabase.CREATE_ID;
+    private long id = AppConstants.CREATE_ID;
     private String name;
     private String notes;
     private int notesID;
@@ -55,7 +55,7 @@ public class TimeEntryHouseholderItem {
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
-    public boolean isNew() { return id == MinistryDatabase.CREATE_ID; }
+    public boolean isNew() { return id == AppConstants.CREATE_ID; }
 
     public String getName() { return (!TextUtils.isEmpty(name)) ? name : ""; }
 

@@ -1,9 +1,9 @@
 package com.myMinistry.bean;
 
-import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.utils.AppConstants;
 
 public class ReportPublication {
-    private long id = MinistryDatabase.CREATE_ID;
+    private long id = AppConstants.CREATE_ID;
     private String name;
     private int count;
 
@@ -21,7 +21,7 @@ public class ReportPublication {
     }
 
     public boolean isNew() {
-        return id == MinistryDatabase.CREATE_ID;
+        return id == AppConstants.CREATE_ID;
     }
 
     public String getName() {

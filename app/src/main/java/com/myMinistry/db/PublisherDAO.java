@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.Publisher;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,9 @@ public class PublisherDAO {
 
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Publisher.NAME, bean.getName());
-        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
         values.put(MinistryContract.Publisher.GENDER, bean.getGender());
-        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -88,9 +88,9 @@ public class PublisherDAO {
         open();
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Publisher.NAME, bean.getName());
-        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
         values.put(MinistryContract.Publisher.GENDER, bean.getGender());
-        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
         database.update(TABLE_NAME, values, MinistryContract.Publisher._ID + " = ?", new String[]{bean.getId() + ""});
         close();

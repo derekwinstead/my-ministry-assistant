@@ -13,15 +13,11 @@ import android.widget.ListView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.TimeEntryAdapter;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class PublisherActivityFragment extends ListFragment {
-    public static final String ARG_PUBLISHER_ID = "publisher_id";
-
-    private boolean is_dual_pane = false;
-
-    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
     private long publisherId = CREATE_ID;
 
     private MinistryService database;
@@ -38,7 +34,7 @@ public class PublisherActivityFragment extends ListFragment {
     public PublisherActivityFragment newInstance(long publisherId) {
         PublisherActivityFragment f = new PublisherActivityFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_PUBLISHER_ID, publisherId);
+        args.putLong(AppConstants.ARG_PUBLISHER_ID, publisherId);
         f.setArguments(args);
         return f;
     }
@@ -49,7 +45,7 @@ public class PublisherActivityFragment extends ListFragment {
         Bundle args = getArguments();
 
         if (args != null)
-            setPublisher(args.getLong(ARG_PUBLISHER_ID));
+            setPublisher(args.getLong(AppConstants.ARG_PUBLISHER_ID));
 
         fm = getActivity().getSupportFragmentManager();
 
@@ -67,8 +63,7 @@ public class PublisherActivityFragment extends ListFragment {
 
         //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.householder_activity);
+        getActivity().setTitle(R.string.householder_activity);
 
         if (!database.isOpen())
             database.openWritable();

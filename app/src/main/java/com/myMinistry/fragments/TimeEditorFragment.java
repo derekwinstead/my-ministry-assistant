@@ -59,11 +59,11 @@ import com.myMinistry.provider.MinistryContract.Publisher;
 import com.myMinistry.provider.MinistryContract.Time;
 import com.myMinistry.provider.MinistryContract.TimeHouseholder;
 import com.myMinistry.provider.MinistryContract.UnionsNameAsRef;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
-import com.myMinistry.util.PrefUtils;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.PrefUtils;
+import com.myMinistry.utils.TimeUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -73,11 +73,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class TimeEditorFragment extends ListFragment implements NumberPickerDialogFragment.NumberPickerDialogHandlerV2 {
-    public static final String ARG_TIME_ID = "time_id";
-    public static final String ARG_PUBLISHER_ID = "publisher_id";
-
-    private boolean is_dual_pane = false;
-
     private MinistryService database = null;
     private int publisherId, originalPublisherId, entryTypeId, timeId = 0;
     private Spinner publishers, entryTypes = null;
@@ -120,7 +115,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     public TimeEditorFragment newInstance(int _timeID) {
         TimeEditorFragment f = new TimeEditorFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_TIME_ID, _timeID);
+        args.putInt(AppConstants.ARG_TIME_ID, _timeID);
         f.setArguments(args);
         return f;
     }
@@ -128,8 +123,8 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     public TimeEditorFragment newInstance(int timeId, int publisherId) {
         TimeEditorFragment f = new TimeEditorFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_TIME_ID, timeId);
-        args.putInt(ARG_PUBLISHER_ID, publisherId);
+        args.putInt(AppConstants.ARG_TIME_ID, timeId);
+        args.putInt(AppConstants.ARG_PUBLISHER_ID, publisherId);
         f.setArguments(args);
         return f;
     }
@@ -137,7 +132,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     public TimeEditorFragment newInstanceForPublisher(int publisherId) {
         TimeEditorFragment f = new TimeEditorFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PUBLISHER_ID, publisherId);
+        args.putInt(AppConstants.ARG_PUBLISHER_ID, publisherId);
         f.setArguments(args);
         return f;
     }
@@ -160,10 +155,10 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         Bundle args = getArguments();
 
         if (args != null) {
-            if (args.containsKey(ARG_TIME_ID))
-                _timeID = args.getInt(ARG_TIME_ID);
-            if (args.containsKey(ARG_PUBLISHER_ID))
-                publisherId = args.getInt(ARG_PUBLISHER_ID);
+            if (args.containsKey(AppConstants.ARG_TIME_ID))
+                _timeID = args.getInt(AppConstants.ARG_TIME_ID);
+            if (args.containsKey(AppConstants.ARG_PUBLISHER_ID))
+                publisherId = args.getInt(AppConstants.ARG_PUBLISHER_ID);
         }
 
         setHasOptionsMenu(true);
@@ -200,7 +195,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         while (qEntryTypes.moveToNext()) {
             typesAdapter.addItem(new NavDrawerMenuItem(qEntryTypes.getString(qEntryTypes.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types_new, qEntryTypes.getInt(qEntryTypes.getColumnIndex(EntryType._ID))));
 
-            if (qEntryTypes.getInt(qEntryTypes.getColumnIndex(MinistryContract.EntryType.DEFAULT)) == MinistryService.ACTIVE)
+            if (qEntryTypes.getInt(qEntryTypes.getColumnIndex(MinistryContract.EntryType.DEFAULT)) == AppConstants.ACTIVE)
                 default_entry_type_position = qEntryTypes.getPosition();
         }
 
@@ -382,7 +377,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
                     pubsAdapter.clear();
                     while (qPublishers.moveToNext()) {
-                        if (qPublishers.getInt(qPublishers.getColumnIndex(UnionsNameAsRef.ACTIVE)) == MinistryService.ACTIVE || qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
+                        if (qPublishers.getInt(qPublishers.getColumnIndex(UnionsNameAsRef.ACTIVE)) == AppConstants.ACTIVE || qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID)) == record.getInt(record.getColumnIndex(Time.PUBLISHER_ID))) {
                             pubsAdapter.addItem(new NavDrawerMenuItem(qPublishers.getString(qPublishers.getColumnIndex(Publisher.NAME)), R.drawable.ic_drawer_publisher_female, qPublishers.getInt(qPublishers.getColumnIndex(Publisher._ID))));
                         }
                     }
@@ -401,7 +396,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                     }
                 }
 
-                if (record.getInt(record.getColumnIndex(Time.ENTRY_TYPE_ID)) == MinistryDatabase.ID_ROLLOVER) {
+                if (record.getInt(record.getColumnIndex(Time.ENTRY_TYPE_ID)) == AppConstants.ID_ENTRY_TYPE_ROLLOVER) {
                     allowedToEdit = false;
                     ActivityCompat.invalidateOptionsMenu(getActivity());
 
@@ -690,13 +685,13 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 values.put(TimeHouseholder.RETURN_VISIT, householderForTime.isCountedForReturnVisit());
 
                 /* Bible Study */
-                if (entryTypeId == MinistryDatabase.ID_BIBLE_STUDY)
+                if (entryTypeId == AppConstants.ID_ENTRY_TYPE_BIBLE_STUDY)
                     values.put(TimeHouseholder.STUDY, 1);
                 else
                     values.put(TimeHouseholder.STUDY, 0);
 
                 /* Check to see if the record exists */
-                if (householderForTime.getTimeHouseholderPK() == MinistryDatabase.CREATE_ID) {
+                if (householderForTime.getTimeHouseholderPK() == AppConstants.CREATE_ID) {
                     householderForTime.setTimeHouseholderPK(database.createTimeHouseholder(values));
                 } else {
                     database.saveTimeHouseholder(householderForTime.getTimeHouseholderPK(), values);
@@ -790,7 +785,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         }
 
         if (addHH) {
-            HouseholderForTime entry = new HouseholderForTime(_ID, _name, MinistryDatabase.CREATE_ID);
+            HouseholderForTime entry = new HouseholderForTime(_ID, _name, AppConstants.CREATE_ID);
             entry.setCountedForReturnVisit(_isReturnVisit);
             selectedHHLoc = householderList.size(); /* Since this is a zero based list, the size will be the new location of the added entry. */
             householderList.add(entry);
@@ -831,7 +826,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
         frag.setLiteratureTypeDialogFragmentListener(new LiteratureTypeDialogFragmentListener() {
             @Override
             public void LiteratureTypeDialogFragmentListenerSet(int _ID, String _name) {
-                if (_ID == MinistryDatabase.CREATE_ID)
+                if (_ID == AppConstants.CREATE_ID)
                     showNotesDialog(householderList.get(selectedHHLoc).getNotes());
                 else
                     showLiteratureDialog(_ID, _name);

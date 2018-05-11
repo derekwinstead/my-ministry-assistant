@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class EntryTypeNewDialogFrag extends DialogFragment {
     private EntryTypeNewDialogFragListener sListener;
@@ -50,12 +51,12 @@ public class EntryTypeNewDialogFrag extends DialogFragment {
             /* Get the input value */
             EditText editText = view.findViewById(R.id.text1);
             String _name = editText.getText().toString();
-            if(!TextUtils.isEmpty(_name)) {
+            if (!TextUtils.isEmpty(_name)) {
                 /* Create a new householder */
                 ContentValues values = new ContentValues();
                 values.put(EntryType.NAME, _name.trim());
-                values.put(EntryType.ACTIVE, MinistryService.ACTIVE);
-                values.put(EntryType.RBC, MinistryService.INACTIVE);
+                values.put(EntryType.ACTIVE, AppConstants.ACTIVE);
+                values.put(EntryType.RBC, AppConstants.INACTIVE);
 
                 MinistryService database = new MinistryService(getActivity());
                 database.openWritable();

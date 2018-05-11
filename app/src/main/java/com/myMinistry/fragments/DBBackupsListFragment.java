@@ -31,12 +31,12 @@ import com.myMinistry.R;
 import com.myMinistry.adapters.ListItemAdapter;
 import com.myMinistry.dialogfragments.TimePickerDialogFragment;
 import com.myMinistry.model.ListItem;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.receivers.BootReceiver;
-import com.myMinistry.util.FileUtils;
-import com.myMinistry.util.HelpUtils;
-import com.myMinistry.util.PrefUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.FileUtils;
+import com.myMinistry.utils.HelpUtils;
+import com.myMinistry.utils.PrefUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,7 +113,7 @@ public class DBBackupsListFragment extends ListFragment {
                     database.openWritable();
 
                     try {
-                        if (database.importDatabase(file, getActivity().getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME))) {
+                        if (database.importDatabase(file, getActivity().getApplicationContext().getDatabasePath(AppConstants.DATABASE_NAME))) {
                             Snackbar.make(coordinatorLayout, R.string.snackbar_import_text, Snackbar.LENGTH_SHORT).show();
                         } else {
                             Snackbar.make(coordinatorLayout, R.string.snackbar_import_text_error, Snackbar.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class DBBackupsListFragment extends ListFragment {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-aaa", Locale.getDefault());
         Calendar now = Calendar.getInstance();
         String date = dateFormatter.format(now.getTime());
-        File intDB = getActivity().getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME);
+        File intDB = getActivity().getApplicationContext().getDatabasePath(AppConstants.DATABASE_NAME);
         File extDB = FileUtils.getExternalDBFile(getActivity().getApplicationContext(), date + ".db");
 
         try {

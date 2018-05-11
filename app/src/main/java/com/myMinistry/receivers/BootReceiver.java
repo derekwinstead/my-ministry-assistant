@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.myMinistry.util.HelpUtils;
-import com.myMinistry.util.PrefUtils;
+import com.myMinistry.utils.HelpUtils;
+import com.myMinistry.utils.PrefUtils;
 
 public class BootReceiver extends BroadcastReceiver {
 	@Override

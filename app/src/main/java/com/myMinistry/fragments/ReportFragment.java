@@ -30,11 +30,11 @@ import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
-import com.myMinistry.util.PrefUtils;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.PrefUtils;
+import com.myMinistry.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -139,7 +139,7 @@ public class ReportFragment extends Fragment {
         placement_list = root.findViewById(R.id.user_placements);
         placement_list.setHasFixedSize(true);
         placement_list.setLayoutManager(new LinearLayoutManager(getContext()));
-        placement_list_adapter= new ReportPublicationSummaryAdapter(getContext(), user_placements);
+        placement_list_adapter = new ReportPublicationSummaryAdapter(getContext(), user_placements);
         placement_list.setAdapter(placement_list_adapter);
 
         root.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
@@ -235,10 +235,10 @@ public class ReportFragment extends Fragment {
         // All user placements
         Cursor literatureTypes = database.fetchTypesOfLiteratureCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (literatureTypes.moveToFirst(); !literatureTypes.isAfterLast(); literatureTypes.moveToNext()) {
-            if(user_placements.size() <= literatureTypes.getPosition()) {
-                user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)),literatureTypes.getInt(2)));
+            if (user_placements.size() <= literatureTypes.getPosition()) {
+                user_placements.add(new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
             } else {
-                user_placements.set(literatureTypes.getPosition(),new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
+                user_placements.set(literatureTypes.getPosition(), new ReportPublication(literatureTypes.getString(literatureTypes.getColumnIndex(LiteratureType.NAME)), literatureTypes.getInt(2)));
             }
         }
         literatureTypes.close();
@@ -248,11 +248,11 @@ public class ReportFragment extends Fragment {
         Cursor entryTypes = database.fetchEntryTypeCountsForPublisher(publisherId, dbDateFormatted, dbTimeFrame);
         for (entryTypes.moveToFirst(); !entryTypes.isAfterLast(); entryTypes.moveToNext()) {
             switch (entryTypes.getInt(entryTypes.getColumnIndex(MinistryContract.EntryType._ID))) {
-                case MinistryDatabase.ID_BIBLE_STUDY:
+                case AppConstants.ID_ENTRY_TYPE_BIBLE_STUDY:
                     mBSText = entryTypes.getString(entryTypes.getColumnIndex(MinistryContract.EntryType.NAME));
                     mBSCount = String.valueOf(entryTypes.getInt(2));
                     break;
-                case MinistryDatabase.ID_RETURN_VISIT:
+                case AppConstants.ID_ENTRY_TYPE_RETURN_VISIT:
                     mRVText = entryTypes.getString(entryTypes.getColumnIndex(MinistryContract.EntryType.NAME));
                     mRVCount = String.valueOf(entryTypes.getInt(2));
                     break;
@@ -311,7 +311,7 @@ public class ReportFragment extends Fragment {
             for (entryTypes.moveToFirst(); !entryTypes.isAfterLast(); entryTypes.moveToNext()) {
                 if (entryTypes.getInt(2) > 0) {
                     retVal.append("\n").append(entryTypes.getString(entryTypes.getColumnIndex(MinistryContract.EntryType.NAME))).append(": ");
-                    if (entryTypes.getInt(entryTypes.getColumnIndex(MinistryContract.EntryType._ID)) == MinistryDatabase.ID_RBC)
+                    if (entryTypes.getInt(entryTypes.getColumnIndex(MinistryContract.EntryType._ID)) == AppConstants.ID_ENTRY_TYPE_RBC)
                         retVal.append(TimeUtils.getTimeLength(database.fetchListOfRBCHoursForPublisher(formattedDate, currentPublisherId, "month"), getActivity().getApplicationContext().getString(R.string.hours_label), getActivity().getApplicationContext().getString(R.string.minutes_label), PrefUtils.shouldShowMinutesInTotals(getActivity())));
                     else
                         retVal.append(String.valueOf(entryTypes.getInt(2)));
@@ -360,7 +360,7 @@ public class ReportFragment extends Fragment {
     private void loadPublisherAdapter() {
         int initialSelection = 0;
         // Add new publisher item
-        pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, MinistryDatabase.CREATE_ID));
+        pubsAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.menu_add_new_publisher), R.drawable.ic_drawer_publisher_male, AppConstants.CREATE_ID));
 
         database.openWritable();
         final Cursor cursor = database.fetchActivePublishers();
@@ -384,7 +384,7 @@ public class ReportFragment extends Fragment {
         publishers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if (pubsAdapter.getItem(position).getID() == MinistryDatabase.CREATE_ID) {
+                if (pubsAdapter.getItem(position).getID() == AppConstants.CREATE_ID) {
                     PublisherNewDialogFragment f = PublisherNewDialogFragment.newInstance();
                     f.setPositiveButton(new PublisherNewDialogFragment.PublisherNewDialogFragmentListener() {
                         @Override

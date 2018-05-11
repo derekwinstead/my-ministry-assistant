@@ -15,10 +15,9 @@ import android.widget.EditText;
 import com.myMinistry.R;
 import com.myMinistry.bean.Publication;
 import com.myMinistry.db.PublicationDAO;
+import com.myMinistry.utils.AppConstants;
 
 public class PublicationNewDialogFragment extends DialogFragment {
-    public static final String ARG_PUBLICATION_TYPE_ID = "publication_type_id";
-
     private LiteratureNewDialogFragmentListener sListener;
     private View view;
     private int litTypeID = 0;
@@ -30,7 +29,7 @@ public class PublicationNewDialogFragment extends DialogFragment {
     public static PublicationNewDialogFragment newInstance(int _litTypeID) {
         PublicationNewDialogFragment f = new PublicationNewDialogFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PUBLICATION_TYPE_ID, _litTypeID);
+        args.putInt(AppConstants.ARG_PUBLICATION_TYPE_ID, _litTypeID);
         f.setArguments(args);
         return f;
     }
@@ -46,8 +45,8 @@ public class PublicationNewDialogFragment extends DialogFragment {
         Bundle args = getArguments();
 
         if (args != null) {
-            if (args.containsKey(ARG_PUBLICATION_TYPE_ID)) {
-                litTypeID = getArguments().getInt(ARG_PUBLICATION_TYPE_ID);
+            if (args.containsKey(AppConstants.ARG_PUBLICATION_TYPE_ID)) {
+                litTypeID = getArguments().getInt(AppConstants.ARG_PUBLICATION_TYPE_ID);
             }
         }
 

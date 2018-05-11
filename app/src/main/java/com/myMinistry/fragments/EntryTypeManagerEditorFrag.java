@@ -20,13 +20,11 @@ import android.widget.Toast;
 
 import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 import com.squareup.phrase.Phrase;
 
 public class EntryTypeManagerEditorFrag extends Fragment {
-	public static final String ARG_ENTRY_TYPE_ID = "entry_type_id";
-
 	private EditText et_name;
 	private CheckBox cb_is_active;
 	private TextView tv_note;
@@ -43,7 +41,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	public EntryTypeManagerEditorFrag newInstance(long id) {
 		EntryTypeManagerEditorFrag f = new EntryTypeManagerEditorFrag();
 		Bundle args = new Bundle();
-		args.putLong(ARG_ENTRY_TYPE_ID, id);
+		args.putLong(AppConstants.ARG_ENTRY_TYPE_ID, id);
 		f.setArguments(args);
 		return f;
 	}
@@ -57,8 +55,8 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.entry_type_manager_editor, container, false);
 		Bundle args = getArguments();
-		if (args != null && args.containsKey(ARG_ENTRY_TYPE_ID))
-			setPublication(args.getLong(ARG_ENTRY_TYPE_ID));
+		if (args != null && args.containsKey(AppConstants.ARG_ENTRY_TYPE_ID))
+			setPublication(args.getLong(AppConstants.ARG_ENTRY_TYPE_ID));
 
 		setHasOptionsMenu(true);
 
@@ -162,7 +160,7 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 		if (cursor.moveToFirst()) {
 			et_name.setText(cursor.getString(cursor.getColumnIndex(EntryType.NAME)));
 			cb_is_active.setChecked(cursor.getInt(cursor.getColumnIndex(EntryType.ACTIVE)) == 1);
-			if ((int) resID == MinistryDatabase.ID_ROLLOVER) {
+			if ((int) resID == AppConstants.ID_ENTRY_TYPE_ROLLOVER) {
 				tv_note.setVisibility(View.VISIBLE);
 				cb_is_active.setEnabled(false);
 			} else {

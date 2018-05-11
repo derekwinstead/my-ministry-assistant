@@ -1,4 +1,4 @@
-package com.myMinistry.util;
+package com.myMinistry.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -97,7 +97,7 @@ public class HelpUtils {
             Helper.renameDB(mContext);
             Helper.renameAndMoveBackups(mContext);
 
-            File intDB = mContext.getDatabasePath(MinistryDatabase.DATABASE_NAME);
+            File intDB = mContext.getDatabasePath(AppConstants.DATABASE_NAME);
             File extDB = FileUtils.getExternalDBFile(mContext, "auto-db-v" + MinistryDatabase.DATABASE_VERSION + "-1.db");
 
             // Create a backup just in case

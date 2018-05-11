@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.Publication;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class PublicationDAO {
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, bean.getTypeId());
         values.put(MinistryContract.Literature.NAME, bean.getName());
-        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
         values.put(MinistryContract.Literature.WEIGHT, bean.getWeight());
 
         long id = database.insert(TABLE_NAME, null, values);
@@ -89,7 +89,7 @@ public class PublicationDAO {
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, bean.getTypeId());
         values.put(MinistryContract.Literature.NAME, bean.getName());
-        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
         values.put(MinistryContract.Literature.WEIGHT, bean.getWeight());
 
         database.update(TABLE_NAME, values, MinistryContract.Literature._ID + " = ?", new String[]{bean.getId() + ""});

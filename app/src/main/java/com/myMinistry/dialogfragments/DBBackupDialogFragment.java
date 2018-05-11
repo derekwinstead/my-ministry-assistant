@@ -7,7 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import com.myMinistry.R;
-import com.myMinistry.util.FileUtils;
+import com.myMinistry.utils.FileUtils;
 
 import java.io.File;
 

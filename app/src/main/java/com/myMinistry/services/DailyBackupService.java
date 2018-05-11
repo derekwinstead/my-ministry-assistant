@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.widget.Toast;
 
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.util.FileUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class DailyBackupService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        File intDB = getApplicationContext().getDatabasePath(MinistryDatabase.DATABASE_NAME);
+        File intDB = getApplicationContext().getDatabasePath(AppConstants.DATABASE_NAME);
         File extDB = FileUtils.getExternalDBFile(getApplicationContext(), "auto-backup-daily.db");
 
         try {

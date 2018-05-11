@@ -19,8 +19,8 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.myMinistry.R;
-import com.myMinistry.util.HelpUtils;
-import com.myMinistry.util.PrefUtils;
+import com.myMinistry.utils.HelpUtils;
+import com.myMinistry.utils.PrefUtils;
 import com.squareup.phrase.Phrase;
 
 import java.util.ArrayList;

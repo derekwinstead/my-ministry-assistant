@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.EntryType;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,8 @@ public class EntryTypeDAO {
 
         ContentValues values = new ContentValues();
         values.put(MinistryContract.EntryType.NAME, bean.getName());
-        values.put(MinistryContract.EntryType.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.EntryType.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.EntryType.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.EntryType.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -87,8 +87,8 @@ public class EntryTypeDAO {
         open();
         ContentValues values = new ContentValues();
         values.put(MinistryContract.LiteratureType.NAME, bean.getName());
-        values.put(MinistryContract.LiteratureType.ACTIVE, bean.isActive() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-        values.put(MinistryContract.LiteratureType.DEFAULT, bean.isDefault() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+        values.put(MinistryContract.LiteratureType.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.LiteratureType.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
         database.update(TABLE_NAME, values, MinistryContract.EntryType._ID + " = ?", new String[]{bean.getId() + ""});
         close();

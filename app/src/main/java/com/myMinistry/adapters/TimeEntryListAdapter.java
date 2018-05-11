@@ -13,7 +13,8 @@ import com.myMinistry.R;
 import com.myMinistry.bean.PlacedPublication;
 import com.myMinistry.bean.TimeEntryHouseholderItem;
 import com.myMinistry.bean.TimeEntryItem;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.TimeUtils;
+import com.myMinistry.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
+
     private final int topPaddingDP = 15;
     private final int leftRightPaddingDP = 10;
     private final int leftRightPaddingDPExtra = leftRightPaddingDP + 5;
@@ -40,11 +42,6 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
         return new ViewHolder(view);
     }
 
-    public int dpToPx(int dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
-    }
-
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -58,8 +55,8 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
             boolean shouldAddTopPadding = false;
             // Create a divider for each householder entry (even empty householder)
             View v = new View(this.context);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(1));
-            params.setMargins(0, dpToPx(5), 0, dpToPx(5));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.dpToPx(1));
+            params.setMargins(0, ViewUtils.dpToPx(5), 0, ViewUtils.dpToPx(5));
             v.setLayoutParams(params);
             v.setBackgroundColor(context.getResources().getColor(R.color.holo_grey));
             holder.ll_entry_info.addView(v);
@@ -70,7 +67,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
                 tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 tv.setText(householderItem.getName());
                 tv.setTextAppearance(context, android.R.style.TextAppearance_Medium);
-                tv.setPadding(dpToPx(leftRightPaddingDP), 0, dpToPx(leftRightPaddingDP), 0);
+                tv.setPadding(ViewUtils.dpToPx(leftRightPaddingDP), 0, ViewUtils.dpToPx(leftRightPaddingDP), 0);
                 holder.ll_entry_info.addView(tv);
 
                 shouldAddTopPadding = true;
@@ -82,7 +79,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
                 tv1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 tv1.setText(context.getString(R.string.form_notes));
                 tv1.setTextAppearance(context, android.R.style.TextAppearance_Small);
-                tv1.setPadding(dpToPx(leftRightPaddingDP), (shouldAddTopPadding) ? dpToPx(topPaddingDP) : 0, dpToPx(leftRightPaddingDP), 0);
+                tv1.setPadding(ViewUtils.dpToPx(leftRightPaddingDP), (shouldAddTopPadding) ? ViewUtils.dpToPx(topPaddingDP) : 0, ViewUtils.dpToPx(leftRightPaddingDP), 0);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     tv1.setTextColor(context.getColor(R.color.primary));
                 } else {
@@ -94,7 +91,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
                 tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 tv.setText(householderItem.getNotes());
                 tv.setTextAppearance(context, android.R.style.TextAppearance_Medium);
-                tv.setPadding(dpToPx(leftRightPaddingDPExtra), 0, dpToPx(leftRightPaddingDPExtra), 0);
+                tv.setPadding(ViewUtils.dpToPx(leftRightPaddingDPExtra), 0, ViewUtils.dpToPx(leftRightPaddingDPExtra), 0);
                 holder.ll_entry_info.addView(tv);
 
                 shouldAddTopPadding = true;
@@ -108,7 +105,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
                     tv1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     tv1.setText(context.getString(R.string.placements));
                     tv1.setTextAppearance(context, android.R.style.TextAppearance_Small);
-                    tv1.setPadding(dpToPx(leftRightPaddingDP), (shouldAddTopPadding) ? dpToPx(topPaddingDP) : 0, dpToPx(leftRightPaddingDP), 0);
+                    tv1.setPadding(ViewUtils.dpToPx(leftRightPaddingDP), (shouldAddTopPadding) ? ViewUtils.dpToPx(topPaddingDP) : 0, ViewUtils.dpToPx(leftRightPaddingDP), 0);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         tv1.setTextColor(context.getColor(R.color.primary));
                     } else {
@@ -121,7 +118,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
                 tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 tv.setText(publication.getPublicationName());
                 tv.setTextAppearance(context, android.R.style.TextAppearance_Medium);
-                tv.setPadding(dpToPx(leftRightPaddingDPExtra), 0, dpToPx(leftRightPaddingDPExtra), 0);
+                tv.setPadding(ViewUtils.dpToPx(leftRightPaddingDPExtra), 0, ViewUtils.dpToPx(leftRightPaddingDPExtra), 0);
                 holder.ll_entry_info.addView(tv);
 
                 isFirst = false;
@@ -150,11 +147,14 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
             entry_hours = itemView.findViewById(R.id.entry_hours);
             entry_type = itemView.findViewById(R.id.entry_type);
             ll_entry_info = itemView.findViewById(R.id.ll_entry_info);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) {
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
         }
     }
 
@@ -164,7 +164,7 @@ public class TimeEntryListAdapter extends RecyclerView.Adapter<TimeEntryListAdap
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

@@ -1,4 +1,4 @@
-package com.myMinistry.util;
+package com.myMinistry.utils;
 
 import android.content.Context;
 

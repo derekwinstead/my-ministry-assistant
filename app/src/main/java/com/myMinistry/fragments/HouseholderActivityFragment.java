@@ -13,15 +13,11 @@ import android.widget.ListView;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.TimeEntryAdapter;
-import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class HouseholderActivityFragment extends ListFragment {
-    public static final String ARG_HOUSEHOLDER_ID = "householder_id";
-
-    private boolean is_dual_pane = false;
-
-    static final long CREATE_ID = (long) MinistryDatabase.CREATE_ID;
+    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
     private long householderID = CREATE_ID;
 
     private MinistryService database;
@@ -38,7 +34,7 @@ public class HouseholderActivityFragment extends ListFragment {
     public HouseholderActivityFragment newInstance(long _householderID) {
         HouseholderActivityFragment f = new HouseholderActivityFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_HOUSEHOLDER_ID, _householderID);
+        args.putLong(AppConstants.ARG_HOUSEHOLDER_ID, _householderID);
         f.setArguments(args);
         return f;
     }
@@ -49,7 +45,7 @@ public class HouseholderActivityFragment extends ListFragment {
         Bundle args = getArguments();
 
         if (args != null)
-            setHouseholder(args.getLong(ARG_HOUSEHOLDER_ID));
+            setHouseholder(args.getLong(AppConstants.ARG_HOUSEHOLDER_ID));
 
         fm = getActivity().getSupportFragmentManager();
 
@@ -65,10 +61,7 @@ public class HouseholderActivityFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        if (!is_dual_pane)
-            getActivity().setTitle(R.string.householder_activity);
+        getActivity().setTitle(R.string.householder_activity);
 
         if (!database.isOpen())
             database.openWritable();

@@ -3,16 +3,15 @@ package com.myMinistry.bean;
 import android.database.Cursor;
 
 import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class PlacedPublication {
-    private long id = MinistryDatabase.CREATE_ID;
+    private long id = AppConstants.CREATE_ID;
     private long publisherId, publicationNameId, publicationTypeId, householderId, timeId;
     private int count;
     private String date_palced;
     private String householderName, publicationName;
-    private int isActive = MinistryService.ACTIVE;
+    private int isActive = AppConstants.ACTIVE;
     private int weight = 1;
 
     public PlacedPublication(Cursor cursor) {
@@ -28,7 +27,7 @@ public class PlacedPublication {
         this.id = id;
     }
     public boolean isNew() {
-        return id == MinistryDatabase.CREATE_ID;
+        return id == AppConstants.CREATE_ID;
     }
 
     public String getHouseholderName() { return householderName; }

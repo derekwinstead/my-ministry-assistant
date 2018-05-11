@@ -15,14 +15,13 @@ import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.model.ItemWithIcon;
 import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
     private static final int LAYOUT_CONTENT_ID = R.layout.li_item_spinner_item_3;
     private static final int LAYOUT_SEPARATOR_ID = R.layout.li_separator_item_spinner_item;
 
-    private int separatorId = MinistryDatabase.CREATE_ID;
+    private int separatorId = AppConstants.CREATE_ID;
     private Context context;
 
     private static final int ITEM_VIEW_TYPE_RECORD = 0;
@@ -34,18 +33,13 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
 
     private int ADAPTER_TYPE = TYPE_PUBLICATION;
 
-    public ItemWithIconAdapter(Context context) {
-        super(context, 0);
-        this.context = context;
-    }
-
     public ItemWithIconAdapter(Context context, int type) {
         super(context, 0);
         ADAPTER_TYPE = type;
         this.context = context;
     }
 
-    public void addSeparatorItem(String title, int count) {
+    private void addSeparatorItem(String title, int count) {
         addItem(new ItemWithIcon(separatorId, title, count));
     }
 
@@ -79,10 +73,10 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
     }
 
     public static class ViewHolder {
-        public final TextView textHolder1;
-        public final TextView textHolder2;
-        public final ImageView imgHolder;
-        public final TextView textCount;
+        final TextView textHolder1;
+        final TextView textHolder2;
+        final ImageView imgHolder;
+        final TextView textCount;
 
         public ViewHolder(TextView text1, TextView text2, ImageView img1, TextView count) {
             this.textHolder1 = text1;
@@ -136,19 +130,19 @@ public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
         int inactiveCount = 0;
         if (cursor != null) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == MinistryService.ACTIVE)
+                if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == AppConstants.ACTIVE)
                     activeCount++;
                 else
                     inactiveCount++;
 
                 if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) != activeId) {
-                    if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == MinistryService.ACTIVE)
+                    if (cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)) == AppConstants.ACTIVE)
                         firstActivePosition = cursor.getPosition();
                     else
                         firstInActivePosition = cursor.getPosition();
 
                     activeId = cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE));
-                    addSeparatorItem(activeId == MinistryService.INACTIVE ? context.getResources().getString(R.string.inactive) : context.getResources().getString(R.string.active), cursor.getCount() - cursor.getPosition());
+                    addSeparatorItem(activeId == AppConstants.INACTIVE ? context.getResources().getString(R.string.inactive) : context.getResources().getString(R.string.active), cursor.getCount() - cursor.getPosition());
                 }
 
                 addItem(new ItemWithIcon(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME))

@@ -3,8 +3,8 @@ package com.myMinistry.bean;
 import android.database.Cursor;
 
 import com.myMinistry.provider.MinistryContract;
-import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.util.TimeUtils;
+import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,7 +45,7 @@ public class TimeEntryItem {
 
     public void setEntryHouseholderItems(Cursor cursor) {
         entry_householder_and_placements.clear();
-        int old_householder_id = MinistryDatabase.CREATE_ID - 1; // Creating a number that will not exist for initial comparisons
+        int old_householder_id = AppConstants.CREATE_ID - 1; // Creating a number that will not exist for initial comparisons
         TimeEntryHouseholderItem householderItem;
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -100,7 +100,7 @@ public class TimeEntryItem {
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
-    public boolean isNew() { return id == MinistryDatabase.CREATE_ID; }
+    public boolean isNew() { return id == AppConstants.CREATE_ID; }
 
     public long getEntryTypeId() { return entryTypeId; }
     public void setEntryTypeId(long entryTypeId) { this.entryTypeId = entryTypeId; }

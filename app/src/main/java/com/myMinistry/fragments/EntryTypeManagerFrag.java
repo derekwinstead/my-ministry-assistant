@@ -24,6 +24,7 @@ import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
+import com.myMinistry.utils.AppConstants;
 
 public class EntryTypeManagerFrag extends ListFragment {
     private FloatingActionButton fab;
@@ -147,7 +148,7 @@ public class EntryTypeManagerFrag extends ListFragment {
         final CheckBox cb_is_default = view.findViewById(R.id.cb_is_default);
 
         // A default - don't allow them to make it inactive
-        if (id <= MinistryDatabase.MAX_ENTRY_TYPE_ID && id != MinistryDatabase.CREATE_ID) {
+        if (id <= MinistryDatabase.MAX_ENTRY_TYPE_ID && id != AppConstants.CREATE_ID) {
             cb_is_active.setVisibility(View.GONE);
         }
 
@@ -156,9 +157,9 @@ public class EntryTypeManagerFrag extends ListFragment {
         cb_is_default.setChecked(isDefault != 0);
 
         builder.setView(view);
-        builder.setTitle((id == MinistryDatabase.CREATE_ID) ? R.string.form_name : R.string.edit);
+        builder.setTitle((id == AppConstants.CREATE_ID) ? R.string.form_name : R.string.edit);
         builder.setNegativeButton(R.string.menu_cancel, null); // Do nothing on cancel - this will dismiss the dialog :)
-        builder.setPositiveButton((id == MinistryDatabase.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton((id == AppConstants.CREATE_ID) ? R.string.menu_create : R.string.menu_save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (values == null) {
@@ -166,9 +167,9 @@ public class EntryTypeManagerFrag extends ListFragment {
                 }
 
                 values.put(EntryType.NAME, editText.getText().toString());
-                values.put(EntryType.ACTIVE, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+                values.put(EntryType.ACTIVE, cb_is_active.isChecked() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
                 //  values.put(EntryType.RBC, cb_is_active.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
-                values.put(EntryType.DEFAULT, cb_is_default.isChecked() ? MinistryService.ACTIVE : MinistryService.INACTIVE);
+                values.put(EntryType.DEFAULT, cb_is_default.isChecked() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
 
                 database.openWritable();
 
@@ -176,7 +177,7 @@ public class EntryTypeManagerFrag extends ListFragment {
                     database.clearEntryTypeDefault();
                 }
 
-                if (id == MinistryDatabase.CREATE_ID) {
+                if (id == AppConstants.CREATE_ID) {
                     database.createEntryType(values);
                 } else {
                     database.saveEntryType(id, values);
@@ -385,6 +386,6 @@ public class EntryTypeManagerFrag extends ListFragment {
 
 
     public void openEditor(long id) {
-        showEditTextDialog(MinistryDatabase.CREATE_ID, "", MinistryService.ACTIVE, MinistryService.INACTIVE);
+        showEditTextDialog(AppConstants.CREATE_ID, "", AppConstants.ACTIVE, AppConstants.INACTIVE);
     }
 }

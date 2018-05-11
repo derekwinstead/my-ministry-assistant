@@ -33,8 +33,8 @@ import com.myMinistry.fragments.PublishersFragment;
 import com.myMinistry.fragments.ReportFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.util.HelpUtils;
-import com.myMinistry.util.PrefUtils;
+import com.myMinistry.utils.HelpUtils;
+import com.myMinistry.utils.PrefUtils;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private final int MAIN_CONTENT_FADEIN_DURATION = 250;
 
     private FragmentManager fm;
+
+    private ProgressDialog mProgressDialog;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -81,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
         // Default item selected
         goToNavDrawerItem(getDefaultNavDrawerItem());
 
+/*
+        mProgressDialog = CommonUtils.showLoadingDialog(this);
+
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+*/
         if (HelpUtils.isApplicationUpdated(this)) {
             MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
             final ProgressDialog ringProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.updating_app), getResources().getString(R.string.please_be_patient), true);

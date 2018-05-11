@@ -59,4 +59,6 @@
     900#311B92
     -->
 
+    <color name="black_effective">#2a2a2a</color>
+    <color name="dark_gray">#696969</color>
 </resources>
