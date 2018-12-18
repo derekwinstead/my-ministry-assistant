@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.Householder;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +42,8 @@ public class HouseholderDAO {
         values.put(MinistryContract.Householder.HOME_PHONE, bean.getPhoneHome());
         values.put(MinistryContract.Householder.WORK_PHONE, bean.getPhoneWork());
         values.put(MinistryContract.Householder.OTHER_PHONE, bean.getPhoneOther());
-        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
-        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Householder.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
+        values.put(MinistryContract.Householder.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -97,30 +97,31 @@ public class HouseholderDAO {
         values.put(MinistryContract.Householder.HOME_PHONE, bean.getPhoneHome());
         values.put(MinistryContract.Householder.WORK_PHONE, bean.getPhoneWork());
         values.put(MinistryContract.Householder.OTHER_PHONE, bean.getPhoneOther());
-        values.put(MinistryContract.Householder.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
-        values.put(MinistryContract.Householder.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Householder.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
+        values.put(MinistryContract.Householder.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         database.update(TABLE_NAME, values, MinistryContract.Householder._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private Householder cursorToHouseholder(Cursor cursor) {
-        Householder bean = new Householder();
-        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Householder._ID)));
-        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME)));
-        bean.setAddress(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.ADDR)));
-        bean.setPhoneMobile(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.MOBILE_PHONE)));
-        bean.setPhoneHome(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.HOME_PHONE)));
-        bean.setPhoneWork(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.WORK_PHONE)));
-        bean.setPhoneOther(cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.OTHER_PHONE)));
-        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.ACTIVE)));
-        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.DEFAULT)));
-        return bean;
+        return new Householder(
+                cursor.getLong(cursor.getColumnIndex(MinistryContract.Householder._ID))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.NAME))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.ADDR))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.MOBILE_PHONE))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.HOME_PHONE))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.WORK_PHONE))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Householder.OTHER_PHONE))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.ACTIVE)))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.Householder.DEFAULT)))
+        );
     }
-
+/*
     public void deleteAll() {
         open();
         database.delete(TABLE_NAME, null, null);
         close();
     }
+    */
 }

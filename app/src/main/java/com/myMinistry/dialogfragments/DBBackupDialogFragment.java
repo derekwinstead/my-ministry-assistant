@@ -3,13 +3,14 @@ package com.myMinistry.dialogfragments;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 
 import com.myMinistry.R;
 import com.myMinistry.utils.FileUtils;
 
 import java.io.File;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public class DBBackupDialogFragment extends DialogFragment {
     private DBBackupDialogFragmentListener sListener;

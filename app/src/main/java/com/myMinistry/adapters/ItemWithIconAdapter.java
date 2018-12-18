@@ -3,7 +3,6 @@ package com.myMinistry.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import com.myMinistry.R;
 import com.myMinistry.model.ItemWithIcon;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.core.content.ContextCompat;
 
 public class ItemWithIconAdapter extends ArrayAdapter<ItemWithIcon> {
     private static final int LAYOUT_CONTENT_ID = R.layout.li_item_spinner_item_3;

@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 
 import com.myMinistry.Helper;
 import com.myMinistry.R;
@@ -15,6 +13,9 @@ import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.Literature;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public class PublicationDialogFragment extends DialogFragment {
 	private LiteratureDialogFragmentListener sListener;

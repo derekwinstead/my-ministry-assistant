@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
@@ -34,6 +32,9 @@ import com.myMinistry.provider.MinistryService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.core.content.ContextCompat;
+import androidx.cursoradapter.widget.ResourceCursorAdapter;
 
 public class TimeEntryAdapter extends ResourceCursorAdapter {
     public static final int LAYOUT_ID = R.layout.li_time_entries;

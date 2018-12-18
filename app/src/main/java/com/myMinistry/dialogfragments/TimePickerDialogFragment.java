@@ -3,12 +3,13 @@ package com.myMinistry.dialogfragments;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.widget.TimePicker;
 
 import com.myMinistry.utils.AppConstants;
 
 import java.util.Calendar;
+
+import androidx.fragment.app.DialogFragment;
 
 public class TimePickerDialogFragment extends DialogFragment {
 	private TimePickerDialogFragmentListener sListener;

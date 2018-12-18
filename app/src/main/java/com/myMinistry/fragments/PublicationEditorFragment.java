@@ -4,12 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +15,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
@@ -30,6 +26,12 @@ import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class PublicationEditorFragment extends Fragment {
     private Button view_activity;
@@ -150,7 +152,7 @@ public class PublicationEditorFragment extends Fragment {
                     nameWrapper.setErrorEnabled(false);
 
                     publication.setName(nameWrapper.getEditText().getText().toString().trim());
-                    publication.setIsActive(cb_is_active.isChecked());
+                    publication.setIsActive(HelpUtils.booleanConversionsToInt(cb_is_active.isChecked()));
                     publication.setWeight(cb_is_pair.isChecked() ? 2 : 1);
 
                     if (publication.isNew()) {

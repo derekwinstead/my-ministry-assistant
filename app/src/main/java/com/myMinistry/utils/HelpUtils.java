@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.webkit.WebView;
 
@@ -34,6 +33,9 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class HelpUtils {
     public static void showOpenSourceLicenses(Activity activity) {
@@ -46,6 +48,15 @@ public class HelpUtils {
         ft.addToBackStack(null);
 
         new OpenSourceLicensesDialog().show(ft, "dialog_licenses");
+    }
+
+    public static int booleanConversionsToInt(@NonNull boolean value) {
+        return value ? 1 : 0;
+
+    }
+
+    public static int booleanConversionsToInt(@NonNull int value) {
+        return (value > 0) ? 1 : 0;
     }
 
     public static class OpenSourceLicensesDialog extends DialogFragment {

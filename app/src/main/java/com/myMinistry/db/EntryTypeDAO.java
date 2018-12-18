@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.EntryType;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,8 @@ public class EntryTypeDAO {
 
         ContentValues values = new ContentValues();
         values.put(MinistryContract.EntryType.NAME, bean.getName());
-        values.put(MinistryContract.EntryType.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
-        values.put(MinistryContract.EntryType.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.EntryType.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
+        values.put(MinistryContract.EntryType.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -87,25 +87,26 @@ public class EntryTypeDAO {
         open();
         ContentValues values = new ContentValues();
         values.put(MinistryContract.LiteratureType.NAME, bean.getName());
-        values.put(MinistryContract.LiteratureType.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
-        values.put(MinistryContract.LiteratureType.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.LiteratureType.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
+        values.put(MinistryContract.LiteratureType.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         database.update(TABLE_NAME, values, MinistryContract.EntryType._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private EntryType cursorToEntryType(Cursor cursor) {
-        EntryType bean = new EntryType();
-        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.EntryType._ID)));
-        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.EntryType.NAME)));
-        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.EntryType.ACTIVE)));
-        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.EntryType.DEFAULT)));
-        return bean;
+        return new EntryType(
+                cursor.getLong(cursor.getColumnIndex(MinistryContract.EntryType._ID))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.EntryType.NAME))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.EntryType.ACTIVE)))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.EntryType.DEFAULT)))
+        );
     }
-
+/*
     public void deleteAll() {
         open();
         database.delete(TABLE_NAME, null, null);
         close();
     }
+    */
 }

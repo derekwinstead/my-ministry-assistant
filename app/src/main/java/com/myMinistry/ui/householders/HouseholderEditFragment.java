@@ -4,13 +4,6 @@ import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,11 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.myMinistry.R;
 import com.myMinistry.bean.Householder;
 import com.myMinistry.db.HouseholderDAO;
 import com.myMinistry.fragments.HouseholderActivityFragment;
 import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class HouseholderEditFragment extends Fragment {
     private CheckBox cb_is_active;
@@ -128,9 +130,9 @@ public class HouseholderEditFragment extends Fragment {
                     householder.setPhoneHome(homeWrapper.getEditText().getText().toString().trim());
                     householder.setPhoneWork(workWrapper.getEditText().getText().toString().trim());
                     householder.setPhoneOther(otherWrapper.getEditText().getText().toString().trim());
-                    householder.setIsActive(cb_is_active.isChecked());
+                    householder.setIsActive(HelpUtils.booleanConversionsToInt(cb_is_active.isChecked()));
 
-                    if (householder.getId() == (long) AppConstants.CREATE_ID) {
+                    if (householder.isNew()) {
                         householderID = householderDAO.create(householder);
                         householder.setId(householderID);
                     } else {
@@ -163,8 +165,6 @@ public class HouseholderEditFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
 
         getActivity().setTitle(R.string.title_householder_edit);
 

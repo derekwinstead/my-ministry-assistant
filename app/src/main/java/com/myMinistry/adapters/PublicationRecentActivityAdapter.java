@@ -2,7 +2,6 @@ package com.myMinistry.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -17,6 +16,8 @@ import com.squareup.phrase.Phrase;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.cursoradapter.widget.ResourceCursorAdapter;
 
 public class PublicationRecentActivityAdapter extends ResourceCursorAdapter {
     private static final int LAYOUT_ID = R.layout.li_publication_recent_activity;

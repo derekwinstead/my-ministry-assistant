@@ -3,8 +3,6 @@ package com.myMinistry.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.ResourceCursorAdapter;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -31,6 +29,9 @@ import com.myMinistry.utils.TimeUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.core.content.ContextCompat;
+import androidx.cursoradapter.widget.ResourceCursorAdapter;
 
 public class PublisherRecentActivityAdapter extends ResourceCursorAdapter {
     public static final int LAYOUT_ID = R.layout.li_publisher_recent_activity;

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,9 @@ import android.widget.EditText;
 import com.myMinistry.R;
 import com.myMinistry.bean.Householder;
 import com.myMinistry.db.HouseholderDAO;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.fragment.app.DialogFragment;
 
 public class HouseholderNewDialogFragment extends DialogFragment {
     private HouseholderNewDialogFragmentListener sListener;
@@ -53,12 +55,24 @@ public class HouseholderNewDialogFragment extends DialogFragment {
             String _name = editText.getText().toString();
             long _newID = 0;
             if (!TextUtils.isEmpty(_name)) {
-                Householder householder = new Householder();
-                householder.setName(_name.trim());
-                householder.setIsActive(true);
-                householder.setIsDefault(false);
+                Householder householder = new Householder(
+                        _name.trim()
+                        ,null
+                        ,null
+                        ,null
+                        ,null
+                        ,null
+                         ,HelpUtils.booleanConversionsToInt(true)
+                        ,HelpUtils.booleanConversionsToInt(false)
+                );
+
+
+                //Householder householder = new Householder();
+                //householder.setName(_name.trim());
+                //householder.setIsActive(true);
+                //householder.setIsDefault(false);
                 _newID = new HouseholderDAO(getActivity().getApplicationContext()).create(householder);
-                householder.setId(_newID);
+                //householder.setId(_newID);
             }
             /* Call back to the DialogFragment listener */
             sListener.setPositiveButton((int) _newID, _name, cb.isChecked());

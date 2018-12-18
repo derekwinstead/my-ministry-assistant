@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,10 @@ import com.myMinistry.R;
 import com.myMinistry.bean.Publication;
 import com.myMinistry.db.PublicationDAO;
 import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public class PublicationNewDialogFragment extends DialogFragment {
     private LiteratureNewDialogFragmentListener sListener;
@@ -62,11 +64,18 @@ public class PublicationNewDialogFragment extends DialogFragment {
                 String _name = editText.getText().toString();
                 long _newID = 0;
                 if (!TextUtils.isEmpty(_name)) {
-                    Publication publication = new Publication();
-                    publication.setName(_name.trim());
-                    publication.setTypeId(litTypeID);
+                    Publication publication = new Publication(
+                            litTypeID
+                            , _name.trim()
+                            , HelpUtils.booleanConversionsToInt(true)
+                            , 1
+                    );
+
+                    //Publication publication = new Publication();
+                    //publication.setName(_name.trim());
+                    //publication.setTypeId(litTypeID);
                     _newID = new PublicationDAO(getActivity().getApplicationContext()).create(publication);
-                    publication.setId(_newID);
+                    //publication.setId(_newID);
                 }
                 // Call back to the DialogFragment listener
                 sListener.setPositiveButton((int) _newID, _name, litTypeID);

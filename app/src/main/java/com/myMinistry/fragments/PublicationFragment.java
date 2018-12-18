@@ -2,10 +2,6 @@ package com.myMinistry.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
@@ -25,6 +22,10 @@ import com.myMinistry.provider.MinistryContract.LiteratureType;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
 public class PublicationFragment extends ListFragment {
     private MinistryService database;
@@ -122,8 +123,6 @@ public class PublicationFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
         getActivity().setTitle(R.string.navdrawer_item_publications);
 
         database.openWritable();
@@ -131,16 +130,6 @@ public class PublicationFragment extends ListFragment {
         adapter = new TitleAndDateAdapterUpdated(getActivity().getApplicationContext(), null, R.string.last_placed_on);
         setListAdapter(adapter);
         database.close();
-/*
-        if (is_dual_pane) {
-            fab.setVisibility(View.GONE);
-
-            PublicationEditorFragment f = new PublicationEditorFragment().newInstance();
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-            transaction.commit();
-        }
-        */
     }
 
     @Override

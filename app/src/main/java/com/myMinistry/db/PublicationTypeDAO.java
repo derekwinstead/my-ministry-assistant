@@ -10,6 +10,7 @@ import com.myMinistry.bean.PublicationType;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,8 @@ public class PublicationTypeDAO {
 
         ContentValues values = new ContentValues();
         values.put(MinistryContract.LiteratureType.NAME, bean.getName());
-        values.put(MinistryContract.LiteratureType.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
-        values.put(MinistryContract.LiteratureType.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.LiteratureType.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
+        values.put(MinistryContract.LiteratureType.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -95,17 +96,18 @@ public class PublicationTypeDAO {
     }
 
     private PublicationType cursorToPublicationType(Cursor cursor) {
-        PublicationType bean = new PublicationType();
-        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.LiteratureType._ID)));
-        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME)));
-        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)));
-        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT)));
-        return bean;
+        return new PublicationType(
+                cursor.getLong(cursor.getColumnIndex(MinistryContract.LiteratureType._ID))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.LiteratureType.NAME))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.ACTIVE)))
+                , cursor.getInt(cursor.getColumnIndex(MinistryContract.LiteratureType.DEFAULT))
+        );
     }
-
+/*
     public void deleteAll() {
         open();
         database.delete(TABLE_NAME, null, null);
         close();
     }
+    */
 }

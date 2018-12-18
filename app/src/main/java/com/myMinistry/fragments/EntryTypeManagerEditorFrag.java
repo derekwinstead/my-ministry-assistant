@@ -3,10 +3,6 @@ package com.myMinistry.fragments;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,11 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
 import com.squareup.phrase.Phrase;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class EntryTypeManagerEditorFrag extends Fragment {
 	private EditText et_name;

@@ -6,10 +6,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
 import com.myMinistry.adapters.DialogItemAdapter;
@@ -32,6 +29,11 @@ import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.MainActivity;
 import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.ListFragment;
 
 public class PublicationManagerFragment extends ListFragment {
     private final int RENAME_ID = 0;
@@ -96,13 +98,14 @@ public class PublicationManagerFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (adapter.getItem(position).getID() > MinistryDatabase.MAX_PUBLICATION_TYPE_ID) {
-            PublicationType publicationType = new PublicationType();
-            publicationType.setId(adapter.getItem(position).getID());
-            publicationType.setName(adapter.getItem(position).toString());
-            publicationType.setIsActive(adapter.getItem(position).getIsActive());
-            publicationType.setIsDefault(adapter.getItem(position).getIsDefault());
+            PublicationType publicationType = new PublicationType(
+                    adapter.getItem(position).getID()
+                    , adapter.getItem(position).toString()
+                    , HelpUtils.booleanConversionsToInt(adapter.getItem(position).getIsActive())
+                    , HelpUtils.booleanConversionsToInt(adapter.getItem(position).getIsDefault())
+            );
+
             showListItems(publicationType);
-            //showListItems(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         } else {
             createDialog(adapter.getItem(position).getID(), adapter.getItem(position).toString(), adapter.getItem(position).getIsActive(), adapter.getItem(position).getIsDefault());
         }
@@ -187,8 +190,8 @@ public class PublicationManagerFragment extends ListFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 publicationType.setName(editText.getText().toString());
-                publicationType.setIsActive(cb_is_active.isChecked());
-                publicationType.setIsDefault(cb_is_default.isChecked());
+                publicationType.setIsActive(HelpUtils.booleanConversionsToInt(cb_is_active.isChecked()));
+                publicationType.setIsDefault(HelpUtils.booleanConversionsToInt(cb_is_default.isChecked()));
 
                 if (publicationType.isDefault()) {
                     // TODO: Update this to new format
@@ -197,7 +200,7 @@ public class PublicationManagerFragment extends ListFragment {
                     database.close();
                 }
 
-                if (publicationType.getId() == AppConstants.CREATE_ID) {
+                if (publicationType.isNew()) {
                     publicationTypeDAO.create(publicationType);
                 } else {
                     publicationTypeDAO.update(publicationType);

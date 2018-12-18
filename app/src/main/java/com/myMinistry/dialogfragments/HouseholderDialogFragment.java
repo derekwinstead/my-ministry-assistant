@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 
 import com.myMinistry.R;
 import com.myMinistry.adapters.DialogItemAdapter;
@@ -15,6 +14,8 @@ import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.provider.MinistryContract.Householder;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.fragment.app.DialogFragment;
 
 public class HouseholderDialogFragment extends DialogFragment {
     private HouseholderDialogFragmentListener sListener;

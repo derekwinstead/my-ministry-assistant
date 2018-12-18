@@ -3,9 +3,6 @@ package com.myMinistry.dialogfragments;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -14,6 +11,10 @@ import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 public class EntryTypeDialogFrag extends DialogFragment {
     public static final String ARG_ID = "notes";

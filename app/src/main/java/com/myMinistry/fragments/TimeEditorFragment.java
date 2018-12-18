@@ -4,10 +4,6 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,7 +20,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.codetroopers.betterpickers.numberpicker.NumberPickerBuilder;
 import com.codetroopers.betterpickers.numberpicker.NumberPickerDialogFragment;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
@@ -71,6 +66,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.ListFragment;
 
 public class TimeEditorFragment extends ListFragment implements NumberPickerDialogFragment.NumberPickerDialogHandlerV2 {
     private MinistryService database = null;
@@ -321,8 +321,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
 
-        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
         getActivity().setTitle(R.string.navdrawer_item_time_entry);
     }
 
@@ -507,43 +505,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 return true;
             case R.id.menu_cancel:
                 getActivity().setTitle(R.string.navdrawer_item_report);
-				/*
-				if(is_dual_pane) {
-		        	// The fragment is the time entry one, just update the frag instead of doing a replacement.
-	        		SummaryFragment fragment = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-	        		if(timeId > 0) {
-		        		fragment.setPublisherId(originalPublisherId);
-		        		fragment.setDate(originalSelectedDateStart);
-	        		}
-	        		fragment.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
-				}
-				else {
-					FragmentTransaction ft = fm.beginTransaction();
-		        	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		        	
-		        	Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-		        	
-					new SummaryFragment();
-					SummaryFragment f;
-					if(timeId > 0) {
-						f = SummaryFragment.newInstance(originalPublisherId);
-						f.setDate(originalSelectedDateStart);
-					}
-					else {
-						f = SummaryFragment.newInstance(publisherId);
-						f.setDate(selectedDateStart);
-					}
-					
-					f.setDate(originalSelectedDateStart);
-					
-					if(frag != null)
-						ft.remove(frag);
-					
-					ft.add(R.id.primary_fragment_container, f);
-		        	
-		        	ft.commit();
-		        }
-		        */
+
                 return true;
             case R.id.menu_discard:
                 if (allowedToEdit) {
@@ -562,44 +524,6 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                                     database.close();
 
                                     Toast.makeText(getActivity(), getActivity().getApplicationContext().getString(R.string.toast_deleted), Toast.LENGTH_SHORT).show();
-								/*
-								if(is_dual_pane) {
-					        		SummaryFragment f = (SummaryFragment) fm.findFragmentById(R.id.primary_fragment_container);
-					        		if(timeId > 0) {
-						        		f.setPublisherId(originalPublisherId);
-						        		f.setDate(originalSelectedDateStart);
-					        		}
-					        		f.calculateSummaryValues();
-					        		f.refresh(SummaryFragment.DIRECTION_NO_CHANGE);
-								}
-								else {
-									FragmentTransaction ft = fm.beginTransaction();
-									ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-									
-									Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-									
-									new SummaryFragment();
-									SummaryFragment f;
-									if(timeId > 0) {
-										f = SummaryFragment.newInstance(originalPublisherId);
-										f.setDate(originalSelectedDateStart);
-									}
-									else {
-										f = SummaryFragment.newInstance(publisherId);
-										f.setDate(selectedDateStart);
-									}
-									
-									f.setDate(originalSelectedDateStart);
-									
-									if(frag != null)
-										ft.remove(frag);
-									
-									ft.add(R.id.primary_fragment_container, f);
-									ft.addToBackStack(null);
-									
-						        	ft.commit();	
-								}
-					        	*/
 
                                     break;
                             }
@@ -870,6 +794,8 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
     }
 
     public void showLiteratureCountDialog() {
+        // TODO NUMBERPICKER REPLACEMENT
+        /*
         NumberPickerBuilder npb = new NumberPickerBuilder()
                 .setReference(selectedLitLoc)
                 .setFragmentManager(fm)
@@ -880,6 +806,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
                 .setDecimalVisibility(View.GONE)
                 .setTargetFragment(TimeEditorFragment.this);
         npb.show();
+        */
     }
 
     private void showNotesDialog(String notes) {

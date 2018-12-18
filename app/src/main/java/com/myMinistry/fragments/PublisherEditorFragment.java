@@ -2,13 +2,6 @@ package com.myMinistry.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,31 +12,35 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.bean.Publisher;
 import com.myMinistry.db.PublisherDAO;
 import com.myMinistry.model.NavDrawerMenuItem;
 import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class PublisherEditorFragment extends Fragment {
-    private boolean is_dual_pane = false;
-
     private CheckBox cb_is_active;
     private Button view_activity;
     private TextInputLayout nameWrapper;
 
-    static final long CREATE_ID = (long) AppConstants.CREATE_ID;
+    private static final long CREATE_ID = (long) AppConstants.CREATE_ID;
     private long publisherId = CREATE_ID;
 
-    private FloatingActionButton fab;
     private Spinner gender_type;
     private FragmentManager fm;
 
     private PublisherDAO publisherDAO;
     private Publisher publisher;
-
-    private NavDrawerMenuItemAdapter genderAdapter;
 
     private static final int GENDER_MALE = 0;
     private static final int GENDER_FEMALE = 1;
@@ -83,13 +80,13 @@ public class PublisherEditorFragment extends Fragment {
         nameWrapper.setHint(getActivity().getString(R.string.form_name));
 
         cb_is_active = root.findViewById(R.id.cb_is_active);
-        fab = root.findViewById(R.id.fab);
+        FloatingActionButton fab = root.findViewById(R.id.fab);
         gender_type = root.findViewById(R.id.gender_type);
         view_activity = root.findViewById(R.id.view_activity);
         Button save = root.findViewById(R.id.save);
         Button cancel = root.findViewById(R.id.cancel);
 
-        genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
+        NavDrawerMenuItemAdapter genderAdapter = new NavDrawerMenuItemAdapter(getActivity().getApplicationContext());
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_male), R.drawable.ic_drawer_publisher_male, GENDER_MALE));
         genderAdapter.addItem(new NavDrawerMenuItem(getActivity().getApplicationContext().getString(R.string.gender_female), R.drawable.ic_drawer_publisher_female, GENDER_FEMALE));
 
@@ -99,7 +96,7 @@ public class PublisherEditorFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchForm(CREATE_ID);
+                switchForm();
             }
         });
 
@@ -108,11 +105,7 @@ public class PublisherEditorFragment extends Fragment {
             public void onClick(View v) {
                 PublisherActivityFragment f = new PublisherActivityFragment().newInstance(publisherId);
                 FragmentTransaction transaction = fm.beginTransaction();
-                if (is_dual_pane) {
-                    //transaction.replace(R.id.secondary_fragment_container, f, "secondary");
-                } else {
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                }
+                transaction.replace(R.id.primary_fragment_container, f, "main");
                 transaction.commit();
             }
         });
@@ -124,7 +117,7 @@ public class PublisherEditorFragment extends Fragment {
                     nameWrapper.setErrorEnabled(false);
 
                     publisher.setName(nameWrapper.getEditText().getText().toString().trim());
-                    publisher.setIsActive(cb_is_active.isChecked());
+                    publisher.setIsActive(HelpUtils.booleanConversionsToInt(cb_is_active.isChecked()));
                     publisher.setGender(gender_type.getSelectedItemPosition() == GENDER_MALE ? "male" : "female");
 
                     if (publisher.getId() == CREATE_ID) {
@@ -134,15 +127,10 @@ public class PublisherEditorFragment extends Fragment {
                         publisherDAO.update(publisher);
                     }
 
-                    if (is_dual_pane) {
-                        PublishersFragment f = (PublishersFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                        f.updatePublisherList();
-                    } else {
-                        PublishersFragment f = new PublishersFragment().newInstance();
-                        FragmentTransaction transaction = fm.beginTransaction();
-                        transaction.replace(R.id.primary_fragment_container, f, "main");
-                        transaction.commit();
-                    }
+                    PublishersFragment f = new PublishersFragment().newInstance();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.commit();
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
                 }
@@ -152,14 +140,10 @@ public class PublisherEditorFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_dual_pane) {
-                    switchForm(CREATE_ID);
-                } else {
-                    PublishersFragment f = new PublishersFragment().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
-                }
+                PublishersFragment f = new PublishersFragment().newInstance();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.commit();
             }
         });
 
@@ -169,13 +153,6 @@ public class PublisherEditorFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        //is_dual_pane = getActivity().findViewById(R.id.secondary_fragment_container) != null;
-
-        if (!is_dual_pane) {
-            getActivity().setTitle(R.string.title_publisher_edit);
-            fab.setVisibility(View.GONE);
-        }
 
         fillForm();
     }
@@ -191,16 +168,10 @@ public class PublisherEditorFragment extends Fragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 publisherDAO.deletePublisher(publisher);
 
-                                if (is_dual_pane) {
-                                    PublishersFragment f = (PublishersFragment) fm.findFragmentById(R.id.primary_fragment_container);
-                                    f.updatePublisherList();
-                                    switchForm(CREATE_ID);
-                                } else {
-                                    PublishersFragment f = new PublishersFragment().newInstance();
-                                    FragmentTransaction transaction = fm.beginTransaction();
-                                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                                    transaction.commit();
-                                }
+                                PublishersFragment f = new PublishersFragment().newInstance();
+                                FragmentTransaction transaction = fm.beginTransaction();
+                                transaction.replace(R.id.primary_fragment_container, f, "main");
+                                transaction.commit();
 
                                 break;
                         }
@@ -223,13 +194,13 @@ public class PublisherEditorFragment extends Fragment {
         publisherId = _id;
     }
 
-    public void switchForm(long _id) {
+    private void switchForm() {
         ActivityCompat.invalidateOptionsMenu(getActivity());
-        setPublisher(_id);
+        setPublisher(CREATE_ID);
         fillForm();
     }
 
-    public void fillForm() {
+    private void fillForm() {
         nameWrapper.setErrorEnabled(false);
         nameWrapper.getEditText().setError(null);
 
@@ -241,20 +212,13 @@ public class PublisherEditorFragment extends Fragment {
         int position = GENDER_MALE;
         if (publisher.getGender().equals("female"))
             position = GENDER_FEMALE;
+
         gender_type.setSelection(position);
 
-        if (publisher.getId() == CREATE_ID) {
+        if (publisher.isNew()) {
             view_activity.setVisibility(View.GONE);
         } else {
             view_activity.setVisibility(View.VISIBLE);
-        }
-
-        if (is_dual_pane) {
-            if (publisher.getId() == CREATE_ID) {
-                fab.setVisibility(View.GONE);
-            } else {
-                fab.setVisibility(View.VISIBLE);
-            }
         }
     }
 }

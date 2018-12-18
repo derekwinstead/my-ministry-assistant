@@ -2,12 +2,6 @@ package com.myMinistry.ui.householders;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -16,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myMinistry.R;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
@@ -25,6 +20,12 @@ import com.squareup.phrase.Phrase;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HouseholdersListFragment extends Fragment implements HouseholdersListAdapter.ItemClickListener {
     private MinistryService database;

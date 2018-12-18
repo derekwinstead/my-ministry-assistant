@@ -2,10 +2,6 @@ package com.myMinistry.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +11,11 @@ import com.myMinistry.R;
 import com.myMinistry.adapters.TimeEntryAdapter;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
 public class HouseholderActivityFragment extends ListFragment {
     static final long CREATE_ID = (long) AppConstants.CREATE_ID;

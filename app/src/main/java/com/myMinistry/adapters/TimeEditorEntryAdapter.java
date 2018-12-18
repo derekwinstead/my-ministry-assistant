@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +21,8 @@ import com.myMinistry.model.HouseholderForTime;
 import com.myMinistry.model.QuickLiterature;
 
 import java.util.ArrayList;
+
+import androidx.core.content.ContextCompat;
 
 public class TimeEditorEntryAdapter extends ArrayAdapter<HouseholderForTime> {
     public static final int LAYOUT_ID = R.layout.li_time_editor_entry;

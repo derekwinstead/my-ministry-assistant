@@ -2,7 +2,6 @@ package com.myMinistry.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.model.ListItem;
+
+import androidx.core.content.ContextCompat;
 
 public class ListItemAdapter extends ArrayAdapter<ListItem> {
     private int LAYOUT_VIEW_ID = R.layout.li_item_spinner_listitem;

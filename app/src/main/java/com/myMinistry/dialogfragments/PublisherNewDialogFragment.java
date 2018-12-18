@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +12,10 @@ import android.widget.EditText;
 import com.myMinistry.R;
 import com.myMinistry.bean.Publisher;
 import com.myMinistry.db.PublisherDAO;
+import com.myMinistry.utils.HelpUtils;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public class PublisherNewDialogFragment extends DialogFragment {
     private PublisherNewDialogFragmentListener sListener;
@@ -51,13 +53,21 @@ public class PublisherNewDialogFragment extends DialogFragment {
             String _name = editText.getText().toString();
             long _newID = 0;
             if (!TextUtils.isEmpty(_name)) {
-                Publisher publisher = new Publisher();
-                publisher.setName(_name.trim());
-                publisher.setIsActive(true);
-                publisher.setGender("male");
-                publisher.setIsDefault(false);
+                Publisher publisher = new Publisher(
+                        _name.trim()
+                        , HelpUtils.booleanConversionsToInt(true)
+                        , "male"
+                        , HelpUtils.booleanConversionsToInt(false)
+                );
+
+
+                //Publisher publisher = new Publisher();
+                //publisher.setName(_name.trim());
+                //publisher.setIsActive(true);
+                //publisher.setGender("male");
+                //publisher.setIsDefault(false);
                 _newID = new PublisherDAO(getActivity().getApplicationContext()).create(publisher);
-                publisher.setId(_newID);
+                //publisher.setId(_newID);
             }
             // Call back to the DialogFragment listener
             sListener.setPositiveButton((int) _newID, _name);

@@ -5,10 +5,6 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myMinistry.R;
 import com.myMinistry.adapters.DialogItemAdapter;
 import com.myMinistry.adapters.ItemWithIconAdapter;
@@ -25,6 +22,10 @@ import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.ListFragment;
 
 public class EntryTypeManagerFrag extends ListFragment {
     private FloatingActionButton fab;
@@ -116,28 +117,6 @@ public class EntryTypeManagerFrag extends ListFragment {
         else
             showTransferToDialog((int) id, name);
     }
-    /*
-
-    private void createDialog(final long id, String name, int isActive) {
-        switch ((int) id) {
-            case MinistryDatabase.ID_ROLLOVER:
-            case MinistryDatabase.ID_BIBLE_STUDY:
-            case MinistryDatabase.ID_RETURN_VISIT:
-            case MinistryDatabase.ID_SERVICE:
-            case MinistryDatabase.ID_RBC:
-            case MinistryDatabase.CREATE_ID:
-                if (is_dual_pane)
-                    populateEditor(id);
-                else
-                    showEditTextDialog((int) id, name, isActive);
-
-                break;
-            default:
-                showListItems((int) id, name, isActive);
-        }
-    }
-
-*/
 
     @SuppressLint("InflateParams")
     private void showEditTextDialog(final int id, String name, int isActive, int isDefault) {
@@ -269,79 +248,6 @@ public class EntryTypeManagerFrag extends ListFragment {
         });
         builder.show();
     }
-
-    /*
-
-
-    public void showListItems(final int id, final String name, final int isActive) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EntryTypeManagerFrag.this.getActivity());
-        builder.setTitle(R.string.menu_options);
-        builder.setItems(getResources().getStringArray(R.array.entry_type_list_item_options), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case RENAME_ID:
-                        if (is_dual_pane) {
-                            populateEditor(id);
-                        } else {
-                            showEditTextDialog(id, name, isActive);
-                        }
-                        break;
-                    case TRANSFER_ID:
-                        showTransferToDialog(id, name);
-                        break;
-                    case DELETE_ID:
-                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case DialogInterface.BUTTON_POSITIVE:
-                                        database.openWritable();
-                                        database.deleteEntryTypeByID(id);
-
-                                        if (is_dual_pane)
-                                            populateEditor(MinistryDatabase.CREATE_ID);
-
-                                        database.close();
-
-                                        break;
-                                }
-                            }
-                        };
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle(R.string.confirm_deletion)
-                                .setPositiveButton(R.string.menu_delete, dialogClickListener)
-                                .setNegativeButton(R.string.menu_cancel, dialogClickListener)
-                                .show();
-
-
-                        break;
-                }
-            }
-        });
-        builder.show();
-    }
-*/
-
-    /*
-    public void showTransferToDialog(final int id, final String name) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EntryTypeManagerFrag.this.getActivity());
-        database.openWritable();
-        final Cursor defaults = database.fetchAllEntryTypesButID(id);
-        builder.setTitle(R.string.menu_transfer_to);
-        builder.setCursor(defaults, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                defaults.moveToPosition(which);
-                database.reassignEntryType(id, defaults.getInt(defaults.getColumnIndex(EntryType._ID)));
-            }
-        }, EntryType.NAME);
-        builder.show();
-    }
-
-*/
-
 
     public void showTransferToDialog(final int id, final String name) {
         database.openWritable();

@@ -3,10 +3,11 @@ package com.myMinistry.dialogfragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
+
+import androidx.fragment.app.DialogFragment;
 
 public class DatePickerDialogFragment extends DialogFragment {
     public static String ARG_YEAR = "year";

@@ -2,7 +2,6 @@ package com.myMinistry.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import android.widget.TextView;
 
 import com.myMinistry.R;
 import com.myMinistry.model.NavDrawerMenuItem;
+
+import androidx.core.content.ContextCompat;
 
 public class NavDrawerMenuItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
 

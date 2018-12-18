@@ -13,7 +13,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -25,6 +24,8 @@ import com.squareup.phrase.Phrase;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class SettingsActivity extends PreferenceActivity {
     private String versionName = "0";

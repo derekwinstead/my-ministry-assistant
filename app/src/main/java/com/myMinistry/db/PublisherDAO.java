@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.Publisher;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,9 @@ public class PublisherDAO {
 
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Publisher.NAME, bean.getName());
-        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Publisher.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
         values.put(MinistryContract.Publisher.GENDER, bean.getGender());
-        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Publisher.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         long id = database.insert(TABLE_NAME, null, values);
         close();
@@ -86,29 +86,31 @@ public class PublisherDAO {
 
     public void update(Publisher bean) {
         open();
+
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Publisher.NAME, bean.getName());
-        values.put(MinistryContract.Publisher.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Publisher.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
         values.put(MinistryContract.Publisher.GENDER, bean.getGender());
-        values.put(MinistryContract.Publisher.DEFAULT, bean.isDefault() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Publisher.DEFAULT, HelpUtils.booleanConversionsToInt(bean.isDefault()));
 
         database.update(TABLE_NAME, values, MinistryContract.Publisher._ID + " = ?", new String[]{bean.getId() + ""});
         close();
     }
 
     private Publisher cursorToPublisher(Cursor cursor) {
-        Publisher bean = new Publisher();
-        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Publisher._ID)));
-        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME)));
-        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.ACTIVE)));
-        bean.setGender(cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER)));
-        bean.setIsDefault(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.DEFAULT)));
-        return bean;
+        return new Publisher(
+                cursor.getLong(cursor.getColumnIndex(MinistryContract.Publisher._ID))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.NAME))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.ACTIVE)))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Publisher.GENDER))
+                , cursor.getInt(cursor.getColumnIndex(MinistryContract.Publisher.DEFAULT))
+        );
     }
-
+/*
     public void deleteAll() {
         open();
         database.delete(TABLE_NAME, null, null);
         close();
     }
+    */
 }

@@ -2,12 +2,6 @@ package com.myMinistry.ui.report;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myMinistry.R;
 import com.myMinistry.adapters.NavDrawerMenuItemAdapter;
 import com.myMinistry.dialogfragments.PublisherNewDialogFragment;
@@ -32,6 +27,12 @@ import com.myMinistry.utils.TimeUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ReportListFragment extends Fragment implements ReportListAdapter.ItemClickListener {
     private final String ARG_YEAR = "year";

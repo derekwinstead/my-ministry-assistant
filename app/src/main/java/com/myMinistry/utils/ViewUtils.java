@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 
 import com.myMinistry.R;
+
+import androidx.core.content.ContextCompat;
 
 public class ViewUtils {
     public static float pxToDp(float px) {

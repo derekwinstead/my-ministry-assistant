@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.myMinistry.bean.Publication;
 import com.myMinistry.provider.MinistryContract;
 import com.myMinistry.provider.MinistryDatabase;
-import com.myMinistry.utils.AppConstants;
+import com.myMinistry.utils.HelpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class PublicationDAO {
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, bean.getTypeId());
         values.put(MinistryContract.Literature.NAME, bean.getName());
-        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Literature.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
         values.put(MinistryContract.Literature.WEIGHT, bean.getWeight());
 
         long id = database.insert(TABLE_NAME, null, values);
@@ -89,7 +89,7 @@ public class PublicationDAO {
         ContentValues values = new ContentValues();
         values.put(MinistryContract.Literature.TYPE_OF_LIERATURE_ID, bean.getTypeId());
         values.put(MinistryContract.Literature.NAME, bean.getName());
-        values.put(MinistryContract.Literature.ACTIVE, bean.isActive() ? AppConstants.ACTIVE : AppConstants.INACTIVE);
+        values.put(MinistryContract.Literature.ACTIVE, HelpUtils.booleanConversionsToInt(bean.isActive()));
         values.put(MinistryContract.Literature.WEIGHT, bean.getWeight());
 
         database.update(TABLE_NAME, values, MinistryContract.Literature._ID + " = ?", new String[]{bean.getId() + ""});
@@ -97,18 +97,19 @@ public class PublicationDAO {
     }
 
     private Publication cursorToPublication(Cursor cursor) {
-        Publication bean = new Publication();
-        bean.setId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature._ID)));
-        bean.setTypeId(cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature.TYPE_OF_LIERATURE_ID)));
-        bean.setName(cursor.getString(cursor.getColumnIndex(MinistryContract.Literature.NAME)));
-        bean.setIsActive(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.ACTIVE)));
-        bean.setWeight(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.WEIGHT)));
-        return bean;
+        return new Publication(
+                cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature._ID))
+                , cursor.getLong(cursor.getColumnIndex(MinistryContract.Literature.TYPE_OF_LIERATURE_ID))
+                , cursor.getString(cursor.getColumnIndex(MinistryContract.Literature.NAME))
+                , HelpUtils.booleanConversionsToInt(cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.ACTIVE)))
+                , cursor.getInt(cursor.getColumnIndex(MinistryContract.Literature.WEIGHT))
+        );
     }
-
+/*
     public void deleteAll() {
         open();
         database.delete(TABLE_NAME, null, null);
         close();
     }
+    */
 }

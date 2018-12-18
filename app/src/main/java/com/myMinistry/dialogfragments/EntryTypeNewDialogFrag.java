@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,9 @@ import com.myMinistry.R;
 import com.myMinistry.provider.MinistryContract.EntryType;
 import com.myMinistry.provider.MinistryService;
 import com.myMinistry.utils.AppConstants;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public class EntryTypeNewDialogFrag extends DialogFragment {
     private EntryTypeNewDialogFragListener sListener;

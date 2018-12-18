@@ -7,37 +7,38 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.navigation.NavigationView;
 import com.myMinistry.R;
 import com.myMinistry.fragments.DBBackupsListFragment;
 import com.myMinistry.fragments.EntryTypeManagerFrag;
-import com.myMinistry.ui.householders.HouseholdersListFragment;
 import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublicationManagerFragment;
 import com.myMinistry.fragments.PublishersFragment;
-import com.myMinistry.ui.report.ReportSummaryFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.ui.householders.HouseholdersListFragment;
+import com.myMinistry.ui.report.ReportSummaryFragment;
 import com.myMinistry.utils.HelpUtils;
 import com.myMinistry.utils.PrefUtils;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
