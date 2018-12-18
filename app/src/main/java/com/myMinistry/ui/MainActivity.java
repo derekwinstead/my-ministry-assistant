@@ -1,11 +1,8 @@
 package com.myMinistry.ui;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,51 +19,32 @@ import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
 import com.myMinistry.ui.householders.HouseholdersListFragment;
 import com.myMinistry.ui.report.ReportSummaryFragment;
+import com.myMinistry.utils.ActivityUtils;
 import com.myMinistry.utils.HelpUtils;
 import com.myMinistry.utils.PrefUtils;
 
 import java.util.Calendar;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar toolbar;
-
     protected static final int NAVDRAWER_ITEM_TIME_ENTRY = 8;
     protected static final int NAVDRAWER_ITEM_PUBLICATION_MANAGER = 9;
     public static final int TIME_ENTRY_ID = NAVDRAWER_ITEM_TIME_ENTRY;
     public static final int PUBLICATION_MANAGER_ID = NAVDRAWER_ITEM_PUBLICATION_MANAGER;
-    private final int MAIN_CONTENT_FADEIN_DURATION = 250;
-
-    private FragmentManager fm;
-
-    private ProgressDialog mProgressDialog;
 
     private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
 
     private Boolean firstLoad = true;
 
-    private int getDefaultNavDrawerItem() {
-        return R.id.drawer_report;
-    }
-
     @Override
-    public void onResume() {
-        super.onResume();
-
-        changeLang(PrefUtils.getLocale(getApplicationContext()));
+    public void setTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -74,23 +52,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        changeLang(PrefUtils.getLocale(getApplicationContext()));
+        // Set up the toolbar.
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu); // Hamburger Icon instead of default back arrow
 
-        fm = getSupportFragmentManager();
+        // Set up the navigation drawer.
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.primary_dark);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
 
-        initToolbar();
-        setupDrawerLayout();
+        // Launch default fragment
+        ReportSummaryFragment reportSummaryFragment = (ReportSummaryFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (reportSummaryFragment == null) {
+            setTitle(R.string.navdrawer_item_report);
+            // Create the fragment
+            reportSummaryFragment = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), reportSummaryFragment, R.id.contentFrame);
+        }
 
-        // Default item selected
-        goToNavDrawerItem(getDefaultNavDrawerItem());
 
-/*
+
+
+        /*
         mProgressDialog = CommonUtils.showLoadingDialog(this);
 
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.cancel();
         }
-*/
+        */
+        // TODO confirm this needs to happen still and how
         if (HelpUtils.isApplicationUpdated(this)) {
             MinistryDatabase.getInstance(getApplicationContext()).getWritableDatabase();
             final ProgressDialog ringProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.updating_app), getResources().getString(R.string.please_be_patient), true);
@@ -109,162 +105,128 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupDrawerLayout() {
-        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView view = findViewById(R.id.navigation_view);
-        view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                // Handle menu item clicks here.
-                menuItem.setChecked(true);
-                setTitle(menuItem.getTitle());
-                goToNavDrawerItem(menuItem.getItemId());
-                mDrawerLayout.closeDrawers();  // CLOSE DRAWER
-                return true;
-            }
-        });
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-    }
-
-    private void initToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
-        setSupportActionBar(toolbar);
-
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-            // Defaults to Summary on launch. Changes with navigation selection afterwards.
-            actionBar.setTitle(R.string.navdrawer_item_report);
-        }
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        goToNavDrawerItem(menuItem.getItemId());
+                        // Close the navigation drawer when an item is selected.
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
+                // Open the navigation drawer when the home icon is selected from the toolbar.
+                mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void setTitle(CharSequence title) {
-        getSupportActionBar().setTitle(title);
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+    // TODO Should this be used?
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-
-        View mainContent = findViewById(R.id.primary_fragment_container);
+        View mainContent = findViewById(R.id.contentFrame);
         if (mainContent != null) {
+            int MAIN_CONTENT_FADEIN_DURATION = 250;
             mainContent.setAlpha(0);
             mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
+
         } else {
-            Log.e("MainActivity", "No view with ID primary_fragment_container to fade in.");
+            Log.e("MainActivity", "No view with ID contentFrame to fade in.");
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (mDrawerToggle != null)
-            mDrawerToggle.onConfigurationChanged(newConfig); // Pass any configuration change to the drawer toggles
-    }
-
-
     public boolean goToNavDrawerItem(int itemId) {
-        Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
-
-        // TODO put a condition around this to not always set the visibility and only do it if the backup item was selected and then it changed.
-        findViewById(R.id.primary_fragment_container).setVisibility(View.VISIBLE);
-
         switch (itemId) {
             case R.id.drawer_report:
                 Calendar date = Calendar.getInstance(Locale.getDefault());
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof ReportSummaryFragment)) {
+                    setTitle(R.string.navdrawer_item_report);
 
-                if (!(frag instanceof ReportSummaryFragment)) {
-                    if (firstLoad)
+                    if (firstLoad) {
                         PrefUtils.setSummaryMonthAndYear(this, date);
+                        firstLoad = false;
+                    }
 
-                    ReportSummaryFragment f = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
-                    FragmentTransaction transaction = fm.beginTransaction();
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this))
+                            , R.id.contentFrame
+                    );
 
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
                 } else {
                     date.set(Calendar.MONTH, PrefUtils.getSummaryMonth(this, date));
                     date.set(Calendar.YEAR, PrefUtils.getSummaryYear(this, date));
                 }
 
-                firstLoad = false;
                 return true;
             case R.id.drawer_publications:
-                if (!(frag instanceof PublicationFragment)) {
-                    PublicationFragment f = new PublicationFragment().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof PublicationFragment)) {
+                    setTitle(R.string.navdrawer_item_publications);
+
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new PublicationFragment().newInstance()
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
             case R.id.drawer_householders:
-                if (!(frag instanceof HouseholdersListFragment)) {
-                    HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
+                setTitle(R.string.navdrawer_item_householders);
+
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof HouseholdersListFragment)) {
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new HouseholdersListFragment().newInstance()
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
             case R.id.drawer_publishers:
-                if (!(frag instanceof PublishersFragment)) {
-                    PublishersFragment f = new PublishersFragment().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
+                setTitle(R.string.navdrawer_item_publishers);
+
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof PublishersFragment)) {
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new PublishersFragment().newInstance()
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
             case R.id.drawer_entry_types:
-                if (!(frag instanceof EntryTypeManagerFrag)) {
-                    EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
+                setTitle(R.string.navdrawer_item_entry_types);
+
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof EntryTypeManagerFrag)) {
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new EntryTypeManagerFrag().newInstance()
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
             case R.id.drawer_db:
-                if (!(frag instanceof DBBackupsListFragment)) {
-                    DBBackupsListFragment f = new DBBackupsListFragment().newInstance();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
+                setTitle(R.string.navdrawer_item_backups);
+
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof DBBackupsListFragment)) {
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new DBBackupsListFragment().newInstance()
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
@@ -280,20 +242,22 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case NAVDRAWER_ITEM_TIME_ENTRY:
-                if (!(frag instanceof TimeEditorFragment)) {
-                    TimeEditorFragment f = new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this));
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
-                    transaction.commit();
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof TimeEditorFragment)) {
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new TimeEditorFragment().newInstanceForPublisher(PrefUtils.getPublisherId(this))
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
             case NAVDRAWER_ITEM_PUBLICATION_MANAGER:
-                if (!(frag instanceof PublicationManagerFragment)) {
-                    PublicationManagerFragment f1 = new PublicationManagerFragment().newInstance();
-                    FragmentTransaction transaction1 = fm.beginTransaction();
-                    transaction1.replace(R.id.primary_fragment_container, f1, "main");
-                    transaction1.commit();
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof PublicationManagerFragment)) {
+                    ActivityUtils.replaceFragmentForActivity(
+                            getSupportFragmentManager()
+                            , new PublicationManagerFragment().newInstance()
+                            , R.id.contentFrame
+                    );
                 }
 
                 return true;
@@ -303,17 +267,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setPublisherId(int _ID, String _name) {
-        goToNavDrawerItem(getDefaultNavDrawerItem());
-    }
-
-    @SuppressWarnings("deprecation")
-    public void changeLang(String lang) {
-        if (lang.equalsIgnoreCase(""))
-            return;
-        Locale myLocale = new Locale(lang);
-        Locale.setDefault(myLocale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.setLocale(myLocale);
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        goToNavDrawerItem(R.id.drawer_report);
     }
 }

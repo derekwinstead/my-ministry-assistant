@@ -152,5 +152,6 @@
     <string name="activity">Activité</string>
     <string name="confirm_deletion_message_publisher">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer toutes les entrées de temps associées à cette fiche les entrées ne seront plus disponibles.\n\nEtes-vous sûr que vous voulez supprimer?</string>
     <string name="confirm_deletion_message_publication">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer quoi que ce soit associé à ce dossier ces entrées seront supprimées et ne sera plus disponible en aucune façon.\n\nEtes-vous sûr que vous voulez supprimer?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

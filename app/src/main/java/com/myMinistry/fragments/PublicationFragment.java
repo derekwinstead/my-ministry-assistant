@@ -168,7 +168,7 @@ public class PublicationFragment extends ListFragment {
     public void openEditor(long id) {
         PublicationEditorFragment f = new PublicationEditorFragment().newInstance(id);
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.primary_fragment_container, f, "main");
+        transaction.replace(R.id.contentFrame, f, "main");
         transaction.commit();
     }
 }

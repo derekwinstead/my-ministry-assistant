@@ -112,7 +112,7 @@ public class HouseholderEditFragment extends Fragment {
             public void onClick(View v) {
                 HouseholderActivityFragment f = new HouseholderActivityFragment().newInstance(householderID);
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         });
@@ -141,7 +141,7 @@ public class HouseholderEditFragment extends Fragment {
 
                     HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                     FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.replace(R.id.contentFrame, f, "main");
                     transaction.commit();
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
@@ -154,7 +154,7 @@ public class HouseholderEditFragment extends Fragment {
             public void onClick(View v) {
                 HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         });
@@ -186,7 +186,7 @@ public class HouseholderEditFragment extends Fragment {
 
                                 HouseholdersListFragment f = new HouseholdersListFragment().newInstance();
                                 FragmentTransaction transaction = fm.beginTransaction();
-                                transaction.replace(R.id.primary_fragment_container, f, "main");
+                                transaction.replace(R.id.contentFrame, f, "main");
                                 transaction.commit();
 
                                 break;

@@ -137,7 +137,7 @@ public class ReportListFragment extends Fragment implements ReportListAdapter.It
             public void onClick(View v) {
                 ReportSummaryFragment f = new ReportSummaryFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         });
@@ -233,7 +233,7 @@ else {
             if (entries.getInt(entries.getColumnIndex(Time.ENTRY_TYPE_ID)) != MinistryDatabase.ID_ROLLOVER) {
                 TimeEditorFragment f = new TimeEditorFragment().newInstance((int) id, publisherId);
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         }
@@ -347,7 +347,7 @@ else {
             //TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId(), publisherId);
             TimeEditorFragment f = new TimeEditorFragment().newInstance((int) time_entries_arraylist.get(position).getId());
             FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.primary_fragment_container, f, "mail");
+            ft.replace(R.id.contentFrame, f, "mail");
             ft.commit();
         }
     }

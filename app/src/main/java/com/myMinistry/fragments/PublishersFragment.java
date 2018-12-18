@@ -79,7 +79,7 @@ public class PublishersFragment extends ListFragment {
 	}
 
 	public void openEditor(long id) {
-		int LAYOUT_ID = R.id.primary_fragment_container;
+		int LAYOUT_ID = R.id.contentFrame;
 
 		Fragment frag = fm.findFragmentById(LAYOUT_ID);
 		PublisherEditorFragment f = new PublisherEditorFragment().newInstance(id);

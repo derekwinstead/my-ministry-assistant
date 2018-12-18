@@ -75,7 +75,7 @@ public class HouseholdersListFragment extends Fragment implements HouseholdersLi
     public void openEditor(long id) {
         HouseholderEditFragment f = new HouseholderEditFragment().newInstance(id);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.primary_fragment_container, f, "main");
+        transaction.replace(R.id.contentFrame, f, "main");
         transaction.commit();
     }
 

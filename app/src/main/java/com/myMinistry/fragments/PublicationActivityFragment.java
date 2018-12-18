@@ -76,7 +76,7 @@ public class PublicationActivityFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		int LAYOUT_ID = R.id.primary_fragment_container;
+		int LAYOUT_ID = R.id.contentFrame;
 
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

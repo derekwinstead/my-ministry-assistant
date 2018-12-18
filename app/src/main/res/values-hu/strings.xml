@@ -152,5 +152,6 @@
     <string name="activity">Tevékenység</string>
     <string name="confirm_deletion_message_publisher">Ez a művelet nem vonható vissza. Ha törli ezt a rekordot, mielőtt át bármikor társított bejegyzéseket e rekord azokat a bejegyzéseket már nem lesz elérhető.\n\nBiztos vagy benne, hogy törölni akarod?</string>
     <string name="confirm_deletion_message_publication">Ez a művelet nem vonható vissza. Ha törli ezt a rekordot, mielőtt át semmit ezzel kapcsolatos nyilvántartás azokat bejegyzés törlésre kerül, és már nem lesz elérhető semmilyen módon.\n\nBiztos vagy benne, hogy törölni akarod?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

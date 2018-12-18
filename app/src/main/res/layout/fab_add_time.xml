@@ -13,4 +13,4 @@
     app:borderWidth="0dp"
     app:fabSize="normal"
     tools:background="@color/primary"
-    tools:showIn="@layout/report" />
+    tools:showIn="@layout/report_fragment" />

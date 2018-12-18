@@ -152,5 +152,6 @@
     <string name="activity">Aktivitas</string>
     <string name="confirm_deletion_message_publisher">Tindakan ini tidak bisa dibatalkan. Jika Anda menghapus catatan ini sebelum mentransfer pesan di waktu yang terkait dengan catatan ini entri tidak akan lagi tersedia.\n\nApakah Anda yakin ingin menghapus?</string>
     <string name="confirm_deletion_message_publication">Tindakan ini tidak bisa dibatalkan. Jika Anda menghapus catatan ini sebelum mentransfer apapun yang berhubungan dengan catatan ini entri-entri akan dihapus dan tidak akan lagi tersedia dengan cara apapun.\n\nApakah Anda yakin ingin menghapus?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

@@ -152,5 +152,6 @@
     <string name="activity">Atividade</string>
     <string name="confirm_deletion_message_publisher">Essa ação não pode ser desfeita. Se você excluir este registro antes de transferir quaisquer entradas de tempo associado a este registro essas entradas não será mais disponível.\n\nTem certeza de que deseja excluir?</string>
     <string name="confirm_deletion_message_publication">Essa ação não pode ser desfeita. Se você excluir este registro antes de transferir qualquer coisa associada a esse registro essas entradas serão eliminados e deixarão de estar disponíveis de forma alguma.\n\nTem certeza de que deseja excluir?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

@@ -152,5 +152,6 @@
     <string name="activity">Actividad</string>
     <string name="confirm_deletion_message_publisher">Esta acción no se puede deshacer. Si se elimina este registro antes de transferir las entradas de tiempo asociados con este registro las entradas ya no estarán disponibles.\n\n¿Estas seguro que quieres borrarlo?</string>
     <string name="confirm_deletion_message_publication">Esta acción no se puede deshacer. Si se elimina este registro antes de transferir todo lo relacionado con este registro se eliminarán las entradas y ya no estará disponible en modo alguno.\n\n¿Estas seguro que quieres borrarlo?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

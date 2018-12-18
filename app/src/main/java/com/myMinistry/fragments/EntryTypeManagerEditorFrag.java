@@ -122,13 +122,13 @@ public class EntryTypeManagerEditorFrag extends Fragment {
 					}
 					database.close();
 
-					Fragment frag = fm.findFragmentById(R.id.primary_fragment_container);
+					Fragment frag = fm.findFragmentById(R.id.contentFrame);
 					EntryTypeManagerFrag f = new EntryTypeManagerFrag().newInstance();
 
 					if (frag != null)
 						ft.remove(frag);
 
-					ft.add(R.id.primary_fragment_container, f);
+					ft.add(R.id.contentFrame, f);
 					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 					ft.addToBackStack(null);
 

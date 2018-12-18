@@ -140,7 +140,7 @@ public class PublicationEditorFragment extends Fragment {
             public void onClick(View v) {
                 PublicationActivityFragment f = new PublicationActivityFragment().newInstance(publication.getId());
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         });
@@ -163,7 +163,7 @@ public class PublicationEditorFragment extends Fragment {
 
                     PublicationFragment f = new PublicationFragment().newInstance((int) publication.getTypeId());
                     FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.primary_fragment_container, f, "main");
+                    transaction.replace(R.id.contentFrame, f, "main");
                     transaction.commit();
                 } else {
                     nameWrapper.setError(getActivity().getApplicationContext().getString(R.string.toast_provide_name));
@@ -176,7 +176,7 @@ public class PublicationEditorFragment extends Fragment {
             public void onClick(View v) {
                 PublicationFragment f = new PublicationFragment().newInstance();
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         });
@@ -205,7 +205,7 @@ public class PublicationEditorFragment extends Fragment {
                                 publicationDAO.deletePublication(publication);
                                 PublicationFragment f = new PublicationFragment().newInstance((int) publication.getTypeId());
                                 FragmentTransaction transaction = fm.beginTransaction();
-                                transaction.replace(R.id.primary_fragment_container, f, "main");
+                                transaction.replace(R.id.contentFrame, f, "main");
                                 transaction.commit();
 
                                 break;

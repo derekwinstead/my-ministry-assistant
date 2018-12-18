@@ -152,5 +152,6 @@
     <string name="activity">Activiteit</string>
     <string name="confirm_deletion_message_publisher">Deze actie kan niet ongedaan gemaakt worden. Als u dit record voordat de overdracht van elk moment data geassocieerd met dit record te verwijderen die inzendingen zullen niet meer beschikbaar zijn.\n\nWeet je zeker dat je wilt verwijderen?</string>
     <string name="confirm_deletion_message_publication">Deze actie kan niet ongedaan gemaakt worden. Als u dit record te verwijderen voordat er iets in verband met deze plaat die inzendingen worden verwijderd overbrengen en zal niet meer beschikbaar zijn in any way.\n\nWeet je zeker dat je wilt verwijderen?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

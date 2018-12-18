@@ -1,5 +1,7 @@
 <resources>
 
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <!-- Base application theme. -->
     <!--
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">

@@ -3,7 +3,6 @@
     <item
         android:id="@+id/summary_send_report"
         android:icon="@drawable/ic_action_share"
-        android:orderInCategory="20"
         android:title="@string/menu_send_report"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

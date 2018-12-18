@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en" tools:ignore="ExtraTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation" tools:locale="en">
     <string name="app_name">My Ministry Assistant</string>
     <string name="no_householders">No Householders</string>
     <string name="no_publishers">No Publishers</string>
@@ -151,5 +151,6 @@
     <string name="activity">Activity</string>
     <string name="confirm_deletion_message_publisher">This action cannot be undone. If you delete this record before transferring any time entries associated with this record those entries will no longer be available.\n\nAre you sure you want to delete?</string>
     <string name="confirm_deletion_message_publication">This action cannot be undone. If you delete this record before transferring anything associated with this record those entries will be deleted and will no longer be available in any way.\n\nAre you sure you want to delete?</string>
+    <string name="navigation_view_header_title">TO-DOs</string>
 
 </resources>

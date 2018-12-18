@@ -88,12 +88,12 @@ public class ReportSummaryFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.summary, menu);
+        inflater.inflate(R.menu.report_fragment_menu, menu);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.report, container, false);
+        View root = inflater.inflate(R.layout.report_fragment, container, false);
 
         Bundle args = getArguments();
 
@@ -167,7 +167,7 @@ public class ReportSummaryFragment extends Fragment {
             public void onClick(View v) {
                 ReportListFragment f = new ReportListFragment().newInstance(publisherId, monthPicked.get(Calendar.MONTH), monthPicked.get(Calendar.YEAR));
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.primary_fragment_container, f, "main");
+                transaction.replace(R.id.contentFrame, f, "main");
                 transaction.commit();
             }
         });
