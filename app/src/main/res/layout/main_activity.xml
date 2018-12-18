@@ -44,6 +44,7 @@
         app:itemTextColor="@color/drawer_item"
         app:menu="@menu/drawer" />
     <!--
+    TODO Make a header for the navigation
     app:headerLayout="@layout/nav_header"
     -->
 </androidx.drawerlayout.widget.DrawerLayout>
