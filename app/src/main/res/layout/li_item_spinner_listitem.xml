@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/default_padding"
-        android:src="@drawable/ic_drawer_entry_types" />
+        android:src="@drawable/nav_entry_types" />
 
     <LinearLayout
         android:layout_width="wrap_content"

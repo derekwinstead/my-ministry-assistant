@@ -3,7 +3,7 @@
         <item
             android:id="@+id/drawer_report"
             android:checked="true"
-            android:icon="@drawable/baseline_view_day"
+            android:icon="@drawable/nav_home"
             android:title="@string/navdrawer_item_report" />
         <item
             android:id="@+id/drawer_publications"
@@ -11,27 +11,27 @@
             android:title="@string/navdrawer_item_publications" />
         <item
             android:id="@+id/drawer_householders"
-            android:icon="@drawable/ic_drawer_householder_new"
+            android:icon="@drawable/nav_householders"
             android:title="@string/navdrawer_item_householders" />
         <item
             android:id="@+id/drawer_publishers"
-            android:icon="@drawable/ic_drawer_publication"
+            android:icon="@drawable/nav_publishers"
             android:title="@string/navdrawer_item_publishers" />
         <item
             android:id="@+id/drawer_entry_types"
-            android:icon="@drawable/baseline_bubble_chart"
+            android:icon="@drawable/nav_entry_types"
             android:title="@string/navdrawer_item_entry_types" />
         <item
             android:id="@+id/drawer_db"
-            android:icon="@drawable/baseline_dns"
+            android:icon="@drawable/nav_backups"
             android:title="@string/navdrawer_item_backups" />
         <item
             android:id="@+id/drawer_settings"
-            android:icon="@drawable/perm_group_system_tools"
+            android:icon="@drawable/nav_settings"
             android:title="@string/navdrawer_item_settings" />
         <item
             android:id="@+id/drawer_help"
-            android:icon="@drawable/baseline_help"
+            android:icon="@drawable/nav_help"
             android:title="@string/navdrawer_item_help" />
     </group>
 </menu>

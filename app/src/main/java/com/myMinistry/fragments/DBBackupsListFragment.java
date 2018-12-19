@@ -210,6 +210,11 @@ public class DBBackupsListFragment extends ListFragment {
     }
 
     private void showDailyScheduleDialog() {
+        // TODO these are the permissions that need runtime permissions
+        /*
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+         */
         final Calendar daily = Calendar.getInstance(Locale.getDefault());
         final Calendar weekly = Calendar.getInstance(Locale.getDefault());
 

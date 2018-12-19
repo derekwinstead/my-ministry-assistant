@@ -3,26 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.DBBackupsListFragment">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@android:id/list"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/backups_db"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:divider="@color/divider"
-            android:dividerHeight="1dp"
-            android:drawSelectorOnTop="true"
             android:paddingBottom="@dimen/fab_padding"
-            android:scrollbarStyle="outsideOverlay" />
+            tools:itemCount="10"
+            tools:listitem="@layout/backups_li" />
 
         <TextView
-            android:id="@id/android:empty"
+            android:id="@+id/empty"
             style="@style/EmptyListTextSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -402,7 +402,7 @@ public class TimeEditorFragment extends ListFragment implements NumberPickerDial
 
                     typesAdapter.clear();
                     while (qEntryTypes.moveToNext())
-                        typesAdapter.addItem(new NavDrawerMenuItem(qEntryTypes.getString(qEntryTypes.getColumnIndex(EntryType.NAME)), R.drawable.ic_drawer_entry_types, qEntryTypes.getInt(qEntryTypes.getColumnIndex(EntryType._ID))));
+                        typesAdapter.addItem(new NavDrawerMenuItem(qEntryTypes.getString(qEntryTypes.getColumnIndex(EntryType.NAME)), R.drawable.nav_entry_types, qEntryTypes.getInt(qEntryTypes.getColumnIndex(EntryType._ID))));
 
                     typesAdapter.notifyDataSetChanged();
                 }

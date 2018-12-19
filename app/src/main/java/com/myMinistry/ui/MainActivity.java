@@ -17,6 +17,7 @@ import com.myMinistry.fragments.PublicationManagerFragment;
 import com.myMinistry.fragments.PublishersFragment;
 import com.myMinistry.fragments.TimeEditorFragment;
 import com.myMinistry.provider.MinistryDatabase;
+import com.myMinistry.ui.backups.BackupFragment;
 import com.myMinistry.ui.householders.HouseholdersListFragment;
 import com.myMinistry.ui.report.ReportSummaryFragment;
 import com.myMinistry.utils.ActivityUtils;
@@ -68,11 +69,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Launch default fragment
-        ReportSummaryFragment reportSummaryFragment = (ReportSummaryFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        BackupFragment reportSummaryFragment = (BackupFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (reportSummaryFragment == null) {
             setTitle(R.string.navdrawer_item_report);
             // Create the fragment
-            reportSummaryFragment = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
+            //reportSummaryFragment = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
+            reportSummaryFragment = new BackupFragment().newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), reportSummaryFragment, R.id.contentFrame);
         }
 

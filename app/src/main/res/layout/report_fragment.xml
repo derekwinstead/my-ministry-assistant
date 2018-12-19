@@ -24,16 +24,16 @@
             android:layout_height="wrap_content"
             android:divider="@drawable/separator"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/default_padding_half"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
+            android:paddingBottom="@dimen/default_padding_half"
             android:showDividers="middle">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding"
-                android:paddingTop="@dimen/default_padding">
+                android:paddingTop="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding">
 
                 <TextView
                     style="@style/TextViewPrimary"
@@ -60,8 +60,8 @@
                     android:layout_below="@id/placements_count"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:paddingEnd="1dp"
                     android:paddingStart="@dimen/default_padding_double"
+                    android:paddingEnd="1dp"
                     android:scrollbars="none"
                     tools:itemCount="5"
                     tools:listitem="@layout/li_report_publication_item" />
@@ -70,8 +70,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding"
-                android:paddingTop="@dimen/default_padding">
+                android:paddingTop="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding">
 
                 <TextView
                     style="@style/TextViewPrimary"
@@ -95,8 +95,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding"
-                android:paddingTop="@dimen/default_padding">
+                android:paddingTop="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding">
 
                 <TextView
                     style="@style/TextViewPrimary"
@@ -120,8 +120,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding"
-                android:paddingTop="@dimen/default_padding">
+                android:paddingTop="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding">
 
                 <TextView
                     android:id="@+id/return_visits_text"
@@ -146,8 +146,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/default_padding"
-                android:paddingTop="@dimen/default_padding">
+                android:paddingTop="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding">
 
                 <TextView
                     android:id="@+id/bible_studies_text"
