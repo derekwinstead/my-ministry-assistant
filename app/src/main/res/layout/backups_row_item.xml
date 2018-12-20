@@ -14,7 +14,7 @@
         android:drawablePadding="@dimen/default_padding"
         android:drawableTint="@color/primary"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/margin_medium"
+        android:paddingStart="12dp"
         android:paddingEnd="@dimen/margin_medium"
         android:textColor="@color/black"
         android:textSize="@dimen/textsizeMD"

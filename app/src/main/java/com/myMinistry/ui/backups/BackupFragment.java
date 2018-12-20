@@ -1,7 +1,6 @@
 package com.myMinistry.ui.backups;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,12 +14,13 @@ import com.myMinistry.provider.MinistryService;
 import com.myMinistry.ui.backups.model.Backup;
 import com.myMinistry.utils.AppConstants;
 import com.myMinistry.utils.FileUtils;
+import com.myMinistry.utils.TimeUtils;
+import com.myMinistry.utils.ViewUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -146,28 +146,18 @@ public class BackupFragment extends Fragment {
     }
 
     private void onClick(int position) {
-        //Toast.makeText(getContext(), "Selected " + mAdapter.getItem(position).getName(), Toast.LENGTH_SHORT).show();
-
+        /*
         Toast toast = Toast.makeText(getContext(), "Selected " + mAdapter.getItem(position).getName(), Toast.LENGTH_SHORT);
         View view = toast.getView();
-
-//Gets the actual oval background of the Toast then sets the colour filter
+        //Gets the actual oval background of the Toast then sets the colour filter
         view.getBackground().setColorFilter(getResources().getColor(R.color.alert_bg), PorterDuff.Mode.SRC_IN);
-
-//Gets the TextView from the Toast so it can be editted
+        //Gets the TextView from the Toast so it can be edited
         TextView text = view.findViewById(android.R.id.message);
         text.setTextColor(getContext().getResources().getColor(R.color.bpWhite));
-
         toast.show();
+*/
 
 
-
-
-
-
-
-
-        //final File file = FileUtils.getExternalDBFile(getActivity(), fileList[position]);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(mAdapter.getItem(position).getName());
 
@@ -179,11 +169,15 @@ public class BackupFragment extends Fragment {
 
                 try {
                     if (database.importDatabase(file, getActivity().getApplicationContext().getDatabasePath(AppConstants.DATABASE_NAME))) {
+                        Toast.makeText(getContext(), R.string.snackbar_import_text, Toast.LENGTH_SHORT).show();
+
                         //Snackbar.make(coordinatorLayout, R.string.snackbar_import_text, Snackbar.LENGTH_SHORT).show();
                     } else {
+                        ViewUtils.Toast(getContext(), R.string.snackbar_import_text_error, Toast.LENGTH_SHORT);
                         //Snackbar.make(coordinatorLayout, R.string.snackbar_import_text_error, Snackbar.LENGTH_SHORT).show();
                     }
                 } catch (IOException e) {
+                    ViewUtils.Toast(getContext(), e.getMessage(), Toast.LENGTH_SHORT);
                     //Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             } else if (item == REF_EMAIL) {
@@ -195,8 +189,11 @@ public class BackupFragment extends Fragment {
             } else if (item == REF_DELETE) {
                 file.delete();
                 mAdapter.removeItem(position);
+                showHideRecyclerView();
+
+                ViewUtils.Toast(getContext(), R.string.toast_deleted, Toast.LENGTH_SHORT);
+
                 //Snackbar.make(coordinatorLayout, R.string.toast_deleted, Snackbar.LENGTH_SHORT).show();
-//                    reloadAdapter();
             }
         });
         AlertDialog alert = builder.create();
@@ -204,7 +201,7 @@ public class BackupFragment extends Fragment {
     }
 
     private void createBackup() {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-aaa", Locale.getDefault());
+        SimpleDateFormat dateFormatter = TimeUtils.backupFullFormat;
         Calendar now = Calendar.getInstance();
         String date = dateFormatter.format(now.getTime());
         File intDB = getActivity().getApplicationContext().getDatabasePath(AppConstants.DATABASE_NAME);
@@ -218,6 +215,10 @@ public class BackupFragment extends Fragment {
                 FileUtils.copyFile(intDB, extDB);
 
                 mAdapter.addItem(new Backup(extDB.getName()));
+
+                ViewUtils.Toast(getContext(),R.string.snackbar_export_text,Toast.LENGTH_SHORT);
+
+                showHideRecyclerView();
 
                 //Snackbar.make(coordinatorLayout, R.string.snackbar_export_text, Snackbar.LENGTH_SHORT).show();
             }

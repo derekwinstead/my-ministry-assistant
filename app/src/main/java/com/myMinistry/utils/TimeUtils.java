@@ -22,6 +22,8 @@ public class TimeUtils {
     public static final SimpleDateFormat numericalMonthAndDayFormat = new SimpleDateFormat("M/d", Locale.getDefault());
     public static final SimpleDateFormat dayOfMonthFormat = new SimpleDateFormat("d", Locale.getDefault());
     public static final SimpleDateFormat monthAndYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+    public static final SimpleDateFormat backupFullFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss-aaa", Locale.getDefault());
+
 
     private static String[] suffixes =
             //     0     1     2     3     4     5     6     7     8     9
