@@ -106,7 +106,7 @@ public class DBBackupsListFragment extends ListFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(fileList[position]);
 
-        builder.setItems(getResources().getStringArray(R.array.db_backups_list_item_options), new DialogInterface.OnClickListener() {
+        builder.setItems(getResources().getStringArray(R.array.backup_row_item_options), new DialogInterface.OnClickListener() {
             @SuppressWarnings("ResultOfMethodCallIgnored")
             public void onClick(DialogInterface dialog, int item) {
                 if (item == REF_RESTORE) {

@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.myMinistry.R;
-import com.myMinistry.fragments.DBBackupsListFragment;
 import com.myMinistry.fragments.EntryTypeManagerFrag;
 import com.myMinistry.fragments.PublicationFragment;
 import com.myMinistry.fragments.PublicationManagerFragment;
@@ -223,10 +222,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawer_db:
                 setTitle(R.string.navdrawer_item_backups);
 
-                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof DBBackupsListFragment)) {
+                if (!(getSupportFragmentManager().findFragmentById(R.id.contentFrame) instanceof BackupFragment)) {
                     ActivityUtils.replaceFragmentForActivity(
                             getSupportFragmentManager()
-                            , new DBBackupsListFragment().newInstance()
+                            , new BackupFragment().newInstance()
                             , R.id.contentFrame
                     );
                 }

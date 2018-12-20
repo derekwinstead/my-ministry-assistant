@@ -10,13 +10,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/backups_db"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/fab_padding"
             tools:itemCount="10"
-            tools:listitem="@layout/backups_li" />
+            tools:listitem="@layout/backups_row_item" />
 
         <TextView
             android:id="@+id/empty"

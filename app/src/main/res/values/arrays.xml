@@ -18,10 +18,10 @@
         <item>@string/menu_transfer_to</item>
         <item>@string/menu_delete</item>
     </array>
-    <array name="db_backups_list_item_options">
-        <item>@string/pref_restore_title</item>
-        <item>@string/menu_share</item>
-        <item>@string/menu_delete</item>
+    <array name="backup_row_item_options">
+        <item>@string/menu_backup_restore</item>
+        <item>@string/menu_backup_share</item>
+        <item>@string/menu_backup_delete</item>
     </array>
     <array name="contact_email_entries">
         <item>@string/pref_bugs_title</item>

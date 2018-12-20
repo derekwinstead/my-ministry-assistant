@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_database"
+        android:drawablePadding="@dimen/default_padding"
+        android:drawableTint="@color/primary"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingEnd="@dimen/margin_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsizeMD"
+        tools:targetApi="m"
+        tools:text="@tools:sample/date/hhmmss" />
+</FrameLayout>

@@ -16,6 +16,8 @@
     <dimen name="flet_hint_text_size">11sp</dimen>
     <dimen name="dividerHeight">@dimen/inner_padding</dimen>
 
+    <dimen name="list_item_height">48dp</dimen>
+
     <!-- body content -->
     <dimen name="fab_margin_right">0dp</dimen>
     <dimen name="fab_margin_bottom">0dp</dimen>

@@ -152,5 +152,8 @@
     <string name="confirm_deletion_message_publisher">This action cannot be undone. If you delete this record before transferring any time entries associated with this record those entries will no longer be available.\n\nAre you sure you want to delete?</string>
     <string name="confirm_deletion_message_publication">This action cannot be undone. If you delete this record before transferring anything associated with this record those entries will be deleted and will no longer be available in any way.\n\nAre you sure you want to delete?</string>
     <string name="navigation_view_header_title">TO-DOs</string>
+    <string name="menu_backup_restore">Restore backup</string>
+    <string name="menu_backup_delete">Delete backup</string>
+    <string name="menu_backup_share">Share backup</string>
 
 </resources>
