@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -58,6 +61,11 @@ public class BackupFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.backups_menu, menu);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -68,6 +76,9 @@ public class BackupFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.backups_fragment, container, false);
+
+        // Sets up the action bar menu - onCreateOptionsMenu()
+        setHasOptionsMenu(true);
 
         // Setup the list
         empty = root.findViewById(R.id.empty);
@@ -216,7 +227,7 @@ public class BackupFragment extends Fragment {
 
                 mAdapter.addItem(new Backup(extDB.getName()));
 
-                ViewUtils.Toast(getContext(),R.string.snackbar_export_text,Toast.LENGTH_SHORT);
+                ViewUtils.Toast(getContext(), R.string.snackbar_export_text, Toast.LENGTH_SHORT);
 
                 showHideRecyclerView();
 
@@ -225,5 +236,32 @@ public class BackupFragment extends Fragment {
         } catch (IOException e) {
             //Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*
+        switch (item.getItemId()) {
+            case R.id.cleanup_bu:
+                int FLAG = Helper.clearBackups(getActivity().getApplicationContext());
+                if (FLAG == 1)
+                    Snackbar.make(coordinatorLayout, R.string.snackbar_cleaned_backups, Snackbar.LENGTH_SHORT).show();
+                else if (FLAG == 2)
+                    Snackbar.make(coordinatorLayout, R.string.snackbar_cleaned_backups_only_one, Snackbar.LENGTH_SHORT).show();
+                else if (FLAG == 0)
+                    Snackbar.make(coordinatorLayout, R.string.snackbar_cleaned_backups_error, Snackbar.LENGTH_SHORT).show();
+
+                reloadAdapter();
+
+                return true;
+            case R.id.view_db_schedule:
+                showDailyScheduleDialog();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        */
+        return true;
     }
 }
