@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.myMinistry.R;
 import com.myMinistry.model.NavDrawerMenuItem;
 
-import androidx.core.content.ContextCompat;
-
 public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
-    private int LAYOUT_VIEW_ID = R.layout.li_item_spinner_item_2;
-
     public ItemAdapter(Context context) {
         super(context, 0);
     }
@@ -66,7 +64,7 @@ public class ItemAdapter extends ArrayAdapter<NavDrawerMenuItem> {
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.li_item_spinner_item_2, parent, false);
             TextView text1 = view.findViewById(R.id.menurow_title);
             view.setTag(new ViewHolder(text1));
         }

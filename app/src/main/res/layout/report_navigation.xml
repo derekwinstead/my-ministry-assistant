@@ -24,7 +24,6 @@
             android:src="@drawable/ic_action_previous_item" />
 
         <LinearLayout
-            android:id="@+id/monthYear"
             android:layout_width="0dp"
             android:layout_height="@dimen/thumb_height"
             android:layout_weight="3"

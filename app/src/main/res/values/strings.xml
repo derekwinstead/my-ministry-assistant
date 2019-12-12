@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation" tools:locale="en">
     <string name="app_name">My Ministry Assistant</string>
-    <string name="no_householders">No Householders</string>
+
     <string name="no_publishers">No Publishers</string>
     <string name="no_publications">No publications to display</string>
     <string name="total_time">Total Time</string>
@@ -9,11 +9,11 @@
     <string name="last_visited_on">Last visited on {date}</string>
     <string name="last_active_on">Last active on {date}</string>
     <string name="last_placed_on">Last placed on {date}</string>
-    <string name="recent_activity">Recent Activity</string>
+
     <string name="no_activity">No Activity</string>
     <string name="inactive">Inactive</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+
+
     <string name="hours_label">h</string>
     <string name="minutes_label">m</string>
     <string name="no_backups">No Backups</string>
@@ -35,7 +35,7 @@
     <string name="navdrawer_item_help">Help</string>
     <string name="navdrawer_item_time_entry">Time Entry</string>
     <string name="title_householder_edit">Householder Edit</string>
-    <string name="title_publisher_edit">Publisher Edit</string>
+
     <string name="title_publication_edit">Publication Edit</string>
     <string name="default_rollover_time">Rollover Time</string>
     <string name="default_bible_study">Bible Study</string>
@@ -58,8 +58,8 @@
     <string name="form_publication_types">Publication Types</string>
     <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Notes</string>
-    <string name="form_start">Start</string>
-    <string name="form_end">End</string>
+
+
     <string name="form_is_active">Is Active</string>
     <string name="form_is_inactive">Is Inactive</string>
     <string name="form_is_pair">Is a Pair</string>
@@ -92,7 +92,7 @@
     <string name="pref_update_title">Check for an Update</string>
     <string name="pref_update_summary">Check the website to see if there is an update available. This is used for phones or tablets that do not have the market available.</string>
     <string name="pref_backup_title">Backup database</string>
-    <string name="pref_restore_title">Restore database</string>
+
     <string name="pref_restore_dialog">Database restore</string>
     <string name="pref_clear_title">Clear old backups</string>
     <string name="pref_donate_title">Donate</string>
@@ -127,7 +127,7 @@
     <string name="note_rollover_edit">****************\nNote: This is a unique entry type to manage rollover time. You cannot make it active. Do not manually create a rollover entry type as this will be used to do any automatic calculations.\n****************</string>
     <string name="pref_locale">Language</string>
     <string name="pref_locale_selected">Currently: {locale}</string>
-    <string name="form_gender">Gender</string>
+
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="placements">Placements</string>
@@ -151,7 +151,7 @@
     <string name="activity">Activity</string>
     <string name="confirm_deletion_message_publisher">This action cannot be undone. If you delete this record before transferring any time entries associated with this record those entries will no longer be available.\n\nAre you sure you want to delete?</string>
     <string name="confirm_deletion_message_publication">This action cannot be undone. If you delete this record before transferring anything associated with this record those entries will be deleted and will no longer be available in any way.\n\nAre you sure you want to delete?</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+
     <string name="menu_backup_restore">Restore backup</string>
     <string name="menu_backup_delete">Delete backup</string>
     <string name="menu_backup_share">Share backup</string>

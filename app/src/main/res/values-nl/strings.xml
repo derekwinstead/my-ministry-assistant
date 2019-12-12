@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="nl">
 
     <string name="app_name">My Ministry Assistant</string>
-    <string name="no_householders">Geen Huisbewoner</string>
+
     <string name="no_publishers">Geen Verkondigers</string>
     <string name="no_publications">Geen publicaties om weer te geven</string>
     <string name="total_time">Totale Tijd</string>
@@ -10,11 +10,11 @@
     <string name="last_visited_on">Laatst bezocht op {date}</string>
     <string name="last_active_on">Laatst actief op {date}</string>
     <string name="last_placed_on">Laatst verspreid op {date}</string>
-    <string name="recent_activity">Recente Activiteit</string>
+
     <string name="no_activity">Geen Activity</string>
     <string name="inactive">Inactief</string>
-    <string name="drawer_open">Open navigatie</string>
-    <string name="drawer_close">Sluit navigatie</string>
+
+
     <string name="hours_label">h</string>
     <string name="minutes_label">m</string>
     <string name="no_backups">Geen Backups</string>
@@ -36,7 +36,7 @@
     <string name="navdrawer_item_help">Hulp</string>
     <string name="navdrawer_item_time_entry">Time Entry</string>
     <string name="title_householder_edit">Huishouder Bewerken</string>
-    <string name="title_publisher_edit">Wijzig Proclaimer</string>
+
     <string name="title_publication_edit">Publicatie Wijzigen</string>
     <string name="default_rollover_time">Overlap Tijd</string>
     <string name="default_bible_study">Bijbelstudie</string>
@@ -58,8 +58,8 @@
     <string name="form_publication_types">Publicaties</string>
     <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Notities</string>
-    <string name="form_start">Begin</string>
-    <string name="form_end">Eindigen</string>
+
+
     <string name="form_is_active">Is Actief</string>
     <string name="form_is_inactive">Inactief</string>
     <string name="form_is_pair">Is een paar</string>
@@ -92,7 +92,7 @@
     <string name="pref_update_title">Check voor een update</string>
     <string name="pref_update_summary">Check de website om te zien of er een update is. Dit wordt gebruikt voor smartphone of tablet die niet aan de market kan.</string>
     <string name="pref_backup_title">Maak een backup van de database</string>
-    <string name="pref_restore_title">Herstel database</string>
+
     <string name="pref_restore_dialog">Database herstel</string>
     <string name="pref_clear_title">Verwijder oude backups</string>
     <string name="pref_donate_title">Doneer</string>
@@ -128,7 +128,7 @@
     <string name="pref_locale">Taal</string>
     <string name="pref_locale_selected">Huidige: {locale}</string>
     <string name="default_videos">Videos</string>
-    <string name="form_gender">Geslacht</string>
+
     <string name="gender_male">Mannetje</string>
     <string name="gender_female">Vrouw</string>
     <string name="video_showings">videovoorstellingen</string>
@@ -152,6 +152,6 @@
     <string name="activity">Activiteit</string>
     <string name="confirm_deletion_message_publisher">Deze actie kan niet ongedaan gemaakt worden. Als u dit record voordat de overdracht van elk moment data geassocieerd met dit record te verwijderen die inzendingen zullen niet meer beschikbaar zijn.\n\nWeet je zeker dat je wilt verwijderen?</string>
     <string name="confirm_deletion_message_publication">Deze actie kan niet ongedaan gemaakt worden. Als u dit record te verwijderen voordat er iets in verband met deze plaat die inzendingen worden verwijderd overbrengen en zal niet meer beschikbaar zijn in any way.\n\nWeet je zeker dat je wilt verwijderen?</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+
 
 </resources>

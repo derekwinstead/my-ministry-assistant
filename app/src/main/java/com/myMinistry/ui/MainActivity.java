@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Launch default fragment
-        BackupFragment reportSummaryFragment = (BackupFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        ReportSummaryFragment reportSummaryFragment = (ReportSummaryFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (reportSummaryFragment == null) {
             setTitle(R.string.navdrawer_item_report);
             // Create the fragment
             //reportSummaryFragment = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
-            reportSummaryFragment = new BackupFragment().newInstance();
+            reportSummaryFragment = new ReportSummaryFragment().newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), reportSummaryFragment, R.id.contentFrame);
         }
 

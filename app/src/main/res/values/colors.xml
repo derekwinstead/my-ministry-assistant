@@ -3,7 +3,7 @@
 
     <!-- Standard Colors -->
     <color name="black">#000000</color>
-    <color name="app_background">#eeeeee</color>
+
     <color name="card_background">#fafafa</color>
 
     <!-- Android Default Colors -->
@@ -19,19 +19,18 @@
     <color name="alert_bg">#db4437</color>
 
     <!-- Action Bar -->
-    <color name="actionbar_text">#ffffff</color>
-    <color name="actionbar_subtitle_text">#dedede</color>
+
+
     <!--
     https://material.google.com/style/color.html#color-color-palette
     -->
     <color name="primary">#673AB7</color>
     <color name="primary_dark">#512DA8</color>
-    <color name="primary_light">#D1C4E9</color>
     <!--<color name="accent">#E040FB</color>-->
     <color name="accent">#673AB7</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
-    <color name="icons">#FFFFFF</color>
+
     <color name="divider">#BDBDBD</color>
 
     <color name="window_background">#FAFAFA</color>
@@ -58,6 +57,9 @@
     800#4527A0
     900#311B92
     -->
+
+
+    <color name="colorPrimary">#3F51B5</color>
 
     <color name="black_effective">#2a2a2a</color>
     <color name="dark_gray">#696969</color>

@@ -6,7 +6,6 @@
     <dimen name="thumb_height">48dp</dimen>
     <dimen name="default_padding">10dp</dimen>
     <dimen name="default_padding_half">5dp</dimen>
-    <dimen name="default_padding_two_third">7dp</dimen>
     <dimen name="default_padding_extra">15dp</dimen>
     <dimen name="default_padding_double">20dp</dimen>
     <dimen name="fab_padding">90dp</dimen>
@@ -21,4 +20,6 @@
     <!-- body content -->
     <dimen name="fab_margin_right">0dp</dimen>
     <dimen name="fab_margin_bottom">0dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
 </resources>

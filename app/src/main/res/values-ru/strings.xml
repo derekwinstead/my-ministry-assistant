@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ru">
 
     <string name="app_name">Мой помощник Министерство</string>
-    <string name="no_householders">Нет Домовладельцы</string>
+
     <string name="no_publishers">Нет Издатели</string>
     <string name="no_publications">Нет публикации для отображения</string>
     <string name="total_time">Общее время</string>
@@ -10,11 +10,11 @@
     <string name="last_visited_on">Последнее посещение на {date}</string>
     <string name="last_active_on">Последняя активность на {date}</string>
     <string name="last_placed_on">Последние размещены на {date}</string>
-    <string name="recent_activity">Последняя активность</string>
+
     <string name="no_activity">Нет активности</string>
     <string name="inactive">Неактивный</string>
-    <string name="drawer_open">Открыть навигации ящик</string>
-    <string name="drawer_close">Закрыть навигации ящик</string>
+
+
     <string name="hours_label">ч</string>
     <string name="minutes_label">м</string>
     <string name="no_backups">Нет Резервные копии</string>
@@ -36,7 +36,7 @@
     <string name="navdrawer_item_help">Помощь</string>
     <string name="navdrawer_item_time_entry">Время Вступление</string>
     <string name="title_householder_edit">Арендодатель Редактировать</string>
-    <string name="title_publisher_edit">Изменить проповедует</string>
+
     <string name="title_publication_edit">Изменить Публикация</string>
     <string name="default_rollover_time">Перевернулся Время</string>
     <string name="default_bible_study">Изучение Библии</string>
@@ -58,8 +58,8 @@
     <string name="form_publication_types">Типы публикаций</string>
     <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Примечания</string>
-    <string name="form_start">Начать</string>
-    <string name="form_end">Конец</string>
+
+
     <string name="form_is_active">активен</string>
     <string name="form_is_inactive">неактивен</string>
     <string name="form_is_pair">Пара</string>
@@ -92,7 +92,7 @@
     <string name="pref_update_title">Проверить наличие обновлений</string>
     <string name="pref_update_summary">Проверьте веб-сайт, чтобы увидеть, если есть доступное обновление. Это используется для телефонов или планшетов, которые не имеют на рынке доступны.</string>
     <string name="pref_backup_title">Резервное копирование базы данных</string>
-    <string name="pref_restore_title">Восстановление базы данных</string>
+
     <string name="pref_restore_dialog">База данных восстановить</string>
     <string name="pref_clear_title">Очистить старых резервных копий</string>
     <string name="pref_donate_title">Пожертвовать</string>
@@ -128,7 +128,7 @@
     <string name="pref_locale">язык</string>
     <string name="pref_locale_selected">Ток: {locale}</string>
     <string name="default_videos">Видео</string>
-    <string name="form_gender">Пол</string>
+
     <string name="gender_male">мужчина</string>
     <string name="gender_female">женский</string>
     <string name="video_showings">Видео Показы</string>
@@ -152,6 +152,6 @@
     <string name="activity">Мероприятия</string>
     <string name="confirm_deletion_message_publisher">Это действие не может быть отменено. Если удалить эту запись перед передачей каких-либо время записи, связанные с этой записью, эти записи больше не будут доступны.\n\nВы уверены, что хотите удалить?</string>
     <string name="confirm_deletion_message_publication">Это действие не может быть отменено. Если удалить эту запись перед передачей ничего, связанного с этой записью, эти записи будут удалены и больше не будут доступны в любом случае.\n\nВы уверены, что хотите удалить?</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+
 
 </resources>

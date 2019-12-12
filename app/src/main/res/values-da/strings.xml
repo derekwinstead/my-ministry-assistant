@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="da" tools:ignore="ExtraTranslation">
 
     <string name="app_name">My Ministry Assistant</string>
-    <string name="no_householders">Ingen beboer</string>
+
     <string name="no_publishers">Ingen forkyndere</string>
     <string name="no_publications">Ingen publikationer tilgængelige</string>
     <string name="total_time">Total tid</string>
@@ -10,11 +10,11 @@
     <string name="last_visited_on">Sidst besøgt {date}</string>
     <string name="last_active_on">Sidst aktiv {date}</string>
     <string name="last_placed_on">Sidst afsat {date}</string>
-    <string name="recent_activity">Seneste aktivitet</string>
+
     <string name="no_activity">Ingen aktivitet</string>
     <string name="inactive">Inaktiv</string>
-    <string name="drawer_open">Åbn navigation</string>
-    <string name="drawer_close">Luk navigation</string>
+
+
     <string name="hours_label">t</string>
     <string name="minutes_label">m</string>
     <string name="no_backups">Ingen Backups</string>
@@ -36,7 +36,7 @@
     <string name="navdrawer_item_help">Hjælp</string>
     <string name="navdrawer_item_time_entry">Tid</string>
     <string name="title_householder_edit">Editér beboer</string>
-    <string name="title_publisher_edit">Editér forkynder</string>
+
     <string name="title_publication_edit">Editér publikation</string>
     <string name="default_rollover_time">Rollover Time</string>
     <string name="default_bible_study">Bibelstudie</string>
@@ -58,8 +58,8 @@
     <string name="form_publication_types">Publikationstyper</string>
     <string name="form_entry_type">Indtastningstype</string>
     <string name="form_notes">Noter</string>
-    <string name="form_start">Start</string>
-    <string name="form_end">Slut</string>
+
+
     <string name="form_is_active">Aktiv</string>
     <string name="form_is_inactive">Inaktiv</string>
     <string name="form_is_pair">Er et par</string>
@@ -92,7 +92,7 @@
     <string name="pref_update_title">Check for opdatering</string>
     <string name="pref_update_summary">Check hjemmesiden for at se om der er en opdatering tilgængelig. Dette anvendes til telefoner der ikke har market installeret.</string>
     <string name="pref_backup_title">Backup database</string>
-    <string name="pref_restore_title">Genopret database</string>
+
     <string name="pref_restore_dialog">Databasegenoprettelse</string>
     <string name="pref_clear_title">Slet gamle backups</string>
     <string name="pref_donate_title">Donér</string>
@@ -128,7 +128,7 @@
     <string name="pref_locale">Idioma</string>
     <string name="pref_locale_selected">Strøm: {locale}</string>
     <string name="default_videos">Videoer</string>
-    <string name="form_gender">Køn</string>
+
     <string name="gender_male">Han</string>
     <string name="gender_female">Kvinde</string>
     <string name="video_showings">Video Fremvisninger</string>
@@ -152,6 +152,6 @@
     <string name="activity">Aktivitet</string>
     <string name="confirm_deletion_message_publisher">Denne handling kan ikke fortrydes. Hvis du sletter denne post inden overførsel af eventuelle tidsregistreringer forbundet med denne rekord disse poster vil ikke længere være tilgængelig.\n\nEr du sikker på at du vil slette?</string>
     <string name="confirm_deletion_message_publication">Denne handling kan ikke fortrydes. Hvis du sletter denne post, før du overfører noget forbundet med denne rekord disse poster vil blive slettet og vil ikke længere være tilgængelig på nogen måde.\n\nEr du sikker på at du vil slette?</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+
 
 </resources>

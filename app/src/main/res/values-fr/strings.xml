@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
 
     <string name="app_name">Mon adjoint Ministère</string>
-    <string name="no_householders">Pas de bulletins</string>
+
     <string name="no_publishers">Pas éditeurs</string>
     <string name="no_publications">Aucune publication à afficher</string>
     <string name="total_time">Temps total</string>
@@ -10,11 +10,11 @@
     <string name="last_visited_on">Dernière visite le {date}</string>
     <string name="last_active_on">Dernière connexion le {date}</string>
     <string name="last_placed_on">Dernière placé {date}</string>
-    <string name="recent_activity">Activité récente</string>
+
     <string name="no_activity">aucune activité</string>
     <string name="inactive">inactif</string>
-    <string name="drawer_open">Ouvrir le tiroir de navigation</string>
-    <string name="drawer_close">Fermer navigation tiroir</string>
+
+
     <string name="hours_label">h</string>
     <string name="minutes_label">m</string>
     <string name="no_backups">Pas de sauvegardes</string>
@@ -36,7 +36,7 @@
     <string name="navdrawer_item_help">Aider</string>
     <string name="navdrawer_item_time_entry">Temps Entrée</string>
     <string name="title_householder_edit">Maître de Maison Modifier</string>
-    <string name="title_publisher_edit">Proclamateurs Modifier</string>
+
     <string name="title_publication_edit">Modifier Publication</string>
     <string name="default_rollover_time">Survolez Temps</string>
     <string name="default_bible_study">étude de la Bible</string>
@@ -58,8 +58,8 @@
     <string name="form_publication_types">Types de publication</string>
     <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Remarques</string>
-    <string name="form_start">Démarrer</string>
-    <string name="form_end">fin</string>
+
+
     <string name="form_is_active">Est Active</string>
     <string name="form_is_inactive">Est Inactif</string>
     <string name="form_is_pair">Est une paire</string>
@@ -92,7 +92,7 @@
     <string name="pref_update_title">Vérifier une mise à jour</string>
     <string name="pref_update_summary">Consultez le site Web pour voir si il ya une mise à jour disponible. Il est utilisé pour les téléphones ou tablettes qui n\'ont pas marché disponible.</string>
     <string name="pref_backup_title">base de données de sauvegarde</string>
-    <string name="pref_restore_title">restaurer la base de données</string>
+
     <string name="pref_restore_dialog">Base de données de restauration</string>
     <string name="pref_clear_title">Les anciennes sauvegardes claires</string>
     <string name="pref_donate_title">donner</string>
@@ -128,7 +128,7 @@
     <string name="pref_locale">Langue</string>
     <string name="pref_locale_selected">Courant: {locale}</string>
     <string name="default_videos">Vidéos</string>
-    <string name="form_gender">Le Genre</string>
+
     <string name="gender_male">Mâle</string>
     <string name="gender_female">Femelle</string>
     <string name="video_showings">Projections vidéo</string>
@@ -152,6 +152,6 @@
     <string name="activity">Activité</string>
     <string name="confirm_deletion_message_publisher">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer toutes les entrées de temps associées à cette fiche les entrées ne seront plus disponibles.\n\nEtes-vous sûr que vous voulez supprimer?</string>
     <string name="confirm_deletion_message_publication">Cette action ne peut pas être annulée. Si vous supprimez ce dossier avant de transférer quoi que ce soit associé à ce dossier ces entrées seront supprimées et ne sera plus disponible en aucune façon.\n\nEtes-vous sûr que vous voulez supprimer?</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+
 
 </resources>

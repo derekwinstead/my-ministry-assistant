@@ -37,9 +37,7 @@
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 
-    <style name="TextAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/primary_text</item>
-    </style>
+
 
     <style name="TextViewPrimary" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/primary_text</item>

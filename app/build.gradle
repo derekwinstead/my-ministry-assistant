@@ -7,7 +7,6 @@ String VERSION_NAME = '4.1.0.831'
 
 android {
     buildToolsVersion '28.0.3'
-
     compileSdkVersion rootProject.compileSdkVersion
     dataBinding {
         enabled = true
@@ -21,19 +20,27 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            project.archivesBaseName = VERSION_CODE + "-myministryassistant-v" + VERSION_NAME
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            project.archivesBaseName = VERSION_CODE + "-myministryassistant-v" + VERSION_NAME
+        }
+        debug {
+            minifyEnabled false
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     implementation "com.code-troopers.betterpickers:library:$rootProject.betterPickersVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"

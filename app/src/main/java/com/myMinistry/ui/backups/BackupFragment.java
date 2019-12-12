@@ -240,6 +240,7 @@ public class BackupFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Check for permission before doing any of these
         /*
         switch (item.getItemId()) {
             case R.id.cleanup_bu:

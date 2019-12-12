@@ -12,6 +12,7 @@ import com.myMinistry.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DBListAdapter extends ArrayAdapter<File> {
     private static final int LAYOUT_ID = R.layout.li_db_item;
@@ -30,10 +31,13 @@ public class DBListAdapter extends ArrayAdapter<File> {
     }
 
     public void resetList(File[] list) {
+        this.list.addAll(Arrays.asList(list));
+        /*
         this.list = new ArrayList<>();
         for(File file : list) {
             this.list.add(file);
         }
+        */
     }
 
     private class ViewHolder {

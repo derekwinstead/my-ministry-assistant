@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="es">
 
     <string name="app_name">Mi Asistente de Ministerio</string>
-    <string name="no_householders">No hay Amos de Casa</string>
+
     <string name="no_publishers">No hay Publicadores</string>
     <string name="no_publications">No hay publicaciones a mostrar</string>
     <string name="total_time">Tiempo Total</string>
@@ -10,11 +10,11 @@
     <string name="last_visited_on">Última visita realizada el {date}</string>
     <string name="last_active_on">Ultima entrada en {date}</string>
     <string name="last_placed_on">Última colocado en {date}</string>
-    <string name="recent_activity">Actividad Reciente</string>
+
     <string name="no_activity">Sin Actividad</string>
     <string name="inactive">Inactivo</string>
-    <string name="drawer_open">Abrir cajón de navegación</string>
-    <string name="drawer_close">Cerrar cajón de navegación</string>
+
+
     <string name="hours_label">h</string>
     <string name="minutes_label">m</string>
     <string name="no_backups">No hay copias de seguridad</string>
@@ -36,7 +36,7 @@
     <string name="navdrawer_item_help">Ayuda</string>
     <string name="navdrawer_item_time_entry">Entrada Tiempo</string>
     <string name="title_householder_edit">Cabeza de Familia Modificar</string>
-    <string name="title_publisher_edit">Publicador Modificar</string>
+
     <string name="title_publication_edit">Modificar Publicación</string>
     <string name="default_rollover_time">Sobrante Mes Anterior</string>
     <string name="default_bible_study">Estudio de la Biblia</string>
@@ -58,8 +58,8 @@
     <string name="form_publication_types">Tipos de Publicación</string>
     <string name="form_entry_type">Entry Type</string>
     <string name="form_notes">Notas</string>
-    <string name="form_start">Empezar</string>
-    <string name="form_end">Terminar</string>
+
+
     <string name="form_is_active">Está Activo</string>
     <string name="form_is_inactive">Está Inactivo</string>
     <string name="form_is_pair">Es una Pareja</string>
@@ -92,7 +92,7 @@
     <string name="pref_update_title">Comprobar actualizaciones</string>
     <string name="pref_update_summary">Comprobar el sitio web para ver si hay actualizaciones. Esto es útil para dispositivos que no tienen el mercado de aplicaciones disponible.</string>
     <string name="pref_backup_title">Copia de seguridad</string>
-    <string name="pref_restore_title">Restaurar copia de seguridad</string>
+
     <string name="pref_restore_dialog">Restaurar copia de seguridad</string>
     <string name="pref_clear_title">Borrar copias de seguridad antiguas</string>
     <string name="pref_donate_title">Donar</string>
@@ -128,7 +128,7 @@
     <string name="pref_locale">Idioma</string>
     <string name="pref_locale_selected">Actual: {locale}</string>
     <string name="default_videos">Vídeos</string>
-    <string name="form_gender">Género</string>
+
     <string name="gender_male">Masculino</string>
     <string name="gender_female">Hembra</string>
     <string name="video_showings">Proyecciones de video</string>
@@ -152,6 +152,6 @@
     <string name="activity">Actividad</string>
     <string name="confirm_deletion_message_publisher">Esta acción no se puede deshacer. Si se elimina este registro antes de transferir las entradas de tiempo asociados con este registro las entradas ya no estarán disponibles.\n\n¿Estas seguro que quieres borrarlo?</string>
     <string name="confirm_deletion_message_publication">Esta acción no se puede deshacer. Si se elimina este registro antes de transferir todo lo relacionado con este registro se eliminarán las entradas y ya no estará disponible en modo alguno.\n\n¿Estas seguro que quieres borrarlo?</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+
 
 </resources>

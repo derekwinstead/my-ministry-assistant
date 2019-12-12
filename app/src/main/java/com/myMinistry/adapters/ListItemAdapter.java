@@ -9,14 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.myMinistry.R;
 import com.myMinistry.model.ListItem;
 
-import androidx.core.content.ContextCompat;
-
 public class ListItemAdapter extends ArrayAdapter<ListItem> {
-    private int LAYOUT_VIEW_ID = R.layout.li_item_spinner_listitem;
-
     public ListItemAdapter(Context context) {
         super(context, 0);
     }
@@ -70,7 +68,7 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(LAYOUT_VIEW_ID, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.li_item_spinner_listitem, parent, false);
             TextView title = view.findViewById(R.id.menurow_title);
             TextView subtitle = view.findViewById(R.id.menurow_subtitle);
             ImageView img = view.findViewById(R.id.menurow_img);

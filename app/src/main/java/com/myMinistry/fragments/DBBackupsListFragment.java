@@ -21,6 +21,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.ListFragment;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.myMinistry.Helper;
 import com.myMinistry.R;
@@ -42,11 +47,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.ListFragment;
 
 public class DBBackupsListFragment extends ListFragment {
     private String[] fileList;
@@ -78,13 +78,7 @@ public class DBBackupsListFragment extends ListFragment {
 
         coordinatorLayout = view.findViewById(R.id.coordinatorLayout);
 
-        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createBackup();
-            }
-        });
-
+        view.findViewById(R.id.fab).setOnClickListener(v -> createBackup());
 
         return view;
     }
