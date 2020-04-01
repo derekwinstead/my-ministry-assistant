@@ -31,12 +31,12 @@
         -->
         <activity
             android:name="com.myMinistry.ui.MainActivity"
-            android:configChanges="locale"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,11 +53,14 @@
                 android:resource="@xml/deep_link_appwidget_info" />
         </receiver>
         <!-- End Derek Add -->
-        <activity
+        <!--<activity
             android:name="com.myMinistry.ui.SettingsActivity"
             android:configChanges="locale"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> -->
+        <activity
+            android:name="com.myMinistry.ui.SettingsActivity"
+            android:exported="false" />
 
         <service
             android:name="com.myMinistry.services.DailyBackupService"
