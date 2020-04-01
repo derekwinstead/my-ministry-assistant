@@ -6,8 +6,10 @@ int VERSION_CODE = 243
 String VERSION_NAME = '4.1.0.831'
 
 android {
-    buildToolsVersion '28.0.3'
+    //buildToolsVersion '28.0.3'
     compileSdkVersion rootProject.compileSdkVersion
+    viewBinding.enabled = true
+
     dataBinding {
         enabled = true
     }
@@ -48,4 +50,6 @@ dependencies {
     implementation "joda-time:joda-time:$rootProject.jodaTimeVersion"
     //implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
+    // Material Navigation View Library
+    //implementation 'com.shreyaspatil:MaterialNavigationView:1.2'
 }
