@@ -8,6 +8,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 import com.myMinistry.R;
 import com.myMinistry.fragments.EntryTypeManagerFrag;
@@ -25,12 +31,6 @@ import com.myMinistry.utils.PrefUtils;
 
 import java.util.Calendar;
 import java.util.Locale;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_TIME_ENTRY = 8;
@@ -70,11 +70,14 @@ public class MainActivity extends AppCompatActivity {
         // Launch default fragment
         ReportSummaryFragment reportSummaryFragment = (ReportSummaryFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (reportSummaryFragment == null) {
+            /*
             setTitle(R.string.navdrawer_item_report);
             // Create the fragment
             //reportSummaryFragment = new ReportSummaryFragment().newInstance(PrefUtils.getPublisherId(this));
             reportSummaryFragment = new ReportSummaryFragment().newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), reportSummaryFragment, R.id.contentFrame);
+
+             */
         }
 
 
