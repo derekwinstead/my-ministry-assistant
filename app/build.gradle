@@ -7,7 +7,7 @@ String VERSION_NAME = '4.1.0.831'
 
 android {
     buildToolsVersion '28.0.3'
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion 29
     viewBinding.enabled = true
 
     dataBinding {
@@ -15,8 +15,8 @@ android {
     }
     defaultConfig {
         applicationId 'com.myMinistry'
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 28
         versionName VERSION_NAME
         versionCode = VERSION_CODE
     }
@@ -40,18 +40,15 @@ android {
 }
 
 dependencies {
-    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
-    implementation "com.code-troopers.betterpickers:library:$rootProject.betterPickersVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "com.squareup.phrase:phrase:$rootProject.phraseVersion"
-    implementation "joda-time:joda-time:$rootProject.jodaTimeVersion"
-    //implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
-    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-    // Material Navigation View Library
-    //implementation 'com.shreyaspatil:MaterialNavigationView:1.2'
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.2.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.2.2"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "com.code-troopers.betterpickers:library:3.1.0"
+    implementation "com.google.android.material:material:1.1.0"
+    implementation "com.squareup.phrase:phrase:1.1.0"
+    implementation "joda-time:joda-time:2.10.6"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72"
+    implementation "androidx.appcompat:appcompat:1.1.0"
 }
